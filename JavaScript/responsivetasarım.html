@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+html {
+  font-size: 2vw; /* tek patron */
+}
+
+.bubble {
+  font-size: 1rem;           /* em ölçüler için referans */
+  padding: 1rem 1.5rem;        /* responsive padding */
+  background: #444;
+  color: #fff;
+  border-radius: 0.6rem;
+  position: relative;        /* pseudo için referans */
+  display: inline-block;
+  text-align: center;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  width: 30%;    /* parent width’unun %20’u */
+  height: 30%;   /* parent height’unun %20’si */
+  background: #444;
+  bottom: -30%;
+  left: 45%;     
+  clip-path: polygon(50% 100%, 0 0, 100% 0); /* üçgen */
+}
+
+
+</style>
+<body>
+    <div class="bubble"></div>
+
+
+</body>
+</html>

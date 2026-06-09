@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#kutu:active{
+    cursor: grabbing;
+}
+#kutu{
+    position: absolute;
+    cursor: grab;
+    width: 100px;
+    height: 100px;
+    background: red;
+}
+</style>
+<body>
+    <div id="kutu"></div>
+
+    <script>
+    const kutu=document.getElementById("kutu");
+    let deger=false;
+    let x,y;
+    
+    kutu.addEventListener("mousedown",(e)=>{
+        deger=true;
+        x=e.clientX-kutu.offsetLeft;
+        y=e.clientY-kutu.offsetTop;
+    });
+    window.addEventListener("mousemove",(e)=>{
+        if(deger){
+            kutu.style.left=(e.clientX-x)+"px";
+            kutu.style.top=(e.clientY-y)+"px";
+        };
+    })
+    window.addEventListener("mouseup",()=>{
+        deger=false;
+    });
+
+
+    </script>
+</body>
+</html>

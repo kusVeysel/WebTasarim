@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- BUTON -->
+<button class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#ornekModal">
+  Modal Aç
+</button>
+
+<!-- MODAL -->
+<div class="modal fade" id="ornekModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- BAŞLIK -->
+      <div class="modal-header">
+        <h5 class="modal-title">Başlık</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- İÇERİK -->
+      <div class="modal-body">
+        Buraya içerik yazılır
+      </div>
+
+      <!-- ALT -->
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<!-- 
+modal: ana class(zorunlu)
+modal-dialog: modalın genişliğini ve konumunu ayarlayan ara katmandır
+modal-header: üst kısmı
+modal-body:orta(ana) kısmı
+modal-footer: alt kısmı
+modal-content: gerçek kutu
+modal-title: modelin başlığı
+fade: modal yumuşak kapansın diye kullanılır
+data-bs-dismiss="":ne kapanacak ,js'nin bootstrapi
+
+YAPISI
+modal -> modal-dialog -> modal-content -> modal-header / modal-body 
+/ modal-footer
+-->

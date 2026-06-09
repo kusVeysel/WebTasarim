@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <ul id="list">
+        <li>Eleman 1</li>
+        <li>Eleman 2</li>
+        <li>Eleman 3</li>
+    </ul>
+    
+    <script>
+//append : listenin içine sona ekleme yapar
+$('#list').append('<li>Yeni Append Eleman</li>');
+//prepend : listenin içine başa ekleme yapar
+$('#list').prepend('<li>Yeni Prepend Eleman</li>');
+//after:listenin dışına hemen arkasına ekleme yapar
+$('#list').after('<li>Yeni After Eleman</li>');
+//before: listenin dışına hemen önüne ekleme yapar
+$('#list').before('<li>Yeni Before Eleman</li>');
+    </script>
+<br><br><br><hr>,
+
+
+<div id="container">
+    <p class="deleted">silinecek</p>
+    <span class="deleted">kalıcak</p>
+    <p class="kalici">kalıcak</p>
+    <span>kalıcak</span>
+</div>
+<script>
+    //remove silme işlemi yapar
+    $('p').remove('.deleted');
+
+</script>
+
+</body>
+</html>

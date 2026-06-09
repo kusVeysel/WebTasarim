@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+body{
+    margin: 0; /* Added to remove default body margin */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden; /* Added to prevent scrollbars if dots go out of bounds */
+    background-color: #1a1a1a; /* Dark background for better visibility of colors */
+}
+.kutu{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: black;
+    position: absolute;
+    pointer-events: none; /* So it doesn't block mouse events */
+    z-index: 10; /* Ensure it's above the trail */
+}
+.trail-dot { /* Renamed from .dot to avoid confusion and be more specific */
+    position: absolute;
+    width: 10px; /* Smaller size for trail dots */
+    height: 10px;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform, opacity; /* Performance optimization */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtle glow */
+}
+@keyframes fadeOut { /* Adjusted keyframes for a fading and moving trail */
+    0% { opacity: 1; transform: translate(0, 0) scale(1); }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(0); /* Move and scale down */
+    }
+  }
+    </style>
+</head>
+<body>
+
+    <div class="kutu"></div>
+
+    <script>
+        
+        let hue = 0; // For cycling through colors
+
+        window.addEventListener("mousemove", (e) => {
+            const kutu = document.querySelector(".kutu");
+            // Ana kutunun konumunu güncelle (fare imlecinin ortasına hizala)
+            kutu.style.left = e.clientX - (kutu.offsetWidth / 2) + "px";
+            kutu.style.top = e.clientY - (kutu.offsetHeight / 2) + "px";
+
+            // İz noktası oluştur
+            let trail = document.createElement("div");
+            trail.className = "trail-dot"; // Yeni sınıf adını kullan
+
+            // İz noktasının başlangıç konumunu fare pozisyonuna ayarla
+            trail.style.left = e.clientX + "px";
+            trail.style.top = e.clientY + "px";
+
+            // İz için dinamik renk
+            hue = (hue + 5) % 360; // Renk tonlarını döngüsel olarak değiştir
+            trail.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
+            trail.style.boxShadow = `0 0 8px hsl(${hue}, 100%, 70%)`;
+
+            // Animasyonun bitiş noktası için özel CSS değişkenleri ayarla (rastgele yayılma)
+            const randomX = (Math.random() - 0.5) * 100; // -50px ile +50px arası
+            const randomY = (Math.random() - 0.5) * 100; // -50px ile +50px arası
+            trail.style.setProperty('--tx', `${randomX}px`);
+            trail.style.setProperty('--ty', `${randomY}px`);
+
+            trail.style.animation = "fadeOut 1.5s forwards ease-out"; // Daha kısa animasyon süresi
+            document.body.appendChild(trail);
+
+            // Animasyon bittikten sonra iz noktasını kaldır
+            setTimeout(() => trail.remove(), 1500); // Animasyon süresiyle eşleşmeli
+        })
+
+
+    </script>
+</body>
+</html>

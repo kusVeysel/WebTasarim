@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        overflow: hidden;
+    }
+    #kutu{
+        position: absolute;
+        animation: kalp 4s ease;
+        text-shadow: 0 0 10px black;
+        
+    }
+@keyframes kalp{
+    0%{opacity: 1; }
+    100%{top: 100vh;opacity: 0;rotate: 360deg;}
+}
+
+</style>
+<body>
+    
+
+
+    <script>
+        setInterval(() => {
+            const kalp=document.createElement("div");
+            document.body.appendChild(kalp);
+            kalp.id="kutu";
+            kalp.innerText="❤";
+            const renk =['blue','yellow','red','pink','green',"darkgreen","skyblue","blueviolet","orange","purple"];
+            kalp.style.color=renk [Math.trunc(Math.random()*renk.length)];
+            kalp.style.fontSize=Math.trunc(Math.random()*20+10)+"px";
+            kalp.style.top=0+"px";
+            kalp.style.left=Math.random()*100+"vw";
+            setTimeout(() => {
+                kalp.remove()
+            }, 3000);
+        }, 150);
+
+    </script>
+</body>
+</html>

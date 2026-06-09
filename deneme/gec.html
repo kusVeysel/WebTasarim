@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Sayfa Değiştirme</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; }
+        .icerik-alani { margin-top: 20px; border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+            <button class="nav-link active me-2" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#sayfa1" type="button">Ana Sayfa</button>
+            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#sayfa2" type="button">Hakkımızda</button>
+            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#sayfa3" type="button">İletişim</button>
+        </div>
+
+        <div class="tab-content icerik-alani" id="pills-tabContent">
+            
+            <div class="tab-pane fade show active" id="sayfa1" role="tabpanel">
+                <h2>Hoş Geldiniz</h2>
+                <p>Şu an ana sayfadasınız. Sayfa yenilenmedi, sadece bu yazı değişti.</p>
+            </div>
+
+            <div class="tab-pane fade" id="sayfa2" role="tabpanel">
+                <h2>Hakkımızda</h2>
+                <p>Burası hakkımızda kısmı. Bootstrap "Tab" sistemiyle yapıldı.</p>
+            </div>
+
+            <div class="tab-pane fade" id="sayfa3" role="tabpanel">
+                <h2>İletişim Bilgileri</h2>
+                <p>E-posta: ornek@mail.com <br> Telefon: 0123 456 78 90</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Neon Mandala</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        let hue = 0;
+        const mouse = { x: undefined, y: undefined };
+        const symmetry = 8; // Simetri sayısı (8 kollu bir mandala gibi)
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+            // Hareket halindeyken her seferinde parçacık oluştur
+            for (let i = 0; i < 2; i++) {
+                particles.push(new Particle(mouse.x, mouse.y));
+            }
+        });
+
+        // Tıklama ile süpernova patlaması
+        window.addEventListener('click', (e) => {
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle(e.x, e.y, true));
+            }
+        });
+
+        class Particle {
+            constructor(x, y, isExplosion = false) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 4 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+                
+                if (isExplosion) {
+                    this.speedX *= 5;
+                    this.speedY *= 5;
+                }
+
+                this.color = `hsl(${hue}, 100%, 50%)`;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.01 + 0.005;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= this.decay;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = this.color;
+                ctx.fillStyle = this.color;
+
+                // Simetri Mantığı: Merkeze göre farenin hareketini çoğalt
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                
+                // Fare pozisyonunu merkeze göre ofsetle
+                const offsetX = this.x - centerX;
+                const offsetY = this.y - centerY;
+
+                for (let i = 0; i < symmetry; i++) {
+                    ctx.rotate((Math.PI * 2) / symmetry);
+                    ctx.beginPath();
+                    ctx.arc(offsetX, offsetY, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        function handleParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                // Tuvalin merkezine göre çizim yapmak için context'i oraya taşıyoruz
+                ctx.save();
+                ctx.translate(canvas.width / 2, canvas.height / 2);
+                particles[i].draw();
+                ctx.restore();
+
+                if (particles[i].alpha <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
+        function animate() {
+            // Önceki karelerin izini hafifçe bırak (Motion Blur efekti)
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            handleParticles();
+            hue += 2; // Renk döngüsü
+            requestAnimationFrame(animate);
+        }
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        animate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        height: 300vh;
+    }
+#kutu{
+    width: 100px;
+    height: 100px;
+    background: red;
+    position: relative;
+    top: 120vh;
+    left: -200px;
+}
+@keyframes al{
+    from{left: -200px;}
+    to{left: 200px;}
+}
+.kutu{
+    animation: al 1s forwards;
+}
+
+
+
+</style>
+<body>
+    <div id="kutu"></div>
+
+
+
+    <script>
+        window.addEventListener("scroll",()=>{
+            if(window.scrollY>200 && window.scrollY<1275){
+                document.getElementById("kutu").classList.add("kutu");
+                document.getElementById("kutu").style.background="blue";
+            }
+            else{
+                document.getElementById("kutu").classList.remove("kutu");
+            }
+        })
+        window.addEventListener("scroll",()=> {
+            document.getElementById("kutu").innerText=scrollY;
+        })
+    </script>
+</body>
+</html>

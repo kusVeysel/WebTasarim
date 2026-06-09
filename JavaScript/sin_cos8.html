@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lissajous Parçacık Fırtınası</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #050505;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dot {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        @keyframes dissolve {
+            0% { opacity: 1; transform: translate(0, 0) scale(1.5); }
+            100% { 
+                opacity: 0; 
+                transform: translate(var(--mx), var(--my)) scale(0); 
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let t = 0; // Zaman değişkeni
+
+        function animate() {
+            t += 0.03;
+
+            // Lissajous Parametreleri
+            // A ve B genliği (genişlik/yükseklik)
+            // a ve b frekansları (oran değiştikçe şekil değişir)
+            const A = window.innerWidth / 3;
+            const B = window.innerHeight / 3;
+            const a = 3; 
+            const b = 2;
+            const phi = t; // Faz kayması zamanla değişiyor
+
+            const x = A * Math.sin(a * t + phi);
+            const y = B * Math.sin(b * t);
+
+            // Parçacık oluşturma
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            
+            // Renk: HSL ile sürekli değişen neon renkler
+            const hue = (t * 40) % 360;
+            dot.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
+            dot.style.boxShadow = `0 0 10px hsl(${hue}, 100%, 60%)`;
+
+            // Konumlandırma
+            dot.style.left = `calc(50% + ${x}px)`;
+            dot.style.top = `calc(50% + ${y}px)`;
+
+            // Dağılma efekti için rastgele yön değişkenleri
+            dot.style.setProperty('--mx', `${(Math.random() - 0.5) * 100}px`);
+            dot.style.setProperty('--my', `${(Math.random() - 0.5) * 100}px`);
+            dot.style.animation = 'dissolve 1.2s forwards ease-out';
+
+            document.body.appendChild(dot);
+
+            // 1.2 saniye sonra temizle
+            setTimeout(() => dot.remove(), 1200);
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

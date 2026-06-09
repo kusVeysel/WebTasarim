@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: none;
+    }
+    .ana{
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background-color: red;
+        border-radius: 50%;
+        top: 0;
+        right: 0;
+    }
+    .eyes{
+        display: flex;
+        gap: 10px;
+    }
+    .eye{
+        width: 100px;
+        height: 100px;
+        background-color: black; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+    .pupil{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: white;
+    }
+    #box{
+        position: absolute;
+        top: 40vh;
+        left: 43vw;
+    }
+</style>
+<body>
+    <div id="box"></div>
+
+<div class="ana"></div>
+
+<div class="eyes">
+<div class="eye">
+    <div class="pupil"></div>
+</div>
+<div class="eye">
+    <div class="pupil"></div>
+</div>
+</div>
+    <script>
+        
+       let kutu= document.createElement("div");
+       document.getElementById("box").appendChild(kutu);
+        window.addEventListener("mousemove",(e)=>{
+        kutu.innerText=("fare x: "+e.clientX+"\n"+"fare y: "+e.clientY);
+        })
+
+        window.addEventListener("mousemove",(e)=>{
+        let imlec=document.querySelector(".ana");
+        imlec.style.left=e.clientX-20+"px";
+        imlec.style.top=e.clientY-20+"px";
+        })
+    </script>
+
+    <script>
+    document.addEventListener("mousemove", (e) => {
+    const pupils = document.querySelectorAll(".pupil");
+
+    pupils.forEach(pupil => {
+        const eye = pupil.parentElement;
+        const eyeRect = eye.getBoundingClientRect();
+
+        const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+        const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+        const angle = Math.atan2(
+            e.clientY - eyeCenterY,
+            e.clientX - eyeCenterX
+        );
+        
+        const maxMove = 25;
+        const x = Math.cos(angle) * maxMove;
+        const y = Math.sin(angle) * maxMove;
+
+        pupil.style.transform = `translate(${x}px, ${y}px)`;
+    });
+});
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    
+<button id="idgetir">kullanıcıları getir</button>
+<ul id="list"></ul>
+<br><hr>
+<input type="text" id="isim" name="isim" placeholder="isim giriniz">
+<button id="btnGonder">gönder</button>
+    <script>
+        $("#idgetir").click(function(){
+            $.ajax({
+                url:"https://jsonplaceholder.typicode.com/users",
+                type:"GET",
+                success:function(data){
+                    $("#list").empty();
+                    data.forEach(function(user){
+                        $("#list").append("<li>"+user.name+"</li>");
+                    });
+                },
+                error:function(){
+                    alert("Api herhangi bir sonuç getirmedi");
+                }
+            });
+        });
+    </script>
+    <script>
+        $("btnGonder").click(function(){
+            var isim=$("#isim").val();
+            $.ajax({
+                url:"https://jsonplaceholder.typicode.com/posts",
+                type:"POST",
+                data:{
+                    name:isim
+                },
+                success:function(response){
+                    console.log(response);
+                    alert("Gönderildi");
+                },
+                error:function(){
+                    alert("Gönderilemedi");
+                }
+
+            })
+        })
+
+
+    </script>
+</body>
+</html>

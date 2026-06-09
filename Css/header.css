@@ -1,0 +1,69 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.header{
+    background-color: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.menu{
+    background-color: blanchedalmond;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
+.menu a{
+    color: white;
+    text-decoration: none;
+    font-size: 10px;
+    padding: 10px;
+    transition: 0.6s;
+}
+.menu a:hover{
+    background-color: deepskyblue;
+    border-radius: 5px;
+}
+
+
+.kartlar{
+display: flex;
+justify-content: center;
+gap: 20px;
+padding: 40px;
+flex-wrap: wrap;   /*ekran daralınca kartlar aşşağı gider*/
+}
+.kart{
+background-color: lightblue;
+padding: 40px;
+width: 150px;
+text-align: center;
+border-radius: 10px; 
+box-shadow: 0 0 10px rgb(0,0,0,2); /*gölge verdik*/
+transition: 0.3s;
+}
+.kart :hover{
+    background-color: deeppink;
+    transform: scale(1.05);
+}
+.footer{
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+@media(max-width:4000px){
+    .menu{
+        flex-direction: column;
+        align-items: center;
+    }
+    .kartlar{
+        padding: 20px;
+    }
+    .kart{
+        background-color: pink;
+    }
+}

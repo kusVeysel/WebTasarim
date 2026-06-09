@@ -1,0 +1,74 @@
+İNDEX
+<p></p> --- paragraf
+h serisi(1-6) --- yazının kalınlığı
+<head></head> --- sayfada görünmeyen bilgiler
+<hr> --- alt çizgi çizer
+<br> --- boşluk bırakır
+<a href=""></a> --- siteye yönlendirme
+<a href="" target="_blank"></a> --- siteye yönlendirme(yeni sekmede açar)
+<img src="" width="" alt=""> --- resim yükleme, "alt"resmin altına yazı yazmak için kullanılır,"width" resmin boyutu
+
+LİSTELER
+<ul>
+    <li></li>  --- sırasız liste
+</ul>
+
+<ol type=""> --- type sıra değerini belirlemek için kullanılır
+    <li></li> ---sıralı(numaralı)liste
+</ol>
+
+<button type=""></button> --- type göre sadece tıklar ,gönderir veya yazılanları siler
+
+İNPUT
+<input type="" placeholder=""> --- kullanıcıdan bilgi girişi,placeholder kutunun içinde bilgilendirme verir
+<label></label> --- etiket
+<input type="" value=""> --- valueye ne yazarsak öyle gelir(değiştirebiliyoruz)
+<input type="" value="" readonly> ---valueye ne yazarsak öyle gelir(değiştiremeyiz)
+<input type="radio" name="cinsiyet"> --- name vermezsek birden fazla seçebiliriz
+<input type="" disabled> --- hiçbir şey yapamayız
+<input type="" required> --- zorunlu alan
+<form></form> --- form gönderir
+
+SELECTOPTİON
+<select></select> --- açılır lise kutusu,ol veya ul gibi ana çatı
+<option></option> --- açılan listenin içerisindeki seçenekler ,li gibi
+<select name=""></select> --- form gönderilince selectin değeri name ile gider
+<option selected></option> --- seçenek en üstte gözükür
+<optgrup></optgrup> --- gruplandırma yapar
+disabled --- seçilemez yapar
+value --- karşıya gider
+<select multiple size></select> --- seçebileceğin maks seçenek
+<textarea></textarea> input gibi bir şey,yazı yazılır rows=kalınlığı rols=uzunluk
+
+FİLEİNPUT
+file input --- dosya geçirir ,name olmak ve form  içinde olmak zorunda ,value yazılmaz
+<form enctype="multipart/form-data"> --- yazılmazsa gitmez
+<input type="file" accept=""> --- kabul edilen dosya türü (image\* her türü kabul eder)
+<input type="file" multiple> --- birden çok dosya gönderir
+
+HTMLFORMVALİDATİON
+minlenght-maxlength --- metin uzunluğu
+<input type="" pattern="[]{}"> --- kuraldır ,[] belirlenen kural,{} yazılabilecek değer 
+
+TABLE
+Excel mantığı
+<table></table> --- ana çatı
+<th></th> --- başlıklar
+<tr></tr> --- yatay satırlar
+<td></td> --- hücrenin içi
+border --- hücre tahtası
+<th colspen=""></th> --- başlıkları birleştirir(yatay)
+<th rowspan=""></th> --- başlıkları birleştirir(dikey)
+<thead></thead> --- başlık olduğunu belirtir (th)
+<tbody></tbody> --- hücre olduğunu belirtir (td)
+<tfoot></tfoot> --- sonucu yazarız (işlem vs. olursa)
+rows=satır cols=sütun 
+
+HTMLENTİTY
+&lt; --- "<" operatörü
+&gt; --- ">" operatörü
+&amp; --- "&" operatörü
+&nbsp; --- boşluk öperatörü
+sub: bu tag alta atar
+sup: nu tag üste atar 
+marquee : kayan yazı

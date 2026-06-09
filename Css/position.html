@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.kutu{
+    background-color: red;
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+.kapsayıcı{
+    width: 300px;
+    height: 200px;
+    background-color: lightblue;
+}
+.kutu{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: blue;
+    color: red;
+}
+.sabit{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: green;
+    color: white;
+    padding: 10px;
+}
+
+
+
+</style>
+
+
+
+
+
+
+
+<body>
+
+    <div class="kutu">Ben Burdayım</div>
+
+    <div class="kapsayıcı">
+        <div class="kutu">Ben İçerdeyim</div>
+    </div>
+
+<div class="sabit">Ben yohum</div>
+
+
+
+
+</body>
+</html>
+<!--
+position:
+static --dokunma
+relative -- yerinde kay
+absolute -- üstüne göre hizalan
+fixed -- ekrana yapış
+
+-->

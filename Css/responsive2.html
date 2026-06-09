@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.kapsayici{
+    display: flex;
+}
+.kutu{
+    width: 50%;
+    padding:20px;
+    background-color: lightblue;
+    border: 1px solid black;
+    text-align: center;
+}
+@media(max-width:600px){
+    .kapsayici{
+        display: block;
+    }
+    .kutu{
+        width: 100%;
+        background-color: orange;
+    }
+}
+
+
+
+</style>
+<body>
+    
+    <div class="kapsayici">
+        <div class="kutu">A</div>
+        <div class="kutu">B</div>
+    </div>
+
+
+</body>
+</html>

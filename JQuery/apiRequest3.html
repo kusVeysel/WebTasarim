@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 20px;
+    }
+#btnGetir{
+    cursor: pointer;
+    height: 30px;
+}
+#loading{
+    margin-top: 15px;
+    font-weight: bold;
+    display: none;
+}
+.dashboard{
+display: flex;
+gap: 15px;
+margin-top: 20px;
+}
+.card{
+    flex: 1;
+    padding: 15px;
+    border-radius: 8px;
+    background: #f2f2f2;
+    text-align: center;
+}
+.card h3{
+    margin: 0;
+    font-size: 25px;
+}
+</style>
+<body>
+    
+<h2>Mini User Dashboard</h2>
+    <button id="btnGetir">Dashboard Yükle</button>
+     <div id="loading">Yükleniyor...</div>
+    
+     <div class="dashboard">
+       <div class="card">
+        <h3 id="totolUsers">-</h3>
+        <p>Toplam Kullanıcı</p>
+       </div>
+        
+       <div class="card">
+         <h3 id="totalCompaines">-</h3>
+         <p>Toplam Şirket</p>
+       </div>
+       <div class="card">
+       <h3 class="totalDomain">-</h3>
+       <p>En popüler Email Domain</p>
+       </div>
+      <div class="card">
+        <h3 class="phoneCount">-</h3>
+        <p>Telefonu olan Kullanıcılar</p>
+      </div>
+     </div>
+
+
+    <!-- 
+         <script>
+        $("#btnGetir").click(function(){
+            $.ajax({
+                url:"https://jsonplaceholder.typicode.com/users",
+                type:"GET",
+                beforeSend:function(){
+                    $("#loading").show();
+                },
+                success:function(users){
+                    //toplam kullanıcı
+                    $("#totalUsers").text(users.length);
+                    var compaines=users.map(u=>u.company.name);
+                    var uniqueCompaines=[...new Set(compaines)];
+                    $("#totalCompaines").text(uniqueCompaines.length);
+
+                    var domainCount={};
+                    users.forEach(function(u){
+                        var domain=u.email.split("@")[1];
+                        domainCount[domain]=(domainCount[domain]||0)+1;
+                    });
+                    var topDomain=Object.keys(domainCount)
+                    .reduce(function(a,b){
+                        return domainCount[a]>domainCount[b]?a:b;
+                    });
+                    $(".totalDomain").text(topDomain);
+                    var phoneUsers=users.filter(u=>u.phone && u.phone.length>0);
+                    $(".phoneCount").text(phoneUsers.length);
+                },
+                err:function(){
+                    alert("Dashboard yüklenemedi");
+                },
+                complete:function(){
+                    $("#loading").hide();
+                }
+            })
+        })
+
+
+    </script>
+      -->
+    <script>
+            /*
+                        gmail.com :1 +1         5
+                        biz.com :2 +1     3
+                        yahoo.com:3 +1        2
+                    
+                    */
+        $("#btnGetir").click(function(){
+            
+            $.ajax({
+                url: "https://jsonplaceholder.typicode.com/users",
+                type: "GET",
+                beforeSend:function(){
+                    $("#loading").show();
+                },
+                success:function(users){
+                  
+                    //toplam kullanıcı 
+                    $("#totolUsers").text(users.length);// her bir kullanıcıyı saydırdık .
+                    
+                    var compaines =users.map(u=>u.company.name);
+                    var uniqueCompaines=[...new Set(compaines)];
+                    $("#totalCompaines").text(uniqueCompaines.length);
+                     
+                    var domainCount={};
+                    users.forEach(function(u){
+                    var domain= u.email.split("@")[1];
+                    domainCount[domain]=(domainCount[domain]||0)+1;
+                    });
+                    var topDomain = Object.keys(domainCount)
+                    .reduce(function(a,b){  //reduce : karsılastır object.keys domain isimleri
+                        return domainCount[a]>domainCount[b]?a:b;
+                    });
+                    $(".totalDomain").text(topDomain);
+                    
+                    var phoneUsers =users.filter(u=>u.phone && u.phone.length>0);
+                    $(".phoneCount").text(phoneUsers.length);
+
+                },
+                err:function(){
+                    alert("Dashboard Yüklenmedi");
+                },
+                complete:function(){
+                 $("#loading").hide();
+                }
+            })
+        });
+</script>
+</body>
+</html>

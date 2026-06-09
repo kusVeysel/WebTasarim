@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<style>
+    #kutu{
+        width: 200px;
+        height: 200px;
+        background-color: blue;
+        color: white;
+        line-height: 200px;
+        border-radius: 10px;
+        text-align: center;
+    }
+</style>
+<body>
+
+    <p>Hello World</p>
+    <button>Tıkla</button>
+
+<div id="kutu">Bu Noktaya Gel</div>
+
+<script>
+$(document).ready(function(){
+    console.log("sayfa hazır");
+});
+$(function(){
+    console.log("sayfa hazır");
+})
+$("p") // tüm p tagları seçer
+$("div") // tüm divleri seçer
+$("h1,h2,p")
+$("p:first") //ilk p'yi seçer
+$("p:last") // son p'yi seçer
+$("[href]") // hrefin içindeki elemanı seçer
+
+$("button").click(function(){
+    alert("tıklandı");
+})
+$("p").dblclick(function(){
+    $(this).hide();
+})
+
+$(function(){
+    $("#kutu").mouseenter(function(){
+        $(this).css("background","red");
+        $(this).text("hoşgeldiniz");
+    })
+});
+$(function(){
+$("#kutu").mouseleave(function(){
+    $(this).css("background","gray");
+    $(this).text("buraya gelin");
+});
+})
+
+</script>
+</body>
+</html>
+<!-- 
+$ : JQuery'i çağırır
+aciton() : element yapılacak işlemi belirtir
+-->

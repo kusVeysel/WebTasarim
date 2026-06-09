@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="BOOTSTRAPLOCAL.CSS">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; /* Use min-height for better centering */
+            margin: 0; /* Remove default body margin */
+            background-color: #f0f0f0; /* A light background for contrast */
+        }
+        .progress {
+            width: 80%; /* Make the progress bar wider */
+            height: 30px; /* Make the progress bar taller */
+            background-color: #e9ecef; /* Default Bootstrap progress background */
+            border-radius: 0.25rem; /* Bootstrap default border-radius */
+        }
+        .progress-bar{
+            background-color: #28a745; /* Bootstrap success green */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white; /* Text color for the percentage */
+            font-weight: bold;
+            transition: width 2s ease; /* Smooth transition for width changes */
+        }
+    </style>
+</head>
+<body>    
+    <div class="container">
+        <h3 class="text-center mb-4">Görev Tamamlama Durumu</h3>
+        <div class="progress mb-3">
+            <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                50%
+            </div>
+        </div>
+        <div class="d-flex justify-content-center gap-2">
+            <button class="btn btn-primary" id="increaseBtn">İlerle (+10%)</button>
+            <button class="btn btn-danger" id="decreaseBtn">Geri Al (-10%)</button>
+        </div>
+    </div>
+
+    <script src="BOOTSTRAPLOCAL.JS"></script>
+    <script>
+        const progressBar = document.querySelector('.progress-bar');
+        const increaseBtn = document.getElementById('increaseBtn');
+        const decreaseBtn = document.getElementById('decreaseBtn');
+
+        let currentProgress = parseInt(progressBar.getAttribute('aria-valuenow'));
+
+        function updateProgressBar() {
+            progressBar.style.width = currentProgress + '%';
+            progressBar.setAttribute('aria-valuenow', currentProgress);
+            progressBar.textContent = currentProgress + '%';
+        }
+
+        increaseBtn.addEventListener('click', () => {
+            if (currentProgress < 100) {
+                currentProgress += 10;
+                if (currentProgress > 100) currentProgress = 100;
+                updateProgressBar();
+            }
+        });
+
+        decreaseBtn.addEventListener('click', () => {
+            if (currentProgress > 0) {
+                currentProgress -= 10;
+                if (currentProgress < 0) currentProgress = 0;
+                updateProgressBar();
+            }
+        });
+
+        // Initial update
+        updateProgressBar();
+    </script>
+</body>
+</html>

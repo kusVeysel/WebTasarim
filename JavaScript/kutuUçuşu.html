@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+*{
+    margin: 0;
+}
+body{
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: black;
+    overflow: hidden;
+}
+#kutu{
+    width: 50px;
+    height: 50px;
+    background: red;
+    border-radius: 10%;
+    position: absolute;
+    box-shadow: 0 0 20px red;
+}
+
+</style>
+<body>
+
+    <script>
+        let kutu=document.createElement("div");
+        document.body.appendChild(kutu);
+        kutu.id="kutu";
+
+        let x=Math.random()*(window.innerWidth-40);
+        let y=Math.random()*(window.innerHeight-40);
+        let hızX=4;
+        let hızY=4;
+
+        function fun(){
+            x+=hızX;
+            y+=hızY;
+
+            if(x+40>window.innerWidth || x<=0){
+                hızX*=-1;
+            }
+            if(y+40>window.innerHeight || y<=0){
+                hızY*=-1;
+            }
+            kutu.style.left=x+"px";
+            kutu.style.top=y+"px";
+
+            requestAnimationFrame(fun);
+        }
+        fun();
+
+
+
+    </script>
+</body>
+</html>

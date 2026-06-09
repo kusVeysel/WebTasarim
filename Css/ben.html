@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        background: black;
+    }
+#kutu2{
+    width: 25vw;
+    height: 10vh;
+    background: transparent;
+    border: 5px solid red;
+    position: relative;
+    color: blueviolet;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0px 0px 5px red;
+    cursor: pointer;
+    top: 40vh;
+    left: 40vw;
+}
+.alt1,.alt2{
+    position: absolute;
+    transition: 1s;
+}
+.alt1{
+    width: 23vw;
+    height: 5px;
+    background: black;
+    left: 1vw;
+    top: -5px;
+}
+.alt2{
+    width: 23vw;
+    height: 5px;
+    background: black;
+    left: 1vw;
+    bottom: -5px;
+}
+#kutu2:hover .alt1,#kutu2:hover .alt2{
+    animation: gel 1s forwards;
+    background: red;
+}
+#kutu2:hover{
+    box-shadow:inset 0 0 10px blueviolet;
+    transition: 1s;
+}
+@keyframes gel{
+    from{transform: scale(1);}
+    to{transform: scale(0);}
+}
+#assa1{
+    width: 15vw;
+    height: 20vh;
+    position: absolute;
+    top: -20vh;
+    left: 1vw;
+    background: white;
+    transition: 2s;
+    box-shadow:inset 0 0 10px pink;
+    cursor: pointer;
+}
+#assa2{
+    width: 15vw;
+    height: 20vh;
+    position: absolute;
+    top: -20vh;
+    left: 20vw;
+    background: white;
+    transition: 2s;
+    transition-delay: 1s;
+    box-shadow:inset 0 0 10px pink;
+    cursor: pointer;
+}
+#assa3{
+    width: 15vw;
+    height: 20vh;
+    position: absolute;
+    top: -20vh;
+    left: 40vw;
+    background: white;
+    transition: 2s;
+    transition-delay: 2s;
+    box-shadow:inset 0 0 10px pink;
+    cursor: pointer;
+}
+#assa4{
+    width: 15vw;
+    height: 20vh;
+    position: absolute;
+    top: -20vh;
+    left:60vw;
+    background: white;
+    transition: 2s;
+    transition-delay: 3s;
+    box-shadow:inset 0 0 10px pink;
+    cursor: pointer;
+}
+#assa5{
+    width: 15vw;
+    height: 20vh;
+    position: absolute;
+    top: -20vh;
+    left: 82vw;;
+    background: white;
+    transition: 2s;
+    transition-delay: 4s;
+    box-shadow:inset 0 0 10px pink;
+    cursor: pointer;
+}
+@keyframes assa1{
+    to{bottom:0vh;}
+}
+#buyut{
+    color: wheat;
+    position: absolute;
+    border-radius: 20%;
+    display: none;
+    top: 10vh;
+    cursor: pointer;
+}
+#kutucuk1{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    top: 100vh;
+    left: -50vw;
+}
+.kutucuk1{
+    animation: kutucuk1 1s forwards;
+}
+#kutucuk2{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    top: 120vh;
+    left: -50vw;
+}
+.kutucuk2{
+    animation: kutucuk2 1s forwards;
+}
+#kutucuk3{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left: -50vw;
+    top: vh;
+}
+.kutucuk3{
+    animation: kutucuk3 1s forwards;
+}
+#kutucuk4{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left: -50vw;
+    top: vh;
+}
+.kutucuk4{
+    animation: kutucuk4 1s forwards;
+}
+#kutucuk5{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left: -50vw;
+    top: 200vh;
+}
+.kutucuk5{
+    animation: kutucuk5 1s forwards;
+}
+#kutucuk6{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}.kutucuk6{
+    animation: kutucuk6 1s forwards;
+}
+#kutucuk7{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}
+.kutucuk7{
+    animation: kutucuk7 1s forwards;
+}
+#kutucuk8{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}
+.kutucuk8{
+    animation: kutucuk8 1s forwards;
+}
+#kutucuk9{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:300vh;
+}
+.kutucuk9{
+    animation: kutucuk9 1s forwards;
+}
+#kutucuk10{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}
+.kutucuk10{
+    animation: kutucuk10 1s forwards;
+}
+#kutucuk11{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}
+.kutucuk11{
+    animation: kutucuk11 1s forwards;
+}
+#kutucuk12{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}
+.kutucuk12{
+    animation: kutucuk12 1s forwards;
+}
+#kutucuk13{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:400vh;
+}
+.kutucuk13{
+    animation: kutucuk13 1s forwards;
+}
+#kutucuk14{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}
+.kutucuk14{
+    animation: kutucuk14 1s forwards;
+}
+#kutucuk15{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}
+.kutucuk15{
+    animation: kutucuk15 1s forwards;
+}
+#kutucuk16{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}
+.kutucuk16{
+    animation: kutucuk16 1s forwards;
+}
+#kutucuk17{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:500vh;
+}
+.kutucuk17{
+    animation: kutucuk17 1s forwards;
+}
+#kutucuk18{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}
+.kutucuk18{
+    animation: kutucuk18 1s forwards;
+}
+#kutucuk19{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}
+.kutucuk19{
+    animation: kutucuk19 1s forwards;
+}
+#kutucuk20{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    left:-50vw;
+    top:vh;
+}
+.kutucuk20{
+    animation: kutucuk20 1s forwards;
+}
+@keyframes kutucuk2{
+    to{left: 50vw;}
+}
+@keyframes kutucuk1{
+    to{left: 50vw;}
+}
+@keyframes kutucuk3{
+    to{left: 50vw;}
+}
+@keyframes kutucuk4{
+    to{left: 50vw;}
+}
+@keyframes kutucuk5{
+    to{left: 50vw;}
+}
+@keyframes kutucuk6{
+    to{left: 50vw;}
+}
+@keyframes kutucuk7{
+    to{left: 50vw;}
+}
+@keyframes kutucuk8{
+    to{left: 50vw;}
+}
+@keyframes kutucuk9{
+    to{left: 50vw;}
+}
+@keyframes kutucuk10{
+    to{left: 50vw;}
+}
+@keyframes kutucuk11{
+    to{left: 50vw;}
+}
+@keyframes kutucuk12{
+    to{left: 50vw;}
+}
+@keyframes kutucuk13{
+    to{left: 50vw;}
+}
+@keyframes kutucuk14{
+    to{left: 50vw;}
+}
+@keyframes kutucuk15{
+    to{left: 50vw;}
+}
+@keyframes kutucuk16{
+    to{left: 50vw;}
+}@keyframes kutucuk17{
+    to{left: 50vw;}
+}@keyframes kutucuk18{
+    to{left: 50vw;}
+}@keyframes kutucuk19{
+    to{left: 50vw;}
+}@keyframes kutucuk20{
+    to{left: 50vw;}
+}
+
+
+
+
+
+
+
+
+
+
+
+#say{
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background: white;
+    color: black;
+}
+/*
+.section{
+    height: 100vh;
+    width: 100%;
+}
+.top{
+    background: url("Ekran\ görüntüsü\ 2026-01-21\ 030749.png") center/cover no-repeat;
+}
+.bottom{
+    background: url("Ekran\ görüntüsü\ 2026-02-21\ 030448.png") center/cover no-repeat;
+}*/
+</style>
+<body>
+<!-- 
+<div class="section top"></div>
+<div class="section bottom"></div>
+     -->
+
+
+<div id="kutu2">
+    <div class="alt1"></div>
+    <div class="alt2"></div>
+   HAYAT GÜZEL
+</div>
+
+<div id="assa1"></div>
+    <div id="assa2"></div>
+        <div id="assa3"></div>
+    <div id="assa4"></div>
+<div id="assa5"></div>
+
+
+
+
+<div id="kutucuk1"></div>
+    <div id="kutucuk2"></div>
+        <div id="kutucuk3"></div>
+            <div id="kutucuk4"></div>
+                <div id="kutucuk5"></div>
+                    <div id="kutucuk6"></div>
+                        <div id="kutucuk7"></div>
+                            <div id="kutucuk8"></div>
+                                <div id="kutucuk9"></div>
+                                    <div id="kutucuk10"></div>
+                                    <div id="kutucuk11"></div>
+                                <div id="kutucuk12"></div>
+                            <div id="kutucuk13"></div>
+                        <div id="kutucuk14"></div>
+                    <div id="kutucuk15"></div>
+                <div id="kutucuk16"></div>
+            <div id="kutucuk17"></div>
+        <div id="kutucuk18"></div>
+    <div id="kutucuk19"></div>
+<div id="kutucuk20"></div>
+
+
+
+<div id="say"></div>
+
+
+
+
+
+    <script>
+window.addEventListener("scroll",()=>{
+    document.getElementById("say").innerText=scrollY;
+})
+
+
+
+        document.getElementById("kutu2").addEventListener("click",()=>{
+            document.getElementById("assa1").style.top="78vh";
+                document.getElementById("assa2").style.top="78vh";
+                    document.getElementById("assa3").style.top="78vh";
+                        document.getElementById("assa4").style.top="78vh";
+                            document.getElementById("assa5").style.top="78vh";
+                                document.body.style.height="600vh";
+        })
+        document.getElementById("assa1").addEventListener("mouseover",()=>{
+            document.getElementById("assa1").style.transform="translateY(-10vh)";
+                document.getElementById("assa2").style.transform="none";
+                    document.getElementById("assa3").style.transform="none";
+                        document.getElementById("assa4").style.transform="none";
+                            document.getElementById("assa5").style.transform="none";
+            
+            document.getElementById("assa1").style.transitionDelay="0";
+            document.getElementById("assa1").style.transition="0.8s";
+        })
+        document.getElementById("assa2").addEventListener("mouseover",()=>{
+            document.getElementById("assa2").style.transform="translateY(-10vh)";
+                document.getElementById("assa1").style.transform="none";
+                    document.getElementById("assa3").style.transform="none";
+                        document.getElementById("assa4").style.transform="none";
+                            document.getElementById("assa5").style.transform="none";
+         
+            document.getElementById("assa2").style.transitionDelay="none";
+            document.getElementById("assa2").style.transition="0.8s";
+        })
+        document.getElementById("assa3").addEventListener("mouseover",()=>{
+            document.getElementById("assa3").style.transform="translateY(-10vh)";
+                document.getElementById("assa1").style.transform="none";
+                    document.getElementById("assa2").style.transform="none";
+                        document.getElementById("assa4").style.transform="none";
+                            document.getElementById("assa5").style.transform="none";
+         
+            document.getElementById("assa3").style.transitionDelay="none";
+            document.getElementById("assa3").style.transition="0.8s";
+        })
+        document.getElementById("assa4").addEventListener("mouseover",()=>{
+            document.getElementById("assa4").style.transform="translateY(-10vh)";
+                document.getElementById("assa1").style.transform="none";
+                    document.getElementById("assa2").style.transform="none";
+                        document.getElementById("assa3").style.transform="none";
+                            document.getElementById("assa5").style.transform="none";
+         
+            document.getElementById("assa4").style.transitionDelay="none";
+            document.getElementById("assa4").style.transition="0.8s";
+        })
+        document.getElementById("assa5").addEventListener("mouseover",()=>{
+            document.getElementById("assa5").style.transform="translateY(-10vh)";
+                document.getElementById("assa1").style.transform="none";
+                    document.getElementById("assa2").style.transform="none";
+                        document.getElementById("assa3").style.transform="none";
+                            document.getElementById("assa4").style.transform="none";
+         
+            document.getElementById("assa5").style.transitionDelay="none";
+            document.getElementById("assa5").style.transition="0.8s";
+        })
+
+
+    document.getElementById("assa1").addEventListener("click",()=>{
+        window.scrollTo({
+            top:1100,
+                behavior:"smooth"
+            });
+        })
+    document.getElementById("assa2").addEventListener("click",()=>{
+        window.scrollTo({
+            top:2200,
+                behavior:"smooth"
+            });
+        })
+    document.getElementById("assa3").addEventListener("click",()=>{
+            window.scrollTo({
+                top:3300,
+                    behavior:"smooth"
+            });
+        })
+    document.getElementById("assa4").addEventListener("click",()=>{
+        window.scrollTo({
+            top:4400,
+                behavior:"smooth"
+            });
+        })
+        document.getElementById("assa5").addEventListener("click",()=>{
+            window.scrollTo({
+                top:5500,
+                    behavior:"smooth"
+            });
+        })
+
+window.addEventListener("scroll",()=>{
+    if(scrollY>15 && scrollY<1215){
+        document.getElementById("kutucuk1").classList.add("kutucuk1");
+        document.getElementById("kutucuk2").classList.add("kutucuk2");
+    }
+    else{
+        document.getElementById("kutucuk1").classList.remove("kutucuk1");
+        document.getElementById("kutucuk2").classList.remove("kutucuk2");
+    }
+
+})
+
+window.addEventListener("scroll",()=>{
+    if(scrollY>1115 && scrollY<2330){
+      document.getElementById("kutucuk5").classList.add("kutucuk5");    
+    }
+    else{
+        document.getElementById("kutucuk5").classList.remove("kutucuk5");
+    }
+})
+
+window.addEventListener("scroll",()=>{
+    if(scrollY>2230 && scrollY<3440){
+        document.getElementById("kutucuk9").classList.add("kutucuk9");
+    }
+    else{
+        document.getElementById("kutucuk9").classList.remove("kutucuk9");
+    }
+})
+
+window.addEventListener("scroll",()=>{
+    if(scrollY>3345 && scrollY<4560){
+        document.getElementById("kutucuk13").classList.add("kutucuk13");
+    }
+    else{
+        document.getElementById("kutucuk13").classList.remove("kutucuk13");
+    }
+})
+
+window.addEventListener("scroll",()=>{
+    if(scrollY>4460 ){
+        document.getElementById("kutucuk17").classList.add("kutucuk17");    
+    }
+    else{
+        document.getElementById("kutucuk17").classList.remove("kutucuk17");
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

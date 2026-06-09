@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #222;
+    color: white;
+}
+.logo{
+    font-size: 20px;
+    font-weight: bold;
+}
+.menu{
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.menu a{
+    color:white;
+    text-decoration: none;
+}
+@media(max-width:768px){
+    .menu{
+        display: none;
+        
+    }
+}
+
+</style>
+<body>
+    <nav class="navbar">
+        <div class="logo">logo</div>
+        <button class="menu-btn">>=</button>
+        <ul class="menu">
+            <li><a href="#">Anasayfa</a></li>
+            <li><a href="#">İletişim</a></li>
+            <li><a href="#">Hakkımızda</a></li>
+            <li><a href="#">İlanlar</a></li>
+        </ul>
+    </nav>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Çekilen Halkalar</title>
+<style>
+  html, body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+  }
+  canvas {
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<script>
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+const cx = () => canvas.width / 2;
+const cy = () => canvas.height / 2;
+
+const rings = 50;
+let time = 0;
+let started = false;
+
+// ⏱ 1 sn sonra başlat
+setTimeout(() => started = true, 300);
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (started) time += 0.025;
+
+  for (let i = 0; i < rings; i++) {
+    const r = i * 11;
+
+    // 🧠 ASIL OLAY BURASI
+    // Uçtan çekiliyormuş hissi
+    const pull = Math.sin(time - i *0.1);
+    const lift = Math.pow(Math.max(pull, 0), 2) * 45;
+
+    const hue = (i * 7 + time * 40) % 360;
+
+    ctx.beginPath();
+    ctx.strokeStyle = `hsla(${hue}, 70%, 60%, 0.8)`;
+    ctx.lineWidth = 1.4;
+
+    ctx.ellipse(
+      cx(),
+      cy() - lift,
+      r,
+      r * 0.35,
+      0,
+      0,
+      Math.PI * 2
+    );
+    ctx.stroke();
+  }
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+
+</body>
+</html>

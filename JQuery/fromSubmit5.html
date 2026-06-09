@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<style>
+.form-group{
+    margin-bottom: 15px;
+}
+input{
+    padding: 8px;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+input.hata{
+    border: 2px solid red;
+}
+.error{
+    color: red;
+    font-size: 15px;
+    margin-top: 5px;
+    display: none;
+}
+</style>
+<body>
+    
+
+    <form id="form1">
+        <div class="form-group">
+            <input type="text" id="isim" placeholder="isim">
+            <p id="yaz"></p>
+            <div class="error"></div>
+        </div>
+        <button type="submit">Gönder</button>
+    </form>
+
+
+    <script>
+        $(function(){
+            $("#form1").submit(function(e){
+                e.preventDefault();
+                var input=$("#isim");
+                var deger=input.val().trim();
+                var errorBox=input.closest(".from-group").find(".error");
+                if(deger===""){
+                    input.addClass("hata");
+                   $("#yaz").text("isim giriniz");// errorBox.text("isim giriniz").fadeIn();
+                    return;
+                }
+                else{
+                    input.removeClass("hata");
+                    errorBox.hide();
+                    alert("Başarılı");
+                }
+            })
+        })
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>Document</title>
+</head>
+<body>
+
+<form>
+    <input type="text" name="metin" minlength="5">
+    <input type="text" name="metin" maxlength="5">
+    <input type="text" name="metin" minlength="5" maxlength="10">
+<br>
+<input type="number" name="sayı" min="10" max="65">
+<input type="date" name="tarih" min="2024-01-01" max="2026-12-31">
+<br> <br>
+<input type="text" name="sayı" pattern="[0-9]{11}" placeholder="sadece sayı giriniz">
+<input type="text" name="harf" pattern="[A-Z a-z]+" placeholder="sadece harf giriniz">
+
+<button type="submit">Gönder</button>
+</form>
+
+    <form>
+        <label>Kullanıcı Adı</label> <br>
+        <input type="text" name="username" min="5" max="15" required>
+<br> <br>
+        <label>Yaş</label> <br>
+        <input type="number" name="yaş" min="18" max="65" required>
+<br> <br>
+        <label>Telefon</label> <br>
+        <input type="text" name="Telefon" pattern="[0-9]{11}" title="11 haneli tel. numarasını giriniz" required> 
+<br> <br>
+        <button type="submit">Gönder</button>
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    height: 100vh;
+    background: #000;
+    overflow: hidden;
+  }
+
+  .ball {
+    width: 30px;
+    height: 30px;
+    background: cyan;
+    border-radius: 50%;
+    position: absolute;
+  }
+</style>
+</head>
+<body>
+
+<div class="ball"></div>
+
+<script>
+let angle = 0;
+let ball = document.querySelector(".ball");
+
+function animate() {
+  angle += 0.05;
+
+  let x = angle * 50;      // sürekli sağa gider
+  let y = Math.sin(angle) * 100 + 300; // dalga
+
+  ball.style.transform = `translate(${x}px, ${y}px)`;
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        overflow: hidden;
+    }
+#kutu{
+    width: 50px;
+    height: 50px;
+    background: green;
+    border-radius: 50%;
+    position: absolute;
+}
+#kutu2{
+    width: 50px;
+    height: 50px;
+    background: green;
+    border-radius: 50%;
+    position: absolute;
+}
+
+#kutu3{
+    width: 50px;
+    height: 50px;
+    background: green;
+    border-radius: 50%;
+    position: absolute;
+}
+</style>
+<body>
+
+<div id="kutu"></div>
+<div id="kutu2"></div>
+<div id="kutu3"></div>
+
+    <script>
+        let sayi2=0;
+        let sayi=0;
+        let sa=0;
+        let sec=document.querySelector("#kutu");
+        let sec2=document.querySelector("#kutu2");
+        let sec3=document.querySelector("#kutu3");
+        
+        function fun(){
+            sayi+=0.05;
+            let y=Math.sin(sayi) *15+300;
+            let x=sayi *10;
+            requestAnimationFrame(fun);
+            sec.style.transform=`translate(${x}px,${y}px)`;
+        }
+        fun();
+        function fun2(){
+            sayi2+=0.05;
+            let y2=Math.sin(sayi2) *15+300;
+            let x2=sayi2 *10;
+            requestAnimationFrame(fun2);
+            sec2.style.transform=`translate(${x2-50}px,${y2}px)`;
+        }
+        setTimeout(() => {
+            fun2();
+        }, 150);
+          function fun3(){
+            sa+=0.05;
+            let y3=Math.sin(sa) *15+300;
+            let x3=sa *10;
+            requestAnimationFrame(fun3);
+            sec3.style.transform=`translate(${x3-100}px,${y3}px)`;
+        }
+        setTimeout(() => {
+            fun3();
+        }, 300);
+
+    </script>
+</body>
+</html>

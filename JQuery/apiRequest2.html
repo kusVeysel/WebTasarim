@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<style>
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px;
+}
+#btnGetir{
+    cursor: pointer;
+    padding: 10px;
+}
+#loading{
+    font-weight: bold;
+    color: #555;
+    margin-top: 15px;
+}
+.user-card{
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 6px;
+    background: #f9f9f9;
+}
+.user-card h3{
+    margin: 0 0 5px 0;
+}
+.user-card small{
+    color: #666;
+}
+</style>
+<body>
+    
+    <h2>Kullanıcı listesi</h2>
+<button id="btnGetir">Kullanıcıları getir</button>
+<div id="loading">Yükleniyor...</div>
+<div id="userList"></div>
+
+
+    <script>
+        $("#btnGetir").click(function(){
+            $.ajax({
+                url:"https://jsonplaceholder.typicode.com/users",
+                type:"GET",
+                beforeSend:function(){
+                    $("#loading").show();
+                    $("#userList").empty()
+                },
+                success:function(users){
+                    users.forEach(function(user){
+                        var html=`<div class="user-card">
+                            <h3>${user.name}</h3>
+                            <small>${user.email}</small>
+                            <p>${user.phone}</p>
+                            <p>${user.company.name}</p>
+                            <div`;
+                            $("#userList").append(html);
+                    });
+                },
+                error:function(){
+                    alert("api'ye erişilemedi")
+                },
+                complete:function(){
+                    $("#loading").hide();
+                
+                }
+            });
+        })
+
+
+
+    </script>
+</body>
+</html>

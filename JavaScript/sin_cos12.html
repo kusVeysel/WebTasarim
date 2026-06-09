@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonsuzluk Çizen Top</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #0a0a0a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            will-change: transform;
+            box-shadow: 0 0 15px white;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="dot" id="mainBall"></div>
+
+    <script>
+        let t = 0; // Zaman/Açı değişkeni
+        const ball = document.getElementById("mainBall");
+        const scaleX = 300; // Genişlik
+        const scaleY = 150; // Yükseklik
+
+        function animate() {
+            t += 0.03; // Hareket hızı
+
+            // Sonsuzluk (Infinity) Formülü: Lissajous Figürü
+            const x = Math.sin(t) * scaleX;
+            const y = Math.sin(2 * t) * scaleY;
+
+            // Ana topu hareket ettir
+            ball.style.transform = `translate(${x}px, ${y}px)`;
+
+            // Renkli İz (Trail) Oluşturma
+            const trail = document.createElement("div");
+            trail.className = "dot";
+            
+            // Dinamik renk değişimi
+            const hue = (t * 40) % 360;
+            trail.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
+            trail.style.boxShadow = `0 0 10px hsl(${hue}, 100%, 60%)`;
+            
+            trail.style.transform = `translate(${x}px, ${y}px)`;
+            trail.style.animation = "fadeOut 1.5s forwards";
+            document.body.appendChild(trail);
+
+            // 1.5 saniye sonra izi sil
+            setTimeout(() => trail.remove(), 1500);
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

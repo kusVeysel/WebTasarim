@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Neon Kristal Vortex</title>
+    <style>
+        body {
+            margin: 0;
+            background: radial-gradient(circle at center, #00050a 0%, #000 100%);
+            overflow: hidden;
+            cursor: none;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let points = [];
+        const numPoints = 800;
+        const perspective = 400;
+        let mouseX = 0, mouseY = 0;
+        let targetRotationX = 0, targetRotationY = 0;
+        let rotationX = 0, rotationY = 0;
+
+        window.addEventListener('resize', init);
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX - window.innerWidth / 2;
+            mouseY = e.clientY - window.innerHeight / 2;
+            targetRotationY = mouseX * 0.005;
+            targetRotationX = -mouseY * 0.005;
+        });
+
+        class Point3D {
+            constructor(x, y, z, color) {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+                this.baseX = x;
+                this.baseY = y;
+                this.baseZ = z;
+                this.color = color;
+                this.angle = Math.random() * Math.PI * 2;
+                this.velocity = 0.02 + Math.random() * 0.02;
+            }
+
+            update() {
+                // Kendi etrafında salınım hareketi (Fantastik bir dokunuş)
+                this.angle += this.velocity;
+                this.x = this.baseX + Math.sin(this.angle) * 20;
+                this.y = this.baseY + Math.cos(this.angle) * 20;
+
+                // 3D Döndürme Matrisleri
+                let x = this.x;
+                let y = this.y;
+                let z = this.z;
+
+                // Y Ekseni Etrafında Dönüş
+                let cosY = Math.cos(rotationY);
+                let sinY = Math.sin(rotationY);
+                let x1 = x * cosY - z * sinY;
+                let z1 = x * sinY + z * cosY;
+
+                // X Ekseni Etrafında Dönüş
+                let cosX = Math.cos(rotationX);
+                let sinX = Math.sin(rotationX);
+                let y2 = y * cosX - z1 * sinX;
+                let z2 = y * sinX + z1 * cosX;
+
+                // 2D Ekrana İzdüşüm (Projection)
+                let scale = perspective / (perspective + z2);
+                let screenX = x1 * scale + window.innerWidth / 2;
+                let screenY = y2 * scale + window.innerHeight / 2;
+
+                this.draw(screenX, screenY, scale, z2);
+            }
+
+            draw(sx, sy, scale, zDepth) {
+                // Derinliğe göre opaklık
+                let alpha = (1 - zDepth / 1000);
+                if (alpha < 0) alpha = 0;
+
+                ctx.beginPath();
+                ctx.arc(sx, sy, scale * 3, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = alpha;
+                
+                // Parlama Efekti
+                ctx.shadowBlur = 15 * scale;
+                ctx.shadowColor = this.color;
+                
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            points = [];
+
+            // Bir küre/kristal yapısı oluştur
+            for (let i = 0; i < numPoints; i++) {
+                let phi = Math.acos(-1 + (2 * i) / numPoints);
+                let theta = Math.sqrt(numPoints * Math.PI) * phi;
+                
+                let r = 250;
+                let x = r * Math.sin(phi) * Math.cos(theta);
+                let y = r * Math.sin(phi) * Math.sin(theta);
+                let z = r * Math.cos(phi);
+
+                let hue = (i / numPoints) * 60 + 180; // Mavi-Cyan arası neon renkler
+                points.push(new Point3D(x, y, z, `hsl(${hue}, 100%, 70%)`));
+            }
+        }
+
+        function animate() {
+            // Arka planı hafif temizleyerek iz bırakma (Motion Blur)
+            ctx.fillStyle = 'rgba(0, 5, 10, 0.15)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.shadowBlur = 0; // Performans için ana temizlikte kapat
+
+            // Rotasyonu yumuşat (Easing)
+            rotationX += (targetRotationX - rotationX) * 0.05;
+            rotationY += (targetRotationY - rotationY) * 0.05;
+
+            // Katmanlı çizim (globalCompositeOperation ile renkleri patlat)
+            ctx.globalCompositeOperation = 'lighter';
+            points.forEach(p => p.update());
+            ctx.globalCompositeOperation = 'source-over';
+
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>

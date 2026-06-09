@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Neon Warp Tunnel</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let stars = [];
+        let numStars = 600;
+        let speed = 2; // Normal hız
+        let targetSpeed = 2;
+        const mouse = { x: 0, y: 0 };
+
+        // 3D Projeksiyon ayarları
+        const FOV = 200; // Görüş alanı
+
+        window.addEventListener('resize', init);
+        window.addEventListener('mousemove', (e) => {
+            // Tünelin merkezini fareye göre kaydır
+            mouse.x = (e.clientX - window.innerWidth / 2) * 0.5;
+            mouse.y = (e.clientY - window.innerHeight / 2) * 0.5;
+        });
+
+        window.addEventListener('mousedown', () => targetSpeed = 20); // Warp speed!
+        window.addEventListener('mouseup', () => targetSpeed = 2);
+
+        class Star {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                // Ekranın derinliğinde rastgele konum (Z ekseni derinliktir)
+                this.x = (Math.random() - 0.5) * 2000;
+                this.y = (Math.random() - 0.5) * 2000;
+                this.z = Math.random() * 2000; // En uzaktan başlar
+                this.oldZ = this.z;
+                this.color = `hsl(${Math.random() * 360}, 100%, 75%)`;
+            }
+
+            update() {
+                this.oldZ = this.z;
+                this.z -= speed;
+
+                // Eğer parçacık kamerayı geçerse (Z <= 0) arkaya tekrar ışınla
+                if (this.z <= 0) {
+                    this.reset();
+                    this.z = 2000;
+                    this.oldZ = this.z;
+                }
+            }
+
+            draw() {
+                // 3D koordinatları 2D ekrana iz düşürme (Perspektif Bölmesi)
+                let scale = FOV / (FOV + this.z);
+                let x2d = (this.x - mouse.x) * scale + window.innerWidth / 2;
+                let y2d = (this.y - mouse.y) * scale + window.innerHeight / 2;
+
+                let oldScale = FOV / (FOV + this.oldZ);
+                let oldX2d = (this.x - mouse.x) * oldScale + window.innerWidth / 2;
+                let oldY2d = (this.y - mouse.y) * oldScale + window.innerHeight / 2;
+
+                // Derinliğe göre opaklık ve kalınlık (Uzak olanlar ince ve sönük)
+                let alpha = 1 - (this.z / 2000);
+                
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = scale * 4;
+                ctx.globalAlpha = alpha;
+                
+                ctx.beginPath();
+                ctx.moveTo(oldX2d, oldY2d);
+                ctx.lineTo(x2d, y2d);
+                ctx.stroke();
+                
+                // Işık parlaması (Glow)
+                if (speed > 5) {
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = this.color;
+                } else {
+                    ctx.shadowBlur = 0;
+                }
+            }
+        }
+
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                stars.push(new Star());
+            }
+        }
+
+        function animate() {
+            // Hız geçişini yumuşat
+            speed += (targetSpeed - speed) * 0.1;
+
+            // Arka planı hafif şeffaf temizle (Motion Blur etkisi)
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = `rgba(0, 0, 0, ${speed > 10 ? 0.3 : 0.5})`;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            // Merkezde odak noktası efekti
+            ctx.globalAlpha = 0.2;
+            const grad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, 500);
+            grad.addColorStop(0, 'rgba(0, 210, 255, 0.2)');
+            grad.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>

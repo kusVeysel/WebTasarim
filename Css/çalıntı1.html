@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Gözler Fareyi Takip Ediyor</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        width: 100vw;
+        height: 100vh;
+        background: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .eyes {
+        display: flex;
+        gap: 40px;
+    }
+
+    .eye {
+        width: 100px;
+        height: 100px;
+        background: white;
+        border-radius: 50%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pupil {
+        width: 30px;
+        height: 30px;
+        background: black;
+        border-radius: 50%;
+        position: absolute;
+    }
+</style>
+</head>
+<body>
+
+<div class="eyes">
+    <div class="eye">
+        <div class="pupil"></div>
+    </div>
+    <div class="eye">
+        <div class="pupil"></div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("mousemove", (e) => {
+    const pupils = document.querySelectorAll(".pupil");
+
+    pupils.forEach(pupil => {
+        const eye = pupil.parentElement;
+        const eyeRect = eye.getBoundingClientRect();
+
+        const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+        const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+        const angle = Math.atan2(
+            e.clientY - eyeCenterY,
+            e.clientX - eyeCenterX
+        );
+
+        const maxMove = 25;
+        const x = Math.cos(angle) * maxMove;
+        const y = Math.sin(angle) * maxMove;
+
+        pupil.style.transform = `translate(${x}px, ${y}px)`;
+    });
+});
+</script>
+
+</body>
+</html>

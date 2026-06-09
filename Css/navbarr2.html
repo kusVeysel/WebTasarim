@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    color: white;
+    position: relative;
+    background: #222;
+
+}
+.logo{
+    font-size: 20px;
+    font-weight: bold;
+}
+#menu-toggle{
+display: none;
+}
+.menu{
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.menu a{
+    color: white;
+    text-decoration: none;
+}
+.menu-btn{
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+@media(max-width:768px){
+    .menu {
+        display: none;
+        background-color: aquamarine;
+        flex-direction: column;
+        top: 60px;
+        right: 0;
+        padding: 15px;
+        position: absolute;
+        width: 200px;
+    }
+    .menu-btn{
+        display: block;
+    }
+#menu-toggle:checked +.menu-btn+.menu{
+    display: flex;
+}
+}
+</style>
+<body>
+    <nav class="navbar">
+        <div class="logo">logo</div>
+        <input type="checkbox"id="menu-toggle">
+        <label for="menu-toggle" class="menu-btn">=</label>
+        <ul class="menu">
+            <li><a href="#">Anasayfa</a></li>
+            <li><a href="#">İlanlar</a></li>
+            <li><a href="#">Hakkımızda</a></li>
+            <li><a href="#">İletişim</a></li>
+        </ul>
+    </nav>
+
+
+
+
+</body>
+</html>

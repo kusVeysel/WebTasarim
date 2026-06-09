@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Kayıt Formu</h1>
+    
+<form>
+    <label>Adı soyadı</label> <br>
+        <input type="text" name="adı" placeholder="adınızıı ve sayadınızı giriniz" required>
+    <br> <br>
+    <label>email</label> <br>
+        <input type="email" name="email" placeholder="email@exaple.com" required>
+    <br> <br>
+    <label>şifre</label> <br>
+        <input type="password" name="şifre" placeholder="şifrenizi giriniz" required>
+    <br> <br>
+    <label>cinsiyet</label>
+    <br> <br>
+    <input type="radio" name="cinsiyet" value="erkek">erkek
+    <input type="radio" name="cinsiyet" value="kız">kız
+    <br> <br>
+
+<label>şehir</label>
+<select name="şehir" required>
+    <option value="" selected disabled>Şehir Seçiniz</option>
+    <option value="34">İstanbul</option>
+    <option value="06">Ankara</option>
+    <option value="35">izmir</option>
+    <option value="46">Kahramanmaraş</option>
+</select>
+<br> <br>
+<label>Hobiler</label> <br>
+    <input type="checkbox" name="hobi" value="spor">spor
+    <input type="checkbox" name="hobi" value="müzik">müzik
+    <input type="checkbox" name="hobi" value="oyun">oyun
+    <input type="checkbox" name="hobi" value="kitap">kitap
+    <br> <br>
+
+    <label>Hakkında kısaca</label>
+    <textarea name="açıklama" rows="4" cols="50" placeholder="kendinizden bahsediniz"></textarea>
+
+<button type="submit">gönder</button>
+<button type="reset">yazılanları temizle</button>
+</form>
+</body>
+</html>

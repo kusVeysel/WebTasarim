@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="BOOTSTRAPLOCAL.CSS">
+    <style>
+        .SlideBar{
+            width: 250px;
+            background: rgb(0, 0, 255);
+            font-family: 'Times New Roman', Times, serif;
+        }
+        ul{
+            background: rgb(59, 59, 243);
+ 
+            padding: 0 0 0 10px;
+        }
+       .toa:hover{
+            opacity: 1;
+            color: white;
+            background: rgb(100, 100, 241);
+        }
+        .toa{
+            padding: 0 0 0 35px;
+
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="SlideBar  vh-100">
+        <div class="border-bottom border-secondary text-center py-3">
+            <h3 class="text-light ">BAŞLIK</h3>
+        </div>
+
+        <nav class="nav flex-column">
+            <a href="#list1" class="nav-link text-light" data-bs-toggle="collapse" role="button">Anasayfa</a>
+
+            <div class="collapse " id="list1">
+                <ul class="navbar-nav">
+                    <li class="toa"><a href="#" class="nav-link">Metin1</a></li>
+                    <li class="toa"><a href="#" class="nav-link">Metin2</a></li>
+                    <li class="toa"><a href="#" class="nav-link">Metin3</a></li>
+                </ul>
+            </div>
+<a href="#list2" class="nav-link text-light" data-bs-toggle="collapse" role="button">Anasayfa</a>
+
+            <div class="collapse " id="list2">
+                <ul class="navbar-nav">
+                    <li class="toa"><a href="#" class="nav-link">Metin1</a></li>
+                    <li class="toa"><a href="#" class="nav-link">Metin2</a></li>
+                    <li class="toa"><a href="#" class="nav-link">Metin3</a></li>
+                </ul>
+            </div>
+
+        </nav>
+    </div>
+
+
+
+
+    <script src="BOOTSTRAPLOCAL.JS"></script>
+</body>
+</html>

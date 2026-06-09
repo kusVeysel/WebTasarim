@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        background: linear-gradient(150deg,black,purple,darkblue);
+    }
+.kabuk{
+    display: flex;
+    gap: 20px;
+}
+#dış{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background:linear-gradient(20deg,red,pink,yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.iç{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(0deg,black,skyblue,darkgreen);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.içiçe{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background:linear-gradient(100deg,black,purple,white);
+}
+</style>
+<body>
+    
+    <div class="kabuk">
+        <div id="dış">
+            <div class="iç">
+                <div class="içiçe"></div>
+            </div>
+        </div>
+        <div id="dış">
+            <div class="iç">
+                <div class="içiçe"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<script>
+    window.addEventListener("mousemove",(e)=>{
+        const benek=document.querySelectorAll(".iç");
+
+        benek.forEach(iç=>{
+            const anne=iç.parentElement;
+            const belirle=anne.getBoundingClientRect();
+
+            const dışkonumx = belirle.left +belirle.width/2;
+            const dışkonumy = belirle.top +belirle.height/2;
+
+            const açı=Math.atan2(
+            e.clientY-dışkonumy,
+            e.clientX-dışkonumx
+            )
+            const sınır=25;
+            const x=Math.cos(açı)*sınır;
+            const y=Math.sin(açı)*sınır;
+
+            iç.style.transform=`translate(${-x}px,${-y}px)`;
+        });
+    })
+</script>
+
+<script>
+    window.addEventListener("mousemove",(e)=>{
+        const benek2=document.querySelectorAll(".içiçe");
+
+        benek2.forEach(içiçe=>{
+        const anne2=içiçe.parentElement;
+        const belirle2=anne2.getBoundingClientRect();
+
+            const dışkonumx2=belirle2.left+belirle2.width/2;
+            const dışkonumy2=belirle2.top+belirle2.height/2;
+
+            const açı2=Math.atan2(
+                e.clientY-dışkonumy2,
+                e.clientX-dışkonumx2
+            )
+            const sınır2=15;
+            const x2=Math.cos(açı2)*sınır2;
+            const y2=Math.sin(açı2)*sınır2;
+
+            içiçe.style.transform=`translate(${x2}px,${y2}px)`;
+        });
+    })
+</script>
+</body>
+</html>

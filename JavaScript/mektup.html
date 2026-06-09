@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: black;
+        overflow: hidden;
+    }
+#mektup{
+    width: 400px;
+    height: 200px;
+    background: blueviolet;
+    position: relative;
+    animation: ekran 1s forwards;
+    cursor: pointer;
+}
+@keyframes ekran{
+    from{top: -50vh;}
+    to{top: 0;}
+}
+#kapak{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0;
+    height: 0;
+    border-left: 200px solid transparent;
+    border-right: 200px solid transparent;
+    border-top: 90px solid red;
+    animation: mektup 2s infinite;
+    transition: 1s;
+}
+#mektup2{
+    width: 400px;
+    height: 200px;
+    background: red;
+    clip-path: polygon(0% 0%,50% 45%,100% 0%,100% 100%,0% 100%)
+}
+@keyframes mektup{
+    0%{transform: t;}
+}
+#yazı{
+    width: 400px;
+    height: 200px;
+    background: white;
+    position: absolute;
+    top: 0;
+    display: none;
+    clip-path: polygon(0% 0%,50% 45%,100% 0%);
+    transition: 1s;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+strong{
+    color: white;
+    position: absolute;
+    top: 100px;
+    right: 150px;
+    animation: sen 2.4s infinite;
+    cursor: pointer;
+    pointer-events: none;
+    z-index: 10;
+}
+@keyframes sen{
+    0%{opacity: 0;}
+    20%{opacity: 0.7;}
+    100%{opacity: 0;}
+}
+#aa{
+    transform: rotate(-90deg);
+    position: absolute;
+    font-weight: bold;
+   
+}
+    #kutu{
+        position: absolute;
+        animation: kalp 4s ease;
+        text-shadow: 0 0 5px white;
+    }
+    
+    #kutu2{
+        position: fixed;
+        animation: sekers 5s ease;
+        text-shadow: 0 0 5px white;
+    }
+    @keyframes sekers{
+        0%{opacity: 0.9; }
+        100%{left: 400px;opacity: 0;rotate: 360deg;}
+    }
+@keyframes kalp{
+    0%{opacity: 1; }
+    100%{top: 100vh;opacity: 0;rotate: 360deg;}
+}
+</style>
+<body>
+   <div id="mektup">
+    <div id="kapak"></div>
+    <div id="mektup2" onclick="bas()"></div>
+    <div id="yazı"><span id="aa"></span></div>
+    <h1><strong id="tıkla">TIKLA</strong></h1>
+   </div> 
+
+
+
+   <script>
+function bas(){
+    document.getElementById("kapak").style.borderBottom="90px solid blueviolet";
+    document.getElementById("kapak").style.borderTop="none";
+    document.getElementById("kapak").style.top="-90px";
+    document.getElementById("yazı").style.display="flex";
+    document.getElementById("tıkla").style.animation="none";
+    document.getElementById("tıkla").style.display="none";
+    document.body.style.background="pink";
+    setInterval(() => {
+         const kalp=document.createElement("div");
+         document.body.appendChild(kalp);
+         kalp.id="kutu";
+         kalp.innerText="❤";
+         const renk =['#ff4d6d', '#ff758f', '#ff8fa3', '#ffb3c1', '#ffffff','blueviolet'];
+         kalp.style.color=renk [Math.trunc(Math.random()*renk.length)];
+         kalp.style.fontSize=Math.trunc(Math.random()*20+10)+"px";
+         kalp.style.top=0+"px";
+         kalp.style.left=Math.random()*100+"vw";
+         setTimeout(() => {
+             kalp.remove()
+         }, 3000);
+     }, 300);
+}
+    document.getElementById("yazı").addEventListener("mouseover",function(){
+    document.getElementById("yazı").style.top="-20px";
+    document.getElementById("yazı").style.clipPath="polygon(0% 10%,0% 0%,100% 0%,100% 10%,50% 55%)";
+},{once:true})
+    document.getElementById("yazı").addEventListener("click",function(){
+    document.getElementById("yazı").style.width="400px";
+    document.getElementById("yazı").style.height="200px";
+    document.getElementById("yazı").style.top="200px";
+    document.getElementById("yazı").style.clipPath="none";
+    document.getElementById("yazı").style.transform="rotate(90deg)";
+
+          setInterval(() => {
+         const seker=document.createElement("div");
+         document.getElementById("yazı").appendChild(seker);
+         seker.id="kutu2";
+         const sekerler =['🍬','🍭','🍫'];
+         seker.innerText=sekerler [Math.trunc(Math.random()*sekerler.length)];
+         seker.style.fontSize=Math.trunc(Math.random()*20+10)+"px";
+         seker.style.left=0+"px";
+         seker.style.bottom=Math.random()*100+"%";
+         setTimeout(() => {
+             seker.remove();
+         }, 4000);
+         document.getElementById("aa").innerText="Hayırlı Bayramlar";
+     }, 600);  
+})
+
+
+
+   </script>
+</body>
+</html>

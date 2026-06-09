@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Fare Takip Eden Yılan</title>
+    <style>
+        body { margin: 0; background: #0a0a0a; overflow: hidden; }
+        canvas { display: block; cursor: crosshair; }
+    </style>
+</head>
+<body>
+    <canvas id="snakeCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('snakeCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+        const history = []; // Koordinat geçmişi
+        const segmentCount = 25; // Boğum sayısı
+        const step = 4; // Boğumlar arası mesafe (gecikme)
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        function animate() {
+            // Hafif transparan temizleme ile hareket izi (trail) efekti
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Başın konumunu geçmişe ekle
+            history.unshift({ x: mouse.x, y: mouse.y });
+
+            // Diziyi optimize et (Sadece gereken kayıtları tut)
+            if (history.length > segmentCount * step) {
+                history.pop();
+            }
+
+            // Boğumları çiz
+            for (let i = 0; i < segmentCount; i++) {
+                const index = i * step;
+                const pos = history[index] || history[history.length - 1];
+
+                // Kuyruğa doğru küçülen boyut
+                const size = 18 - (i * 0.5); 
+                
+                // Renk: Yeşilden koyu yeşile geçiş
+                ctx.fillStyle = `hsl(140, 100%, ${60 - i * 1.5}%)`;
+                
+                // Çizim
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

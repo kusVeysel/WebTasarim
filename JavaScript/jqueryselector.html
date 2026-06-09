@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .kirmizi{
+        background-color: red;
+        color: white;
+    }
+</style>
+<body>
+    <p id="yazi">Merhaba</p>
+    <button class="btn">Renk değiştir</button>
+    
+    <script>
+        document.getElementsByClassName("btn")[0].addEventListener("click",function(){
+        document.getElementById("yazi").classList.toggle("kirmizi");
+        })
+    </script>
+
+</body>
+</html>

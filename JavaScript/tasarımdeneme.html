@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        display: flex;
+        gap: 40px;
+    }
+.kutu{
+    width: 100px;
+    height: 100px;
+    background: gray;
+    position: relative;
+}
+.kutu::after{
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: -100px;
+    border: 50px solid transparent;
+    border-bottom: 50px solid gray;
+    transform: rotate(180deg);
+}
+.kutu2{
+    width: 100px;
+    height: 80px;
+    background-color: skyblue;
+    border-radius: 10%;
+    position: relative;
+}
+.kutu2::after{
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid skyblue;
+    top: 60px;
+    left: 10px;
+    transform: rotate(180deg);
+}
+.kutu3{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    transform: rotate(45deg);
+    top: 100px;
+    position: relative;
+}
+.kutu3::after{
+    right: 40px;
+    top: 0;
+}
+.kutu3::before{
+    bottom: 40px;
+    left: 0;
+}
+.kutu3::after,.kutu3::before{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    content: "";
+    background-color: red;
+    border-radius: 50%;
+}
+</style>
+<body>
+    <div class="kutu"></div>
+    <div class="kutu2"></div>
+
+<div class="kutu3"></div>
+
+</body>
+</html>

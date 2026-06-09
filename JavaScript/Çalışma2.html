@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: skyblue;
+        color: darkgreen;
+        font-weight: bold;
+    }
+#kutu{
+    display: flex;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.sabah{
+    background: skyblue;
+    color: darkgreen;
+    font-weight: bold;
+    transition: 2s;
+}
+.öğle{
+    background-color: red;
+    color: yellow;
+    font-weight: bold;
+    transition: 2s;
+}
+.akşam{
+    background: black;
+    color: blueviolet;
+    font-weight: bold;
+    transition: 2s;
+}
+#dış{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+</style>
+<body>
+
+<div id="dış">
+    <div id="kutu">
+        <p id="sayac1">0</p>
+            <p id="sayac2">0</p>
+                <p>.</p>
+                    <p id="sayac3">0</p>
+                    <p id="sayac4">0</p>
+                <p>.</p>
+            <p id="sayac5">0</p>
+        <p id="sayac6">0</p>
+    </div>
+</div>
+
+
+
+
+
+
+
+    <script>
+let i1=0;
+let i2=0;
+let i3=0;
+let i4=0;
+let i5=0;
+let i6=0;
+setInterval(() => {
+    if(i6>9){
+        i6=0;
+        i5++;
+            document.getElementById("sayac5").innerText=i5;
+            document.getElementById("sayac6").innerText=i6;
+
+    if(i5>5){
+        i6=0;
+            i5=0;
+        i4++;
+        document.getElementById("sayac4").innerText=i4;
+            document.getElementById("sayac5").innerText=i5;
+        document.getElementById("sayac6").innerText=i6;
+
+    if(i4>9){
+        i6=0;
+            i5=0;
+            i4=0;
+        i3++;
+        document.getElementById("sayac3").innerText=i3;
+            document.getElementById("sayac4").innerText=i4;
+            document.getElementById("sayac5").innerText=i5;
+        document.getElementById("sayac6").innerText=i6;
+
+    if(i3>5){
+        i6=0;
+            i5=0;
+                i4=0;
+            i3=0;
+        i2++;
+        document.getElementById("sayac2").innerText=i2;
+            document.getElementById("sayac3").innerText=i3;
+                document.getElementById("sayac4").innerText=i4;
+            document.getElementById("sayac5").innerText=i5;
+        document.getElementById("sayac6").innerText=i6;
+
+    if(i2>9){
+        i6=0;
+            i5=0;
+                i4=0;
+                i3=0;
+            i2=0;
+        i1++;
+        document.getElementById("sayac1").innerText=i1;
+            document.getElementById("sayac2").innerText=i2;
+                document.getElementById("sayac3").innerText=i3;
+                document.getElementById("sayac4").innerText=i4;
+            document.getElementById("sayac5").innerText=i5;
+        document.getElementById("sayac6").innerText=i6;
+}}}}
+if(i1>1 && i2===4){
+    i6=0;
+        i5=0;
+            i4=0;
+            i3=0;
+        i2=0;
+    i1=0;
+    document.getElementById("sayac1").innerText=i1;
+        document.getElementById("sayac2").innerText=i2;
+            document.getElementById("sayac3").innerText=i3;
+            document.getElementById("sayac4").innerText=i4;
+        document.getElementById("sayac5").innerText=i5;
+    document.getElementById("sayac6").innerText=i6;
+}
+if(i1===0 && i2<8){
+    document.body.classList.add("sabah");
+}
+else{
+    document.body.classList.remove("sabah");
+}
+if(i1===0 && i2>=8 || i1===1 && i2<6){
+    document.body.classList.add("öğle");
+}
+else{
+    document.body.classList.remove("öğle");
+}
+if(i1===1 && i2>=6 || i1===2 && i2<5){
+    document.body.classList.add("akşam");
+}
+else{
+    document.body.classList.remove("akşam");
+}
+}       
+    document.getElementById("sayac6").innerText=i6;
+    i6++;
+},1000);
+
+    </script>
+    <script>
+        window.addEventListener("mousemove",(e)=>{
+            const seç=document.querySelectorAll("#kutu");
+
+            seç.forEach(kutu=>{
+                const anne=kutu.parentElement;
+                const mesafe=anne.getBoundingClientRect();
+
+                const x1=mesafe.left+mesafe.width/2;
+                const y1=mesafe.top+mesafe.height/2;
+
+                const açı=Math.atan2(
+                    e.clientY-y1,
+                    e.clientX-x1
+                )
+                const maks=20;
+                const x=Math.cos(açı)*maks;
+                const y=Math.sin(açı)*maks;
+
+                kutu.style.transform=`translate(${x}px,${y}px)`;
+            });
+        })
+    </script>
+</body>
+</html>

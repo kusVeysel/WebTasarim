@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="BOOTSTRAPLOCAL.CSS">
+</head>
+<body>
+        <div class="container mt-5">
+            <div class="row g-4">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card shadow-lg h-100">
+                        <img src="kahve/espresso.jpg" class="card-img-top" alt="Espresso">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title text-warning">Espresso</h5>
+                            <p class="card-text text-secondary small">Yoğun ve zengin aromalı klasik İtalyan kahvesi.</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">85 ₺</span>
+                            </div>
+                            <button class="btn btn-outline-danger" data-title="başlık1" data-text="6534fcth" data-img="kahve/espresso.jpg" data-bs-toggle="modal" data-bs-target="#exampleModal">Bilgi</button>
+                        </div>      
+                    </div>
+                </div>
+
+               <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card shadow-lg h-100">
+                        <img src="kahve/mocha.jpg" class="card-img-top" alt="Espresso">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title text-warning">Espresso</h5>
+                            <p class="card-text text-secondary small">Yoğun ve zengin aromalı klasik İtalyan kahvesi.</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">85 ₺</span>
+                            </div>
+                            <button class="btn btn-outline-danger" data-title="başlık2" data-text="tree5466" data-img="kahve/mocha.jpg" data-bs-toggle="modal" data-bs-target="#exampleModal">Bilgi</button>
+                        </div>      
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card shadow-lg h-100">
+                        <img src="kahve/capcino.jpg" class="card-img-top" alt="Espresso">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title text-warning">Espresso</h5>
+                            <p class="card-text text-secondary small">Yoğun ve zengin aromalı klasik İtalyan kahvesi.</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">85 ₺</span>
+                            </div>
+                            <button class="btn btn-outline-danger" data-title="başlık3" data-text="gfsgfgvgffvgf" data-img="kahve/capcino.jpg" data-bs-toggle="modal" data-bs-target="#exampleModal">Bilgi</button>
+                        </div>      
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card shadow-lg h-100">
+                        <img src="kahve/latte.jpg" class="card-img-top" alt="Espresso">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title text-warning">Espresso</h5>
+                            <p class="card-text text-secondary small">Yoğun ve zengin aromalı klasik İtalyan kahvesi.</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">85 ₺</span>
+                            </div>
+                            <button class="btn btn-outline-danger" data-title="başlık4" data-text="jfsfdggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggofhsus" data-img="kahve/latte.jpg" data-bs-toggle="modal" data-bs-target="#exampleModal">Bilgi</button>
+                        </div>      
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div class="modal fade" id="exampleModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="card-title">
+                    <span id="modalTitle"></span>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mt-3">
+                    <img src="" alt="" id="modalImg" class="img-fluid" style="max-height: 250px;">
+                </div>
+                <p class="card-text text-info text-break px-3 mb-3">
+                    <span id="modalText"></span>
+                </p>
+                <hr class="bg-secondary mx-2">
+                    <div class="row g-3 text-center">
+                        <div class="col-4">
+1 <br>2
+                        </div>
+                        <div class="col-4">
+1   <br>2
+                        </div>
+                        <div class="col-4">
+1   <br>2
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer mt-3">
+                <button class="btn btn-outline-danger w-100 " type="button" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="BOOTSTRAPLOCAL.JS"></script>
+    <script>
+
+        const modalMain = document.getElementById('exampleModal');
+        if (modalMain) {
+            modalMain.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget;
+                const title = button.getAttribute('data-title');
+                const text = button.getAttribute('data-text');
+                const img = button.getAttribute('data-img');
+
+                document.getElementById('modalTitle').innerText = title;
+                document.getElementById('modalText').innerText = text;
+                document.getElementById('modalImg').src = img;
+            });
+        }
+
+    </script>
+</body>
+</html>
