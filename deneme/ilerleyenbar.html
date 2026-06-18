@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            display: flex;
+        }
+        .progress {
+            width: 80%;
+            height: 30px; 
+            background-color: #e9ecef; 
+            border-radius:20% ;
+            pointer-events: none;
+        }
+        .progress-bar {
+            background-color: red; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white; 
+            height: 100%;
+            font-weight: bold;
+            border-radius: 20% 0 0 20%;
+            pointer-events: none;
+        }
+        @keyframes progress {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+        .border{
+            border-radius: 20%;
+        }
+
+    </style>
+</head>
+<body>
+
+        <div class="progress">
+            <div id="prog" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                0%
+            </div>
+        </div>
+    
+<script>
+    let i=0;
+    const prog = document.getElementById("prog");
+    prog.style.animation = "progress 10s ease-in-out forwards";
+    setInterval(() => {
+        if(i!=100){
+            i++;
+        }
+        if(i>15 && i<45){
+            prog.style.backgroundColor="blue";
+        }
+        if(i>=45 && i<90){
+            prog.style.backgroundColor="greenyellow";
+        }
+        if(i>=90){
+            prog.style.backgroundColor="darkgreen";
+            prog.classList.add("border");
+            prog.style.transition="0.5s";
+        }
+        prog.innerText=i+"%";
+    }, 100);
+
+</script>
+</body>
+</html>
