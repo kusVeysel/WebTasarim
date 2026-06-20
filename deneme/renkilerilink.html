@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="BOOTSTRAPLOCAL.CSS">
+    <style>
+        body{
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            height: 100vh;
+        }        
+        .link{
+            text-decoration: none;
+            position: relative;
+        }
+        #kutu{
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            height: 2px;
+            background: green;
+            width:0;
+            background-size: 200% 100%;
+            background-position:100% 0% ;
+
+            transition: all 0.3s ease;
+        }
+        .link:hover+#kutu{
+            width: 100%;
+        }
+        div{
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="#" class="nav-item link">Anasayfa</a>
+        <div id="kutu"></div>
+    </div>
+
+</body>
+</html>
