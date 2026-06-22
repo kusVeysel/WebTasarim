@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gerçekçi İp ve Ampul Oyunu</title>
+        <!-- Bootstrap ve diğer stilleri yükle -->
+        <link rel="stylesheet" href="BOOTSTRAPLOCAL.CSS">
+        <style>
+            /* Sayfa tarayıcıyı tamamen doldur, boşluk yok */
+            html,body{height:100%;margin:0;font-family:sans-serif;background:#222}
+            
+            /* Merkezi kapsayıcı - flexbox ile ortaya hizala */
+            .stage{height:100%;display:flex;align-items:center;justify-content:center}
+            
+            /* Ana oyun alanı - canvas ve diğer öğeler burada yer alır */
+            .fixture{position:relative;width:320px;height:420px}
+
+            /* ========== AMPUL STİLİ ========== */
+            /* Ampul tasarımı - gerçekçi görünüm için radyal gradient kullanıyoruz */
+            .bulb{
+                position:absolute;
+                left:50%;
+                transform:translateX(-50%);
+                top:18px;
+                width:64px;
+                height:96px;
+                /* Radyal gradient - ampulün üst kısmı parlak, alt kısmı koyu */
+                background:radial-gradient(
+                    circle at 40% 30%, 
+                    #fffef0 0%,      /* En parlak nokta */
+                    #fff1b8 20%,
+                    #ffe28a 35%,
+                    #ffd66a 45%,
+                    #f0c05a 60%,
+                    #d9a344 80%      /* Ampulün kenarları koyu turuncu */
+                );
+                /* Pürüzlü yüzey oluşturmak için özel border-radius */
+                border-radius:50% 50% 40% 40%/60% 60% 40% 40%;
+                /* Gölge efekti - dış gölge ve iç ışık */
+                box-shadow:0 10px 30px rgba(0,0,0,.6), inset 0 -10px 30px rgba(255,255,255,.06);
+                /* Geçiş animasyonları - yanıp sönerken yumuşak */
+                transition:filter .12s, box-shadow .12s;
+            }
+            
+            /* Ampul yanarken - parlaklığı artır ve ışık saç */
+            .bulb.on{
+                filter:brightness(1.25);
+                box-shadow:0 20px 80px rgba(255,220,100,.28), inset 0 -10px 30px rgba(255,255,255,.2);
+            }
+            
+            /* Ampul sönerken - normalleş ve koyu kalır */
+            .bulb.off{
+                filter:brightness(.9);
+                opacity:1;
+            }
+
+            /* ========== İP/TUTAÇ STİLİ ========== */
+            /* İpin bağlandığı sabit noktacık */
+            .anchor{
+                position:absolute;
+                left:50%;
+                top:60px;
+                width:6px;
+                height:6px;
+                background:#444;
+                transform:translateX(-50%);
+                border-radius:3px;
+            }
+            
+            /* Tutacak - ipin altındaki "top kısmı", tıklanabilir */
+            .handle{
+                position:absolute;
+                left:50%;
+                top:66px;
+                transform:translate(-50%, -6px);
+                width:18px;
+                height:18px;
+                background:#b5651d;
+                border-radius:50%;
+                box-shadow:0 2px 4px rgba(0,0,0,.4);
+                cursor:pointer;  /* Fare imleci değişir - tıklanabilir */
+            }
+
+            /* İpte ekstra stil için boş alan */
+            .hint{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);color:#aaa;font-size:13px}
+        </style>
+</head>
+<body>
+        <!-- Sayfa merkezi kapsayıcı -->
+        <div class="stage">
+            <!-- Ana oyun alanı -->
+            <div class="fixture">
+                
+                <!-- İpin bağlı olduğu noktacık -->
+                <div class="anchor"></div>
+                
+                <!-- Canvas: İpin fiziğini ve görselini burada çiziyoruz -->
+                <canvas id="ropeCanvas"></canvas>
+                
+                <!-- Tutacak: İpi çekmek için tıklanan yer -->
+                <div id="handle" class="handle" title="Drag and release"></div>
+                
+                <!-- Ampul: Sabit kalıyor, sadece yanıp söner -->
+                <div id="bulb" class="bulb off" aria-hidden="true"></div>
+                
+            </div>
+        </div>
+
+        <!-- Bootstrap kütüphanesi -->
+        <script src="BOOTSTRAPLOCAL.JS"></script>
+        
+        <!-- Ana JavaScript kodu -->
+        <script>
+            /**
+             * ═══════════════════════════════════════════════════════════════════
+             * İP VE AMPUL OYUNU - VERLET İNTEGRASYONU İLE FİZİK
+             * ═══════════════════════════════════════════════════════════════════
+             * 
+             * Bu sistem Verlet integrasyon adı verilen basit bir fizik motoru kullanıyor.
+             * Verlet nedir?
+             *   - Konumun eski konumdan farkını kullanarak hızı hesapla (açık bir hız değişkeni yok)
+             *   - Formül: yeni_konum = 2*şu_konum - eski_konum + ivme*dt²
+             *   - Avantaj: Hızlı, kararlı, enerji korunur
+             * 
+             * İp nasıl çalışıyor?
+             *   1. İp, birbirine bağlı "parçacıklar"ın bir zinciri
+             *   2. Her parçacık yerçekimine maruz kalır (aşağı doğru)
+             *   3. Hava direnci deneyimler (sürtünme)
+             *   4. Parçacıklar arasındaki mesafe sabittir (elastiklik)
+             *   5. Sürükle-bırak: Son parçacık farenin konumuna gider, sonra sallanır
+             */
+            (function(){
+                // ═══════════════════════════════════════════════════════════════════
+                // BÖLÜM 1: TEMEL ÖĞELER VE CANVAS SETUP
+                // ═══════════════════════════════════════════════════════════════════
+                
+                // Canvas elemanını seç (ip buraya çizilir)
+                const cordEl = document.getElementById('ropeCanvas')
+                // Tutacak elemanını seç (sürükleme kontrolü)
+                const handle = document.getElementById('handle')
+                // Ampul elemanını seç (yanıp söner)
+                const bulbEl = document.getElementById('bulb')
+
+                // Canvas'a erişim (2D grafik çizimi için)
+                const canvas = cordEl
+                const ctx = canvas.getContext('2d')
+                let W=0, H=0  // Canvas genişliği ve yüksekliği
+
+                /**
+                 * Canvas'ı tarayıcı penceresi boyutuna göre yeniden boyutlandır
+                 * Pencere resize olduğunda da çalışır (responsive design)
+                 */
+                function resizeCanvas(){
+                    const rect = cordEl.parentElement.getBoundingClientRect()
+                    W = Math.round(rect.width)     // Genişlik al
+                    H = Math.round(rect.height)    // Yükseklik al
+                    canvas.width = W               // Canvas'a ayarla
+                    canvas.height = H
+                    canvas.style.position = 'absolute'
+                    canvas.style.left = '0'
+                    canvas.style.top = '0'
+                }
+
+                // ═══════════════════════════════════════════════════════════════════
+                // BÖLÜM 2: İP FİZİĞİ PARAMETRELERİ
+                // ═══════════════════════════════════════════════════════════════════
+                
+                const segments = 14         // İp kaç parçaya bölünecek (az = sert, çok = yumuşak)
+                const segLen = 9           // Her parça arası uzaklık (piksel)
+                const gravity = 12000       // Yerçekimi kuvveti (yüksek = daha ağır, aşağı iner)
+                const friction = 0.98      // Hava direnci (0.98 = %98 hız kalır, %2 kaybolur, sönüm)
+                const constraintIter = 4   // İp sertliği (yüksek = daha sert ve titiz)
+
+                // ═══════════════════════════════════════════════════════════════════
+                // BÖLÜM 3: PARÇACIK AĞINI OLUŞTUR
+                // ═══════════════════════════════════════════════════════════════════
+                
+                const points = []
+                /**
+                 * Parçacık yapısı:
+                 * {
+                 *   x, y: Şu anki konum (piksel)
+                 *   oldx, oldy: Bir önceki karede ki konum (hızı hesaplamak için)
+                 *   pinned: true ise bu parçacık sabit (hareket etmez)
+                 * }
+                 */
+
+                /**
+                 * İp parçacıklarını başlat
+                 * Her biri dikey olarak alt alta dizilir (başta düz)
+                 */
+                function initPoints(){
+                    points.length = 0  // Temizle
+                    const rect = cordEl.parentElement.getBoundingClientRect()
+                    const ax = rect.width/2    // İpin sabit bağlandığı X konumu (ortada)
+                    const ay = 66              // İpin bağlı olduğu Y konumu (ampulün altında)
+                    
+                    // Segment sayısı kadar parçacık oluştur
+                    for(let i=0; i<=segments; i++){
+                        const px = ax                    // Tüm parçacıklar başta dikey
+                        const py = ay + i*segLen         // Her biri bir segLen kadar aşağıda
+                        points.push({
+                            x: px, 
+                            y: py, 
+                            oldx: px, 
+                            oldy: py, 
+                            pinned: i===0  // Sadece ilk parçacık (i=0) sabitlenmiş
+                        })
+                    }
+                }
+
+                // Sürükleme durumu değişkenleri
+                let dragging = false          // Şu anda sürüklüyor muyuz?
+                let lastPointer = {x:0, y:0}  // Son fare konumu (atıl)
+                let lastMoveTime = 0          // Son hareket zamanı (atıl)
+
+                // ═══════════════════════════════════════════════════════════════════
+                // BÖLÜM 4: VERLET İNTEGRASYON - FİZİK MOTORU
+                // ═══════════════════════════════════════════════════════════════════
+                
+                /**
+                 * Verlet integrasyon: Parçacıkları hareket ettir (yerçekimi + hava direnci)
+                 * 
+                 * Formül:
+                 *   hız = (şu_konum - eski_konum) × friction
+                 *   yeni_konum = şu_konum + hız + yerçekimi*dt²
+                 * 
+                 * Neden sönüm (friction) var?
+                 *   - Gerçek dünyada hava ve sürtünme vardır
+                 *   - Sonsuz sallanmayı önler (kararlı sistem)
+                 *   - friction=1.0 demek sönüm yok (sonsuz enerji)
+                 *   - friction=0.9 demek %10 enerji kaybı (sönüm var)
+                 */
+                function verlet(dt){
+                    const dt2 = dt*dt  // dt² - zaman karesini önceden hesapla (hızlı)
+                    
+                    // Her parçacığı güncelleyin
+                    for(const p of points){
+                        if(p.pinned) continue  // Sabit parçacıklar hareket etmez
+                        
+                        // Hız = (şu_konum - eski_konum) × hava direnci
+                        const vx = (p.x - p.oldx) * friction
+                        const vy = (p.y - p.oldy) * friction
+                        
+                        // Eski konumları sakla (bir sonraki karede hızı hesaplamak için)
+                        p.oldx = p.x
+                        p.oldy = p.y
+                        
+                        // Yeni konum = hız + yerçekimi
+                        p.x += vx
+                        p.y += vy + gravity*dt2
+                    }
+                }
+
+                // ═══════════════════════════════════════════════════════════════════
+                // BÖLÜM 5: KISIT TATMIN ETME - İP SERTLIĞI
+                // ═══════════════════════════════════════════════════════════════════
+                
+                /**
+                 * Parçacıklar arası mesafe SABIT kalmalı (esneklik/elastiklik)
+                 * Aksi halde ip uzar ve kırışırımış gibi görünür.
+                 * 
+                 * Bu loop, parçacıkları birbirine yaklaştırarak/uzaklaştırarak
+                 * mesafeyi "segLen" ye geri getiriyor.
+                 * 
+                 * Neden birden fazla iterasyon var?
+                 *   - Her iterasyon = bir kez enerji kaybı
+                 *   - Çok iterasyon = daha sert, daha katı ip
+                 *   - Az iterasyon = daha yumuşak, daha esnek ip
+                 */
+                function satisfy(){
+                    // Kısıt iterasyonları - her bir = ipi daha sert yapar
+                    for(let k=0; k<constraintIter; k++){
+                        
+                        // Her parçacık çiftini kontrol et (i ve i+1)
+                        for(let i=0; i<points.length-1; i++){
+                            const p1 = points[i]
+                            const p2 = points[i+1]
+                            
+                            // p1'den p2'ye uzanan vektör
+                            const dx = p2.x - p1.x
+                            const dy = p2.y - p1.y
+                            
+                            // Aralarındaki gerçek mesafe
+                            const dist = Math.sqrt(dx*dx + dy*dy)
+                            
+                            // Mesafe ne kadar sapıyor? (segLen'den ne kadar uzak?)
+                            const diff = (dist - segLen)/dist
+                            
+                            // Her parçacığı doğru mesafeye yaklaştır
+                            const offsetX = dx * diff * 0.5
+                            const offsetY = dy * diff * 0.5
+                            
+                            // Sabit olmayan parçacıkları zıt yönlerde hareket ettir
+                            if(!p1.pinned){ p1.x += offsetX; p1.y += offsetY }
+                            if(!p2.pinned){ p2.x -= offsetX; p2.y -= offsetY }
+                        }
+                        
+                        // Her iterasyonda ipin bağlı olduğu nokta tekrar sabitlenecek
+                        // (sürükleme sırasında dış noktanın konumunu almaz)
+                        const rect = cordEl.parentElement.getBoundingClientRect()
+                        const ax = rect.width/2
+                        const ay = 66
+                        points[0].x = ax
+                        points[0].y = ay
+                    }
+                }
+
+                // ═══════════════════════════════════════════════════════════════════
+                // BÖLÜM 6: ÇIZIM - CANVAS'A İP ÇİZ
+                // ═══════════════════════════════════════════════════════════════════
+                
+                /**
+                 * Canvas'a ipi çiz
+                 * Düz çizgiler yerine smooth curve (ikinci derece eğri) kullanıyoruz
+                 * böylece gerçekçi görünüyor
+                 */
+                function draw(){
+                    // Canvas temizle (siyah arka plan)
+                    ctx.clearRect(0, 0, W, H)
+                    
+                    // İpi çiz - parçacıkları birleştir
+                    ctx.lineWidth = 4               // İp kalınlığı
+                    ctx.strokeStyle = '#6b3f1f'     // İp rengi (koyu turuncu)
+                    ctx.beginPath()
+                    
+                    // İlk parçacıktan başla
+                    ctx.moveTo(points[0].x, points[0].y)
+                    
+                    // Eğri çiz - ortadaki parçacıklar
+                    for(let i=1; i<points.length-2; i++){
+                        // Eğri kontrolü için orta noktayı hesapla
+                        const xc = (points[i].x + points[i+1].x)/2
+                        const yc = (points[i].y + points[i+1].y)/2
+                        // Quadratic eğri (ikinci derece) - smooth ve hızlı
+                        ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc)
+                    }
+                    
+                    // Son iki parçacığı birleştir
+                    const n = points.length
+                    ctx.quadraticCurveTo(points[n-2].x, points[n-2].y, points[n-1].x, points[n-1].y)
+                    
+                    // Çizimi göster
+                    ctx.stroke()
+                }
+
+                // ═══════════════════════════════════════════════════════════════════
+                // BÖLÜM 7: TUTACAK VE AMPUL KONUMLANDIRMA
+                // ═══════════════════════════════════════════════════════════════════
+                
+                /**
+                 * Tutacak HTML elemanını (handle) ipin son parçacığının konumuna taşı
+                 * Ampul SABİT kalıyor (taşınmıyor)
+                 */
+                function setHandle(){
+                    // İpin son parçacığını al (en alttaki)
+                    const last = points[points.length-1]
+                    // Tutacak elemanını buraya taşı
+                    handle.style.left = (last.x) + 'px'
+                    handle.style.top = (last.y - 6) + 'px'
+                    // Ampul hareket etmiyor - statik kalıyor
+                }
+
+                // ═══════════════════════════════════════════════════════════════════
+                // BÖLÜM 8: FARE/DOKUNMA ETKİLEŞİMİ
+                // ═══════════════════════════════════════════════════════════════════
+                
+                /**
+                 * Canvas koordinatlarını yerel (0,0 = canvas sol üst) koordinatlara çevir
+                 */
+                function pointerToLocal(e){
+                    const rect = cordEl.getBoundingClientRect()
+                    return {
+                        x: e.clientX - rect.left, 
+                        y: e.clientY - rect.top
+                    }
+                }
+
+                /**
+                 * İpi sürüklemeye başla
+                 * - Fare tutacağın üzerinde basıldığında tetiklenir
+                 * - İpin son parçacığı farenin konumuna gider
+                 */
+                function onPointerDown(e){
+                    e.preventDefault()  // Varsayılan davranış engelle
+                    dragging = true     // Sürükleme modu aç
+                    lastMoveTime = performance.now()
+                    
+                    // Fare konumunu lokal koordinatlara çevir
+                    const p = pointerToLocal(e)
+                    const last = points[points.length-1]  // İpin sonunu al
+                    
+                    // Son parçacığı farenin konumuna koy
+                    last.x = p.x
+                    last.y = p.y
+                    last.oldx = p.x
+                    last.oldy = p.y
+                    
+                    // Fare hareketi dinle
+                    window.addEventListener('pointermove', onPointerMove)
+                    // Fare bırakılması dinle
+                    window.addEventListener('pointerup', onPointerUp)
+                }
+
+                /**
+                 * İpi sürüklerken fare hareket ettiğinde tetiklenir
+                 * İpin son parçacığı farenin konumunu takip eder
+                 */
+                function onPointerMove(e){
+                    // Fare konumunu lokal koordinatlara çevir
+                    const p = pointerToLocal(e)
+                    const last = points[points.length-1]
+                    
+                    // Son parçacığı farenin konumuna taşı
+                    last.x = p.x
+                    last.y = p.y
+                }
+
+                /**
+                 * İpi bıraktığında tetiklenir (fare tuşu yukarı)
+                 * - İp sallanmaya başlar
+                 * - Ampul yanıp söner (toggle)
+                 */
+                function onPointerUp(e){
+                    dragging = false  // Sürükleme modu kapat
+                    
+                    // İpin son parçacığına hız ver (sallanması için)
+                    const last = points[points.length-1]
+                    // Son konumu eski konuma göre ayarla (hız = konum farkı)
+                    last.oldx = last.x - ((e.movementX) || 0)
+                    last.oldy = last.y - ((e.movementY) || 0)
+                    
+                    // Ampulü aç/kapat (toggle)
+                    bulbEl.classList.toggle('on')
+                    bulbEl.classList.toggle('off')
+                    
+                    // Dinleyenleri kaldır
+                    window.removeEventListener('pointermove', onPointerMove)
+                    window.removeEventListener('pointerup', onPointerUp)
+                }
+
+                /**
+                 * Ana container'da tıklama - sadece tutacağın yakınındaysa sürüklemeyi başla
+                 */
+                cordEl.parentElement.addEventListener('pointerdown', function(e){
+                    // Fare tutacağın 40 piksel uzağında mı?
+                    const p = pointerToLocal(e)
+                    const last = points[points.length-1]
+                    const dx = p.x - last.x, dy = p.y - last.y
+                    // Eğer 40px içindeyse sürüklemeyi başla
+                    if(Math.hypot(dx, dy) < 40){
+                        onPointerDown(e)
+                    }
+                })
+
+                // Tutacak elemanını tıklanabilir yap
+                handle.addEventListener('pointerdown', onPointerDown)
+                handle.addEventListener('touchstart', (e)=>e.preventDefault())
+
+                // ═══════════════════════════════════════════════════════════════════
+                // BÖLÜM 9: ANA ANIMASYON DÖNGÜSÜ
+                // ═══════════════════════════════════════════════════════════════════
+                
+                /**
+                 * Ana loop - her karede:
+                 *   1. Zamanı hesapla (dt = delta time)
+                 *   2. Fizik güncelle (Verlet integrasyon)
+                 *   3. Kısıtları tatmin et (İp sertliği)
+                 *   4. Çiz (Canvas'a ipi çiz)
+                 *   5. Tutacak konumunu güncelle
+                 *   6. Bir sonraki kareyi istedi
+                 */
+                let lastTime = performance.now()
+                function loop(){
+                    const now = performance.now()
+                    let dt = (now - lastTime)/1000  // Saniye cinsinden zaman farkı
+                    if(dt>0.04) dt = 0.04           // Max 40ms, veri kaynaklı ani atılımları engelle
+                    lastTime = now
+
+                    // Sürüklüyorsak fizik hesaplamadan geçme
+                    if(dragging){
+                        // İpin son noktası direkt fare konumundan ayarlanıyor
+                        // Ek fizik hesaplarına gerek yok
+                    } else {
+                        // Sürüklemiyorsak:
+                        verlet(dt)      // Yerçekimi ve hava direnci uygula
+                        satisfy()       // İp sertliğini koruma altına al
+                    }
+                    
+                    // Her durumda kısıtları tatmin et (iki kez yapılacak)
+                    satisfy()
+                    // Çiz
+                    draw()
+                    // Tutacak ve diğer UI'ı güncelle
+                    setHandle()
+                    // Bir sonraki kareyi iste (60fps)
+                    requestAnimationFrame(loop)
+                }
+
+                // ═══════════════════════════════════════════════════════════════════
+                // BÖLÜM 10: BAŞLANGIÇ
+                // ═══════════════════════════════════════════════════════════════════
+                
+                // Pencere boyutu değişirse canvas'ı yeniden boyutlandır
+                window.addEventListener('resize', ()=>{ 
+                    resizeCanvas()
+                    initPoints() 
+                })
+                
+                // Başlat
+                resizeCanvas()      // Canvas boyutunu ayarla
+                initPoints()        // Parçacıkları oluştur
+                requestAnimationFrame(loop)  // Animasyon döngüsünü başlat
+            })()
+        </script>
+</body>
+</html>
