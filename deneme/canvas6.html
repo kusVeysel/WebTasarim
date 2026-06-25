@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaotik Küp Yağmuru - İnteraktif 3D Fizik Oyunu</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #050505; font-family: 'Segoe UI', sans-serif; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+        #hud { position: absolute; top: 20px; left: 20px; color: #00ffcc; font-family: monospace; pointer-events: none; text-shadow: 1px 1px 2px #000; }
+        #hud h1 { margin: 0 0 5px 0; font-size: 20px; color: #ff3344; }
+        #hud p { margin: 0; font-size: 14px; opacity: 0.8; }
+        #cube-count { font-weight: bold; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <div id="hud">
+        <h1>CHAOTIC_CUBE_RAIN v1.0</h1>
+        <p>FARE TIKLA: Küp Fırlat</p>
+        <p>TIKLA & SÜRÜKLE: Kamerayı Döndür</p>
+        <p>TOPLAM KÜP: <span id="cube-count">0</span></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+
+    <script>
+        // --- 1. GLOBAL DEĞİŞKENLER VE KURULUM ---
+        let scene, camera, renderer, controls, world;
+        let clock = new THREE.Clock();
+        
+        // Fizik motoru ile görselleştirme motorunu birbirine bağlayan diziler
+        let bodies = []; // Cannon.js (Fizik) nesneleri
+        let meshes = []; // Three.js (Görsel) nesneleri
+
+        const hudCubeCount = document.getElementById('cube-count');
+
+        // --- 2. SİSTEM BAŞLATMA ---
+        function init() {
+            // A. SAHNE VE KAMERA KURULUMU
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x050505, 0.01); // Derinlik için sis
+
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(20, 30, 60); // Geniş, izometrik bir bakış açısı
+            camera.lookAt(0, 0, 0);
+
+            // B. WEBGL RENDER MOTORU KURULUMU
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true; // Gölgelendirmeyi aktif yap
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Yumuşak gölgeler
+            renderer.toneMapping = THREE.ACESFilmicToneMapping; // Sinematik renk tonlaması
+            document.body.appendChild(renderer.domElement);
+
+            // C. FARE KONTROLLERİ (OrbitControls)
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true; // Yumuşak geçişler (atalet)
+            controls.dampingFactor = 0.05;
+
+            // D. FİZİK MOTORU (CANNON.JS) KURULUMU
+            world = new CANNON.World();
+            world.gravity.set(0, -25, 0); // Güçlü, kaotik yerçekimi
+            world.broadphase = new CANNON.NaiveBroadphase(); // Basit, hızlı çarpışma hesaplaması
+            world.solver.iterations = 10; // Fizik çözümü hassasiyeti
+
+            // E. ALT SİSTEMLER VE OLAY DİNLEYİCİLERİ
+            setupGround(); // Zemini oluştur
+            setupLights(); // Işıkları oluştur
+            window.addEventListener('click', onMouseClick, false); // Tıklama olayını dinle
+            window.addEventListener('resize', onWindowResize, false); // Pencere yeniden boyutlandırma
+
+            animate(); // Döngüyü başlat
+        }
+
+        // --- 3. ZEMİN VE IŞIKLANDIRMA (PRO SEVİYE GÖLGE VE YANSIMA) ---
+        function setupGround() {
+            // Three.js Görsel Zemin
+            const floorGeo = new THREE.PlaneGeometry(200, 200);
+            const floorMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 1, metalness: 0.2 });
+            const floorMesh = new THREE.Mesh(floorGeo, floorMat);
+            floorMesh.rotation.x = -Math.PI / 2;
+            floorMesh.receiveShadow = true; // Gölgeleri yakala
+            scene.add(floorMesh);
+
+            // Cannon.js Fizik Zemin
+            const groundShape = new CANNON.Plane();
+            const groundBody = new CANNON.Body({ mass: 0 }); // Kütle 0 = Sabit, hareket etmez zemin
+            groundBody.addShape(groundShape);
+            groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2); // Three.js zeminiyle aynı açı
+            world.addBody(groundBody);
+        }
+
+        function setupLights() {
+            // Ortam ışığı
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+            scene.add(ambientLight);
+
+            // Ana Işık: Gölgeleri üreten güçlü, yönlü ışık
+            const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+            dirLight.position.set(20, 40, 20);
+            dirLight.castShadow = true;
+            dirLight.shadow.mapSize.width = 2048; // Yüksek çözünürlüklü gölge haritası
+            dirLight.shadow.mapSize.height = 2048;
+            dirLight.shadow.bias = -0.005; // Çarpışmalardaki gölge hatalarını önleme
+            dirLight.shadow.camera.near = 0.1;
+            dirLight.shadow.camera.far = 100;
+            scene.add(dirLight);
+
+            // Alt Dolgu Işığı: Nesnelerin alt kısımlarını aydınlatan renkli ışık
+            const fillLight = new THREE.PointLight(0x00ffcc, 1, 50);
+            fillLight.position.set(-15, -10, -15);
+            scene.add(fillLight);
+        }
+
+        // --- 4. FARE ETKİLEŞİMİ: KÜP FIRLATMA (FİZİK ENTEGRASYONU) ---
+        function onMouseClick() {
+            // Rastgele boyutlu bir küp oluştur
+            const size = Math.random() * 2 + 1; // 1 ile 3 arası rastgele boyut
+            
+            // Three.js Görsel Küp
+            const geometry = new THREE.BoxGeometry(size, size, size);
+            // Rastgele canlı bir renk
+            const color = new THREE.Color().setHSL(Math.random(), 1, 0.5); 
+            const material = new THREE.MeshStandardMaterial({ 
+                color: color, 
+                roughness: 0.3, // Hafif parlak
+                metalness: 0.1 // Metalik hissi
+            });
+            const cubeMesh = new THREE.Mesh(geometry, material);
+            
+            // Küpü kameranın biraz önünden, rastgele bir açıyla fırlat
+            const startPos = new THREE.Vector3(
+                (Math.random() - 0.5) * 5,
+                40, // Başlangıç yüksekliği
+                (Math.random() - 0.5) * 5
+            );
+            cubeMesh.position.copy(startPos);
+            cubeMesh.castShadow = true; // Gölge düşür
+            cubeMesh.receiveShadow = true; // Gölge al
+            scene.add(cubeMesh);
+            meshes.push(cubeMesh); // Görsel nesne dizisine ekle
+
+            // Cannon.js Fizik Küpü
+            const halfExtents = new CANNON.Vec3(size / 2, size / 2, size / 2);
+            const boxShape = new CANNON.Box(halfExtents);
+            const boxBody = new CANNON.Body({ 
+                mass: 1, // Kütle 1 = Dinamik nesne, hareket eder
+                position: new CANNON.Vec3(startPos.x, startPos.y, startPos.z),
+                material: new CANNON.Material({ friction: 0.1, restitution: 0.7 }) // Sürtünme ve zıplama ayarı
+            });
+            boxBody.addShape(boxShape);
+            
+            // Küpe fırlatma kuvveti ekle (Kaos hissi için)
+            boxBody.velocity.set(
+                (Math.random() - 0.5) * 10,
+                -Math.random() * 10, // Aşağı doğru ivme
+                (Math.random() - 0.5) * 10
+            );
+            
+            world.addBody(boxBody);
+            bodies.push(boxBody); // Fizik nesne dizisine ekle
+
+            // Toplam küp sayısını güncelle
+            hudCubeCount.innerText = meshes.length;
+        }
+
+        // --- 5. REAL-TIME FİZİK VE RENDER DÖNGÜSÜ ---
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            // Sonsuz döngü başlat
+            requestAnimationFrame(animate);
+
+            // OrbitControls kullanılıyorsa her karede güncellenmesi gerekir (enableDamping için)
+            controls.update();
+
+            // Fizik motorunu 60 fps'te simüle et
+            world.step(1 / 60);
+
+            // Fizik motorunun hesapladığı pozisyonları Three.js görsel nesnelerine aktar
+            for (let i = 0; i < meshes.length; i++) {
+                meshes[i].position.copy(bodies[i].position);
+                meshes[i].quaternion.copy(bodies[i].quaternion);
+
+                // Yere düşen, sahnenin dışına çıkan küpleri temizle (Performans optimizasyonu)
+                if(meshes[i].position.y < -10) {
+                    scene.remove(meshes[i]); // Görseli kaldır
+                    world.removeBody(bodies[i]); // Fiziği kaldır
+                    meshes.splice(i, 1);
+                    bodies.splice(i, 1);
+                    i--; // Dizin kaymasını önle
+                    hudCubeCount.innerText = meshes.length; // Sayıyı güncelle
+                }
+            }
+
+            // Sahneyi kameranın bakış açısından çizdir
+            renderer.render(scene, camera);
+        }
+
+        // --- 6. BAŞLAT ---
+        // Sayfa yüklendiğinde hafızadaki tüm 3D dünyayı kuruyoruz
+        init();
+
+    </script>
+</body>
+</html>

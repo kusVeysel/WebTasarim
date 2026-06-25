@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro+ 3D Kara Delik Parçacık Simülasyonu</title>
+    <style>
+        /* Ekranın tamamını kaplayan, kaydırma çubuksuz ve tamamen siyah bir arka plan */
+        body { margin: 0; overflow: hidden; background-color: #000000; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+        /* Profesyonel HUD (Heads-Up Display) arayüzü */
+        #hud { position: absolute; top: 30px; left: 30px; color: #00ffcc; pointer-events: none; font-family: monospace; line-height: 1.5; }
+        .title { font-size: 18px; font-weight: bold; color: #fff; letter-spacing: 2px; margin-bottom: 10px; }
+        .stat { color: #ff0055; }
+    </style>
+</head>
+<body>
+
+    <div id="hud">
+        <div class="title">> BLACK_HOLE_SIMULATION_v2.6</div>
+        <div>PARÇACIK SAYISI: <span class="stat">50,000</span></div>
+        <div>ÇEKİM ALANI: <span class="stat">AKTİF (FAREYİ HAREKET ETTİRİN)</span></div>
+        <div>RENDER MOTORU: <span class="stat">WebGL / BUFFER_GEOMETRY</span></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // --- 1. GLOBAL DEĞİŞKENLER VE AYARLAR ---
+        let scene, camera, renderer, particleSystem;
+        const particleCount = 50000; // Performans ve görsel doygunluk dengesi için 50bin parçacık
+        const clock = new THREE.Clock(); // Zaman tabanlı animasyon için saat nesnesi
+        
+        // Parçacıkların fiziksel verilerini tutacak olan diziler (Bellek optimizasyonu için Float32Array)
+        let positions, velocities, colors, originalSizes;
+
+        // Fare koordinatları ve yerçekimi merkez noktası
+        const mouse = new THREE.Vector2(0, 0);
+        const gravityCenter = new THREE.Vector3(0, 0, 0);
+
+        // --- 2. SİSTEM BAŞLATMA ---
+        function init() {
+            // 3D Uzay alanı (Sahne) oluşturuluyor
+            scene = new THREE.Scene();
+
+            // Perspektif kamera (Açı, Oran, Yakın Kesim, Uzak Kesim)
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 500);
+            camera.position.set(0, 15, 35); // Kamerayı yukarı ve geriye konumlandırarak üstten bakış açısı sağlıyoruz
+            camera.lookAt(0, 0, 0); // Kamerayı merkeze odklıyoruz
+
+            // WebGL Çizim Motoru (Yumuşatma aktif)
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Ekran kalitesine göre optimize et, aşırı yükü önle
+            document.body.appendChild(renderer.domElement); // Canvas etiketini HTML'e basıyoruz
+
+            // Alt sistemleri inşa et
+            createSingularity(); // Kara deliğin merkezini oluştur
+            createAccretionDisk(); // Dönen gaz/toz bulutunu (parçacıkları) oluştur
+            setupEvents(); // Etkileşimleri dinle
+            animate(); // Döngüyü başlat
+        }
+
+        // --- 3. MERKEZİ TEKİLLİK (KARA DELİK MERKEZİ) ---
+        function createSingularity() {
+            // Işığı bile yutan merkezi siyah küre
+            const geometry = new THREE.SphereGeometry(3, 32, 32);
+            const material = new THREE.MeshBasicMaterial({ color: 0x000000 }); // Tamamen ışıksız mat siyah
+            const blackHole = new THREE.Mesh(geometry, material);
+            scene.add(blackHole);
+
+            // Kara deliğin etrafındaki olay ufku parlaması (Glow Efekti)
+            const glowGeo = new THREE.SphereGeometry(3.5, 32, 32);
+            const glowMat = new THREE.MeshBasicMaterial({
+                color: 0xff3300,
+                wireframe: true, // Estetik kuantum ağ görünümü
+                transparent: true,
+                opacity: 0.15
+            });
+            const glow = new THREE.Mesh(glowGeo, glowMat);
+            scene.add(glow);
+        }
+
+        // --- 4. AKRESYON DİSKİ (BUFFER GEOMETRY PARÇACIK MOTORU) ---
+        function createAccretionDisk() {
+            // Pro Seviye: GPU dostu yüksek performanslı boş geometri nesnesi
+            const geometry = new THREE.BufferGeometry();
+
+            // Tüm parçacıkların verilerini tek bir büyük blok olarak belleğe yazmak için diziler tanımlanıyor
+            positions = new Float32Array(particleCount * 3); // Her parçacık için x, y, z koordinatı
+            colors = new Float32Array(particleCount * 3);    // Her parçacık için r, g, b renk verisi
+            velocities = new Float32Array(particleCount * 3); // Her parçacık için x, y, z hız vektörü
+
+            for (let i = 0; i < particleCount; i++) {
+                // Parçacıkları diskin merkezinden belirli bir yarıçapa kadar dağıtıyoruz (Girdap formülü)
+                const i3 = i * 3;
+                const radius = Math.random() * 20 + 4; // Kara deliğin dışından başlayan yarıçap
+                const angle = Math.random() * Math.PI * 2; // Rastgele başlangıç açısı
+
+                // Pozisyonlar (Düz bir disk yörüngesi, y ekseninde hafif dikey dalgalanma ile)
+                positions[i3] = Math.cos(angle) * radius;
+                positions[i3 + 1] = (Math.random() - 0.5) * 0.5; // İnce disk derinliği
+                positions[i3 + 2] = Math.sin(angle) * radius;
+
+                // Fizik Hızları: Merkezkaç kuvveti ve dönüş hızı (Merkeze yakın olan daha hızlı döner - Kepler Kanunu)
+                const speed = 1 / Math.sqrt(radius) * 2;
+                velocities[i3] = -Math.sin(angle) * speed; // X yönündeki hız
+                velocities[i3 + 1] = 0;                    // Y yönündeki hız (sabit)
+                velocities[i3 + 2] = Math.cos(angle) * speed;  // Z yönündeki hız
+
+                // Renk Geçişleri: Merkeze yakın olan parçacıklar sıcak (Sarı/Beyaz), uzak olanlar soğuk (Kırmızı/Mor)
+                const ratio = (radius - 4) / 20; // 0 ile 1 arasında oran
+                const mixColor = new THREE.Color();
+                
+                if (ratio < 0.3) {
+                    mixColor.setRGB(1.0, 0.9, 0.5); // Sıcak Akkor Sarı
+                } else if (ratio < 0.7) {
+                    mixColor.setRGB(0.9, 0.2, 0.0); // Turuncu-Kırmızı
+                } else {
+                    mixColor.setRGB(0.4, 0.0, 0.5); // Kozmik Mor/Mavi
+                }
+
+                colors[i3] = mixColor.r;
+                colors[i3 + 1] = mixColor.g;
+                colors[i3 + 2] = mixColor.b;
+            }
+
+            // Hazırlanan dev veri dizileri GPU'nun doğrudan okuyabilmesi için attribute olarak geometriye ekleniyor
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            // Parçacıkların ekranda nasıl görüneceğini belirleyen Materyal tasarımı
+            const material = new THREE.PointsMaterial({
+                size: 0.08,
+                vertexColors: true, // Her parçacığın kendi rengini kullanmasını aktif et
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending, // Üst üste binen parçacıkların parlamasını sağlayan profesyonel efekt
+                depthWrite: false // Saydamlık hesaplamalarında performans kaybını önler
+            });
+
+            // Geometri ve materyali Points (Parçacık Sistemi) mimarisiyle birleştirip sahneye ekliyoruz
+            particleSystem = new THREE.Points(geometry, material);
+            scene.add(particleSystem);
+        }
+
+        // --- 5. ETKİLEŞİM VE EVENT LISTENER SİSTEMLERİ ---
+        function setupEvents() {
+            window.addEventListener('mousemove', onMouseMove, false);
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onMouseMove(event) {
+            // Fare koordinatlarını -1 ile 1 arasında normalize et
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            // Farenin konumunu 3D uzayda yerçekimsel bir bükülme noktasına dönüştür
+            gravityCenter.x = mouse.x * 12;
+            gravityCenter.z = -mouse.y * 12; // Ekran Y eksenini 3D derinlik (Z) eksenine eşliyoruz
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- 6. GERÇEK ZAMANLI FİZİK MOTORU VE ANİMASYON DÖNGÜSÜ ---
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const dt = clock.getDelta(); // Kareler arasında geçen zaman farkı (Delta Time)
+            const posAttr = particleSystem.geometry.attributes.position; // Parçacık pozisyon referansı
+
+            // Kamera sürekli merkez etrafında çok yavaşça dönerek sinematik bir seyir açısı sunar
+            const time = clock.getElapsedTime();
+            camera.position.x = Math.cos(time * 0.05) * 35;
+            camera.position.z = Math.sin(time * 0.05) * 35;
+            camera.lookAt(0, 0, 0);
+
+            // Tüm parçacıkların fiziksel hareketlerini tek tek güncelliyoruz
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+
+                // Mevcut pozisyon verileri
+                let x = posAttr.array[i3];
+                let y = posAttr.array[i3 + 1];
+                let z = posAttr.array[i3 + 2];
+
+                // --- 1. SABİT ORBİTAL HAREKET ---
+                // Parçacığı mevcut hız vektörüne göre hareket ettir
+                x += velocities[i3] * 60 * dt;
+                z += velocities[i3 + 2] * 60 * dt;
+
+                // --- 2. MERKEZİ KARA DELİK ÇEKİMİ (Karesel Azalma Yasası) ---
+                const distToCenter = Math.sqrt(x*x + z*z);
+                if (distToCenter > 3) {
+                    // Merkeze yaklaştıkça çekim gücü katlanarak artar
+                    const pull = (1.5 / (distToCenter * distToCenter));
+                    velocities[i3] -= (x / distToCenter) * pull;
+                    velocities[i3 + 2] -= (z / distToCenter) * pull;
+                } else {
+                    // Olay ufkunun içine düşen (yutulan) parçacığı diskin en dışından tekrar canlandır (Yeniden Doğuş)
+                    const randomAngle = Math.random() * Math.PI * 2;
+                    x = Math.cos(randomAngle) * 24;
+                    z = Math.sin(randomAngle) * 24;
+                    const speed = 1 / Math.sqrt(24) * 2;
+                    velocities[i3] = -Math.sin(randomAngle) * speed;
+                    velocities[i3 + 2] = Math.cos(randomAngle) * speed;
+                }
+
+                // --- 3. PRO ETKİLEŞİM: FARE GRAVİTASYONAL ALAN ETKİSİ ---
+                // Parçacıkların fareyle belirlenen yapay yerçekimi merkezine olan mesafesi hesaplanır
+                const dx = gravityCenter.x - x;
+                const dz = gravityCenter.z - z;
+                const distToMouse = Math.sqrt(dx*dx + dz*dz);
+
+                if (distToMouse < 8) { // Etki alanı yarıçapı
+                    // Fare yakınındaki parçacıkları hafifçe farenin oluşturduğu girdaba doğru büker
+                    const mousePull = (8 - distToMouse) * 0.02;
+                    velocities[i3] += (dx / distToMouse) * mousePull;
+                    velocities[i3 + 2] += (dz / distToMouse) * mousePull;
+                }
+
+                // Güncellenen yeni koordinatları buffer dizisine geri yazıyoruz
+                posAttr.array[i3] = x;
+                posAttr.array[i3 + 1] = y + Math.sin(time * 2 + distToCenter) * 0.005; // Disk dalgalanma efekti
+                posAttr.array[i3 + 2] = z;
+            }
+
+            // Ekran kartına (GPU) verilerin güncellendiğini ve yeniden çizilmesi gerektiğini bildiriyoruz
+            posAttr.needsUpdate = true;
+
+            // Parçacık sistemini kendi ekseninde de hafifçe döndürerek ana momentum hissini pekiştir
+            particleSystem.rotation.y = time * 0.02;
+
+            // Güncel sahneyi ekrana bas
+            renderer.render(scene, camera);
+        }
+
+        // --- 7. SİSTEMİ ÇALIŞTIR ---
+        init();
+
+    </script>
+</body>
+</html>

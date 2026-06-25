@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profesyonel Etkileşimli 3D Canvas (Işık ve Gölge)</title>
+    <style>
+        /* Sayfa kenarlıklarını sıfırlayıp canvas'ı tam ekran yapıyoruz */
+        body { margin: 0; overflow: hidden; background-color: #111; }
+        /* Canvas'ın ekranın tamamını kaplamasını sağlıyoruz */
+        canvas { display: block; width: 100vw; height: 100vh; }
+    </style>
+</head>
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        // --- 1. GLOBAL DEĞİŞKENLER VE KURULUM ---
+
+        // Sahne, kamera, render motoru, ana nesnemiz ve fare kontrolleri için değişkenler
+        let scene, camera, renderer, mesh, controls;
+
+        // Tarayıcı penceresinin güncel genişlik ve yükseklik değerleri
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        // --- 2. SAHNE BİLEŞENLERİNİN BAŞLATILMASI ---
+
+        function init() {
+            // Boş bir 3D uzay (sahne) oluşturuyoruz
+            scene = new THREE.Scene();
+            // Sahneye derinlik katmak için sis ekliyoruz (Renk, Yoğunluk)
+            scene.fog = new THREE.Fog(0x111111, 10, 50);
+
+            // Perspektif kamera oluşturuyoruz (Görüş Açısı, En/Boy Oranı, Yakınlık Planı, Uzaklık Planı)
+            camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
+            // Kamerayı Z ekseninde geriye, Y ekseninde yukarı çekiyoruz
+            camera.position.set(0, 5, 10);
+
+            // WebGL tabanlı profesyonel render motorunu başlatıyoruz (Yumuşatma/Antialiasing aktif)
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            // Çözünürlüğü ekranın piksel yoğunluğuna göre ayarlıyoruz (Retina/Yüksek DPI ekranlar için)
+            renderer.setPixelRatio(window.devicePixelRatio);
+            // Render alanının boyutunu tüm tarayıcı penceresi yapıyoruz
+            renderer.setSize(width, height);
+            
+            // PRO SEVİYE: GÖLGE HESAPLAMALARINI AKTİF HALE GETİRİYORUZ
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Yumuşak gölgeler için algoritma
+
+            // HTML gövdesine (body) render motorunun ürettiği <canvas> elemanını bağlıyoruz
+            document.body.appendChild(renderer.domElement);
+
+            // Alt sistemleri başlatan fonksiyonları çağırıyoruz
+            createGeometry(); // Nesneleri oluştur
+            setupLights();    // Işıkları oluştur
+            setupInteraction(); // Fare kontrollerini oluştur
+            
+            // Pencere yeniden boyutlandığında canvas'ı güncelleyen dinleyici ekliyoruz
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        // --- 3. 3D NESNE, MATERYAL VE ZEMİN TASARIMI ---
+
+        function createGeometry() {
+            // Karmaşık bir "Düğüm" geometrisi oluşturuyoruz (Yarıçap, Tüp Kalınlığı, Segmentler)
+            const geometry = new THREE.TorusKnotGeometry(1.5, 0.5, 100, 16);
+
+            // Işığa, yansımalara ve gölgelere gerçekçi tepki veren profesyonel pürüzsüz materyal (MeshStandardMaterial)
+            const material = new THREE.MeshStandardMaterial({
+                color: 0x00ffcc,       // Parlak turkuaz rengi
+                roughness: 0.1,        // Pürüzsüzlük oranı (Metalik bir his için düşük değer)
+                metalness: 0.8,        // Metalik hissi yansıtma oranı
+                flatShading: false     // Yüzeylerin köşeli değil, yumuşak görünmesini sağlar
+            });
+
+            // Geometri ve materyali birleştirip ana nesnemizi oluşturuyoruz
+            mesh = new THREE.Mesh(geometry, material);
+            
+            // PRO SEVİYE: NESNENİN GÖLGE DÜŞÜRMESİNİ SAĞLIYORUZ
+            mesh.castShadow = true;
+            // Kendi üzerine de gölge alabilmesini sağlıyoruz
+            mesh.receiveShadow = true;
+
+            // Hazırlanan nesneyi sahneye yerleştiriyoruz
+            scene.add(mesh);
+
+            // GÖLGELERİN GÖRÜNMESİ İÇİN BİR ZEMİN (PLANE) OLUŞTURUYORUZ
+            const planeGeometry = new THREE.PlaneGeometry(50, 50);
+            const planeMaterial = new THREE.MeshStandardMaterial({ color: 0x222222, roughness: 1 });
+            const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+            // Zemini yatay hale getiriyoruz
+            plane.rotation.x = -Math.PI / 2;
+            plane.position.y = -4; // Nesnenin altına yerleştiriyoruz
+            
+            // PRO SEVİYE: ZEMİNİN GÖLGELERİ YAKALAMASINI SAĞLIYORUZ
+            plane.receiveShadow = true;
+            
+            // Zemini sahneye ekliyoruz
+            scene.add(plane);
+        }
+
+        // --- 4. AYDINLATMA VE GÖLGE SİSTEMİ (PRO+) ---
+
+        function setupLights() {
+            // Ortam ışığı ekliyoruz (Sahnenin hiçbir yeri tamamen karanlık kalmasın diye)
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+            scene.add(ambientLight);
+
+            // GÜNEŞ IŞIĞI GİBİ BELİRLİ BİR YÖNDEN GELEN GÜÇLÜ IŞIK EKLEYİP GÖLGE DÜŞÜRÜYORUZ
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            // Işığın konumunu nesnenin çaprazına yerleştiriyoruz
+            directionalLight.position.set(5, 10, 7);
+            
+            // PRO SEVİYE: BU IŞIK KAYNAĞININ GÖLGE ÜRETMESİNİ AKTİF EDİYORUZ
+            directionalLight.castShadow = true;
+            
+            // Gölgelerin daha keskin ve yüksek kaliteli olması için gölge haritası boyutunu artırıyoruz
+            directionalLight.shadow.mapSize.width = 2048; // Varsayılan 512
+            directionalLight.shadow.mapSize.height = 2048;
+            // Işığın gölge düşüreceği alanı (kamera) sınırlandırarak performansı artırıyoruz
+            directionalLight.shadow.camera.near = 0.1;
+            directionalLight.shadow.camera.far = 20;
+            directionalLight.shadow.camera.left = -10;
+            directionalLight.shadow.camera.right = 10;
+            directionalLight.shadow.camera.top = 10;
+            directionalLight.shadow.camera.bottom = -10;
+
+            scene.add(directionalLight);
+
+            // Nesnenin arkasından vuran, derinlik hissini artıran renkli bir nokta ışık ekliyoruz
+            const pointLight = new THREE.PointLight(0xff00ff, 0.5, 20);
+            pointLight.position.set(-5, 0, -5);
+            scene.add(pointLight);
+        }
+
+        // --- 5. MOUSE ACTIVE: FAYE ETKİLEŞİMİ (ORBIT CONTROLS) ---
+
+        function setupInteraction() {
+            // Fare etkileşim modülünü kameraya ve canvas elemanına bağlıyoruz
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            
+            // PRO SEVİYE: HAREKETLERİN YUMUŞAK OLMASINI SAĞLAYAN ATALET (DAMPING) ÖZELLİĞİNİ AÇIYORUZ
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05; // Yumuşaklık oranı
+            
+            // Yakınlaştırma (zoom) sınırlarını belirliyoruz
+            controls.minDistance = 5;
+            controls.maxDistance = 20;
+            
+            // Kameranın zeminin altına girmesini engelliyoruz
+            controls.maxPolarAngle = Math.PI / 2.1;
+        }
+
+        // --- 6. PENCERE YÖNETİMİ VE ANİMASYON DÖNGÜSÜ ---
+
+        // Pencere boyutu değiştiğinde sahneyi ekrana göre yeniden oranlayan fonksiyon
+        function onWindowResize() {
+            // Kameranın en/boy oranını yeni pencere boyutlarına göre güncelliyoruz
+            camera.aspect = window.innerWidth / window.innerHeight;
+            // Kamera projeksiyon matrisini değişikliklerin geçerli olması için yeniden hesaplıyoruz
+            camera.updateProjectionMatrix();
+            // Çizim motorunun boyutlarını yeni pencere boyutuna göre güncelliyoruz
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            // Tarayıcının ekran yenileme hızına (60fps) senkronize olarak bu fonksiyonun sürekli çalışmasını sağlar
+            requestAnimationFrame(animate);
+
+            // FARE KONTROLLERİNİN GÜNCEL KONUMUNU ANİMASYON DÖNGÜSÜNDE GÜNCELLEMEMİZ GEREKİR (enableDamping için)
+            controls.update();
+
+            // Nesnemizin kendi kendine çok yavaş dönmesini sağlayıp canlılık katıyoruz
+            mesh.rotation.y += 0.002;
+            mesh.rotation.z += 0.001;
+
+            // Güncellenmiş olan sahneyi ve kamerayı alarak ekrandaki canvas'a yeni kareyi çizer
+            renderer.render(scene, camera);
+        }
+
+        // --- 7. SİSTEMİ BAŞLATMA ---
+
+        // Tüm kurulum fonksiyonunu çalıştırarak bellekte 3D dünyayı kuruyoruz
+        init();
+        // Sonsuz döngüye sahip animasyon fonksiyonunu ilk kez çağırarak sistemi canlandırıyoruz
+        animate();
+
+    </script>
+</body>
+</html>

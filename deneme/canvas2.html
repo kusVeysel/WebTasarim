@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Seviye 3D Atan Kalp Simülasyonu</title>
+    <style>
+        /* Tarayıcı varsayılan boşluklarını sıfırlayıp canvas'ı tam ekran yapıyoruz */
+        body { margin: 0; overflow: hidden; background-color: #050505; font-family: sans-serif; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+        /* Bilgilendirme arayüzü ekliyoruz */
+        #info { position: absolute; top: 20px; left: 20px; color: #fff; pointer-events: none; text-shadow: 1px 1px 2px #000; }
+        h1 { margin: 0 0 5px 0; font-size: 20px; color: #ff3344; }
+        p { margin: 0; font-size: 14px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <div id="info">
+        <h1>Pro 3D Heart Simulation</h1>
+        <p>Fareyi hareket ettirin: Kalp fareyi takip eder.</p>
+        <p>Tıklayıp sürükleyin: Sahneyi döndürün.</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        // --- 1. GLOBAL DEĞİŞKENLER VE AYARLAR ---
+        let scene, camera, renderer, heartMesh, controls;
+        let clock = new THREE.Clock(); // Zaman takibi için saat nesnesi (kalp atış ritmi için kullanılacak)
+        
+        // Fare koordinatlarını ve hedef dönüş değerlerini tutan nesneler
+        const mouse = new THREE.Vector2();
+        const targetRotation = { x: 0, y: 0 };
+
+        // --- 2. SİSTEM BAŞLATMA FONKSİYONU ---
+        function init() {
+            // Ana 3D sahneyi oluşturuyoruz
+            scene = new THREE.Scene();
+            // Sahne arka planına derinlik hissi veren koyu kırmızı/siyah bir sis ekliyoruz
+            scene.fog = new THREE.FogExp2(0x050505, 0.015);
+
+            // Perspektif kamerayı yapılandırıyoruz (Görüş Açısı, En/Boy, Yakınlık, Uzaklık)
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 12); // Kamerayı geriye alıyoruz
+
+            // WebGL Çizim motorunu yüksek kalite ayarlarıyla (anti-aliasing) başlatıyoruz
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Performans için piksel oranını limitleme
+            renderer.shadowMap.enabled = true; // Gölgelendirmeyi aktif etme
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Yumuşak gölge algoritması
+            renderer.toneMapping = THREE.ACESFilmicToneMapping; // Profesyonel sinematik renk tonlaması
+            document.body.appendChild(renderer.domElement); // Canvas'ı DOM'a ekleme
+
+            // Fare ile sahneyi serbestçe döndürmek için OrbitControls entegrasyonu
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true; // Yumuşak durma (atalet) efekti
+            controls.dampingFactor = 0.05;
+            controls.maxDistance = 20; // Kameranın çok uzaklaşmasını engelleme
+            controls.minDistance = 5;  // Kameranın çok yaklaşmasını engelleme
+
+            // Alt sistemleri çalıştırıyoruz
+            createHeart();
+            setupLighting();
+            setupEvents();
+            animate();
+        }
+
+        // --- 3. PRO DÜZEY MATEMATİKSEL KALP MODELLEME ---
+        function createHeart() {
+            // Küresel bir geometri oluşturuyoruz, bu geometriyi matematiksel formülle kalbe dönüştüreceğiz
+            const geometry = new THREE.SphereGeometry(1, 64, 64);
+            
+            // Geometrinin tüm tepe noktalarını (vertex) manipüle etmek için pozisyon verilerini alıyoruz
+            const position = geometry.attributes.position;
+            const vector = new THREE.Vector3();
+
+            // Her bir tepe noktasını tek tek gezerek kalp formülü uyguluyoruz
+            for (let i = 0; i < position.count; i++) {
+                vector.fromBufferAttribute(position, i);
+                
+                // Matematiksel Kalp Formülü (Deformasyon oranları)
+                let x = vector.x;
+                let y = vector.y;
+                let z = vector.z;
+
+                // Küreyi üstten genişletip alttan daraltarak ve arkaya doğru bükerek kalp formu veriyoruz
+                vector.x = x * (1.2 - 0.4 * Math.abs(x));
+                vector.y = y * 1.4 + Math.abs(x) * 0.5 - (y * y * 0.1);
+                vector.z = z * (0.8 + 0.2 * y);
+
+                // Değiştirilmiş yeni koordinatları geometriye geri yazıyoruz
+                position.setXYZ(i, vector.x, vector.y, vector.z);
+            }
+            
+            // Gölgelerin ve ışık yansımalarının doğru hesaplanması için yüzey normallerini yeniden hesaplıyoruz
+            geometry.computeVertexNormals();
+
+            // Gerçekçi et dokusu hissi veren, ışığı soğuran ve yansıtan materyal tasarımı (Subsurface hissi için)
+            const material = new THREE.MeshStandardMaterial({
+                color: 0x990011,          // Ana derin kırmızı kalp rengi
+                roughness: 0.25,          // Islak/parlak görünüm için pürüzsüzlük ayarı
+                metalness: 0.1,           // Organik doku olduğu için metalik hissi düşük tutuyoruz
+                bumpScale: 0.05,          // Yüzey mikrodokusu derinliği
+                side: THREE.DoubleSide    // Çift taraflı render
+            });
+
+            // Geometri ve materyali ana nesne (Mesh) olarak birleştiriyoruz
+            heartMesh = new THREE.Mesh(geometry, material);
+            heartMesh.castShadow = true;    // Kalp gölge düşürsün
+            heartMesh.receiveShadow = true; // Kalp kendi üzerine gölge alsın
+            scene.add(heartMesh);
+
+            // Kalbin altına derinlik hissini pekiştirmek için gölge düşecek profesyonel bir zemin ekliyoruz
+            const floorGeo = new THREE.PlaneGeometry(50, 50);
+            const floorMat = new THREE.MeshStandardMaterial({ color: 0x0a0a0a, roughness: 0.8 });
+            const floor = new THREE.Mesh(floorGeo, floorMat);
+            floor.rotation.x = -Math.PI / 2;
+            floor.position.y = -4;
+            floor.receiveShadow = true; // Zeminin gölgeyi yakalamasını sağla
+            scene.add(floor);
+        }
+
+        // --- 4. STÜDYO AYDINLATMA VE GÖLGE SİSTEMİ ---
+        function setupLighting() {
+            // Ortam aydınlatması (Karanlık noktaları engellemek için hafif kırmızı tonlu ambient)
+            const ambientLight = new THREE.AmbientLight(0x330000, 0.6);
+            scene.add(ambientLight);
+
+            // Ana Işık: Sağ üst köşeden vuran güçlü beyaz ışık (Gölgeleri üreten ana kaynak)
+            const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            dirLight.position.set(5, 8, 5);
+            dirLight.castShadow = true;
+            dirLight.shadow.mapSize.width = 2048; // Yüksek çözünürlüklü gölge haritası
+            dirLight.shadow.mapSize.height = 2048;
+            dirLight.shadow.bias = -0.001; // Gölgelerdeki kırılmaları önleme
+            scene.add(dirLight);
+
+            // Kenar Işığı (Rim Light): Kalbin arkasından vuran mavi/mor neon ışık (Profesyonel derinlik kontrastı)
+            const rimLight = new THREE.PointLight(0x00aaff, 3, 15);
+            rimLight.position.set(-6, 3, -5);
+            scene.add(rimLight);
+
+            // Alt Dolgu Işığı: Kalbin alt damar kısımlarını aydınlatan sıcak kırmızı ışık
+            const fillLight = new THREE.PointLight(0xff0033, 2, 10);
+            fillLight.position.set(0, -5, 2);
+            scene.add(fillLight);
+        }
+
+        // --- 5. FARE ETKİLEŞİMİ VE PENCERE OLAYLARI ---
+        function setupEvents() {
+            // Fare hareket olayını yakalıyoruz
+            window.addEventListener('mousemove', onMouseMove, false);
+            // Ekran boyutu değiştiğinde canvas'ın bozulmamasını sağlıyoruz
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onMouseMove(event) {
+            // Fare koordinatlarını ekran merkezini (0,0) baz alarak -1 ile +1 arasında normalize ediyoruz
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            // Farenin konumuna bağlı olarak kalbin hafifçe döneceği hedef açıları belirliyoruz
+            targetRotation.x = mouse.y * 0.4;
+            targetRotation.y = mouse.x * 0.4;
+        }
+
+        function onWindowResize() {
+            // Kamera ve render motorunu yeni ekran boyutlarına göre güncelliyoruz
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- 6. GERÇEK ZAMANLI ANİMASYON VE RENDER DÖNGÜSÜ (BPM TABANLI) ---
+        function animate() {
+            // Tarayıcının ekran yenileme hızıyla senkronize sonsuz döngü başlatıyoruz
+            requestAnimationFrame(animate);
+
+            // OrbitControls kullanılıyorsa her karede güncellenmesi gerekir
+            controls.update();
+
+            // Geçen süreyi saniye cinsinden alıyoruz
+            const elapsedTime = clock.getElapsedTime();
+
+            // --- GERÇEKÇİ KALP ATIŞI MATEMATİĞİ (Sinüs ve Kosinüs Kombinasyonu) ---
+            // Tek bir sinüs dalgası yerine iki farklı frekansı birleştirerek "güm-güm" (ikili atış) ritmi oluşturuyoruz
+            let pulse = Math.sin(elapsedTime * 4.5) * Math.cos(elapsedTime * 4.5);
+            // Atış etkisini sadece pozitif büyüme yönünde normalize ediyoruz
+            let scaleEffect = Math.max(0, pulse) * 0.18; 
+            
+            // Temel ölçek değerinin (1.5) üzerine atış dalgasını ekleyerek kalbi büyütüp küçültüyoruz
+            heartMesh.scale.set(1.5 + scaleEffect, 1.5 + scaleEffect * 1.2, 1.5 + scaleEffect);
+
+            // --- LERP (YUMUŞAK FARE TAKİBİ) ---
+            // Kalbin aniden fareye dönmesi yerine, mevcut açısıyla hedef açı arasında %5 (0.05) hızla yumuşak geçiş yapıyoruz
+            heartMesh.rotation.x += (targetRotation.x - heartMesh.rotation.x) * 0.05;
+            heartMesh.rotation.y += (targetRotation.y - heartMesh.rotation.y) * 0.05;
+            
+            // Kalp kendi ekseninde de sürekli çok hafif canlılık dönmesi yapsın
+            heartMesh.rotation.z = Math.sin(elapsedTime * 0.5) * 0.05;
+
+            // Güncellenen tüm verileri (Sahne ve Kamera) ekrandaki Canvas alanına çizdiriyoruz
+            renderer.render(scene, camera);
+        }
+
+        // --- 7. SİSTEMİ TETİKLEME ---
+        // Sayfa yüklendiğinde hafızadaki tüm 3D mimariyi çalıştırıyoruz
+        init();
+
+    </script>
+</body>
+</html>

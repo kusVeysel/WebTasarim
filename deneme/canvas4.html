@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro+ İnteraktif 3D Veri Sahası (Raycasting)</title>
+    <style>
+        /* Tam ekran canvas ve koyu tema */
+        body { margin: 0; overflow: hidden; background-color: #050505; font-family: 'Segoe UI', sans-serif; }
+        canvas { display: block; width: 100vw; height: 100vh; }
+        
+        /* Profesyonel HUD Arayüzü */
+        #hud { position: absolute; top: 30px; left: 30px; color: #00ffcc; pointer-events: none; line-height: 1.6; }
+        .hud-header { font-size: 16px; font-weight: bold; color: #fff; letter-spacing: 2px; margin-bottom: 10px; border-bottom: 1px solid #00ffcc; padding-bottom: 5px;}
+        .stat-line { font-family: monospace; font-size: 13px; }
+        .status-active { color: #00ffcc; }
+        .status-idle { color: #ff3300; animation: blink 1s infinite; }
+        
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="hud">
+        <div class="hud-header">> NETWORK_TOPOLOGY_v4.1</div>
+        <div class="stat-line">SYSTEM_NODES: 10,000 (ACTIVE)</div>
+        <div class="stat-line">INTERACTION_MODE: <span id="mouse-status" class="status-idle">IDLE (MOUSE_OFF)</span></div>
+        <div class="stat-line">WARP_EFFECT: MAGNETIC_RAYCAST</div>
+        <div class="stat-line">RENDER: THREE.JS_PRO+</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // --- 1. GLOBAL DEĞİŞKENLER VE SİSTEM AYARLARI ---
+        let scene, camera, renderer, particles;
+        const particleCount = 10000; // 10,000 düğüm noktası
+        const gridSize = 100; // 100x100 grid yapısı
+        
+        // Fare koordinatları (-1 ile 1 arasında normalize)
+        const mouse = new THREE.Vector2(-10, -10); // Başlangıçta ekran dışında
+        const raycaster = new THREE.Raycaster(); // Fare ışınını hesaplayan nesne
+        let mouseActive = false; // Fare sahne üzerinde mi?
+
+        // HUD element referansı
+        const mouseStatus = document.getElementById('mouse-status');
+
+        // --- 2. SİSTEM BAŞLATMA ---
+        function init() {
+            // 3D Sahne ve Sis
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x050505, 0.03); // Derinlik hissi için hafif sis
+
+            // Kamera (Açı, Oran, Yakın Kesim, Uzak Kesim)
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 500);
+            camera.position.set(0, 20, 50); // Geniş, izometrik bir bakış açısı
+            camera.lookAt(0, 0, 0);
+
+            // WebGL Çizim Motoru
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.toneMapping = THREE.ACESFilmicToneMapping; // Sinematik renk tonlaması
+            document.body.appendChild(renderer.domElement);
+
+            // Veri sahasını inşa et
+            createParticleGrid();
+            
+            // Olay Dinleyicileri (Interaktivite için)
+            document.addEventListener('mousemove', onMouseMove, false);
+            document.addEventListener('mouseenter', onMouseEnter, false);
+            document.addEventListener('mouseleave', onMouseLeave, false);
+            window.addEventListener('resize', onWindowResize, false);
+
+            animate(); // Animasyon döngüsünü başlat
+        }
+
+        // --- 3. PARÇACIK VERİ AĞI (BUFFER GEOMETRY) ---
+        function createParticleGrid() {
+            // Pro Seviye: Yüksek performanslı boş geometri
+            const geometry = new THREE.BufferGeometry();
+
+            // Parçacık verilerini tutacak blok diziler (GPU dostu)
+            const positions = new Float32Array(particleCount * 3); // x, y, z
+            const colors = new Float32Array(particleCount * 3);    // r, g, b
+            const originalY = new Float32Array(particleCount);   // Fare yokken olması gereken orijinal Y yüksekliği
+
+            const spacing = 0.8; // Parçacıklar arası mesafe
+
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+                
+                // 100x100 Grid hesaplaması (X-Z düzleminde)
+                const x = (i % gridSize) * spacing - (gridSize * spacing) / 2;
+                const z = Math.floor(i / gridSize) * spacing - (gridSize * spacing) / 2;
+                
+                // Başlangıçta hafif dalgalı bir zemin
+                const y = Math.sin(x * 0.2) * Math.cos(z * 0.2) * 1.5;
+
+                positions[i3] = x;
+                positions[i3 + 1] = y;
+                positions[i3 + 2] = z;
+
+                originalY[i] = y; // Orijinal yüksekliği sakla (Geri dönüş için)
+
+                // Başlangıç Rengi: Koyu dijital mavi/mor
+                colors[i3] = 0.1; // R
+                colors[i3 + 1] = 0.0; // G
+                colors[i3 + 2] = 0.3; // B
+            }
+
+            // Verileri geometriye attribute olarak ekle
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            
+            // Özel verileri geometride sakla (Döngüde erişmek için)
+            geometry.userData = { originalY: originalY };
+
+            // Parçacık Materyali
+            const material = new THREE.PointsMaterial({
+                size: 0.15,
+                vertexColors: true, // Her parçacık kendi rengini kullansın
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending, // Üst üste binen parçacıkların parlamasını sağlayan efekt
+                depthWrite: false // Saydamlık için performans optimizasyonu
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+        }
+
+        // --- 4. FARE ETKİLEŞİM OLAYLARI ---
+        function onMouseMove(event) {
+            // Fare koordinatlarını normalize et
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        function onMouseEnter() {
+            // Fare sahneye girdiğinde aktif yap
+            mouseActive = true;
+            mouseStatus.innerText = "ACTIVE (MOUSE_ON)";
+            mouseStatus.className = "status-active";
+        }
+
+        function onMouseLeave() {
+            // Fare sahneden çıktığında inaktif yap
+            mouseActive = false;
+            mouseStatus.innerText = "IDLE (MOUSE_OFF)";
+            mouseStatus.className = "status-idle";
+            
+            // Fareyi sahne dışına taşı ki raycast durmasın
+            mouse.x = -10;
+            mouse.y = -10;
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- 5. REAL-TIME ETKİLEŞİM VE ANİMASYON DÖNGÜSÜ ---
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Zaman takibi (Genel salınım için)
+            const time = performance.now() * 0.001;
+            
+            // Parçacık verilerine erişim
+            const posAttr = particles.geometry.attributes.position;
+            const colorAttr = particles.geometry.attributes.color;
+            const origY = particles.geometry.userData.originalY;
+
+            // --- 1. RAYCASTING CALCULATION (FAREYİ TAKİP EDEN ALAN) ---
+            // Fare imlecinden sahneye doğru bir ışın gönderiyoruz
+            raycaster.setFromCamera(mouse, camera);
+            
+            // Işının "0 (X-Z) Düzlemiyle" nerede kesiştiğini buluyoruz (Basit interaktif alan)
+            const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0); // Y eksenine dik düzlem
+            const intersectPoint = new THREE.Vector3();
+            raycaster.ray.intersectPlane(groundPlane, intersectPoint);
+
+            // --- 2. PARÇACIK GÜNCELLEME DÖNGÜSÜ ---
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+                let currentY = posAttr.array[i3 + 1];
+                let targetY = origY[i]; // Hedef yükseklik (Fare yokken orijinal yer)
+                let currentR = colorAttr.array[i3];
+                let currentB = colorAttr.array[i3 + 2];
+                let targetR = 0.1; // Orijinal renk (R)
+                let targetB = 0.3; // Orijinal renk (B)
+
+                // Parçacığın yataydaki (X-Z) pozisyonu
+                const pX = posAttr.array[i3];
+                const pZ = posAttr.array[i3 + 2];
+
+                // Parçacığın fare kesişim noktasına olan uzaklığı
+                const dx = pX - intersectPoint.x;
+                const dz = pZ - intersectPoint.z;
+                const distance = Math.sqrt(dx*dx + dz*dz);
+
+                // --- MANYETİK ETKİ SİMÜLASYONU ---
+                // Fare sahne üzerindeyse ve parçacık fareye yakınsa (etki yarıçapı: 10)
+                if (mouseActive && distance < 10) {
+                    // Manyetik güç: Merkeze yakın olan parçacık daha çok yükselir ve renk değiştirir
+                    const power = (10 - distance) / 10; // 0 ile 1 arası güç
+                    const warpStrength = Math.pow(power, 2) * 8; // Yükselme miktarı (8 kat)
+                    
+                    targetY = origY[i] + warpStrength; // Hedef yükseklik artar
+                    
+                    targetR = power; // Fareye yaklaştıkça kırmızı artar
+                    targetB = 1.0 - power; // Fareye yaklaştıkça mavi azalır (Camgöbeği efekti)
+                }
+
+                // Sahne hareket etmese bile genel bir "canlı veri dalgalanması" ekle
+                targetY += Math.sin(time * 0.5 + pX * 0.1) * 0.5;
+
+                // --- LERP (YUMUŞAK GEÇİŞ) ---
+                // Parçacığı mevcut yerinden hedef yerine aniden değil, %10 (0.1) hızla yumuşakça götür
+                posAttr.array[i3 + 1] += (targetY - currentY) * 0.1;
+                
+                // Renk geçişlerini de yumuşak yap
+                colorAttr.array[i3] += (targetR - currentR) * 0.1;
+                colorAttr.array[i3 + 1] = (targetR > 0.5) ? 1.0 - targetR : 0; // Yeşil ara renk
+                colorAttr.array[i3 + 2] += (targetB - currentB) * 0.1;
+            }
+
+            // GPU'ya verilerin güncellendiğini ve yeniden çizilmesi gerektiğini bildir
+            posAttr.needsUpdate = true;
+            colorAttr.needsUpdate = true;
+
+            // Sahneyi kameranın bakış açısından render et
+            renderer.render(scene, camera);
+        }
+
+        // --- 6. SİSTEMİ ÇALIŞTIR ---
+        init();
+
+    </script>
+</body>
+</html>
