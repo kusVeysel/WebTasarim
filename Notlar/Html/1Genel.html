@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerçek Projelerde Kullanılan Tüm HTML Etiketleri (Eksiksiz & Orta Seviye)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 850px;
+            background: #fff;
+            padding: 30px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 25px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        code {
+            background-color: #eef2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #e74c3c;
+            font-family: Consolas, monospace;
+        }
+        .note {
+            background-color: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gerçek Projelerde Kullanılan HTML Etiketleri (Eksiksiz Rehber)</h1>
+
+        <h2>1. Sayfa İskeleti ve Meta Etiketler</h2>
+        <ul>
+            <li><code>&lt;!DOCTYPE html&gt;</code>: Tarayıcıya belgenin HTML5 standartlarında olduğunu bildirir.</li>
+            <li><code>&lt;html lang="tr"&gt;</code>: Sayfanın ana dilini belirtir. SEO ve ekran okuyucular için zorunludur.</li>
+            <li><code>&lt;head&gt;</code>: Kullanıcının görmediği, tarayıcı ve arama motorları için gerekli teknik bilgileri barındırır.</li>
+            <li><code>&lt;meta charset="UTF-8"&gt;</code>: Türkçe karakterlerin doğru gösterilmesini sağlar.</li>
+            <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>: Sayfanın mobil cihazlarla uyumlu (responsive) çalışmasını sağlar.</li>
+            <li><code>&lt;title&gt;</code>: Tarayıcı sekmesinde görünen başlığı belirler.</li>
+            <li><code>&lt;link rel="stylesheet" href="..."&gt;</code>: Harici CSS (tasarım) dosyasını bağlar.</li>
+            <li><code>&lt;body&gt;</code>: Kullanıcının ekranda gördüğü tüm içeriğin yazıldığı ana alandır.</li>
+            <li><code>&lt;script src="..."&gt;</code>: Harici JavaScript dosyasını sayfaya dahil eder.</li>
+        </ul>
+
+        <h2>2. Semantik (Anlamsal) Sayfa Düzeni</h2>
+        <div class="note"><strong>Not:</strong> Bu etiketler sayfayı mantıksal bölümlere ayırır. Arama motorlarının (SEO) sayfayı anlamasını sağlar.</div>
+        <ul>
+            <li><code>&lt;header&gt;</code>: Sayfanın veya bir bölümün üst kısmı (Logo ve menü alanı).</li>
+            <li><code>&lt;nav&gt;</code>: Navigasyon/menü bağlantılarını içerir.</li>
+            <li><code>&lt;main&gt;</code>: Sayfanın ana ve benzersiz içeriğini barındırır (Her sayfada 1 adet olur).</li>
+            <li><code>&lt;section&gt;</code>: Sayfa içindeki tematik içerik alanlarını (Hizmetler, İletişim vb.) ayırır.</li>
+            <li><code>&lt;article&gt;</code>: Kendi başına anlamlı olan bağımsız içerikler (Blog yazısı, haber, ürün kartı).</li>
+            <li><code>&lt;aside&gt;</code>: Ana içerikle dolaylı bağlantısı olan yan menü veya reklam alanları.</li>
+            <li><code>&lt;footer&gt;</code>: Sayfanın en alt kısmı (Telif hakları, linkler, iletişim bilgileri).</li>
+        </ul>
+
+        <h2>3. Metin ve İçerik Etiketleri</h2>
+        <ul>
+            <li><code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code>: Başlık etiketleridir. <code>&lt;h1&gt;</code> sayfa ana başlığıdır ve her sayfada 1 kez kullanılmalıdır.</li>
+            <li><code>&lt;p&gt;</code>: Paragraf metinleri için kullanılır.</li>
+            <li><code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code>: Sırasız (noktalı) ve sıralı (numaralı) listeler ile liste elemanları oluşturur.</li>
+            <li><code>&lt;strong&gt;</code>: Metni kalınlaştırır ve anlamsal önem katar.</li>
+            <li><code>&lt;em&gt;</code>: Metni eğik (italik) yapar ve vurgular.</li>
+            <li><code>&lt;i&gt;</code>: İkonları (FontAwesome vb.) sayfaya dahil etmek için yaygın olarak kullanılır.</li>
+        </ul>
+
+        <h2>4. Multimedya ve İleri Düzey Medya Etiketleri</h2>
+        <ul>
+            <li><code>&lt;a href="..."&gt;</code>: Başka bir sayfaya veya siteye köprü (link) oluşturur.</li>
+            <li><code>&lt;img src="..." alt="..."&gt;</code>: Sayfaya görsel ekler. <code>alt</code> niteliği, resim yüklenmediğinde çıkacak açıklamadır (SEO için kritiktir).</li>
+            <li><code>&lt;picture&gt;</code>: Orta/İleri seviye projelerde, farklı ekran boyutlarına göre farklı görsel boyutları (WebP, PNG vb.) sunarak performansı artırmak için kullanılır.</li>
+            <li><code>&lt;video&gt;</code>: Sayfaya doğrudan video oynatıcı eklemek için kullanılır (Örn: ürün tanıtım videoları).</li>
+            <li><code>&lt;audio&gt;</code>: Sayfaya ses dosyası/oynatıcı eklemek için kullanılır.</li>
+        </ul>
+
+        <h2>5. Form Elemanları (Kullanıcı Girişi ve Etkileşim)</h2>
+        <ul>
+            <li><code>&lt;form&gt;</code>: Veri toplama alanını kapsar.</li>
+            <li><code>&lt;label for="..."&gt;</code>: Giriş alanının ne olduğunu belirten metin etiketidir.</li>
+            <li><code>&lt;input type="..."&gt;</code>: Giriş alanı. En çok <code>text</code>, <code>email</code>, <code>password</code> ve <code>submit</code> tipleri kullanılır.</li>
+            <li><code>&lt;textarea&gt;</code>: Kullanıcıdan uzun, çok satırlı metin/yorum almak için kullanılır.</li>
+            <li><code>&lt;select&gt;</code> ve <code>&lt;option&gt;</code>: Aşağı doğru açılan (dropdown) seçim menüsü ve menü seçeneklerini oluşturur.</li>
+            <li><code>&lt;button&gt;</code>: Tıklanabilir buton oluşturur.</li>
+        </ul>
+
+        <h2>6. Veri Tabloları</h2>
+        <ul>
+            <li><code>&lt;table&gt;</code>: Tablo yapısını başlatır.</li>
+            <li><code>&lt;tr&gt;</code>: Tablo içindeki satırları (row) ifade eder.</li>
+            <li><code>&lt;th&gt;</code>: Tablonun başlık hücrelerini (bold ve ortalı) oluşturur.</li>
+            <li><code>&lt;td&gt;</code>: Tablonun standart veri hücrelerini oluşturur.</li>
+        </ul>
+
+        <h2>7. Orta Seviye Modern Etkileşim Etiketleri</h2>
+        <ul>
+            <li><code>&lt;details&gt;</code> ve <code>&lt;summary&gt;</code>: Sıkça Sorulan Sorular (SSS) gibi alanlarda tıklayınca açılıp kapanan akordeon (accordion) menüler yapmak için JS kullanmadan yerleşik çözüm sunar.</li>
+            <li><code>&lt;dialog&gt;</code>: Modern projelerde JavaScript ile tetiklenen yerleşik modal (açılır pencere/pop-up) kutuları oluşturmak için kullanılır.</li>
+        </ul>
+
+        <h2>8. Genel Amaçlı Kapsayıcılar (Semantik Olmayan)</h2>
+        <ul>
+            <li><code>&lt;div&gt;</code>: Blok düzeyinde (satırı kaplayan) kapsayıcıdır. CSS ile hizalama ve düzen (layout) için sıkça kullanılır.</li>
+            <li><code>&lt;span&gt;</code>: Satır içi (inline) kapsayıcıdır. Sadece metnin belirli bir kısmını renklendirmek/biçimlendirmek için tercih edilir.</li>
+        </ul>
+    </div>
+
+</body>
+</html>

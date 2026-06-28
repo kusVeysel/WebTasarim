@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerçek Projelerde Kullanılan Tüm Bootstrap Sınıfları</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/mixins/_grid.scss" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .container-box {
+            max-width: 900px;
+            background: #fff;
+            padding: 30px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            border-bottom: 2px solid #7952b3;
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 25px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #eef2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #e74c3c;
+            font-family: Consolas, monospace;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-box">
+        <h1 class="text-primary-emphasis">Gerçek Projelerde Kullanılan Bootstrap Yapıları (Eksiksiz Rehber)</h1>
+
+        <h2>1. Izgara (Grid) ve Düzen Sistemleri (Alfabetik)</h2>
+        <ul>
+            <li><code>col-*</code>: Sütun genişliğini belirler. Bootstrap 12'li sistem kullanır (Örn: <code>col-6</code> ekranın yarısını kaplar).</li>
+            <li><code>col-sm-* / col-md-* / col-lg-*</code>: Ekran boyutuna göre (mobil, tablet, masaüstü) sütunun nasıl davranacağını belirler (Responsive tasarımın kalbidir).</li>
+            <li><code>container</code>: Sayfayı sağdan ve soldan ortalayan, sabit genişlikte bir ana kapsayıcı kutu oluşturur.</li>
+            <li><code>container-fluid</code>: Ekranı tamamen kaplayan (%100 genişlikte) esnek bir kapsayıcı oluşturur.</li>
+            <li><code>row</code>: Sütunları (col) içine alan ve yan yana dizilmesini sağlayan satır yapısıdır.</li>
+        </ul>
+
+        <h2>2. Flexbox, Hizalama ve Boşluk Sınıfları</h2>
+        <ul>
+            <li><code>align-items-*</code>: Flex elemanlarını dikey eksende hizalar (<code>align-items-center</code> vb.).</li>
+            <li><code>d-flex</code>: Elemana <code>display: flex</code> özelliğini vererek içindekileri kolayca hizalanabilir yapar.</li>
+            <li><code>d-none</code>: Elemanı tamamen gizler. Responsive sınıflarla birleşerek mobilde gizle, masaüstünde göster (<code>d-none d-md-block</code>) gibi işlerde çok sık kullanılır.</li>
+            <li><code>g-* (gap)</code>: Sütunlar veya flex elemanları arasındaki boşluğu (ızgara boşluğunu) ayarlar (Örn: <code>g-3</code>).</li>
+            <li><code>justify-content-*</code>: Flex elemanlarını yatay eksende dağıtır (<code>justify-content-between</code>, <code>justify-content-center</code>).</li>
+            <li><code>m-* / p-* (Margin & Padding)</code>: Dış ve iç boşlukları ayarlar. <code>mt-3</code> (üstten boşluk), <code>px-4</code> (sağ ve soldan boşluk) şeklinde yön de belirtilebilir (0-5 arası değer alır).</li>
+        </ul>
+
+        <h2>3. En Çok Kullanılan Hazır Komponent Sınıfları</h2>
+        <ul>
+            <li><code>alert / alert-success</code>: Kullanıcıya yeşil, kırmızı veya mavi renklerde şık bildirim/uyarı kutuları gösterir.</li>
+            <li><code>btn / btn-primary / btn-outline-danger</code>: Standart HTML butonlarını modern, renkli ve tıklanabilir harika butonlara dönüştürür.</li>
+            <li><code>card / card-body</code>: Görsel, başlık ve metinden oluşan modern ürün veya içerik kartları oluşturur.</li>
+            <li><code>form-control</code>: Standart input giriş alanlarını modern, odaklanınca parlayan kurumsal form alanlarına dönüştürür.</li>
+            <li><code>form-select</code>: Açılır menüleri (select) Bootstrap stiliyle şıklaştırır.</li>
+            <li><code>nav / nav-link</code>: Menü ve navigasyon link yapılarını hızlıca hizalamak ve tasarlamak için kullanılır.</li>
+        </ul>
+
+        <h2>4. Renk, Tipografi ve Şekillendirme Sınıfları</h2>
+        <ul>
+            <li><code>bg-* (Background)</code>: Arka plan rengini belirler (<code>bg-primary</code> mavi, <code>bg-dark</code> siyah, <code>bg-light</code> gri vb.).</li>
+            <li><code>border / border-0</code>: Çerçeve ekler veya mevcut çerçeveleri tamamen kaldırır.</li>
+            <li><code>rounded / rounded-circle</code>: Köşeleri yuvarlatır veya elemanı tam bir daire (profil resmi gibi) yapar.</li>
+            <li><code>shadow / shadow-sm</code>: Elemanların arkasına modern ve hafif hazır gölgeler ekler.</li>
+            <li><code>text-* (Color)</code>: Yazı rengini değiştirir (<code>text-success</code> yeşil, <code>text-danger</code> kırmızı, <code>text-white</code> beyaz).</li>
+            <li><code>text-center</code>: Metni satır içinde yatay olarak ortalar.</li>
+        </ul>
+
+        <h2>5. Orta ve İleri Seviye Dinamik Komponentler</h2>
+        <ul>
+            <li><code>accordion</code> <span class="badge bg-secondary">Orta Seviye</span>: Sıkça Sorulan Sorular (SSS) sayfasında tıklayınca aşağı açılan paneller oluşturur.</li>
+            <li><code>modal</code> <span class="badge bg-secondary">Orta Seviye</span>: Sayfanın üzerine açılan, arkası karartılmış modern pop-up/onay pencereleri oluşturur.</li>
+            <li><code>navbar / navbar-expand-lg</code> <span class="badge bg-secondary">Orta Seviye</span>: Mobilde açılır-kapanır (hamburger menülü) olan profesyonel üst menü şablonudur.</li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerçek Projelerde Kullanılan Tüm jQuery Yapıları</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            background: #fff;
+            padding: 30px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0769ad;
+            border-bottom: 2px solid #7acef4;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 25px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #eef2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #e74c3c;
+            font-family: Consolas, monospace;
+            font-weight: bold;
+        }
+        .badge {
+            background-color: #0769ad;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gerçek Projelerde Kullanılan jQuery Yapıları (Eksiksiz Rehber)</h1>
+
+        <h2>1. Başlangıç ve Seçiciler (Selectors)</h2>
+        <ul>
+            <li><code>$(document).ready()</code>: Sayfadaki HTML kodlarının tamamen yüklendiğinden emin olduktan sonra jQuery kodlarını çalıştırmak için kullanılan ana başlangıç blokudur.</li>
+            <li><code>$() Seçici Mantığı</code>: HTML elemanlarını yakalamayı çok kolaylaştırır. Örn: <code>$("p")</code> tüm paragrafları, <code>$(".sınıf")</code> class'ı uyanları, <code>$("#id")</code> ise spesifik id'li elemanı seçer.</li>
+        </ul>
+
+        <h2>2. Etkinlik (Event) Yönetimi (Alfabetik)</h2>
+        <ul>
+            <li><code>.change()</code>: Input, select veya textarea elemanlarının değeri değiştiğinde (Örn: açılır menüden farklı bir şehir seçildiğinde) tetiklenir.</li>
+            <li><code>.click()</code>: Bir HTML elemanına (Örn: buton veya link) tıklandığında çalışacak kodları belirler.</li>
+            <li><code>.on()</code>: Gelişmiş olay dinleyicidir. Sayfaya sonradan dinamik olarak eklenen HTML elemanlarına bile etkinlik atayabilir (Örn: <code>.on("click", function)</code>).</li>
+            <li><code>.submit()</code>: Bir form gönderilmeye çalışıldığında tetiklenir. Form kontrolü yapmak için çok sık kullanılır.</li>
+        </ul>
+
+        <h2>3. DOM ve CSS Manipülasyon Metotları</h2>
+        <ul>
+            <li><code>.addClass() / .removeClass() / .toggleClass()</code>: HTML elemanlarına dinamik olarak CSS sınıfı ekler, siler veya varsa siler/yoksa ekler.</li>
+            <li><code>.attr()</code>: HTML etiketlerinin niteliklerini (Örn: bir görselin <code>src</code> adresini veya linkin <code>href</code> değerini) okur veya değiştirir.</li>
+            <li><code>.css()</code>: Seçilen elemana doğrudan inline (satır içi) CSS stili uygulamayı sağlar.</li>
+            <li><code>.html() / .text()</code>: Elemanın içerisindeki HTML kodunu veya sadece düz metni okumak ya da değiştirmek için kullanılır.</li>
+            <li><code>.val()</code>: Form elemanlarının (input, select vb.) içerisindeki güncel kullanıcı verisini (değerini) almak veya değiştirmek için kullanılır.</li>
+        </ul>
+
+        <h2>4. Hazır Efekt ve Animasyon Metotları</h2>
+        <ul>
+            <li><code>.fadeIn() / .fadeOut()</code> <span class="badge">Orta Seviye</span>: Elemanları yumuşak bir opaklık geçişiyle görünür yapar veya gizler.</li>
+            <li><code>.hide() / .show()</code> <span class="badge">Orta Seviye</span>: Elemanı anında gizler (<code>display: none</code> yapar) veya tekrar görünür hale getirir.</li>
+            <li><code>.slideDown() / .slideUp() / .slideToggle()</code> <span class="badge">Orta Seviye</span>: Elemanları yukarıdan aşağıya doğru kayarak açar veya kapatır (Akordeon menüler için birebirdir).</li>
+        </ul>
+
+        <h2>5. Ajax (API & Sunucu Entegrasyonu)</h2>
+        <ul>
+            <li><code>$.ajax()</code> <span class="badge">Orta/İleri Seviye</span>: Sayfayı yenilemeden arka planda sunucuya veri göndermek veya API'den veri çekmek için kullanılan, jQuery'nin en güçlü ve gerçek projelerde en çok kullanılan metodudur.</li>
+            <li><code>$.get() / $.post()</code> <span class="badge">Orta/İleri Seviye</span>: Gelişmiş <code>$.ajax</code> metodunun sadece veri alma (GET) veya veri gönderme (POST) işlemleri için basitleştirilmiş hızlı türevleridir.</li>
+        </ul>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            // Sayfa yüklendiğinde çalışacak kodlar buraya yazılır.
+            console.log("jQuery Başarıyla Yüklendi ve Hazır!");
+        });
+    </script>
+</body>
+</html>

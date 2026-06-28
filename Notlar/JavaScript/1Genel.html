@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerçek Projelerde Kullanılan Tüm JavaScript Yapıları</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            background: #fff;
+            padding: 30px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #f1c40f;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #d35400;
+            margin-top: 25px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #eef2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #e74c3c;
+            font-family: Consolas, monospace;
+            font-weight: bold;
+        }
+        .badge {
+            background-color: #3498db;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+        .badge-modern {
+            background-color: #9b59b6;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gerçek Projelerde Kullanılan JavaScript Yapıları (Eksiksiz Rehber)</h1>
+
+        <h2>1. Temel Değişkenler ve Kontrol Yapıları (Alfabetik)</h2>
+        <ul>
+            <li><code>const</code>: Değeri sonradan değiştirilemeyen sabit değişkenler tanımlamak için kullanılır. Gerçek projelerde varsayılan olarak bu tercih edilir.</li>
+            <li><code>if / else / else if</code>: Belirli şartlara göre kodun akışını değiştiren temel mantıksal kontrol yapısıdır.</li>
+            <li><code>let</code>: Değeri sonradan değiştirilebilen (mutable) değişkenler tanımlamak için kullanılır.</li>
+            <li><code>switch / case</code>: Tek bir değişkenin birden çok değere eşitliğini kontrol etmek için <code>if/else</code> yerine kullanılan daha temiz bir alternatiftir.</li>
+        </ul>
+
+        <h2>2. DOM ve Etkinlik (Event) Yönetimi</h2>
+        <ul>
+            <li><code>addEventListener()</code>: Bir HTML elemanına tıklama (click), klavye tuşuna basma (keydown) veya form gönderme (submit) gibi olayları dinlemek için bağlanır.</li>
+            <li><code>classList (add / remove / toggle)</code>: HTML elemanlarının CSS sınıflarını (class) dinamik olarak eklemek, silmek veya tersine çevirmek için kullanılır.</li>
+            <li><code>document.querySelector()</code>: CSS seçici mantığı kullanarak HTML içinden tek bir elemanı yakalamanın modern ve en sık kullanılan yoludur.</li>
+            <li><code>document.querySelectorAll()</code>: CSS seçici kriterine uyan tüm HTML elemanlarını bir liste (NodeList) halinde yakalar.</li>
+            <li><code>innerHTML / textContent</code>: Seçilen bir HTML elemanının içerisindeki yazıyı veya HTML kodunu dinamik olarak değiştirmek/okumak için kullanılır.</li>
+        </ul>
+
+        <h2>3. En Çok Kullanılan Dizi (Array) Metotları</h2>
+        <ul>
+            <li><code>filter()</code>: Belirli bir şarta uyan elemanları ayıklayarak yeni bir dizi oluşturur (Örn: Fiyatı 100'den büyük ürünleri listelemek).</li>
+            <li><code>forEach()</code>: Dizi elemanlarının üzerinde tek tek dönerek işlem yapmayı sağlar (Eski tip <code>for</code> döngüsünün modern alternatifidir).</li>
+            <li><code>includes()</code>: Bir dizinin veya metnin içinde belirli bir elemanın/kelimenin geçip geçmediğini kontrol eder (<code>true</code> veya <code>false</code> döner).</li>
+            <li><code>map()</code>: Mevcut dizideki her elemanı işleyip değiştirerek aynı uzunlukta yepyeni bir dizi üretir (React projelerinin temelidir).</li>
+            <li><code>push()</code>: Mevcut bir dizinin sonuna yeni bir eleman eklemek için kullanılır.</li>
+        </ul>
+
+        <h2>4. Orta Seviye Modern ES6+ Özellikleri</h2>
+        <ul>
+            <li><code>Arrow Functions (() => {})</code> <span class="badge">Orta Seviye</span>: Fonksiyonları daha kısa, temiz ve modern bir sözdizimi ile yazmayı sağlar.</li>
+            <li><code>Destructuring ({ } = obj)</code> <span class="badge">Orta Seviye</span>: Nesnelerin (Object) veya dizilerin içindeki özellikleri tek satırda doğrudan değişkenlere çıkarmayı sağlar.</li>
+            <li><code>LocalStorage (getItem / setItem)</code> <span class="badge">Orta Seviye</span>: Kullanıcı tarayıcıyı kapatsa bile silinmeyen, küçük verileri (Örn: Dark mode seçimi, sepet bilgisi) saklama alanıdır.</li>
+            <li><code>Spread Operator (...)</code> <span class="badge">Orta Seviye</span>: Bir diziyi veya nesneyi kopyalamak ya da başka bir dizi/nesne ile birleştirmek için kullanılır.</li>
+            <li><code>Template Literals (`... ${var}`)</code> <span class="badge">Orta Seviye</span>: Ters tırnak işareti kullanarak metinlerin içerisine dinamik değişkenleri doğrudan gömmeyi sağlar.</li>
+        </ul>
+
+        <h2>5. Asenkron JavaScript ve API Entegrasyonu (Trend ve İleri Seviye)</h2>
+        <ul>
+            <li><code>async / await</code> <span class="badge-modern">Modern</span>: Asenkron (arka planda çalışan) kodları sanki senkronmuş gibi sırayla ve hatasız yazmayı sağlayan modern yapıdır.</li>
+            <li><code>fetch()</code> <span class="badge-modern">Modern</span>: Sunucudan veya dış bir API'den veri çekmek (GET) ya da veri göndermek (POST) için kullanılan yerleşik metottur.</li>
+            <li><code>JSON.parse() / JSON.stringify()</code> <span class="badge-modern">Modern</span>: API'den gelen string veriyi JS nesnesine dönüştürmek veya tam tersini yaparak veriyi göndermek için kullanılır.</li>
+            <li><code>Optional Chaining (?.)</code> <span class="badge-modern">Modern</span>: Derin nesne yapılarında bir özelliğin var olup olmadığını kontrol eder. Eğer özellik yoksa uygulamanın çökmesini engeller (<code>undefined</code> döner).</li>
+            <li><code>Ternary Operator (şart ? doğru : yanlış)</code> <span class="badge-modern">Modern</span>: Tek satırlık kısa <code>if/else</code> koşuludur. Özellikle arayüz tasarımlarında koşullu listeleme için vazgeçilmezdir.</li>
+        </ul>
+    </div>
+
+</body>
+</html>

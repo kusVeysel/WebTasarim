@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerçek Projelerde Kullanılan Tüm CSS Özellikleri (Eksiksiz & Modern)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            background: #fff;
+            padding: 30px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 25px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #eef2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #e74c3c;
+            font-family: Consolas, monospace;
+            font-weight: bold;
+        }
+        .badge {
+            background-color: #2ecc71;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+        .badge-modern {
+            background-color: #9b59b6;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gerçek Projelerde Kullanılan CSS Özellikleri (Eksiksiz Rehber)</h1>
+
+        <h2>1. En Çok Kullanılan Temel Özellikler (Alfabetik)</h2>
+        <ul>
+            <li><code>background-color</code>: Elemanın arka plan rengini belirler.</li>
+            <li><code>border</code>: Elemanın etrafına çizgi (çerçeve) ekler (Örn: <code>1px solid #000</code>).</li>
+            <li><code>border-radius</code>: Köşeleri yuvarlatmak için kullanılır (Buton ve kartlarda çok sık kullanılır).</li>
+            <li><code>color</code>: İçerideki metnin rengini değiştirir.</li>
+            <li><code>display</code>: Elemanın yerleşim türünü belirler. Gerçek projelerde en çok <code>block</code>, <code>inline-block</code>, <code>none</code> (gizlemek için) kullanılır.</li>
+            <li><code>font-family</code>: Metnin yazı tipini (font kartelasını) belirler.</li>
+            <li><code>font-size</code>: Yazı boyutunu ayarlar (Genelde <code>px</code>, <code>rem</code> veya <code>em</code> cinsinden).</li>
+            <li><code>font-weight</code>: Yazının kalınlığını ayarlar (Örn: <code>bold</code> veya <code>400</code>, <code>700</code>).</li>
+            <li><code>height</code>: Elemanın yüksekliğini belirler.</li>
+            <li><code>margin</code>: Elemanın <b>dışındaki</b> boşluğu (diğer elemanlarla olan mesafesini) ayarlar.</li>
+            <li><code>padding</code>: Elemanın <b>içindeki</b> boşluğu (içerik ile çerçeve arasındaki mesafeyi) ayarlar.</li>
+            <li><code>text-align</code>: Metni hizalar (<code>left</code>, <code>center</code>, <code>right</code>, <code>justify</code>).</li>
+            <li><code>text-decoration</code>: Metnin altını/üstünü çizer. Linklerin altındaki çizgiyi kaldırmak için <code>none</code> çok sık kullanılır.</li>
+            <li><code>width</code>: Elemanın genişliğini belirler.</li>
+        </ul>
+
+        <h2>2. Modern Düzen ve Hizalama Özellikleri (Flexbox & Grid)</h2>
+        <ul>
+            <li><code>align-items</code>: Flex kapsayıcı içindeki elemanları dikey eksende hizalar.</li>
+            <li><code>display: flex</code>: Modern web tasarımının temelidir. Elemanları yan yana dizmek ve kolayca hizalamak için kullanılır.</li>
+            <li><code>display: grid</code>: Sayfayı satır ve sütunlara bölerek gelişmiş ızgara düzenleri oluşturur.</li>
+            <li><code>flex-direction</code>: Flex elemanlarının yönünü (yan yana <code>row</code> veya alt alta <code>column</code>) belirler.</li>
+            <li><code>gap</code>: Flex veya Grid elemanlarının arasındaki mesafeyi (boşluğu) otomatik ayarlar.</li>
+            <li><code>grid-template-columns</code>: Grid yapısında kaç sütun olacağını ve genişliklerini belirler.</li>
+            <li><code>justify-content</code>: Flex kapsayıcı içindeki elemanları yatay eksende dağıtır/hizalar (Örn: <code>center</code>, <code>space-between</code>).</li>
+        </ul>
+
+        <h2>3. Konumlandırma ve Katman Özellikleri (Positioning)</h2>
+        <ul>
+            <li><code>bottom / left / right / top</code>: <code>position</code> atanmış elemanların yön mesafelerini belirler.</li>
+            <li><code>box-shadow</code>: Elemanlara gölge efekti vererek derinlik katar (Kart tasarımlarında çok popülerdir).</li>
+            <li><code>opacity</code>: Elemanın şeffaflık derecesini (0 ile 1 arasında) ayarlar.</li>
+            <li><code>overflow</code>: Elemanın dışına taşan içeriklerin nasıl davranacağını belirler (<code>hidden</code> gizler, <code>scroll</code> kaydırma çubuğu ekler).</li>
+            <li><code>position</code>: Elemanın sayfadaki konumlanma kuralını belirler. Gerçek projelerde <code>relative</code> (göreceli), <code>absolute</code> (bağımsız konumlanan) ve <code>fixed</code> (ekrana sabitlenen menüler için) çok sık kullanılır.</li>
+            <li><code>z-index</code>: Elemanların üst üste binme sırasını (katman derinliğini) belirler. Değeri yüksek olan eleman her zaman üstte görünür.</li>
+        </ul>
+
+        <h2>4. Orta ve İleri Seviye Dinamik Özellikler (Animasyon & Responsive)</h2>
+        <ul>
+            <li><code>@keyframes</code> <span class="badge">Orta Seviye</span>: CSS animasyonlarının adım adım nasıl çalışacağını tanımlar.</li>
+            <li><code>@media</code> <span class="badge">Orta Seviye</span>: Media Query. Sayfanın telefon, tablet veya masaüstü ekranlara göre farklı CSS kuralları uygulamasını sağlar (Responsive tasarımın kalbidir).</li>
+            <li><code>animation</code> <span class="badge">Orta Seviye</span>: Tanımlanmış bir <code>@keyframes</code> animasyonunu elemana bağlar ve süresini ayarlar.</li>
+            <li><code>cursor</code> <span class="badge">Orta Seviye</span>: Fare elemanın üzerine geldiğinde imlecin nasıl görüneceğini belirler (Butonlar için <code>pointer</code> kullanımı zorunludur).</li>
+            <li><code>object-fit</code> <span class="badge">Orta Seviye</span>: <code>&lt;img&gt;</code> veya <code>&lt;video&gt;</code> etiketlerinin kapsayıcı kutuya nasıl sığdırılacağını (en-boy oranını bozmadan <code>cover</code> gibi) belirler.</li>
+            <li><code>transform</code> <span class="badge">Orta Seviye</span>: Elemanı döndürmek (<code>rotate</code>), boyutlandırmak (<code>scale</code>) elleri büyütüp küçültmek veya kaydırmak (<code>translate</code>) için kullanılır.</li>
+            <li><code>transition</code> <span class="badge">Orta Seviye</span>: Fare ile üzerine gelindiğinde (hover) renk veya boyut değişimlerinin ani değil, yumuşak bir geçişle (animasyonlu gibi) olmasını sağlar.</li>
+            <li><code>user-select</code> <span class="badge">Orta Seviye</span>: Kullanıcının sayfadaki metni seçip kopyalamasını engellemek veya izin vermek için kullanılır (<code>none</code> değeri seçimi kapatır).</li>
+        </ul>
+
+        <h2>5. Yeni Nesil Modern CSS Özellikleri (Trend ve İleri Seviye)</h2>
+        <ul>
+            <li><code>aspect-ratio</code> <span class="badge-modern">Modern</span>: Elemanların en-boy oranını sabitler (Örn: <code>aspect-ratio: 16 / 9;</code>). Video ve kartların responsive (esnek) tasarımında çığır açmıştır.</li>
+            <li><code>backdrop-filter</code> <span class="badge-modern">Modern</span>: Elemanın arkasında kalan alanı bulanıklaştırmak (blur) için kullanılır. Modern web sitelerindeki "Buzlu Cam" (Glassmorphism) efektinin temelidir.</li>
+            <li><code>accent-color</code> <span class="badge-modern">Modern</span>: Tarayıcının varsayılan checkbox (onay kutusu) ve radio buton gibi form elemanlarının ana rengini tek satırda değiştirmeyi sağlar.</li>
+            <li><code>clamp()</code> <span class="badge-modern">Modern</span>: Yazı boyutları için minimum, ideal ve maksimum değerleri tek satırda belirler (Örn: <code>font-size: clamp(1rem, 5vw, 3rem);</code>). Media query kullanmadan kusursuz responsive metinler sağlar.</li>
+            <li><code>scroll-behavior</code> <span class="badge-modern">Modern</span>: Sayfa içi linklere tıklandığında ekranın o bölüme ani sıçramak yerine yumuşak bir şekilde kaymasını (<code>smooth</code>) sağlar.</li>
+        </ul>
+    </div>
+
+</body>
+</html>
