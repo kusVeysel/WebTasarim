@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A TAGLARI</title>
+</head>
+<body>
+    
+    <!--  KULLANIŞLI TAGLAR  -->
+
+    <a href="https://www.google.com" target="_blank">Yönlendirme Tagı</a>
+    <!-- target="_blank" yeni sekmede açar -->
+    <br> <br>
+    
+    Bu bir <abbr title="Üzerine gelince gösterilecek metin">ABBR</abbr> tagıdır
+    <!-- abbr tagı üstüne gelince title içindeki yazıyı gösterir -->
+    <br> <br>
+    
+    <audio src="ses.mp3" controls></audio>
+    <!--audio tagı ses dosyasını oynatmak için kullanılır -->
+    <br> <br>
+
+    <!--  KULLANIŞSIZ TAGLAR  -->
+
+    <address>
+        Yazar: Ahmet Yılmaz<br>
+        E-posta: <a href="mailto:ahmet@ornek.com">ahmet@ornek.com</a><br>
+        Telefon: +90 212 123 45 67
+    </address>
+    <!-- address tagı iletişim bilgilerini belirtmek için kullanılır -->
+    <br> <br>
+    
+    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643" width="600" height="400" usemap="#masa-haritasi" alt="Çalışma Masası">
+    <map name="masa-haritasi">
+        <area shape="rect" coords="20,20,150,200" href="area/kitap-detay.html" alt="Kitap Sayfası">    
+        <area shape="circle" coords="300,150,40" href="area/kahve-tarifi.html" alt="Kahve Sayfası">
+    </map>
+    <!--area tagı belirli alanları tanımlar ve sadece o kısma tıklanabilir alanlar oluşturur -->
+    <br><br>
+
+    <article>
+        <h2>1. Ana İçerik (Article)</h2>
+        <p>Bu kısım bağımsız ve tamamen kendine ait bir içerik bloğudur.</p>
+    </article>
+    <!-- Article tagı bağımsız ve tamamen kendine ait bir içerik bloğudur -->
+    <br> <br>
+
+    <aside>
+        <h3>5. Yan İçerik (Aside)</h3>
+        <p>Bu kısım ana içerikle dolaylı yoldan ilgili olan reklam, kategori listesi veya ek bilgi alanıdır.</p>
+    </aside>
+    <!-- Aside tagı ana içerikle dolaylı yoldan ilgili olan reklam, kategori listesi veya ek bilgi alanıdır -->
+    
+    
+</body>
+</html>
