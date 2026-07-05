@@ -1,75 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
-    *{
+    * {
         margin: 0;
         padding: 0;
     }
-    body{
+
+    body {
         margin: 0;
         height: 100vh;
         width: 100vw;
         background: black;
     }
-#yuvarlak1{
-width: 100px;
-height: 100px;
-background: url("keline\ kurban.jpeg");
-background-size: cover;
-background-repeat: no-repeat;
-background-position: center; ;
-border-radius: 50%;
-position: absolute;
-left: 0;
-top: 50vh;
-animation: hareket 2s infinite,
-ileri 10s forwards;
-}
-#yuvarlak2{
-width: 100px;
-height: 100px;
-background: url("keline\ kurban.jpeg");
-background-size: cover;
-background-repeat: no-repeat;
-background-position: center; ;
-border-radius: 50%;
-position: absolute;
-left:100vw;
-top: 50vh;
-animation: hareket 2s infinite,
-ileri 10s forwards;
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center
-}
-@keyframes hareket{
-    from{transform: rotate(0deg);}
-    to{transform: rotate(360deg);}
-}
-@keyframes ileri{
-    to{left: 50vw;}
-}
+
+    #yuvarlak1 {
+        width: 100px;
+        height: 100px;
+        background: url("keline\ kurban.jpeg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 50%;
+        position: absolute;
+        left: 0;
+        top: 50vh;
+        animation: hareket 2s infinite,
+            ileri 10s forwards;
+    }
+
+    #yuvarlak2 {
+        width: 100px;
+        height: 100px;
+        background: url("keline\ kurban.jpeg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        ;
+        border-radius: 50%;
+        position: absolute;
+        left: 100vw;
+        top: 50vh;
+        animation: hareket 2s infinite,
+            ileri 10s forwards;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center
+    }
+
+    @keyframes hareket {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes ileri {
+        to {
+            left: 50vw;
+        }
+    }
 </style>
+
 <body>
 
 
-        <div id="yuvarlak1"></div>
-        <div id="yuvarlak2"></div>
+    <div id="yuvarlak1"></div>
+    <div id="yuvarlak2"></div>
 
     <script>
-  setTimeout(() => {
-    document.getElementById("yuvarlak1").remove();
-    document.getElementById("yuvarlak2").style.transition="2s";
-    document.getElementById("yuvarlak2").style.scale="60";
-    document.getElementById("yuvarlak2").innerText="Merhaba Dünya";
+        setTimeout(() => {
+            document.getElementById("yuvarlak1").remove();
+            document.getElementById("yuvarlak2").style.transition = "2s";
+            document.getElementById("yuvarlak2").style.scale = "60";
+            document.getElementById("yuvarlak2").innerText = "Merhaba Dünya";
 
-  }, 10000);
+        }, 10000);
     </script>
 </body>
+
 </html>
