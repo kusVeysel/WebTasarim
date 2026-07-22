@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfeti Patlaması</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            font-family: sans-serif;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.1s;
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <button id="confettiBtn">Konfeti Patlat! 🎉</button>
+
+<script src="../CDN/KonfetiCDN.js"></script>
+
+    <script>
+        const btn = document.getElementById('confettiBtn');
+        
+          // Şekli bir kez oluşturup tekrar kullanıyoruz
+
+        btn.addEventListener('click', () => {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.7 },
+                colors: ['#ff4757', '#2ed573', '#1e90ff', '#ffa502'],
+                shapes: [confetti.shapeFromText({ text: '🚀', scalar: 2 })],
+                scalar: 2,
+                gravity: 1.2,
+                drift: 0.5,
+                ticks: 200,
+                zIndex: 999,
+                disableForReducedMotion: true,
+            }).then(()=>{
+            alert("bitti");
+        });
+        });
+    </script>
+
+</body>
+</html>
+<!-- 
+particleCount (Sayı): Atılacak konfeti miktarı. Varsayılan 50.
+
+angle (Açı): Patlamanın yönü (derece). 90 dik yukarı, 0 sağ, 180 soldur.
+
+spread (Yayılma): Konfetilerin ne kadar geniş bir açıya dağılacağı. Varsayılan 45.
+
+startVelocity (Hız): Konfetilerin ilk fırlama hızı. Varsayılan 45.
+
+ticks (Ömür): Konfetilerin ekranda ne kadar süre kalacağı (kare sayısı). Varsayılan 200.
+
+gravity (Yerçekimi): Parçacıkların düşme hızı. Varsayılan 1.
+
+drift (Sürüklenme): Havada yana doğru süzülme (rüzgar etkisi gibi).
+
+colors (Renkler): HEX formatında dizi. Örn: ['#26ccff', '#a25afd'].
+
+shapes (Şekiller): 'square', 'circle' veya 'emoji'.
+
+scalar (Ölçek): Her bir konfeti parçasının büyüklük çarpanı.
+
+
+       // 1. ADIM: Emoji'den özel bir şekil oluştur (Unicorn fırlatalım)
+const unicorn = confetti.shapeFromText({ text: '🦄', scalar: 3 });
+
+// 2. ADIM: Tüm özellikleri tek bir patlamada birleştir
+confetti({
+  particleCount: 150,           // 150 tane parça
+  spread: 70,                   // 70 derecelik bir açıyla yayıl
+  origin: { y: 0.6 },           // Ekranın biraz altından başla (y: 0.6)
+  
+  // Görsel Ayarlar
+  colors: ['#ff0000', '#00ff00', '#0000ff'], // Kırmızı, Yeşil, Mavi konfetiler
+  shapes: [unicorn, 'circle'],  // Hem unicorn hem de daireler fırlasın
+  scalar: 2,                    // Parçalar normalden 2 kat büyük olsun
+  
+  // Fizik Ayarları
+  gravity: 1.2,                 // Biraz daha hızlı düşsünler
+  drift: 1,                     // Sağa doğru rüzgar essin (savrulsunlar)
+  ticks: 300,                   // Ekranda daha uzun süre kalsınlar
+  
+  // Teknik
+  zIndex: 999,                  // Her şeyin en üstünde görünsün
+  disableForReducedMotion: true // Kullanıcı ayarına saygı duy
+  
+}).then(() => {
+  // 3. ADIM: Promise Kullanımı (Her şey bittiğinde çalışır)
+  console.log("Konfeti şovu başarıyla tamamlandı!");
+});})
+-->

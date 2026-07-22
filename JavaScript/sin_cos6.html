@@ -1,65 +1,84 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<style>
-  body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: black;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lissajous Parçacık Fırtınası</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #050505;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-  .dot {
-    width: 20px;
-    height: 20px;
-    background: lime;
-    border-radius: 50%;
-    position: absolute;
-    pointer-events: none;
-  }
+        .dot {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            pointer-events: none;
+            will-change: transform;
+        }
 
-  @keyframes fadeOut {
-    to { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
-  }
-</style>
+        @keyframes dissolve {
+            0% { opacity: 1; transform: translate(0, 0) scale(1.5); }
+            100% { 
+                opacity: 0; 
+                transform: translate(var(--mx), var(--my)) scale(0); 
+            }
+        }
+    </style>
 </head>
 <body>
+    <script>
+        let t = 0; // Zaman değişkeni
 
-<div class="dot"></div>
+        function animate() {
+            t += 0.03;
 
-<script>
-let angle = 0;
-let dot = document.querySelector(".dot");
+            // Lissajous Parametreleri
+            // A ve B genliği (genişlik/yükseklik)
+            // a ve b frekansları (oran değiştikçe şekil değişir)
+            const A = window.innerWidth / 3;
+            const B = window.innerHeight / 3;
+            const a = 3; 
+            const b = 2;
+            const phi = t; // Faz kayması zamanla değişiyor
 
-function animate() {
-  angle += 0.03;
+            const x = A * Math.sin(a * t + phi);
+            const y = B * Math.sin(b * t);
 
-  let radius = Math.sin(angle*4) * 50+50;
+            // Parçacık oluşturma
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            
+            // Renk: HSL ile sürekli değişen neon renkler
+            const hue = (t * 40) % 360;
+            dot.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
+            dot.style.boxShadow = `0 0 10px hsl(${hue}, 100%, 60%)`;
 
-  let x = Math.cos(angle) * radius;
-  let y = Math.sin(angle) * radius;
+            // Konumlandırma
+            dot.style.left = `calc(50% + ${x}px)`;
+            dot.style.top = `calc(50% + ${y}px)`;
 
-  dot.style.transform = `translate(${x}px, ${y}px)`;
+            // Dağılma efekti için rastgele yön değişkenleri
+            dot.style.setProperty('--mx', `${(Math.random() - 0.5) * 100}px`);
+            dot.style.setProperty('--my', `${(Math.random() - 0.5) * 100}px`);
+            dot.style.animation = 'dissolve 1.2s forwards ease-out';
 
-  // İz oluşturma
-  let trail = document.createElement("div");
-  trail.className = "dot";
-  trail.style.setProperty('--tx', `${x}px`);
-  trail.style.setProperty('--ty', `${y}px`);
-  trail.style.transform = `translate(${x}px, ${y}px)`;
-  trail.style.opacity = "0.5";
-  trail.style.animation = "fadeOut 2s forwards";
-  document.body.appendChild(trail);
-  
-  setTimeout(() => trail.remove(), 2000);
-  
-  requestAnimationFrame(animate);
-}
+            document.body.appendChild(dot);
 
-animate();
-</script>
+            // 1.2 saniye sonra temizle
+            setTimeout(() => dot.remove(), 1200);
 
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 </body>
 </html>

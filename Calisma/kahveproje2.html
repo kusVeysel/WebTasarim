@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kahve Sitesi</title>
+    <link href="../CDN/BootstrapCDN.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- YENİ: Preloader --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1c1e;
+            z-index: 20000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease;
+        }
+
+        .loader-icon {
+            font-size: 4rem;
+            color: #ffc107;
+            animation: spin 2s infinite linear;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* --- YENİ: Modern Mouse İmleci --- */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffc107;
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: transform 0.1s ease, background 0.3s ease, border-color 0.3s ease;
+            z-index: 10000;
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
+        }
+
+        .custom-cursor.hover {
+            transform: translate(-50%, -50%) scale(3);
+            background: rgba(255, 193, 7, 0.15);
+            border-color: #0dcaf0;
+        }
+
+        /* --- YENİ: Sayfa İlerleme Çubuğu --- */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(to right, #ffc107, #0dcaf0);
+            z-index: 10001;
+            transition: width 0.2s ease;
+        }
+
+        /* --- YENİ: Yüzen Arka Plan İkonları --- */
+        .floating-beans {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bean {
+            position: absolute;
+            color: rgba(255, 193, 7, 0.05);
+            font-size: 2rem;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* --- YENİ: Buton Pulse (Nabız) Efekti --- */
+        @keyframes pulse-yellow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 193, 7, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+            }
+        }
+
+        .btn-pulse {
+            animation: pulse-yellow 2s infinite;
+        }
+
+        /* --- YENİ: Floating Cart Button --- */
+        .cart-floating {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #ffc107;
+            color: #1a1c1e;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #0dcaf0;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav input:focus {
+            outline: none;
+            border: none;
+            box-shadow: 0 0 10px blue;
+            color: purple;
+        }
+
+        div a {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            text-shadow: 0 0 10px gray;
+        }
+
+        body {
+            color: #e3e3e3;
+            height: 200vh;
+            background: #1a1c1e;
+        }
+
+        .kahve-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(43, 45, 47, 0.8);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+        }
+
+        .kahve-card:hover {
+            box-shadow: 5px 5px 10px #ffc107, -5px -5px 10px #0dcaf0 !important;
+            border-color: #ffc107;
+        }
+
+        #ana {
+            margin-top: 50px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-item {
+            height: 400px;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+        }
+
+        .carousel-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .reveal-card {
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .text-shadow {
+            text-shadow: 2px 2px 8px purple;
+        }
+
+        #MainCome {
+            margin-top: 100px;
+        }
+
+        #Come:hover {
+            box-shadow: 2px 2px 12px greenyellow;
+            transform: scale(1.02);
+        }
+
+        #Come {
+            transition: box-shadow 0.3s ease, transform 0.4s ease;
+        }
+
+        #img1:hover {
+            transform: rotate(20deg);
+        }
+
+        #img2:hover {
+            transform: rotate(-20deg);
+        }
+
+        #img1,
+        #img2 {
+            transition: transform 0.5s ease;
+        }
+
+        .modal-content {
+            background-color: #2b2d2f;
+            color: white;
+            border: 1px solid #ffc107;
+        }
+
+        #cot1 {
+            margin-top: 30px;
+        }
+
+        .accordion {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body style="cursor: none;"> <!-- Custom cursor kullanacağımız için varsayılanı gizledik -->
+
+    <div id="preloader">
+        <i class="fas fa-mug-hot loader-icon"></i>
+    </div>
+
+    <div id="scroll-progress"></div>
+    <div class="custom-cursor"></div>
+    <div class="floating-beans" id="beanContainer"></div>
+
+    <div class="cart-floating" id="floatingCart">
+        <i class="fas fa-shopping-basket fa-lg"></i>
+        <div class="cart-count" id="cartCount">0</div>
+    </div>
+
+    <div class="main-wrapper">
+
+        <nav class="navbar  bg-dark-subtle navbar-dark px-3">
+            <h2 class="navbar-brand" style="color: brown;">Kahve Dükkanı</h2>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu"
+                onclick="ac()" id="acmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas-start offcanvas" id="menu">
+                <div class="offcanvas-body" id="offmenu">
+                    <a href="#" class="nav-link mb-2"><i class="fa fa-home me-2"></i>Ana Sayfa</a>
+                    <a href="#" class="nav-link mb-2 rounded-1"><i class="fa fa-info-circle me-2"></i>Hakkımızda</a>
+                    <a href="#" class="nav-link mb-2"><i class="fa fa-phone me-2"></i>İletişim</a>
+                    <input type="search" class="rounded-3 mx-2" placeholder="Ara">
+                    <button class="btn btn-primary btn-sm">Ara</button>
+                    <button class="btn btn-outline-danger w-100 mt-3" data-bs-dismiss="offcanvas" id="kapamenu"
+                        onclick="kapa()">Menüyü Kapat</button>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="container mt-5 ">
+            <div class="row g-4">
+
+                <div class="col-6 col-sm-4 col-md-3">
+                    <div class="card shadow-lg h-100 kahve-card">
+                        <img src="kahve/espresso.jpg" class="card-img-top" alt="Espresso">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title text-warning">Espresso</h5>
+                            <p class="card-text text-secondary small">Yoğun ve zengin aromalı klasik İtalyan kahvesi.
+                            </p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">85 ₺</span>
+                                <div>
+                                    <button class="btn btn-outline-info btn-sm me-1" data-bs-toggle="modal"
+                                        data-bs-target="#ModalMain" data-bs-title="Espresso"
+                                        data-bs-img="kahve/espresso.jpg"
+                                        data-bs-desc="En kaliteli Arabica çekirdeklerinden hazırlanan, yoğun aromalı ve sert içimli klasik İtalyan lezzeti. Enerji verir!">Bilgi</button>
+                                    <button class="btn btn-outline-warning btn-sm btn-pulse" id="ekle">Ekle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-sm-4 col-md-3">
+                    <div class="card shadow-lg h-100 kahve-card">
+                        <img src="kahve/latte.jpg" class="card-img-top" alt="Latte">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title text-warning">Latte</h5>
+                            <p class="card-text text-secondary small">Yumuşak içimli bol sütlü ve kadifemsi doku.</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">95 ₺</span>
+                                <div>
+                                    <button class="btn btn-outline-info btn-sm me-1" data-bs-toggle="modal"
+                                        data-bs-target="#ModalMain" data-bs-title="Latte" data-bs-img="kahve/latte.jpg"
+                                        data-bs-desc="Yumuşak içim sevenler için ideal. Bol süt ve ipeksi süt köpüğünün espresso ile mükemmel buluşması.">Bilgi</button>
+                                    <button class="btn btn-outline-warning btn-sm btn-pulse" id="ekle2">Ekle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-sm-4 col-md-3">
+                    <div class="card shadow-lg h-100 kahve-card">
+                        <img src="kahve/capcino.jpg" class="card-img-top" alt="Cappuccino">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title text-warning">Cappuccino</h5>
+                            <p class="card-text text-secondary small">Eşit oranlı espresso, süt ve yoğun köpük.</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">90 ₺</span>
+                                <div>
+                                    <button class="btn btn-outline-info btn-sm me-1" data-bs-toggle="modal"
+                                        data-bs-target="#ModalMain" data-bs-title="Cappuccino"
+                                        data-bs-img="kahve/capcino.jpg"
+                                        data-bs-desc="Eşit oranlı espresso ve süt, üzerinde ise yoğun süt köpüğü. Gerçek bir kahve klasiği.">Bilgi</button>
+                                    <button class="btn btn-outline-warning btn-sm btn-pulse" id="ekle3">Ekle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-sm-4 col-md-3">
+                    <div class="card shadow-lg h-100 kahve-card">
+                        <img src="kahve/mocha.jpg" class="card-img-top" alt="Mocha">
+                        <div class="card-body p-2 d-flex flex-column">
+                            <h5 class="card-title text-warning">Mocha</h5>
+                            <p class="card-text text-secondary small">Espresso, çikolata ve sütün mükemmel uyumu.</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">105 ₺</span>
+                                <div>
+                                    <button class="btn btn-outline-info btn-sm me-1" data-bs-toggle="modal"
+                                        data-bs-target="#ModalMain" data-bs-title="Mocha" data-bs-img="kahve/mocha.jpg"
+                                        data-bs-desc="Espresso, sıcak süt ve çikolata sosunun eşsiz karışımı. Üzerine eklenen krema ile tatlı bir kahve molası.">Bilgi</button>
+                                    <button class="btn btn-outline-warning btn-sm btn-pulse" id="ekle4">Ekle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="modal fade " id="ModalMain">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header border-secondary">
+                        <h1 class="modal-title fs-5 text-warning" id="modalTitle">Kahve Bilgisi</h1>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center mb-3">
+                            <img src="" id="modalImg" class="img-fluid rounded shadow" style="max-height: 250px;"
+                                alt="Kahve">
+                        </div>
+                        <p id="modalDesc" class="text-secondary"></p>
+                        <hr class="border-secondary">
+                        <div class="row text-center small">
+                            <div class="col-4">
+                                <i class="fa fa-fire text-danger"></i><br>120 kcal
+                            </div>
+                            <div class="col-4">
+                                <i class="fa fa-clock text-info"></i><br>5-7 Dakika
+                            </div>
+                            <div class="col-4">
+                                <i class="fa fa-leaf text-success"></i><br>%100 Doğal
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-secondary text-center">
+                        <button type="button" class="btn btn-outline-warning w-100" data-bs-dismiss="modal">Anladım,
+                            Teşekkürler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            <div class="toast bg-black" id="Toast">
+                <div class="toast-header bg-black">
+                    <strong class="me-auto text-light" id="toastTitle"></strong>
+                    <button class="btn-close bg-danger" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body text-success me-3" id="tos">
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel slide bg-black shadow-lg" data-bs-ride="carousel" data-bs-interval="4000" id="ana">
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background-image: url('kahve/espresso.jpg');">
+                    <div class="carousel-caption d-none d-md-block pb-5">
+                        <h2 class="display-4 fw-bold text-warning">Güne Sert Bir Başlangıç</h2>
+                        <p class="lead">Gerçek İtalyan espressosu ile enerjinizi tazeleyin.</p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url('kahve/latte.jpg');">
+                    <div class="carousel-caption d-none d-md-block pb-5">
+                        <h2 class="display-4 fw-bold text-warning">Yumuşak ve Kadifemsi</h2>
+                        <p class="lead">Sütün en tatlı haliyle hazırlanan özel Latte deneyimi.</p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url('kahve/mocha.jpg');">
+                    <div class="carousel-caption d-none d-md-block pb-5">
+                        <h2 class="display-4 fw-bold text-warning">Çikolata Aşkına</h2>
+                        <p class="lead">Kahve ve çikolatanın muazzam uyumunu keşfedin.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#ana" type="button">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+            <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#ana" type="button">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+        </div>
+
+
+        <div class="container" id="cot1">
+            <div class="row align-items-center g-5">
+                <div class="col-12 col-lg-4 text-center">
+                    <div class="text-light text-shadow reveal-left">
+                        <h2 class="display-5 mb-4">Yerlerimizi Biliyor Musunuz?</h2>
+                        <p>
+                            <span style="color:#ffc107;">Enfes</span> kahvelerimizin bulunduğu <span
+                                style="color: aquamarine;">KahramanMaraş</span> ili <span
+                                style="color: aquamarine;">Dulkadiroğlu</span> ilçesinin <span class="text-danger">her
+                                yerinde</span> şubelerimiz mevcuttur. Bu eşsiz <span
+                                style="color: blue;">lezzetleri</span> asla kaçırmak istemezsiniz.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-8">
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6" id="img1">
+                            <div class="card border-0 shadow-sm overflow-hidden reveal-card">
+                                <img src="proje/maraş.jpg" class="img-fluid" alt="Maraş Şubesi 1">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6" id="img2">
+                            <div class="card border-0 shadow-sm overflow-hidden reveal-card">
+                                <img src="proje/maraş2.jpg" class="img-fluid" alt="Maraş Şubesi 2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 px-2">
+            <div class="row">
+                <div class="col-12 col-sm-6 ">
+                    <div class="accordion" id="Ana">
+                        <div class="accordion-item bg-info-subtle text-black">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#accor">Çalışanlarımız</button>
+                            </h3>
+                            <div id="accor" class="accordion-collapse collapse" data-bs-parent="#Ana">
+                                <div class="accordion-body ">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>Üst düzey 8 yıl deneyimli Ali Rauf</li>
+                                        <li>2 yıl deneyimli Meryem Beyza</li>
+                                        <li>5 yıl deneyimli Murat Alkerit</li>
+                                        <li>Üst düzey 9 yıl deneyimli Şule Buket</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 mt-4 mt-sm-0">
+                    <div class="accordion" id="Ana2">
+                        <div class="accordion-item bg-info-subtle text-dark">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#accor2">Tecrübelerimiz</button>
+                            </h3>
+                            <div id="accor2" class="accordion-collapse collapse" data-bs-parent="#Ana2">
+                                <div class="accordion-body">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>8 adet Sponsor</li>
+                                        <li>KahramanMaraş'ın en çok tercih edilen kahvecisi</li>
+                                        <li>Gıda testinde Türkiye'nin en iyileri arasında yer alan kahvecisi</li>
+                                        <li>11 yıllık deneyim</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 " id="MainCome">
+            <div class="row">
+                <div class="col-12 col-md-3 ms-3 text-center border border-2 p-3 border-info rounded-3 reveal-card"
+                    id="Come">
+                    <h1><i class="fa fa-comments me-2"></i>Bize Ulaşın</h1> <br>
+                    <a href="#" class="nav-link" style="color: pink;"><i class="fa-brands fa-instagram"></i> İnstagram
+                        <br> kusveysel46</a> <br>
+                    <a href="#" class="nav-link" style="color: blue;"><i class="fa-brands fa-facebook"></i> Facebook
+                        <br> kusveysel46</a> <br>
+                    <a href="#" class="nav-link" style="color: red;"><i class="fa-brands fa-twitter"></i> Twitter <br>
+                        kusveysel46</a> <br>
+                    <a href="#" class="nav-link" style="color: seagreen;"><i class="fa-brands fa-whatsapp"></i> WhatsApp
+                        <br> kusveysel46</a> <br>
+                </div>
+
+                <div class="col-12 col-md-8 mx-auto mt-5 mt-md-0 text-center reveal-card">
+                    <h1 class="mb-3 text-primary"><i class="fa fa-edit me-2"></i>Bilgilerinizi Giriniz</h1>
+                    <div class="text-center text-danger border border-3 border-danger rounded-5 p-5">
+                        <div class="row g-3">
+                            <div class="col-12 col-lg-6">
+                                <label for="formName" class="form-label text-light">İsim</label>
+                                <input type="text" id="formName" class="form-control" placeholder="İsim">
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="formSurname" class="form-label text-light">Soyİsim</label>
+                                <input type="text" id="formSurname" class="form-control" placeholder="Soyİsim">
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="formPhone" class="form-label text-light">Telefon</label>
+                                <input type="text" id="formPhone" class="form-control" placeholder="Telefon">
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="formEmail" class="form-label text-light">Email</label>
+                                <input type="email" id="formEmail" class="form-control" placeholder="Email">
+                            </div>
+                            <button class="btn btn-outline-success" style="margin-top: 35px;"> Gönder</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../CDN/BootstrapCDN.js"></script>
+        <script>
+            // --- YENİ: Preloader Kapatma ---
+            window.addEventListener('load', () => {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.style.display = 'none', 800);
+            });
+
+            // --- YENİ: Mouse İmleci Takibi ---
+            const cursor = document.querySelector('.custom-cursor');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            // İmleç Etkileşimi
+            document.querySelectorAll('button, a, .kahve-card').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+
+            // --- YENİ: Sayfa İlerleme Çubuğu ---
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("scroll-progress").style.width = scrolled + "%";
+            });
+
+            // --- YENİ: Arka Plan Kahve Çekirdekleri Oluşturucu ---
+            const beanContainer = document.getElementById('beanContainer');
+            const icons = ['fa-coffee', 'fa-seedling', 'fa-mug-hot'];
+            for (let i = 0; i < 15; i++) {
+                const bean = document.createElement('i');
+                bean.className = `fas ${icons[Math.floor(Math.random() * icons.length)]} bean`;
+                bean.style.left = Math.random() * 100 + 'vw';
+                bean.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                bean.style.animationDelay = (Math.random() * 5) + 's';
+                bean.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                beanContainer.appendChild(bean);
+            }
+
+            // --- YENİ: 3D Tilt Efekti ---
+            document.querySelectorAll('.kahve-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    card.style.transform = `perspective(1000px) translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) translateY(0) rotateX(0) rotateY(0)`;
+                });
+            });
+
+            // --- YENİ: Uçan Kahve Animasyonu ---
+            function flyToCart(btn) {
+                const cart = document.getElementById('floatingCart');
+                const rect = btn.getBoundingClientRect();
+                const flyBean = document.createElement('i');
+                flyBean.className = 'fas fa-seedling';
+                flyBean.style.cssText = `
+                position: fixed;
+                left: ${rect.left}px;
+                top: ${rect.top}px;
+                color: #ffc107;
+                z-index: 10002;
+                transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                font-size: 20px;
+            `;
+                document.body.appendChild(flyBean);
+
+                const cartRect = cart.getBoundingClientRect();
+
+                setTimeout(() => {
+                    flyBean.style.left = (cartRect.left + 20) + 'px';
+                    flyBean.style.top = (cartRect.top + 20) + 'px';
+                    flyBean.style.transform = 'scale(0.2) rotate(360deg)';
+                    flyBean.style.opacity = '0.5';
+                }, 50);
+
+                setTimeout(() => {
+                    flyBean.remove();
+                }, 800);
+            }
+
+            // Mevcut Menü ve Toast Kodları
+            const acmenu = document.getElementById("acmenu");
+            const kapamenu = document.getElementById("kapamenu");
+            const offmenu = document.getElementById("offmenu");
+
+            function ac() {
+                document.body.style.pointerEvents = "none";
+                offmenu.style.pointerEvents = "auto";
+                kapamenu.style.pointerEvents = "auto";
+            }
+            function kapa() {
+                acmenu.style.pointerEvents = "auto";
+                document.body.style.pointerEvents = "auto";
+            }
+
+            const counters = { 'ekle': 0, 'ekle2': 0, 'ekle3': 0, 'ekle4': 0 };
+            const names = { 'ekle': 'Espresso', 'ekle2': 'Latte', 'ekle3': 'Cappuccino', 'ekle4': 'Mocha' };
+            const toastEl = document.getElementById('Toast');
+            const toastTitle = document.getElementById("toastTitle");
+            const tos = document.getElementById('tos');
+            const cartCount = document.getElementById('cartCount');
+            let totalCount = 0;
+
+            ['ekle', 'ekle2', 'ekle3', 'ekle4'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        counters[id]++;
+                        totalCount++;
+                        cartCount.innerText = totalCount;
+                        flyToCart(btn);
+                        toastTitle.innerText = names[id];
+                        tos.innerText = `Eklendi +${counters[id]}`;
+                        bootstrap.Toast.getOrCreateInstance(toastEl).show();
+                    });
+                }
+            });
+
+            const Time = { threshold: 0.3 };
+            const A = new IntersectionObserver((element) => {
+                const FilterElements = element.filter(x => x.isIntersecting);
+
+                FilterElements.forEach((x, y) => {
+                    setTimeout(() => {
+                        x.target.classList.add('active');
+                        A.unobserve(x.target);
+                    }, y * 250);
+                });
+            }, Time);
+
+            document.querySelectorAll('.reveal-card, .reveal-left').forEach(el => {
+                A.observe(el);
+            });
+
+            const modalMain = document.getElementById('ModalMain');
+            if (modalMain) {
+                modalMain.addEventListener('show.bs.modal', event => {
+                    const button = event.relatedTarget;
+                    const title = button.getAttribute('data-bs-title');
+                    const img = button.getAttribute('data-bs-img');
+                    const desc = button.getAttribute('data-bs-desc');
+
+                    document.getElementById('modalTitle').innerText = title;
+                    document.getElementById('modalImg').src = img;
+                    document.getElementById('modalDesc').innerText = desc;
+                });
+            }
+
+
+        </script>
+    </div>
+</body>
+
+</html>

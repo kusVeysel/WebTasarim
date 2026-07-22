@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Takip Eden Göz</title>
     <style>
-        /* CSS BÖLÜMÜ */
         body {
             margin: 0;
             height: 100vh;
@@ -16,7 +15,6 @@
             justify-content: center;
         }
 
-        /* Göz Akı */
         .eye {
             width: 120px;
             height: 80px;
@@ -30,7 +28,6 @@
             border: 2px solid #333;
         }
 
-        /* Göz Bebeği */
         .pupil {
             width: 35px;
             height: 35px;
@@ -40,7 +37,6 @@
             transition: transform 0.05s linear;
         }
 
-        /* Hareket Eden Kutu */
         .box {
             width: 40px;
             height: 40px;
@@ -70,14 +66,12 @@
         const eye = document.querySelector('.eye');
         const pupil = document.querySelector('.pupil');
 
-        // Başlangıç değerleri
         let posX = Math.random() * (window.innerWidth - 40);
         let posY = Math.random() * (window.innerHeight - 40);
         let speedX = 4;
         let speedY = 4;
 
         function update() {
-            // 1. Kutuyu Hareket Ettir
             posX += speedX;
             posY += speedY;
 
@@ -92,29 +86,24 @@
             box.style.left = posX + 'px';
             box.style.top = posY + 'px';
 
-            // 2. Göz Takibi Hesaplaması
             const eyeRect = eye.getBoundingClientRect();
             const eyeCenterX = eyeRect.left + eyeRect.width / 2;
             const eyeCenterY = eyeRect.top + eyeRect.height / 2;
 
-            // Hedef: Kutunun merkezi
             const targetX = posX + 20;
             const targetY = posY + 20;
 
-            // Açı ve Mesafe
             const angle = Math.atan2(targetY - eyeCenterY, targetX - eyeCenterX);
-            const maxMove = 25; // Göz bebeğinin hareket sınırı
+            const maxMove = 25; 
             
             const moveX = Math.cos(angle) * maxMove;
             const moveY = Math.sin(angle) * maxMove;
 
-            // Göz bebeğini hareket ettir
             pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
 
             requestAnimationFrame(update);
         }
 
-        // Animasyonu başlat
         update();
     </script>
 </body>

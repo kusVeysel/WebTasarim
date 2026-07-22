@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link href="../CDN/BootstrapCDN.css" rel="stylesheet">
+
+  <title>PRO Table</title>
+</head>
+
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">Öğrenci Kayıt Tablosu</h2>
+  
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover text-center align-middle">
+      <thead class="table-dark ">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Ad Soyad</th>
+          <th scope="col">Bölüm</th>
+          <th scope="col">Durum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Ahmet Yılmaz</td>
+          <td>Yazılım Mühendisliği</td>
+          <td class="table-success">Aktif</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Ayşe Demir</td>
+          <td>Bilgisayar Programcılığı</td>
+          <td class="table-warning">Beklemede</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Mehmet Can</td>
+          <td>Veri Bilimi</td>
+          <td class="table-info">Kayıtlı</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
+<!-- 
+table: tablo (zorunlu)
+table-striped: satırları bir koyu bir açık yapar
+table-striped-columns: sütunları bir koyu bir açık yapar
+scope="": başlık olduğunu belirtir (row yada col)
+colspan: hücre birleştirme
+
+table-bordered: hücrelere kenarlık verir
+table-hover: tabloya hover efekti verir 
+align-middle: dikeyde ortalar
+table-responsive: resposive için
+table-group-divider: başlık ile içerik arasına daha belirgin bir çizgi çizer (tbody içinde kullanılır)
+-->

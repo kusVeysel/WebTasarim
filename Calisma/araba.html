@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        background: black;
+    }
+
+    #araba {
+        height: 100px;
+        width: 100px;
+        background: blue;
+        clip-path: path("M0 100 L10 100 Q25 70 40 100 L60 100 Q75 70 90 100 L100 100 L100 50 L65 50 L65 20 L35 20 L35 50 L0 50 L0 100 Z");
+        position: relative;
+        bottom: 10px;
+    }
+
+    #tekerlek1,
+    #tekerlek2 {
+        width: 25px;
+        height: 25px;
+        background: linear-gradient(0deg, white, rgb(139, 134, 134));
+        border-radius: 50%;
+        position: relative;
+        animation: tek 2s infinite;
+    }
+
+    #tekerlek1 {
+        bottom: 20px;
+        left: 13px;
+    }
+
+    #tekerlek2 {
+        bottom: 45px;
+        left: 63px;
+    }
+
+    #merkez {
+        animation: mek 13s forwards;
+
+    }
+
+    #merkez2 {
+        animation: mek2 0.8s infinite;
+
+    }
+
+    #mektup {
+        width: 10px;
+        height: 10px;
+        background: wheat;
+        position: relative;
+        bottom: 43px;
+        left: -80px;
+        animation: mektup 13s forwards;
+        z-index: 1;
+        cursor: pointer;
+    }
+
+    #gizle {
+        animation: giz 0.8s 3 forwards;
+    }
+
+    #kay {
+        animation: kay 6s forwards;
+        animation-delay: 2s;
+    }
+
+    #assa {
+        animation: assa 2s forwards;
+        animation-delay: 3s;
+    }
+
+    @keyframes assa {
+        to {
+            transform: translateY(60px);
+        }
+    }
+
+    @keyframes kay {
+        to {
+            transform: translateX(-50vw);
+        }
+    }
+
+    @keyframes giz {
+        0% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(20px);
+        }
+    }
+
+    @keyframes mektup {
+        to {
+            transform: translateX(100vw)
+        }
+    }
+
+    @keyframes mek2 {
+        0% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(20px);
+        }
+    }
+
+    @keyframes mek {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(100vw);
+        }
+    }
+
+    @keyframes tek {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .duman1 {
+        width: 40px;
+        height: 50px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        top: -20px;
+        left: -15px;
+    }
+
+    .duman2 {
+        width: 30px;
+        height: 50px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 40px;
+        left: 3px;
+    }
+
+    .duman3 {
+        width: 15px;
+        height: 20px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        left: 40px;
+        top: 50px;
+    }
+
+    .duman4 {
+        width: 20px;
+        height: 40px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 100px;
+        left: 10px;
+
+    }
+
+    .duman5 {
+        width: 10px;
+        height: 10px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        left: 30px;
+        top: 150px;
+    }
+
+    .duman6 {
+        width: 10px;
+        height: 10px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        left: 30px;
+        top: 30px;
+    }
+
+    .duman {
+        width: 60px;
+        height: 200px;
+        position: absolute;
+        bottom: 40px;
+        right: 100px;
+    }
+</style>
+
+<body>
+    <div id="merkez">
+        <div id="merkez2">
+            <div id="araba"></div>
+            <div id="tekerlek1"></div>
+            <div id="tekerlek2"></div>
+
+            <div class="duman">
+                <div class="duman1"></div>
+                <div class="duman2"></div>
+                <div class="duman3"></div>
+                <div class="duman4"></div>
+                <div class="duman5"></div>
+                <div class="duman6"></div>
+            </div>
+        </div>
+    </div>
+    <div id="assa">
+        <div id="kay">
+            <div id="gizle">
+                <div id="mektup" onclick="bak()"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let i = 0;
+        function bak() {
+            document.getElementById("mektup").style.width = "200px";
+            document.getElementById("mektup").style.height = "300px";
+        }
+        setInterval(() => {
+            i++;
+            if (i === 9) {
+                document.getElementsByClassName("duman")[0].remove();
+                document.getElementById("merkez").remove();
+            }
+        }, 1000);
+    </script>
+</body>
+
+</html>

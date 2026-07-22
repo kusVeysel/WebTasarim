@@ -1,49 +1,45 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-  <meta charset="UTF-8">
-  <style>
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #111;
-    }
+<meta charset="UTF-8">
+<style>
+  body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background: #222;
+  }
 
-    .box {
-      width: 40px;
-      height: 40px;
-      background: red;
-      position: absolute;
-      border-radius: 50%;
-    }
-  </style>
+  .box {
+    width: 50px;
+    height: 50px;
+    background: orange;
+    margin-bottom: 50px;
+  }
+</style>
 </head>
-
 <body>
 
-  <div class="box"></div>
+<div class="box"></div>
 
-  <script>
-    let angle = 0;
-    let box = document.querySelector(".box");
+<script>
+let angle = 0;
+let box = document.querySelector(".box");
 
-    function animate() {
+function animate() {
+  angle += 0.1;
 
-      angle += 0.001;
-      let x = Math.cos(angle) * 150;
-      let y = Math.sin(angle) * 150;
+  
+  let y = Math.abs(Math.sin(angle)) * 150;                                                             
 
-      box.style.transform = `translate(${x}px, ${y}px)`;
+  box.style.transform = `translateY(-${y}px)`;
 
-      requestAnimationFrame(animate);
-    }
+  requestAnimationFrame(animate);
+}
 
-    animate();
-  </script>
+animate();
+</script>
 
 </body>
-
 </html>

@@ -3,77 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trigonometrik Gül Eğrisi</title>
+    <title>Neon DNA Sarmalı</title>
     <style>
-      body {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: radial-gradient(circle, #111, #000);
-        margin: 0;
-        overflow: hidden;
-      }
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-      .dot {
-        width: 12px;
-        height: 12px;
-        background: #00d2ff;
-        border-radius: 50%;
-        position: absolute;
-        pointer-events: none;
-        will-change: transform;
-      }
+        .dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
 
-      @keyframes fadeOut {
-        0% { opacity: 0.8; transform: translate(var(--tx), var(--ty)) scale(1); }
-        100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.1); }
-      }
+        @keyframes helixFade {
+            0% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0; transform: scale(0.2); }
+        }
     </style>
 </head>
 <body>
-    <div class="dot" id="mainDot"></div>
-
     <script>
-      let angle = 0;
-      const dot = document.getElementById("mainDot");
+        let t = 0;
 
-      function animate() {
-        // Hız kontrolü
-        angle += 0.02;
+        function createParticle(x, y, color) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.style.left = `calc(50% + ${x}px)`;
+            dot.style.top = `calc(50% + ${y}px)`;
+            dot.style.backgroundColor = color;
+            dot.style.boxShadow = `0 0 15px ${color}`;
+            dot.style.animation = 'helixFade 1.5s forwards';
+            document.body.appendChild(dot);
+            
+            setTimeout(() => dot.remove(), 1500);
+        }
 
-        // Gül Eğrisi Formülü: r = a * cos(k * theta)
-        // k değeri yaprağın şeklini belirler (örn: 1.5, 2, 3, 4)
-        let k = 1.5; 
-        let radius = 180 * Math.cos(k * angle);
+        function animate() {
+            t += 0.05;
 
-        let x = radius * Math.cos(angle);
-        let y = radius * Math.sin(angle);
+            // Sarmalın genişliği ve yüksekliği
+            const amplitude = 150; 
+            const verticalSpacing = t * 20; // Zamanla aşağı akış hissi
 
-        dot.style.transform = `translate(${x}px, ${y}px)`;
+            // Birinci dalga (Mavi Tonları)
+            const x1 = Math.sin(t) * amplitude;
+            const y1 = Math.cos(t * 0.5) * (amplitude / 2); // 3D dönme hissi için
+            const color1 = `hsl(190, 100%, 50%)`;
 
-        // İz (Trail) Oluşturma
-        let trail = document.createElement("div");
-        trail.className = "dot";
-        trail.style.setProperty('--tx', `${x}px`);
-        trail.style.setProperty('--ty', `${y}px`);
-        trail.style.transform = `translate(${x}px, ${y}px)`;
-        
-        // Renklerin gökkuşağı gibi değişmesini sağlar
-        let hue = (angle * 60) % 360;
-        trail.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
-        trail.style.boxShadow = `0 0 10px hsl(${hue}, 100%, 60%)`;
-        
-        trail.style.animation = "fadeOut 2s forwards";
-        document.body.appendChild(trail);
+            // İkinci dalga (Zıt yönlü - Mor Tonları)
+            const x2 = Math.sin(t + Math.PI) * amplitude;
+            const y2 = Math.cos(t * 0.5 + Math.PI) * (amplitude / 2);
+            const color2 = `hsl(280, 100%, 60%)`;
 
-        // Performans için 2 saniye sonra elemanı siliyoruz
-        setTimeout(() => trail.remove(), 2000);
+            // Parçacıkları oluştur
+            createParticle(x1, y1, color1);
+            createParticle(x2, y2, color2);
 
-        requestAnimationFrame(animate);
-      }
+            // Aradaki "bağ" çizgilerini taklit eden küçük noktalar
+            if (Math.floor(t * 10) % 2 === 0) {
+                createParticle(0, 0, '#333'); // Merkez referans noktası
+            }
 
-      animate();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     </script>
 </body>
 </html>

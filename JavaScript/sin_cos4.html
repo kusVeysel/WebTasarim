@@ -5,35 +5,56 @@
 <style>
   body {
     height: 100vh;
-    background: #000;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
   }
 
-  .ball {
-    width: 30px;
-    height: 30px;
-    background: cyan;
+  .dot {
+    width: 20px;
+    height: 20px;
+    background: lime;
     border-radius: 50%;
     position: absolute;
+    pointer-events: none;
+  }
+
+  @keyframes fadeOut {
+    to { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); }
   }
 </style>
 </head>
 <body>
 
-<div class="ball"></div>
+<div class="dot"></div>
 
 <script>
 let angle = 0;
-let ball = document.querySelector(".ball");
+let dot = document.querySelector(".dot");
 
 function animate() {
-  angle += 0.05;
+  angle += 0.03;
 
-  let x = angle * 50;      // sürekli sağa gider
-  let y = Math.sin(angle) * 100 + 300; // dalga
+  let radius = Math.sin(angle*4) * 50+50;
 
-  ball.style.transform = `translate(${x}px, ${y}px)`;
+  let x = Math.cos(angle) * radius;
+  let y = Math.sin(angle) * radius;
 
+  dot.style.transform = `translate(${x}px, ${y}px)`;
+
+  // İz oluşturma
+  let trail = document.createElement("div");
+  trail.className = "dot";
+  trail.style.setProperty('--tx', `${x}px`);
+  trail.style.setProperty('--ty', `${y}px`);
+  trail.style.transform = `translate(${x}px, ${y}px)`;
+  trail.style.opacity = "0.5";
+  trail.style.animation = "fadeOut 2s forwards";
+  document.body.appendChild(trail);
+  
+  setTimeout(() => trail.remove(), 2000);
+  
   requestAnimationFrame(animate);
 }
 

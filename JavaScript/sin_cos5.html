@@ -1,45 +1,79 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<style>
-  body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    background: #222;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigonometrik Gül Eğrisi</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle, #111, #000);
+        margin: 0;
+        overflow: hidden;
+      }
 
-  .box {
-    width: 50px;
-    height: 50px;
-    background: orange;
-    margin-bottom: 50px;
-  }
-</style>
+      .dot {
+        width: 12px;
+        height: 12px;
+        background: #00d2ff;
+        border-radius: 50%;
+        position: absolute;
+        pointer-events: none;
+        will-change: transform;
+      }
+
+      @keyframes fadeOut {
+        0% { opacity: 0.8; transform: translate(var(--tx), var(--ty)) scale(1); }
+        100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.1); }
+      }
+    </style>
 </head>
 <body>
+    <div class="dot" id="mainDot"></div>
 
-<div class="box"></div>
+    <script>
+      let angle = 0;
+      const dot = document.getElementById("mainDot");
 
-<script>
-let angle = 0;
-let box = document.querySelector(".box");
+      function animate() {
+        // Hız kontrolü
+        angle += 0.02;
 
-function animate() {
-  angle += 0.1;
+        // Gül Eğrisi Formülü: r = a * cos(k * theta)
+        // k değeri yaprağın şeklini belirler (örn: 1.5, 2, 3, 4)
+        let k = 1.5; 
+        let radius = 180 * Math.cos(k * angle);
 
-  
-  let y = Math.abs(Math.sin(angle)) * 150;                                                             
+        let x = radius * Math.cos(angle);
+        let y = radius * Math.sin(angle);
 
-  box.style.transform = `translateY(-${y}px)`;
+        dot.style.transform = `translate(${x}px, ${y}px)`;
 
-  requestAnimationFrame(animate);
-}
+        // İz (Trail) Oluşturma
+        let trail = document.createElement("div");
+        trail.className = "dot";
+        trail.style.setProperty('--tx', `${x}px`);
+        trail.style.setProperty('--ty', `${y}px`);
+        trail.style.transform = `translate(${x}px, ${y}px)`;
+        
+        // Renklerin gökkuşağı gibi değişmesini sağlar
+        let hue = (angle * 60) % 360;
+        trail.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
+        trail.style.boxShadow = `0 0 10px hsl(${hue}, 100%, 60%)`;
+        
+        trail.style.animation = "fadeOut 2s forwards";
+        document.body.appendChild(trail);
 
-animate();
-</script>
+        // Performans için 2 saniye sonra elemanı siliyoruz
+        setTimeout(() => trail.remove(), 2000);
 
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    </script>
 </body>
 </html>

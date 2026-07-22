@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon DNA Sarmalı</title>
+    <title>Sonsuzluk Çizen Top</title>
     <style>
         body {
             margin: 0;
             height: 100vh;
-            background: #000;
+            background: #0a0a0a;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -17,60 +17,55 @@
 
         .dot {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 20px;
+            height: 20px;
+            background: white;
             border-radius: 50%;
             pointer-events: none;
+            will-change: transform;
+            box-shadow: 0 0 15px white;
         }
 
-        @keyframes helixFade {
-            0% { opacity: 1; transform: scale(1.2); }
-            100% { opacity: 0; transform: scale(0.2); }
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.1); }
         }
     </style>
 </head>
 <body>
-    <script>
-        let t = 0;
+    <div class="dot" id="mainBall"></div>
 
-        function createParticle(x, y, color) {
-            const dot = document.createElement('div');
-            dot.className = 'dot';
-            dot.style.left = `calc(50% + ${x}px)`;
-            dot.style.top = `calc(50% + ${y}px)`;
-            dot.style.backgroundColor = color;
-            dot.style.boxShadow = `0 0 15px ${color}`;
-            dot.style.animation = 'helixFade 1.5s forwards';
-            document.body.appendChild(dot);
-            
-            setTimeout(() => dot.remove(), 1500);
-        }
+    <script>
+        let t = 0; // Zaman/Açı değişkeni
+        const ball = document.getElementById("mainBall");
+        const scaleX = 300; // Genişlik
+        const scaleY = 150; // Yükseklik
 
         function animate() {
-            t += 0.05;
+            t += 0.03; // Hareket hızı
 
-            // Sarmalın genişliği ve yüksekliği
-            const amplitude = 150; 
-            const verticalSpacing = t * 20; // Zamanla aşağı akış hissi
+            // Sonsuzluk (Infinity) Formülü: Lissajous Figürü
+            const x = Math.sin(t) * scaleX;
+            const y = Math.sin(2 * t) * scaleY;
 
-            // Birinci dalga (Mavi Tonları)
-            const x1 = Math.sin(t) * amplitude;
-            const y1 = Math.cos(t * 0.5) * (amplitude / 2); // 3D dönme hissi için
-            const color1 = `hsl(190, 100%, 50%)`;
+            // Ana topu hareket ettir
+            ball.style.transform = `translate(${x}px, ${y}px)`;
 
-            // İkinci dalga (Zıt yönlü - Mor Tonları)
-            const x2 = Math.sin(t + Math.PI) * amplitude;
-            const y2 = Math.cos(t * 0.5 + Math.PI) * (amplitude / 2);
-            const color2 = `hsl(280, 100%, 60%)`;
+            // Renkli İz (Trail) Oluşturma
+            const trail = document.createElement("div");
+            trail.className = "dot";
+            
+            // Dinamik renk değişimi
+            const hue = (t * 40) % 360;
+            trail.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
+            trail.style.boxShadow = `0 0 10px hsl(${hue}, 100%, 60%)`;
+            
+            trail.style.transform = `translate(${x}px, ${y}px)`;
+            trail.style.animation = "fadeOut 1.5s forwards";
+            document.body.appendChild(trail);
 
-            // Parçacıkları oluştur
-            createParticle(x1, y1, color1);
-            createParticle(x2, y2, color2);
-
-            // Aradaki "bağ" çizgilerini taklit eden küçük noktalar
-            if (Math.floor(t * 10) % 2 === 0) {
-                createParticle(0, 0, '#333'); // Merkez referans noktası
-            }
+            // 1.5 saniye sonra izi sil
+            setTimeout(() => trail.remove(), 1500);
 
             requestAnimationFrame(animate);
         }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+    }
+
+    .box {
+      width: 40px;
+      height: 40px;
+      background: red;
+      position: absolute;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box"></div>
+
+  <script>
+    let angle = 0;
+    let box = document.querySelector(".box");
+
+    function animate() {
+
+      angle += 0.01;
+      let x = Math.cos(angle) * 150;
+      let y = Math.sin(angle) * 150;
+
+      box.style.transform = `translate(${x}px, ${y}px)`;
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+
+</body>
+
+</html>
