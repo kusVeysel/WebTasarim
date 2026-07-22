@@ -1,34 +1,40 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../CDN/JqueryCDN.JS"></script>
     <style>
-           *{
+        * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;;
-           }
-        body{
+            box-sizing: border-box;
+            ;
+        }
+
+        body {
             background-color: #1a1a2e;
-            color:#eee;
+            color: #eee;
             font-family: Arial, Helvetica, sans-serif;
         }
-        .navbar{
+
+        .navbar {
             background-color: #16213e;
             padding: 15px;
             justify-content: space-between;
             display: flex;
             align-items: center;
-             border-bottom: 2px solid #123f76;
+            border-bottom: 2px solid #123f76;
         }
-        .navbar h1{
-            color:#ab253b;
-           font-size: 24px;
+
+        .navbar h1 {
+            color: #ab253b;
+            font-size: 24px;
         }
-        .sepet-btn{
+
+        .sepet-btn {
             background-color: #ab253b;
             color: white;
             border: none;
@@ -36,283 +42,308 @@
             font-size: 15px;
             cursor: pointer;
         }
-        .sepet-btn:hover{
+
+        .sepet-btn:hover {
             background-color: #b12f49;
         }
-        .arama-alan{
-         
+
+        .arama-alan {
+
             background-color: #16213e;
             padding: 20px;
             display: flex;
-            gap:12px;
+            gap: 12px;
             flex-wrap: wrap;
             align-items: center;
         }
-        .arama-alan input{
+
+        .arama-alan input {
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #0f3460;
             font-size: 14px;
-            color:#eee;
+            color: #eee;
             width: 220px;
             background-color: #1a1a2e;
-            
+
         }
-        .arama-alan select{
+
+        .arama-alan select {
             padding: 10px;
             border-radius: 5px;
-            border:none;
-            color:#eee;
+            border: none;
+            color: #eee;
             background-color: #1a1a2e;
             font-size: 14px;
             cursor: pointer;
         }
-        .arama-alan button{
-           padding: 10px;
+
+        .arama-alan button {
+            padding: 10px;
             border-radius: 5px;
-            border:none;
-            color:#eee;
+            border: none;
+            color: #eee;
             background-color: #1a1a2e;
             font-size: 14px;
             cursor: pointer;
         }
-       .arama-alan button:hover{
-        background-color: #1a4a8a;
-       }
-       .urun-grid{
-        display: flex;
-        flex-wrap: wrap;
-        gap:20px;
-        padding: 30px;
-       } 
-       /*=======Urun Kart=======*/
-       .urun-kart{
-        background-color: #16213e;
-        padding: 15px;
-        width: 200px;
-        border-radius: 10px;
-        border:1px solid #0f3460;
-        text-align: center;
-       }
-       .urun-kart .emoji{
-        font-size:15px;
-        margin-bottom: 10px;
-       }
-       .urun-kart h3{
-        font-size: 15px;
-        margin-bottom: 6px;
-        color:#eee;
-    
-       }
-       .urun-kart .kategori{
-         font-size: 12px;
-         color:#888;
-         margin-bottom: 8px;
-       }
-       .urun-kart .fiyat{
-        font-size:20px;
-        font-weight: bold;
-        color:#ab253b;
-        margin-bottom: 12px;
-       
-       
-       }
-       .urun-kart .ekle-btn{
-        padding: 10px;
-        background-color: #ab253b;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-        width: 100%;
-       }
-       .urun-kart .ekle-btn:hover{
-        
-         background-color:#c79652 ;
-       }
-       .sepet-panel{
-        
-        display: none;
-        position:fixed;
-        top: 0; right: 0;
-        width: 320%;
-        height: 100%;
-        background-color: #16213e;
-        z-index: 999;
-        padding: 20px;
-        overflow-y: auto;
-        border-left: 2px solid #0f3460;
-       }
-       .sepet-panel h2{
+
+        .arama-alan button:hover {
+            background-color: #1a4a8a;
+        }
+
+        .urun-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 30px;
+        }
+
+        /*=======Urun Kart=======*/
+        .urun-kart {
+            background-color: #16213e;
+            padding: 15px;
+            width: 200px;
+            border-radius: 10px;
+            border: 1px solid #0f3460;
+            text-align: center;
+        }
+
+        .urun-kart .emoji {
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .urun-kart h3 {
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: #eee;
+
+        }
+
+        .urun-kart .kategori {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .urun-kart .fiyat {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ab253b;
+            margin-bottom: 12px;
+
+
+        }
+
+        .urun-kart .ekle-btn {
+            padding: 10px;
+            background-color: #ab253b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .urun-kart .ekle-btn:hover {
+
+            background-color: #c79652;
+        }
+
+        .sepet-panel {
+
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 320%;
+            height: 100%;
+            background-color: #16213e;
+            z-index: 999;
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 2px solid #0f3460;
+        }
+
+        .sepet-panel h2 {
             margin-bottom: 15px;
             font-size: 20px;
             color: #ab253b;
-       }
-       .sepet-urun{
-        background-color: #1a1a2e;
-        border: 1px solid #0f3460;
-        border-radius: 8px;
-        padding: 12px;
-        margin-bottom: 10px;
-        display: flex;/*yan yana dizmek icin kullanılır. */
-        justify-content: space-between; /* yatayda hizalanması için kullanılır. */
-        align-items: center;
-        
-       }
-       .sepet-urun span{
-        font-size: 14px;
-       }
-       .sepet-urun .sil-btn{
-        
-        background-color: #ab253b; 
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 4px;
-        cursor: pointer;
-        font-size: 14px;
-       }
-    .sepet-toplam{
-     font-size: 18px;
-     font-weight: bold;
-     margin-top: 15px;
-     color: #ab253b;
-     border-top: 1px solid #0f3460;
-     padding-top: 12px;
-    }
-    
+        }
+
+        .sepet-urun {
+            background-color: #1a1a2e;
+            border: 1px solid #0f3460;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            /*yan yana dizmek icin kullanılır. */
+            justify-content: space-between;
+            /* yatayda hizalanması için kullanılır. */
+            align-items: center;
+
+        }
+
+        .sepet-urun span {
+            font-size: 14px;
+        }
+
+        .sepet-urun .sil-btn {
+
+            background-color: #ab253b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .sepet-toplam {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #ab253b;
+            border-top: 1px solid #0f3460;
+            padding-top: 12px;
+        }
     </style>
 </head>
+
 <body>
-    
-     <div class="navbar">
+
+    <div class="navbar">
         <h1>TechShop</h1>
         <button class="sepet-btn" id="sepetAc">
             Sepetim(<span id="sepetAdet">0</span>)
         </button>
-     </div>
-     <div class="arama-alan">
-    <input type="text" id="aramaInput" placeholder="Ürün Arayınız...">
-    <select id="kategoriSelect">
-        <option value="Hepsi">Tüm Kategoriler</option>
-        <option value="Elektronik">Elektronik</option>
-        <option value="Telefon">Telefon</option>
-        <option value="Bilgisayar">Bilgisayar</option>
-        <option value="Aksesuar">Aksesuar</option>
-        <option value="Oyun">Oyun</option>
-    </select>
-      <button class="temizleBtn">Temizle</button>
-     </div>
-    
-     <div class="urun-grid" id="urunGrid">
+    </div>
+    <div class="arama-alan">
+        <input type="text" id="aramaInput" placeholder="Ürün Arayınız...">
+        <select id="kategoriSelect">
+            <option value="Hepsi">Tüm Kategoriler</option>
+            <option value="Elektronik">Elektronik</option>
+            <option value="Telefon">Telefon</option>
+            <option value="Bilgisayar">Bilgisayar</option>
+            <option value="Aksesuar">Aksesuar</option>
+            <option value="Oyun">Oyun</option>
+        </select>
+        <button class="temizleBtn">Temizle</button>
+    </div>
+
+    <div class="urun-grid" id="urunGrid">
         <!--Jquery ile dolacaktır. -->
-     </div>
-     <div class="sepet-panel" id="sepetPanel">
+    </div>
+    <div class="sepet-panel" id="sepetPanel">
         <h2>Sepetim</h2>
         <div id="sepetIcerik">
-            <!---Burası jquery ile dolacak --> 
+            <!---Burası jquery ile dolacak -->
         </div>
         <div class="sepet-toplam" id="sepetToplam"> Toplam :0 ₺</div>
         <div class="sepet-kapat" id="sepetKapat">Kapat</div>
-     </div>
+    </div>
 
-     <div class="bildirim" id="bildirim"></div>
-       <script>
-        var urunler =[
-            {id:1,ad:"İphone 17",kategori:"Telefon",emoji:"#",fiyat:77000},
-             {id:2,ad:"Samsung",kategori:"Telefon",emoji:"#",fiyat:75000},
-             {id:3,ad:"MacBook Pro",kategori:"Bilgisayar",emoji:"#",fiyat:107000},
-             {id:4,ad:"Asus Rog Laptop",kategori:"Bilgisayar",emoji:"#",fiyat:110000},
-             {id:5,ad:"Airpods Pro",kategori:"Aksesuar",emoji:"#",fiyat:15000},
-             {id:6,ad:"Apple Watch",kategori:"Aksesuar",emoji:"#",fiyat:21000},
-               {id:7,ad:"PlayStation 5 Slim ",kategori:"Oyun",emoji:"#",fiyat:35000},
-                 {id:8,ad:"XBox Series X",kategori:"Oyun",emoji:"#",fiyat:25000},
+    <div class="bildirim" id="bildirim"></div>
+    <script>
+        var urunler = [
+            { id: 1, ad: "İphone 17", kategori: "Telefon", emoji: "#", fiyat: 77000 },
+            { id: 2, ad: "Samsung", kategori: "Telefon", emoji: "#", fiyat: 75000 },
+            { id: 3, ad: "MacBook Pro", kategori: "Bilgisayar", emoji: "#", fiyat: 107000 },
+            { id: 4, ad: "Asus Rog Laptop", kategori: "Bilgisayar", emoji: "#", fiyat: 110000 },
+            { id: 5, ad: "Airpods Pro", kategori: "Aksesuar", emoji: "#", fiyat: 15000 },
+            { id: 6, ad: "Apple Watch", kategori: "Aksesuar", emoji: "#", fiyat: 21000 },
+            { id: 7, ad: "PlayStation 5 Slim ", kategori: "Oyun", emoji: "#", fiyat: 35000 },
+            { id: 8, ad: "XBox Series X", kategori: "Oyun", emoji: "#", fiyat: 25000 },
         ];
-        
+
         // sepet array
-        var sepet=[];
-        function urunleriGoster(liste){
-         $("#urunGrid").empty();
-           
-         //Hiç ürün yoksa mesaj gösterelim 
-         if(liste.lenght===0){
-            $("#urunGrid").append('<div class="bulunamadi">Urun Bulunamadı</div>');
-            return;
-         }
-         
-         $.each(liste,function(i,urun){
-           
-            var kart =$('<div class="urun-kart">' + 
-                        '<div class="emoji">'+urun.emoji+'</div>' +
-                        '<h3>'+urun.ad+'</h3>' +
-                        '<div class="kategori">'+urun.kategori+'</div>' +
-                        '<div class="fiyat">'+urun.fiyat.toLocaleString("tr-TR")+'</div>' +
-                        '<button class="ekle-btn" data-id="'+urun.id+'">+Sepete Ekle</button>'+
-                        '</div>'
-            );
-            kart.find(".ekle-btn").on("click",function(){
-              sepeteEkle(urun.id);
+        var sepet = [];
+        function urunleriGoster(liste) {
+            $("#urunGrid").empty();
+
+            //Hiç ürün yoksa mesaj gösterelim 
+            if (liste.lenght === 0) {
+                $("#urunGrid").append('<div class="bulunamadi">Urun Bulunamadı</div>');
+                return;
+            }
+
+            $.each(liste, function (i, urun) {
+
+                var kart = $('<div class="urun-kart">' +
+                    '<div class="emoji">' + urun.emoji + '</div>' +
+                    '<h3>' + urun.ad + '</h3>' +
+                    '<div class="kategori">' + urun.kategori + '</div>' +
+                    '<div class="fiyat">' + urun.fiyat.toLocaleString("tr-TR") + '</div>' +
+                    '<button class="ekle-btn" data-id="' + urun.id + '">+Sepete Ekle</button>' +
+                    '</div>'
+                );
+                kart.find(".ekle-btn").on("click", function () {
+                    sepeteEkle(urun.id);
+                });
+                $("#urunGrid").append(kart); // kartı alıp grid'e eklicez.
             });
-            $("#urunGrid").append(kart); // kartı alıp grid'e eklicez.
-         });
         }
-           
+
         //sepete ekle
-        function sepeteEkle(id){
-        var urun =null;
-        $.each(urunler,function(i,u){ // önce listeyi doneriz.
-          
-         if(u.id===id){ // kullanıcının tıkladıgı urunun id alıyoruz ve mevcut liste içerisinde kıyamalama yapıyoruz
-            urun=u; //5 ===5 urun icin atama yapıyoruz.
-            return false;}
-        });
-        //sepette var mı kontrol et default false 
-        var varMi = false;
-        $.each(sepet,function(i,s){
-           if(s.id===id){
-            s.adet++;
-            varMi=true;
-            return false;
-           }
-        });
-        //yoksa sepete ekle
-        if(!varMi){
-          sepet.push({id:urun.id,ad:urun.ad,fiyat:urun.fiyat,emoji:urun.emoji,adet:1});
+        function sepeteEkle(id) {
+            var urun = null;
+            $.each(urunler, function (i, u) { // önce listeyi doneriz.
+
+                if (u.id === id) { // kullanıcının tıkladıgı urunun id alıyoruz ve mevcut liste içerisinde kıyamalama yapıyoruz
+                    urun = u; //5 ===5 urun icin atama yapıyoruz.
+                    return false;
+                }
+            });
+            //sepette var mı kontrol et default false 
+            var varMi = false;
+            $.each(sepet, function (i, s) {
+                if (s.id === id) {
+                    s.adet++;
+                    varMi = true;
+                    return false;
+                }
+            });
+            //yoksa sepete ekle
+            if (!varMi) {
+                sepet.push({ id: urun.id, ad: urun.ad, fiyat: urun.fiyat, emoji: urun.emoji, adet: 1 });
+            }
+            sepetiGoster();
+            bildirimGoster(urun.ad + "sepete eklendi")
         }
-        sepetiGoster();
-        bildirimGoster(urun.ad+"sepete eklendi")
-        }
-        function sepetGuncelle(){
-            var toplam =0;
-            var toplamAdet=0;
-            if(sepet.length===0){
+        function sepetGuncelle() {
+            var toplam = 0;
+            var toplamAdet = 0;
+            if (sepet.length === 0) {
                 $("#sepetIcerik").append('<div style="color:#888; font-size:14px;">Sepetiniz Boş</div>');
             }
-            $.each(sepet,function(i,s){
-                toplam +=s.fiyat*s.adet;
-                toplamAdet +=s.adet;
-                var satir =$('<div class="sepet-urun">' +
-                              '<span>'+s.emoji+' '+s.ad+'x' + s.adet+'<br>'
-                               +(s.fiyat *s.adet).toLocaleString("tr-TR")+'</span>'+
-                               '<button class="sil-btn" data-id="'+s.id+'">Sil</button>'+
-                              '</div>');
-            satir.find(".sil-btn").on("click",function(){
-              sepettenCikar(s.id);
+            $.each(sepet, function (i, s) {
+                toplam += s.fiyat * s.adet;
+                toplamAdet += s.adet;
+                var satir = $('<div class="sepet-urun">' +
+                    '<span>' + s.emoji + ' ' + s.ad + 'x' + s.adet + '<br>'
+                    + (s.fiyat * s.adet).toLocaleString("tr-TR") + '</span>' +
+                    '<button class="sil-btn" data-id="' + s.id + '">Sil</button>' +
+                    '</div>');
+                satir.find(".sil-btn").on("click", function () {
+                    sepettenCikar(s.id);
+                });
+                $("#sepetIcerik").append(satir);
+
             });
-            $("#sepetIcerik").append(satir);
-    
-            });
-            $("#sepetToplam").text("Toplam :"+toplam.toLocaleString("tr-TR"));
+            $("#sepetToplam").text("Toplam :" + toplam.toLocaleString("tr-TR"));
             $("#sepetAdet").text(toplamAdet);
-        
+
         }
-        
 
 
-         urunleriGoster(urunler);
- 
-       </script>
-  
+
+        urunleriGoster(urunler);
+
+    </script>
+
 </body>
+
 </html>

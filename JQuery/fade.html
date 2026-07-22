@@ -10,17 +10,15 @@
 
 <body>
 
-    <h1 id="baslik">Eski Başlık</h1>
-    <button id="degistir">Başlığı değiştir</button>
+    <button id="fadeBtn">Fade</button> <br> <br>
+    <div id="fadeBox" style="width: 100px; height: 100px;background-color: green;"></div>
 
     <script>
-        $(document).ready(function () {
-            $("#degistir").click(function () {
-                $("#baslik").text("Yeni Başlık İle değiştirildi");
+        $(function () {
+            $("#fadeBtn").click(function () {
+                $("#fadeBox").fadeToggle("slow");
             })
         })
-
-
     </script>
 </body>
 
