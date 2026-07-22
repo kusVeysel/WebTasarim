@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <select id="sehir">
+        <option value="" disabled selected>şehir seçiniz</option>
+        <option>istanbul</option>
+        <option>ankara</option>
+        <option>izmir</option>
+        <option>bursa</option>
+        <option>kocaeli</option>
+    </select>
+    <p id="result"></p>
+
+    <input type="text" id="inp">
+    <p id="text"></p>
+
+    <button type="button" id="buton">Tıkla</button>
+
+    <script>
+        const sehir = document.getElementById("sehir")
+        sehir.addEventListener("change", function () { //* sehir id'li etiketin change'ni dinler
+            document.getElementById("result").innerText = this.value; //* bu değeri(dinlediği değeri) result id'li etiketin text'ine atar
+        })
+
+        sehir.addEventListener("mouseover", function () { //* sehir id'li etiketin mouseover olup olmadığını dinler
+            document.body.style.background = "red" //* mouseover olduğunda(fare üzerine geldiğinde) ,ana arka plan kırmızı olur
+        })
+        sehir.addEventListener("mouseout", function () { //* sehir id'li etiketin mouseout olup olmadığını dinler
+            document.body.style.background = "white" //* mouseout olduğunda(fare üzerinden ayrıldığında) ,ana arka plan beyaz olur
+        })
+        // bu ikisi beraber hover efekti verir
+
+        document.getElementById("inp").addEventListener("input", function () { //* inp id'li etiketin inputunu dinler
+            document.getElementById("text").innerText = this.value; //* bu değeri(dinlediği değeri) text id'li etiket'in text'ine atar
+        })
+
+        document.getElementById("buton").addEventListener("click", function () { //* buton id'li etiketin click olup olmadığı dinler
+            alert("Tıklandı") //* click olduğunda Tıklandı alertini verir
+        })
+
+        window.addEventListener("load", function () { 
+            alert("sayfa Yüklendi")
+        }) //* Sayfa yüklendiğinde çalışır
+
+
+        //! eventler asenkron çalıştığı için dinlediği an yapar ,yani aynı anda 2 ya da daha fazla kod çalışır . Bu ileri düzey bi konudur
+    </script>
+</body>
+
+</html>
+<!-- 
+Genel Mantık
+1- Elemanı seç (id,class)
+2- Elemanı dinle (addEventListener)
+3- Elemanın neyini dinleyeceksin (input,change,mousemove...)
+4- bu dinleme esnasında ne olacak (addEventListener içine yazılır)
+
+const a = document.getElementById("id") 
+a.addEventListener("",function(){
+    a.style.color="red"
+})
+-->

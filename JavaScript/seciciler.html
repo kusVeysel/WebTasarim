@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .kutustyle {
+            width: 200px;
+            height: 200px;
+            background: red;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="kutu1">Kutu1</div>
+    <div id="kutu1">Kutu1</div>
+
+    <div class="kutu2">Kutu2</div>
+    <div class="kutu2">Kutu2</div>
+
+    <div class="kutu3">Kutu3</div>
+    <div class="kutu3">Kutu3</div>
+
+    <div id="kutu4">Kutu4</div>
+    <div id="kutu4">Kutu4</div>
+
+    <div class="kutu5">Kutu5</div>
+
+
+</body>
+<script>
+    const kutular = document.querySelectorAll("#kutu1") //* id'si kutu1 olanların hepsini seçer,bu yüzden atanan değişken dizidir
+    kutular.forEach(kutu => { // tüm kutu id'liler seçildi yani her elemana erişmek için forEach kullanırız
+        kutu.classList.add("kutustyle")
+    });
+    const degisken1 = document.querySelectorAll(".kutu2")[0] //* 2 tane kutu2 class olduğu için 1 tane seçmek istiyorsak [index] ile belirtiyoruz diye belirtiyoruz
+    degisken1.classList.add("kutustyle")
+
+    const degisken2 = document.querySelector(".kutu3") //* class'ı kutu3 olan ilk elementi yakalar
+    degisken2.classList.add("kutustyle")
+
+    const degisken3 = document.getElementById("kutu4") //* id'si kutu4 olan ilk elementi yakalar
+    degisken3.classList.add("kutustyle")
+
+    const degisken4 = document.getElementsByClassName("kutu5") //* class'ı kutu5 olan elementi yakalar , bu class'a ait 1 element olmak zorunda
+
+    const degisken5 = document.getElementsByTagName("div") //* div etiketine sahip her şeyi yakalar , her şeyi yakalar yani elimizde bir dizi oluşur ama seçiçileriyle(class,id) beraber yakaladığı için forEach ile dönemeyiz
+    console.log(degisken5);
+    degisken5.item(1).style.color = "white" // item fonksiyonu ile index numarasını yakalayabiliriz
+
+</script>
+
+</html>
