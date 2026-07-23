@@ -57,8 +57,8 @@
     <script>
         const cards = document.querySelectorAll(".card"); //* animasyon için istenilen tüm elemanlar seçilir
 
-        const observer = new IntersectionObserver(callback => { //* gözlemci oluşturulur ve arrowfunction yazılır
-            const filterElements = callback.filter(eleman => eleman.isIntersecting); //* gözlemcinin hedefine girenler filtrelenir
+        const observer = new IntersectionObserver(entries => { //* gözlemci oluşturulur ve arrowfunction yazılır
+            const filterElements = entries.filter(eleman => eleman.isIntersecting); //* gözlemcinin hedefine girenler filtrelenir
 
             filterElements.forEach((eleman, index) => { //* filterelenen elemanların herbirine ulaşmak için foreach kullanılır, foreach'te 2.parametre olarak index numarası alınır bunun amacı setTimeout'ta sürede kullanmak yani küçük bir zamanlama farkı yaratarak daha hoş gözükmesini sağlamak
                 setTimeout(() => {

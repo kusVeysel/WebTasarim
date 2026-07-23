@@ -10,11 +10,11 @@
 <body>
     <select id="sehir">
         <option value="" disabled selected>şehir seçiniz</option>
-        <option>istanbul</option>
-        <option>ankara</option>
-        <option>izmir</option>
-        <option>bursa</option>
-        <option>kocaeli</option>
+        <option value="istanbul">istanbul</option>
+        <option value="ankara">ankara</option>
+        <option value="izmir">izmir</option>
+        <option value="bursa">bursa</option>
+        <option value="kocaeli">kocaeli</option>
     </select>
     <p id="result"></p>
 
@@ -45,7 +45,7 @@
             alert("Tıklandı") //* click olduğunda Tıklandı alertini verir
         })
 
-        window.addEventListener("load", function () { 
+        window.addEventListener("load", function () {
             alert("sayfa Yüklendi")
         }) //* Sayfa yüklendiğinde çalışır
 
