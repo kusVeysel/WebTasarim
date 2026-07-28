@@ -1,81 +1,84 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
-    <title>Document</title>
+   <title>Document</title>
 </head>
+
 <body>
 
-<select>
-  <option>İstanbul</option>
-  <option>Ankara</option>
-  <option>İzmir</option>
-  <option>Kahramanmaraş</option>
-</select>
+   <select>
+      <option>İstanbul</option>
+      <option>Ankara</option>
+      <option>İzmir</option>
+      <option>Kahramanmaraş</option>
+   </select>
 
-<select name="sehir">
-    <option>Ankara</option>
-    <option>İzmir</option>
-    <option>İzmir</option>
-    <option>Kahramanmaraş</option>
-</select>
+   <select name="sehir">
+      <option>Ankara</option>
+      <option>İzmir</option>
+      <option>İzmir</option>
+      <option>Kahramanmaraş</option>
+   </select>
 
-    <select name="sehir">
+   <select name="sehir">
       <option value="34">İstanbul</option>
       <option value="06">Ankara</option>
       <option value="35">izmir</option>
       <option value="46">Kahramanmaraş</option>
-    </select>
+   </select>
 
-          <select name="sehir">
-                <option value="34">İstanbul</option>
-                <option value="06">Ankara</option>
-                <option value="35">izmir</option>
-                <option value="46" selected>Kahramanmaraş</option>
-          </select>
+   <select name="sehir">
+      <option value="34">İstanbul</option>
+      <option value="06">Ankara</option>
+      <option value="35">izmir</option>
+      <option value="46" selected>Kahramanmaraş</option>
+   </select>
 
-<select name="sehir">
-  <optgroup label="Marmara">
-     <option value="34">İstanbul</option>
-     <option value="41">Kocaeli</option>
-  </optgroup>
-  <optgroup label="Ege">
-     <option value="35">İzmir</option>
-     <option value="48">Muğla</option>
-   </optgroup>
-</select>
- 
-<select name="sehir" disabled>
-     <option>Kahramanmaraş</option>
-</select>
-<br> <br> 
-    
-    <form>
-       <label>Şehir</label><br>
-       <select name="sehir" required>
-          <option value="" selected disabled>Lütfen Şehir Seçiniz</option>
-          <option value="34">İstanbul</option>
-          <option value="41">Kocaeli</option>
-          <option value="35">İzmir</option>
-          <option value="48">Muğla</option>
-       </select>
-<br><br>
-   <button type="submit">gönder</button>
+   <select name="sehir">
+      <optgroup label="Marmara">
+         <option value="34">İstanbul</option>
+         <option value="41">Kocaeli</option>
+      </optgroup>
+      <optgroup label="Ege">
+         <option value="35">İzmir</option>
+         <option value="48">Muğla</option>
+      </optgroup>
+   </select>
+
+   <select name="sehir" disabled>
+      <option>Kahramanmaraş</option>
+   </select>
    <br> <br>
 
-    </form>
+   <form>
+      <label>Şehir</label><br>
+      <select name="sehir" required>
+         <option value="" selected disabled>Lütfen Şehir Seçiniz</option>
+         <option value="34">İstanbul</option>
+         <option value="41">Kocaeli</option>
+         <option value="35">İzmir</option>
+         <option value="48">Muğla</option>
+      </select>
+      <br><br>
+      <button type="submit">gönder</button>
+      <br> <br>
+
+   </form>
 
 
-<form>
-   <label>Hobiler</label><br>
-<select name="hobi" multiple size="4">
-    <option value="spor">Futbol</option>
-    <option value="muzik">Müzik</option>
-    <option value="oyun">Oyun</option>
-    <option value="kitap">Kitap</option>
-</select>
+   <form>
+      <label>Hobiler</label><br>
+      <select name="hobi" multiple size="4">
+         <option value="spor">Futbol</option>
+         <option value="muzik">Müzik</option>
+         <option value="oyun">Oyun</option>
+         <option value="kitap">Kitap</option>
+      </select>
 
-<button type="submit">Gönder </button>
-</form>
+      <button type="submit">Gönder </button>
+   </form>
 
 </body>
+
 </html>

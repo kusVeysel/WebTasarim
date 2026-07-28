@@ -1,118 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
-    body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: Arial;
-    background: linear-gradient(120deg,black,brown,orange,purple,pink,white,yellow,gold,green,darkgreen,red,skyblue);
-}
-    .merkez{
-    background: linear-gradient(120deg,rgb(23, 23, 241),rgb(102, 1, 102));
-    width: 300px;
-    padding: 20px;
-    border-radius: 23px;
-    text-align: center;  
-    transition: 1.6s; 
-}
-.merkez:hover{
-    box-shadow: 8px 8px 30px 13px black;
-}
-.merkez:hover label{
-    opacity: 1;
-}
-label{
-    position: relative;
-    display: block;
-    margin-bottom: 5px;
-}
-input{
-    position: relative;
-    border-radius: 8px;
-    color: skyblue;
-    border:1px solid palegreen;
-    background: linear-gradient(120deg,black,brown,orange,purple,pink,white,yellow,gold,green,darkgreen,red,skyblue);
-}
-input:hover{
-    cursor: pointer;
-}
-.tarih{
-    position: relative;
-    display: flex;
-    left: 228px;
-    bottom:150px;
-    color: rgb(216, 31, 31);
-    opacity: 0.7;
-}
-.a1{
-    position: relative;
-    display: flex;
-    left: 65px;
-    top: 20px;
-    opacity: 0;
-    transition: 2s;
-    color: white;
-}
-.a2{
-    position: relative;
-    display: flex;
-    left: 65px;
-    top: 20px;
-    opacity: 0;
-    transition: 2s;
-    color: white;
-}
-.tuş{
-    position: relative;
-    top: 60px;
-    right: 10px;
-    opacity: 1;
-    transition: 2s;
-    height: 30px;
-    width: 60px;
-    padding: 7px;
-    text-align: center;
-    border-radius: 30px;
-}
-.tuş:hover{
-    cursor: pointer;
-}
-.merkez:hover .tuş{
-    opacity: 0;
-}
-.tuş:hover .merkez{
-    opacity: 0;
-}
-h2{
-    opacity: 0;
-    color: aqua;
-    transition: 1.3s;
-}
-.merkez:hover h2{
-    opacity: 1;
-}
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: Arial;
+        background: linear-gradient(120deg, black, brown, orange, purple, pink, white, yellow, gold, green, darkgreen, red, skyblue);
+    }
 
+    .merkez {
+        background: linear-gradient(120deg, rgb(23, 23, 241), rgb(102, 1, 102));
+        width: 300px;
+        padding: 20px;
+        border-radius: 23px;
+        text-align: center;
+        transition: 1.6s;
+    }
+
+    .merkez:hover {
+        box-shadow: 8px 8px 30px 13px black;
+    }
+
+    .merkez:hover label {
+        opacity: 1;
+    }
+
+    label {
+        position: relative;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input {
+        position: relative;
+        border-radius: 8px;
+        color: skyblue;
+        border: 1px solid palegreen;
+        background: linear-gradient(120deg, black, brown, orange, purple, pink, white, yellow, gold, green, darkgreen, red, skyblue);
+    }
+
+    input:hover {
+        cursor: pointer;
+    }
+
+    .tarih {
+        position: relative;
+        display: flex;
+        left: 228px;
+        bottom: 150px;
+        color: rgb(216, 31, 31);
+        opacity: 0.7;
+    }
+
+    .a1 {
+        position: relative;
+        display: flex;
+        left: 65px;
+        top: 20px;
+        opacity: 0;
+        transition: 2s;
+        color: white;
+    }
+
+    .a2 {
+        position: relative;
+        display: flex;
+        left: 65px;
+        top: 20px;
+        opacity: 0;
+        transition: 2s;
+        color: white;
+    }
+
+    .tuş {
+        position: relative;
+        top: 60px;
+        right: 10px;
+        opacity: 1;
+        transition: 2s;
+        height: 30px;
+        width: 60px;
+        padding: 7px;
+        text-align: center;
+        border-radius: 30px;
+    }
+
+    .tuş:hover {
+        cursor: pointer;
+    }
+
+    .merkez:hover .tuş {
+        opacity: 0;
+    }
+
+    .tuş:hover .merkez {
+        opacity: 0;
+    }
+
+    h2 {
+        opacity: 0;
+        color: aqua;
+        transition: 1.3s;
+    }
+
+    .merkez:hover h2 {
+        opacity: 1;
+    }
 </style>
+
 <body>
     <div class="merkez">
         <h1>DAVETİYE</h1>
         <h2>Herkesi bekliyoruz</h2>
-        <div class="tarih"><p>07/07/2027</p></div>
+        <div class="tarih">
+            <p>07/07/2027</p>
+        </div>
         <form>
-           <label class="a1">AD-SOYAD</label>  <br>
-                <input type="text" name="ad-soyad" required class="a3">
-        
+            <label class="a1">AD-SOYAD</label> <br>
+            <input type="text" name="ad-soyad" required class="a3">
+
             <label class="a2">TELEFON NUMARASI</label> <br>
-                <input type="tel" name="tel" pattern="[0-9]{11}" required class="a4" title="11 haneli telefon numarasını giriniz"> <br>
-         <button type="submit" class="tuş">Gönder</button>
-         </form>    
+            <input type="tel" name="tel" pattern="[0-9]{11}" required class="a4"
+                title="11 haneli telefon numarasını giriniz"> <br>
+            <button type="submit" class="tuş">Gönder</button>
+        </form>
     </div>
 </body>
+
 </html>

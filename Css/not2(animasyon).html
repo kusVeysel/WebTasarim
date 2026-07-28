@@ -1,66 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
-    body{
+    body {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
     }
-.görünmez{
-    position:fixed;
-    inset: 0; /*yukarısındakiyle kullanılır, bulunduğu alanı kaplar, bulunduğu alan dokunulmaz*/
-    background-color: aquamarine;
-    opacity: 0;
-    pointer-events: none;
-    transition: 4s;
-}
-.kutu{
-    width: 100px;
-    padding: 20px;
-    text-align: center;
-    background: antiquewhite;
-    opacity: 0; /* opaklık (görünürlük)*/
-    transition: 4s; /*animasyon süresi*/
-    border-radius: 20px;
-}
-#aa:checked ~ .kutu{
-    opacity: 1;
-    transform: scale(2); /*merkeze doğru büyür*/
-}
-#aa:checked ~ .görünmez{
-    opacity: 1;
-    pointer-events:auto;  /*inseti tekrar dokunulmaz yapmak için kullanıldı*/
-}
-#aa{
-    display:none;
-}
-#aa:not(:checked)~ .kutu{
-    pointer-events: none;
-}
-#aa:checked~ .a{
-    color: white;
-    transition: 0.5s;
-}
 
+    .görünmez {
+        position: fixed;
+        inset: 0;
+        /*yukarısındakiyle kullanılır, bulunduğu alanı kaplar, bulunduğu alan dokunulmaz*/
+        background-color: aquamarine;
+        opacity: 0;
+        pointer-events: none;
+        transition: 4s;
+    }
 
+    .kutu {
+        width: 100px;
+        padding: 20px;
+        text-align: center;
+        background: antiquewhite;
+        opacity: 0;
+        /* opaklık (görünürlük)*/
+        transition: 4s;
+        /*animasyon süresi*/
+        border-radius: 20px;
+    }
 
+    #aa:checked~.kutu {
+        opacity: 1;
+        transform: scale(2);
+        /*merkeze doğru büyür*/
+    }
 
+    #aa:checked~.görünmez {
+        opacity: 1;
+        pointer-events: auto;
+        /*inseti tekrar dokunulmaz yapmak için kullanıldı*/
+    }
+
+    #aa {
+        display: none;
+    }
+
+    #aa:not(:checked)~.kutu {
+        pointer-events: none;
+    }
+
+    #aa:checked~.a {
+        color: white;
+        transition: 0.5s;
+    }
 </style>
+
 <body>
-    
-    <input type="checkbox"  id="aa">
-    <label for="aa" class="a">animasyonu başlat</label> 
+
+    <input type="checkbox" id="aa">
+    <label for="aa" class="a">animasyonu başlat</label>
 
     <div class="görünmez"></div>
     <div class="kutu"><label for="aa">animasyonu kapatmak için ortaya bas</label></div>
-    
+
 </body>
+
 </html>
 <!-- 
 animation-fill-mode: forwards; Animasyonun bittiği yerde kalmasını sağlar

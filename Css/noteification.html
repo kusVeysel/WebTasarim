@@ -1,69 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
-body{
-    font-family: Arial;
-}
-.btn{
-    padding: 12px 20px; /*butonun iç boşluğu*/
-    background: dodgerblue;
-    color: white;
-    border: none;
-    cursor: pointer; /*üzerine gelince el işareti yapıcak*/
-}
-#notify:checked ~ .btn{
-    pointer-events: none;
-}
-#notify{
-    display: none;
-}
-.toast{
-    position: fixed;/*ekranı sabitler*/
-    bottom: -180px;
-    right: 20px;
-    width: 300px;
-    background: #222;
-    color: white;
-    padding: 20px;
-    border-radius: 8px ;
-    transition: 0.5s;
-}
-#notify:checked ~ .toast{
-    bottom: 30px;
-}
+    body {
+        font-family: Arial;
+    }
 
-.close{
-    margin-top: 10px;
-    display: inline-block;
-    color: yellow;
-    cursor: pointer;
-}
+    .btn {
+        padding: 12px 20px;
+        /*butonun iç boşluğu*/
+        background: dodgerblue;
+        color: white;
+        border: none;
+        cursor: pointer;
+        /*üzerine gelince el işareti yapıcak*/
+    }
 
+    #notify:checked~.btn {
+        pointer-events: none;
+    }
 
+    #notify {
+        display: none;
+    }
 
+    .toast {
+        position: fixed;
+        /*ekranı sabitler*/
+        bottom: -180px;
+        right: 20px;
+        width: 300px;
+        background: #222;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        transition: 0.5s;
+    }
+
+    #notify:checked~.toast {
+        bottom: 30px;
+    }
+
+    .close {
+        margin-top: 10px;
+        display: inline-block;
+        color: yellow;
+        cursor: pointer;
+    }
 </style>
+
 <body>
-    
-<input type="checkbox" id="notify">
 
-<label for="notify" class="btn">Bildirim Göster</label>
-<div class="toast">
-    <h3>Yeni Mesaj</h3>
-    <p>Bir Bildirim aldınız</p>
+    <input type="checkbox" id="notify">
 
-    <label for="notify" class="close">Bildirimi Kapat</label>
-</div>
+    <label for="notify" class="btn">Bildirim Göster</label>
+    <div class="toast">
+        <h3>Yeni Mesaj</h3>
+        <p>Bir Bildirim aldınız</p>
 
-
-
-
-
-
+        <label for="notify" class="close">Bildirimi Kapat</label>
+    </div>
 
 </body>
+
 </html>

@@ -1,65 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
-    body{
+    body {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 100vh;
     }
-.kalp{
-position: relative;
-width: 100px;
-height: 100px;
-background: red;
-transform: rotate(45deg);
-z-index: 0;
-animation: atan 0.8s infinite;
-}
-.kalp::after,.kalp::before{
-    content: "";
-    position: absolute;
-    background: red;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    z-index: 0;
-}
-.kalp::after{
-    bottom: 50px;
-}
-.kalp::before{
-    right: 50px;
-}
-@keyframes atan{
-    0%{transform:rotate(45deg) scale(1);}
-    40%{transform:rotate(45deg) scale(1.6);}
-    70%{transform: rotate(45deg) scale(1.0);}
-    80%{transform: rotate(45deg) scale(1.7);}
-}
-.yazı{
-    z-index: 1;
-    position: relative;
-    font-weight: bold;
-    top: -35px;
-    right: 100px;
-}
-.yazı2{
-    z-index: 1;
-    position: relative;
-    font-weight: bold;
-    right: 200px;
-    top: -15px;
-}
+
+    .kalp {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        background: red;
+        transform: rotate(45deg);
+        z-index: 0;
+        animation: atan 0.8s infinite;
+    }
+
+    .kalp::after,
+    .kalp::before {
+        content: "";
+        position: absolute;
+        background: red;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        z-index: 0;
+    }
+
+    .kalp::after {
+        bottom: 50px;
+    }
+
+    .kalp::before {
+        right: 50px;
+    }
+
+    @keyframes atan {
+        0% {
+            transform: rotate(45deg) scale(1);
+        }
+
+        40% {
+            transform: rotate(45deg) scale(1.6);
+        }
+
+        70% {
+            transform: rotate(45deg) scale(1.0);
+        }
+
+        80% {
+            transform: rotate(45deg) scale(1.7);
+        }
+    }
+
+    .yazı {
+        z-index: 1;
+        position: relative;
+        font-weight: bold;
+        top: -35px;
+        right: 100px;
+    }
+
+    .yazı2 {
+        z-index: 1;
+        position: relative;
+        font-weight: bold;
+        right: 200px;
+        top: -15px;
+    }
 </style>
+
 <body>
     <div class="kalp"></div>
     <p class="yazı">seni bir ömür </p>
     <p class="yazı2">sevebilir miyim?</p>
 </body>
+
 </html>
