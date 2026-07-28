@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../CDN/BootstrapCDN.css">
+</head>
+
+<body>
+    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top"
+        title="Ben bir tooltip'im!">
+        Üzerime Gel
+    </button>
+
+    <button type="button" class="btn btn-primary" id="toastBtn">Bildirim Göster</button>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert">
+            <div class="toast-header">
+                <strong class="me-auto">Sistem</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                İşlem başarıyla tamamlandı!
+            </div>
+        </div>
+    </div>
+
+    <script src="../CDN/BootstrapCDN.js"></script>
+    <script>
+        // Tooltip'i aktifleştirmek için gereken ufak JS
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el))
+
+        // Toast'ları çalıştırmak için gereken JS
+        // 1. Bildirim (ID: toastBtn -> liveToast)
+        const toastBtn1 = document.getElementById('toastBtn');
+        const toastEl1 = document.getElementById('liveToast');
+        if (toastBtn1 && toastEl1) {
+            toastBtn1.addEventListener('click', () => {
+                bootstrap.Toast.getOrCreateInstance(toastEl1).show();
+            });
+        }
+    </script>
+</body>
+
+</html>
+<!-- 
+toast-container: ana kutu
+toast-container > toast > toast-header  toast-body 
+az da manuel js yazmak gerekir
+
+-->
