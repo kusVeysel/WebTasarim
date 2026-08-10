@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    #ana {
+        position: relative;
+        width: 50vw;
+        height: 50vh;
+        background: transparent;
+    }
+
+    #soru {
+        position: absolute;
+        top: 7%;
+        left: 35%;
+        padding: 20px;
+        font-size: 30px;
+    }
+
+    #evet {
+        width: 100px;
+        height: 30px;
+        background: green;
+        position: absolute;
+        left: 20%;
+        top: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: bold;
+        padding: 13px;
+        border: 3px solid white;
+        box-shadow: inset 0 0 10px 4px purple;
+    }
+
+    #hayır {
+        width: 100px;
+        height: 30px;
+        background-color: red;
+        position: absolute;
+        left: 80%;
+        top: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: bold;
+        padding: 13px;
+        border: 3px solid white;
+        box-shadow: inset 0 0 10px 4px purple;
+    }
+
+    #kalp {
+        animation: kalp 5s ease;
+        position: absolute;
+        text-shadow: 0 0 10px blue;
+        z-index: 2;
+    }
+
+    @keyframes kalp {
+        to {
+            top: 100vh;
+        }
+
+    }
+
+    #bilmek {
+        font-size: 100px;
+        position: absolute;
+        opacity: 0;
+        animation: op 2s forwards;
+    }
+
+    @keyframes op {
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+
+<body>
+
+    <div id="ana">
+        <div id="soru">Beni Seviyor Musun?</div>
+        <div id="evet" onclick="evet()">Evet</div>
+        <div id="hayır" onclick="hayır()">Hayır</div>
+    </div>
+
+
+    <script>
+        const hayir = document.getElementById("hayır");
+        const evett = document.getElementById("evet");
+        let artis = 20;
+        let say = 0;
+        function hayır() {
+            hayir.style.left = Math.trunc(Math.random() * 70) + "vw";
+            hayir.style.top = Math.trunc(Math.random() * 70) + "vh";
+
+            let x = evett.offsetWidth + artis;
+            let y = evett.offsetHeight + artis;
+
+            evett.style.width = x + "px";
+            evett.style.height = y + "px";
+            let x1 = evett.offsetLeft - artis;
+            let y1 = evett.offsetTop - artis;
+            evett.style.top = y1 + "px";
+            evett.style.left = x1 + "px";
+            say++;
+            if (evett.offsetWidth >= window.innerWidth) {
+                if (evett.offsetHeight >= window.innerHeight) {
+                    hayir.remove();
+                }
+            }
+        }
+        function evet() {
+            evett.remove();
+            hayir.remove();
+            document.getElementById("soru").remove();
+            fun();
+        }
+        function fun() {
+            let bilmek = document.createElement("div");
+            document.body.appendChild(bilmek);
+            bilmek.id = "bilmek";
+            bilmek.innerText = "B İ L İ Y O R D U M";
+            setInterval(() => {
+                let kalp = document.createElement("div");
+                document.body.appendChild(kalp);
+                kalp.id = "kalp";
+                kalp.innerText = "❤";
+                kalp.style.top = 0;
+                kalp.style.left = Math.trunc(Math.random() * 100) + "vw";
+                setTimeout(() => {
+                    kalp.remove();
+                }, 4000);
+            }, 200);
+        }
+
+    </script>
+</body>
+
+</html>

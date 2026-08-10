@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,7 @@
             background-color: #f0f2f5;
             font-family: sans-serif;
         }
+
         button {
             padding: 15px 30px;
             font-size: 1.2rem;
@@ -22,24 +24,26 @@
             color: white;
             border: none;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.1s;
         }
+
         button:active {
             transform: scale(0.95);
         }
     </style>
 </head>
+
 <body>
 
     <button id="confettiBtn">Konfeti Patlat! 🎉</button>
 
-<script src="../CDN/KonfetiCDN.js"></script>
+    <script src="../CDN/KonfetiCDN.js"></script>
 
     <script>
         const btn = document.getElementById('confettiBtn');
-        
-          // Şekli bir kez oluşturup tekrar kullanıyoruz
+
+        // Şekli bir kez oluşturup tekrar kullanıyoruz
 
         btn.addEventListener('click', () => {
             confetti({
@@ -54,13 +58,14 @@
                 ticks: 200,
                 zIndex: 999,
                 disableForReducedMotion: true,
-            }).then(()=>{
-            alert("bitti");
-        });
+            }).then(() => {
+                alert("bitti");
+            });
         });
     </script>
 
 </body>
+
 </html>
 <!-- 
 particleCount (Sayı): Atılacak konfeti miktarı. Varsayılan 50.
@@ -84,31 +89,31 @@ shapes (Şekiller): 'square', 'circle' veya 'emoji'.
 scalar (Ölçek): Her bir konfeti parçasının büyüklük çarpanı.
 
 
-       // 1. ADIM: Emoji'den özel bir şekil oluştur (Unicorn fırlatalım)
+1. ADIM: Emoji'den özel bir şekil oluştur (Unicorn fırlatalım)
 const unicorn = confetti.shapeFromText({ text: '🦄', scalar: 3 });
 
-// 2. ADIM: Tüm özellikleri tek bir patlamada birleştir
+ 2. ADIM: Tüm özellikleri tek bir patlamada birleştir
 confetti({
   particleCount: 150,           // 150 tane parça
   spread: 70,                   // 70 derecelik bir açıyla yayıl
   origin: { y: 0.6 },           // Ekranın biraz altından başla (y: 0.6)
   
-  // Görsel Ayarlar
+Görsel Ayarlar
   colors: ['#ff0000', '#00ff00', '#0000ff'], // Kırmızı, Yeşil, Mavi konfetiler
   shapes: [unicorn, 'circle'],  // Hem unicorn hem de daireler fırlasın
   scalar: 2,                    // Parçalar normalden 2 kat büyük olsun
   
-  // Fizik Ayarları
+Fizik Ayarları
   gravity: 1.2,                 // Biraz daha hızlı düşsünler
   drift: 1,                     // Sağa doğru rüzgar essin (savrulsunlar)
   ticks: 300,                   // Ekranda daha uzun süre kalsınlar
   
-  // Teknik
+Teknik
   zIndex: 999,                  // Her şeyin en üstünde görünsün
   disableForReducedMotion: true // Kullanıcı ayarına saygı duy
   
 }).then(() => {
-  // 3. ADIM: Promise Kullanımı (Her şey bittiğinde çalışır)
+3. ADIM: Promise Kullanımı (Her şey bittiğinde çalışır)
   console.log("Konfeti şovu başarıyla tamamlandı!");
 });})
 -->

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 200vh;
+        }
+
+        #bas {
+            width: 120px;
+            height: 25px;
+            border-radius: 10px;
+            background-color: yellowgreen;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="text" name="inp" id="inp">
+    <p id="parag">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis delectus incidunt quod?</p>
+
+    <button id="bas"></button>
+
+    <script>
+        const input = document.getElementById("inp")
+
+        document.addEventListener("keypress", function (e) {
+            alert(e.key) // Basılan harf
+            alert(e.keyCode) // Basılan harfin ASCII karşılığı
+        })
+        //* Klavye Eventleri 
+        // keypress: klavyeden basılan harf ve sayıları okur
+        // keydown: klavyeden basılan her şeyi okur
+        // keyup: tuştan elini kaldırdığında çalışır
+
+
+        document.getElementById("parag").addEventListener("copy", function () {
+            alert("kopyalandı")
+        })
+        // focus: elemana tıklanıldığında çalışır 
+        // blur: antifocus
+        // copy: eleman içindeki bir veri copyalandığında çalışır(ctrl + C dahil)
+        // paste: eleman içine bir veri yapıştırıldığında çalışır(ctrl + V dahil)
+        // cut: eleman içindeki bir veri kesildiğinde çalışır(ctrl + X dahil)
+        // select: eleman içindeki bir veri seçildiğinde çalışır(shift + sağ/sol ok tuşları ve ctrl + A dahil)
+
+        let deger = true
+        window.addEventListener("scroll", () => {
+            if (scrollY > 1000 && deger == true) {
+                alert("Scroll 1000px'i geçti")
+                deger = false
+            }
+        })
+
+        let buton = document.getElementById("bas");
+        buton.addEventListener("click", function () {
+            window.scrollTo({
+                top: 500,
+                behavior: "smooth" //* Yavaş scroll
+            });
+        })
+    </script>
+</body>
+
+</html>

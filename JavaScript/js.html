@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+
     <script>
-        const dizi=[1,2,3,4,5,6];
-        const yeni=dizi.map((eleman)=>eleman*2); //değiştirir,change yapar
+        const dizi = [1, 2, 3, 4, 5, 6];
+        const yeni = dizi.map((eleman) => eleman * 2); //foreach gibi her eleman için döngü yaratır
         console.log(yeni);
 
-        const filtre=dizi.filter((elemane)=>elemane>2); //filtre yapar 2'den büyük olanları getirir
+        const filtre = dizi.filter((elemane) => elemane > 2); //filtre yapar 2'den büyük olanları getirir
         console.log(filtre);
 
-        const users = { ali: 25, ayse: 17, mehmet: 30 };  
-const adults = Object.entries(users) //objeyi arraye çevirir
-.filter(([name, yas]) => yas >= 18) 
-.reduce((c, [name, yas]) => ({ ...c, [name]: yas }), {}); 
-console.log(adults); 
+        const users = { ali: 25, ayse: 17, mehmet: 30 };
+        const adults = Object.entries(users) //objeyi arraye çevirir
+            .filter(([name, yas]) => yas >= 18)
+            .reduce((c, [name, yas]) => ({ ...c, [name]: yas }), {});
+        console.log(adults);
 
 
-const users2 = [ 
-{ id: 1, name: "Ali", age: 25 }, 
-{ id: 2, name: "Ayşe", age: 17 }, 
-{ id: 3, name: "Mehmet", age: 30 }, 
-]; 
-const user = users2.find((u) => u.id >=2); //koşula uyan ilk elemanı döndürür
-console.log(user); 
+        const users2 = [
+            { id: 1, name: "Ali", age: 25 },
+            { id: 2, name: "Ayşe", age: 17 },
+            { id: 3, name: "Mehmet", age: 30 },
+        ];
+        const user = users2.find((u) => u.id >= 2); //koşula uyan ilk elemanı döndürür
+        console.log(user);
 
-const hasAdult = users2.some((u) => u.age >= 18); //dizide koşula uyan en az 1 eleman var mı 
-console.log(hasAdult);
+        const hasAdult = users2.some((u) => u.age >= 18); //dizide koşula uyan en az 1 eleman var mı 
+        console.log(hasAdult);
 
-const eski=dizi.every((eleman)=>eleman>0); // dizinin içindeki tüm elemanların koşula uyup uymadıklarını kontrol eder
-console.log(eski);
+        const eski = dizi.every((eleman) => eleman > 0); // dizinin içindeki tüm elemanların koşula uyup uymadıklarını kontrol eder
+        console.log(eski);
 
     </script>
 </body>
+
 </html>

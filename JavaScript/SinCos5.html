@@ -1,79 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trigonometrik Gül Eğrisi</title>
-    <style>
-      body {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: radial-gradient(circle, #111, #000);
-        margin: 0;
-        overflow: hidden;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trigonometrik Gül Eğrisi</title>
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle, #111, #000);
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      background: #00d2ff;
+      border-radius: 50%;
+      position: absolute;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 0.8;
+        transform: translate(var(--tx), var(--ty)) scale(1);
       }
 
-      .dot {
-        width: 12px;
-        height: 12px;
-        background: #00d2ff;
-        border-radius: 50%;
-        position: absolute;
-        pointer-events: none;
-        will-change: transform;
+      100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(0.1);
       }
-
-      @keyframes fadeOut {
-        0% { opacity: 0.8; transform: translate(var(--tx), var(--ty)) scale(1); }
-        100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.1); }
-      }
-    </style>
+    }
+  </style>
 </head>
+
 <body>
-    <div class="dot" id="mainDot"></div>
+  <div class="dot" id="mainDot"></div>
 
-    <script>
-      let angle = 0;
-      const dot = document.getElementById("mainDot");
+  <script>
+    let angle = 0;
+    const dot = document.getElementById("mainDot");
 
-      function animate() {
-        // Hız kontrolü
-        angle += 0.02;
+    function animate() {
+      // Hız kontrolü
+      angle += 0.02;
 
-        // Gül Eğrisi Formülü: r = a * cos(k * theta)
-        // k değeri yaprağın şeklini belirler (örn: 1.5, 2, 3, 4)
-        let k = 1.5; 
-        let radius = 180 * Math.cos(k * angle);
+      // Gül Eğrisi Formülü: r = a * cos(k * theta)
+      // k değeri yaprağın şeklini belirler (örn: 1.5, 2, 3, 4)
+      let k = 1.5;
+      let radius = 180 * Math.cos(k * angle);
 
-        let x = radius * Math.cos(angle);
-        let y = radius * Math.sin(angle);
+      let x = radius * Math.cos(angle);
+      let y = radius * Math.sin(angle);
 
-        dot.style.transform = `translate(${x}px, ${y}px)`;
+      dot.style.transform = `translate(${x}px, ${y}px)`;
 
-        // İz (Trail) Oluşturma
-        let trail = document.createElement("div");
-        trail.className = "dot";
-        trail.style.setProperty('--tx', `${x}px`);
-        trail.style.setProperty('--ty', `${y}px`);
-        trail.style.transform = `translate(${x}px, ${y}px)`;
-        
-        // Renklerin gökkuşağı gibi değişmesini sağlar
-        let hue = (angle * 60) % 360;
-        trail.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
-        trail.style.boxShadow = `0 0 10px hsl(${hue}, 100%, 60%)`;
-        
-        trail.style.animation = "fadeOut 2s forwards";
-        document.body.appendChild(trail);
+      // İz (Trail) Oluşturma
+      let trail = document.createElement("div");
+      trail.className = "dot";
+      trail.style.setProperty('--tx', `${x}px`);
+      trail.style.setProperty('--ty', `${y}px`);
+      trail.style.transform = `translate(${x}px, ${y}px)`;
 
-        // Performans için 2 saniye sonra elemanı siliyoruz
-        setTimeout(() => trail.remove(), 2000);
+      // Renklerin gökkuşağı gibi değişmesini sağlar
+      let hue = (angle * 60) % 360;
+      trail.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
+      trail.style.boxShadow = `0 0 10px hsl(${hue}, 100%, 60%)`;
 
-        requestAnimationFrame(animate);
-      }
+      trail.style.animation = "fadeOut 2s forwards";
+      document.body.appendChild(trail);
 
-      animate();
-    </script>
+      // Performans için 2 saniye sonra elemanı siliyoruz
+      setTimeout(() => trail.remove(), 2000);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
 </body>
+
 </html>

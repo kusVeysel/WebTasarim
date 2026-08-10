@@ -5,6 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #kutu {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            cursor: grab;
+        }
+
+        #kutu:active {
+            cursor: grabbing;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,19 +36,47 @@
 
     <button type="button" id="buton">Tıkla</button>
 
+    <div id="kutu"></div>
+
     <script>
         const sehir = document.getElementById("sehir")
         sehir.addEventListener("change", function () { //* sehir id'li etiketin change'ni dinler
             document.getElementById("result").innerText = this.value; //* bu değeri(dinlediği değeri) result id'li etiketin text'ine atar
         })
 
-        sehir.addEventListener("mouseover", function () { //* sehir id'li etiketin mouseover olup olmadığını dinler
-            document.body.style.background = "red" //* mouseover olduğunda(fare üzerine geldiğinde) ,ana arka plan kırmızı olur
+        const kutu = document.getElementById("kutu");
+        let deger = false;
+        let x, y;
+
+        kutu.addEventListener("mousedown", (e) => { //* kutu id'li etiketin mousedown'u(fare basılı olduğunda) dinler
+            deger = true;
+            x = e.clientX - kutu.offsetLeft;
+            y = e.clientY - kutu.offsetTop;
+        });
+        window.addEventListener("mousemove", (e) => { //* window'un faresini dinler
+            if (deger) {
+                kutu.style.left = (e.clientX - x) + "px";
+                kutu.style.top = (e.clientY - y) + "px";
+            };
         })
-        sehir.addEventListener("mouseout", function () { //* sehir id'li etiketin mouseout olup olmadığını dinler
-            document.body.style.background = "white" //* mouseout olduğunda(fare üzerinden ayrıldığında) ,ana arka plan beyaz olur
+        kutu.addEventListener("mouseup", () => { //* kutu id'li etiketin mouseup'u(fare bırakıldığında) dinler
+            deger = false;
+        });
+        kutu.addEventListener("mouseover", function () { //* sehir id'li etiketin mouseover olup olmadığını dinler
+            kutu.style.background = "blue" //* mouseover olduğunda(fare üzerine geldiğinde) ,ana arka plan kırmızı olur
         })
-        // bu ikisi beraber hover efekti verir
+        kutu.addEventListener("mouseout", function () { //* sehir id'li etiketin mouseout olup olmadığını dinler
+            kutu.style.background = "red" //* mouseout olduğunda(fare üzerinden ayrıldığında) ,ana arka plan beyaz olur
+        })
+        //* Mouse Eventleri
+        // mouseup
+        // mousedown
+        //* İkisi birlikte click eventi yaratır
+        // mousemove fareyi izler(takip eder)
+        // mouseover
+        // mouseout
+        // İkisi birlikte hover efekti yaratır
+
 
         document.getElementById("inp").addEventListener("input", function () { //* inp id'li etiketin inputunu dinler
             document.getElementById("text").innerText = this.value; //* bu değeri(dinlediği değeri) text id'li etiket'in text'ine atar
