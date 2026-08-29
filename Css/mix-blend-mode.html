@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS mix-blend-mode - Tüm Kullanımlar</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1000px;
+            min-height: 180px;
+
+            margin-bottom: 40px;
+            padding: 30px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+        .box {
+            width: 180px;
+            height: 120px;
+
+            border-radius: 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           mix-blend-mode NEDİR?
+           ==================================================
+
+           Bir elementin arkasındaki içerikle
+           nasıl karışacağını belirler.
+
+           Normalde:
+
+           Element
+              ↓
+           Arka plan
+
+           mix-blend-mode ile:
+
+           Element + Arka plan
+                    ↓
+             Karıştırma işlemi
+        */
+
+
+        /* ==================================================
+           1. normal
+           ==================================================
+
+           Normal davranış.
+
+           Element arka planla karışmaz.
+        */
+
+        .normal {
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #ec4899);
+        }
+
+        .normal .box {
+            background: #facc15;
+
+            mix-blend-mode: normal;
+        }
+
+
+        /* ==================================================
+           2. multiply
+           ==================================================
+
+           Renkleri koyulaştırır.
+
+           Özellikle:
+
+           - Görsel efektleri
+           - Tasarım katmanlarını
+           - Fotoğraf üzerine renk vermeyi
+
+           kolaylaştırır.
+        */
+
+        .multiply {
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #ef4444);
+        }
+
+        .multiply .box {
+            background: #facc15;
+
+            mix-blend-mode: multiply;
+        }
+
+
+        /* ==================================================
+           3. screen
+           ==================================================
+
+           Multiply'ın tersine daha açık sonuç üretir.
+
+           Parlak efektlerde kullanışlıdır.
+        */
+
+        .screen {
+            background:
+                linear-gradient(90deg,
+                    #111827,
+                    #7c3aed);
+        }
+
+        .screen .box {
+            background: #f9fafb;
+
+            mix-blend-mode: screen;
+        }
+
+
+        /* ==================================================
+           4. overlay
+           ==================================================
+
+           Koyu alanları daha koyu,
+           açık alanları daha açık yapar.
+
+           Kontrastı artırır.
+        */
+
+        .overlay {
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #f97316);
+        }
+
+        .overlay .box {
+            background: #facc15;
+
+            mix-blend-mode: overlay;
+        }
+
+
+        /* ==================================================
+           5. darken
+           ==================================================
+
+           Daha koyu olan renkleri tercih eder.
+        */
+
+        .darken {
+            background:
+                linear-gradient(90deg,
+                    #60a5fa,
+                    #f87171);
+        }
+
+        .darken .box {
+            background: #2563eb;
+
+            mix-blend-mode: darken;
+        }
+
+
+        /* ==================================================
+           6. lighten
+           ==================================================
+
+           Daha açık olan renkleri tercih eder.
+        */
+
+        .lighten {
+            background:
+                linear-gradient(90deg,
+                    #1e3a8a,
+                    #7f1d1d);
+        }
+
+        .lighten .box {
+            background: #93c5fd;
+
+            mix-blend-mode: lighten;
+        }
+
+
+        /* ==================================================
+           7. color-dodge
+           ==================================================
+
+           Açık alanları güçlü şekilde aydınlatır.
+
+           Parlak / glow benzeri efektlerde kullanılabilir.
+        */
+
+        .color-dodge {
+            background:
+                linear-gradient(90deg,
+                    #172554,
+                    #581c87);
+        }
+
+        .color-dodge .box {
+            background: #fef08a;
+
+            mix-blend-mode: color-dodge;
+        }
+
+
+        /* ==================================================
+           8. color-burn
+           ==================================================
+
+           Koyu ve yoğun renkler oluşturur.
+        */
+
+        .color-burn {
+            background:
+                linear-gradient(90deg,
+                    #93c5fd,
+                    #fca5a5);
+        }
+
+        .color-burn .box {
+            background: #1e3a8a;
+
+            mix-blend-mode: color-burn;
+        }
+
+
+        /* ==================================================
+           9. hard-light
+           ==================================================
+
+           Güçlü kontrast oluşturur.
+
+           Overlay'e benzer ancak
+           karıştırma yönü farklıdır.
+        */
+
+        .hard-light {
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #ec4899);
+        }
+
+        .hard-light .box {
+            background: #facc15;
+
+            mix-blend-mode: hard-light;
+        }
+
+
+        /* ==================================================
+           10. soft-light
+           ==================================================
+
+           Hard-light'ın daha yumuşak versiyonudur.
+
+           Fotoğraf efektlerinde kullanılabilir.
+        */
+
+        .soft-light {
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #f97316);
+        }
+
+        .soft-light .box {
+            background: #fef08a;
+
+            mix-blend-mode: soft-light;
+        }
+
+
+        /* ==================================================
+           11. difference
+           ==================================================
+
+           Renkler arasındaki farkı kullanır.
+
+           İlginç / invert benzeri efektler oluşturabilir.
+        */
+
+        .difference {
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #ec4899);
+        }
+
+        .difference .box {
+            background: #ffffff;
+
+            mix-blend-mode: difference;
+        }
+
+
+        /* ==================================================
+           12. exclusion
+           ==================================================
+
+           difference'a benzer fakat
+           daha düşük kontrastlıdır.
+        */
+
+        .exclusion {
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #ec4899);
+        }
+
+        .exclusion .box {
+            background: #ffffff;
+
+            mix-blend-mode: exclusion;
+        }
+
+
+        /* ==================================================
+           13. hue
+           ==================================================
+
+           Elementin hue değerini kullanarak
+           arka planın tonunu etkiler.
+        */
+
+        .hue {
+            background:
+                linear-gradient(90deg,
+                    #22c55e,
+                    #3b82f6);
+        }
+
+        .hue .box {
+            background: #ef4444;
+
+            mix-blend-mode: hue;
+        }
+
+
+        /* ==================================================
+           14. saturation
+           ==================================================
+
+           Doygunluğu etkiler.
+        */
+
+        .saturation {
+            background:
+                linear-gradient(90deg,
+                    #3b82f6,
+                    #a855f7);
+        }
+
+        .saturation .box {
+            background: #facc15;
+
+            mix-blend-mode: saturation;
+        }
+
+
+        /* ==================================================
+           15. color
+           ==================================================
+
+           Hue + saturation değerlerini
+           üstteki elementten alır.
+
+           Parlaklığı arka plandan korur.
+        */
+
+        .color-mode {
+            background:
+                linear-gradient(90deg,
+                    #22c55e,
+                    #3b82f6);
+        }
+
+        .color-mode .box {
+            background: #ef4444;
+
+            mix-blend-mode: color;
+        }
+
+
+        /* ==================================================
+           16. luminosity
+           ==================================================
+
+           Parlaklığı elementten,
+           hue/saturation'ı arka plandan
+           etkileyen karıştırma yöntemidir.
+        */
+
+        .luminosity {
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #ec4899);
+        }
+
+        .luminosity .box {
+            background: #facc15;
+
+            mix-blend-mode: luminosity;
+        }
+
+
+        /* ==================================================
+           17. PLUS-DARKER
+           ==================================================
+
+           Daha yeni compositing/blending
+           modlarından biridir.
+
+           Destek durumunu kontrol ederek
+           kullanılmalıdır.
+        */
+
+        .plus-darker {
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #ec4899);
+        }
+
+        .plus-darker .box {
+            background: #facc15;
+
+            mix-blend-mode: plus-darker;
+        }
+
+
+        /* ==================================================
+           18. PLUS-LIGHTER
+           ==================================================
+
+           Renkleri toplama mantığıyla
+           daha aydınlık sonuçlar üretir.
+        */
+
+        .plus-lighter {
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #ec4899);
+        }
+
+        .plus-lighter .box {
+            background: #facc15;
+
+            mix-blend-mode: plus-lighter;
+        }
+
+
+        /* ==================================================
+           19. MULTIPLE ELEMENT
+           ==================================================
+
+           Aynı container içindeki birden fazla
+           element birbirleriyle ve arka planla
+           karışabilir.
+        */
+
+        .multiple {
+            background:
+                linear-gradient(135deg,
+                    #1d4ed8,
+                    #7e22ce);
+        }
+
+        .multiple .circle {
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            background: #facc15;
+
+            mix-blend-mode: screen;
+
+            margin-right: -40px;
+        }
+
+        .multiple .circle2 {
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            background: #ef4444;
+
+            mix-blend-mode: screen;
+
+            margin-left: -40px;
+        }
+
+
+        /* ==================================================
+           20. TEXT BLEND
+           ==================================================
+
+           Metin de arka planla karıştırılabilir.
+
+           Hero başlıklarında ilginç efektler
+           oluşturmak için kullanılabilir.
+        */
+
+        .text-blend {
+            background:
+                linear-gradient(135deg,
+                    #2563eb,
+                    #ec4899);
+        }
+
+        .text-blend h1 {
+            font-size: 60px;
+
+            color: white;
+
+            mix-blend-mode: difference;
+
+            margin: 0;
+        }
+
+
+        /* ==================================================
+           21. IMAGE + BLEND
+           ==================================================
+
+           Görseli arka planla karıştırabiliriz.
+        */
+
+        .image-blend {
+            background:
+                linear-gradient(135deg,
+                    #2563eb,
+                    #ec4899);
+        }
+
+        .image-blend img {
+            width: 300px;
+            height: 160px;
+
+            object-fit: cover;
+
+            mix-blend-mode: multiply;
+
+            border-radius: 15px;
+        }
+
+
+        /* ==================================================
+           22. HOVER BLEND
+           ==================================================
+
+           Hover ile blend mode değiştirebiliriz.
+        */
+
+        .hover-blend {
+            background:
+                linear-gradient(90deg,
+                    #2563eb,
+                    #ec4899);
+        }
+
+        .hover-blend .box {
+            background: #facc15;
+
+            mix-blend-mode: normal;
+
+            transition:
+                transform .3s ease;
+        }
+
+        .hover-blend .box:hover {
+            mix-blend-mode: difference;
+
+            transform: scale(1.1);
+        }
+
+
+        /* ==================================================
+           23. GERÇEK PROJE:
+           HERO TEXT
+           ================================================== */
+
+        .hero {
+            position: relative;
+
+            height: 350px;
+
+            background:
+                linear-gradient(135deg,
+                    #2563eb,
+                    #7c3aed);
+
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 70px;
+
+            color: white;
+
+            mix-blend-mode: overlay;
+
+            margin: 0;
+        }
+
+
+        /* ==================================================
+           24. GERÇEK PROJE:
+           IMAGE OVERLAY
+           ================================================== */
+
+        .image-overlay {
+            position: relative;
+
+            background: #111827;
+        }
+
+        .image-overlay img {
+            width: 450px;
+            height: 220px;
+
+            object-fit: cover;
+
+            mix-blend-mode: screen;
+
+            opacity: .8;
+        }
+
+
+        /* ==================================================
+           25. GERÇEK PROJE:
+           COLOR OVERLAY
+           ================================================== */
+
+        .color-overlay {
+            position: relative;
+
+            background:
+                url("https://images.unsplash.com/photo-1500534623283-312aade485b7") center / cover;
+        }
+
+        .color-overlay::before {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background: #2563eb;
+
+            mix-blend-mode: multiply;
+        }
+
+
+        /* ==================================================
+           26. GERÇEK PROJE:
+           DUOTONE
+           ==================================================
+
+           Görsele iki renkli görünüm vermek
+           için blend mode kullanılabilir.
+        */
+
+        .duotone {
+            position: relative;
+
+            background: #7c3aed;
+        }
+
+        .duotone img {
+            width: 400px;
+            height: 220px;
+
+            object-fit: cover;
+
+            mix-blend-mode: screen;
+
+            opacity: .8;
+        }
+
+
+        /* ==================================================
+           27. GERÇEK PROJE:
+           GLOW
+           ================================================== */
+
+        .glow {
+            background: #111827;
+        }
+
+        .glow .box {
+            background: #60a5fa;
+
+            mix-blend-mode: screen;
+
+            filter: blur(10px);
+        }
+
+
+        /* ==================================================
+           28. GERÇEK PROJE:
+           CREATIVE TEXT
+           ================================================== */
+
+        .creative-text {
+            background:
+                linear-gradient(90deg,
+                    #f97316,
+                    #ec4899,
+                    #8b5cf6);
+        }
+
+        .creative-text h1 {
+            color: white;
+
+            font-size: 60px;
+
+            mix-blend-mode: difference;
+
+            margin: 0;
+        }
+
+
+        /* ==================================================
+           29. isolation
+           ==================================================
+
+           mix-blend-mode kullanan elementin
+           hangi stacking context içinde
+           karışacağını kontrol etmek için
+           isolation kullanılabilir.
+
+           isolation: isolate;
+
+           → Elementi ayrı bir compositing
+             context içine alır.
+        */
+
+        .isolated {
+            isolation: isolate;
+
+            background:
+                linear-gradient(135deg,
+                    #2563eb,
+                    #ec4899);
+        }
+
+        .isolated .box {
+            background: #facc15;
+
+            mix-blend-mode: multiply;
+        }
+
+
+        /* ==================================================
+           30. GERÇEK PROJE:
+           CARD EFFECT
+           ================================================== */
+
+        .card {
+            position: relative;
+
+            background:
+                linear-gradient(135deg,
+                    #0f172a,
+                    #1e3a8a);
+
+            color: white;
+        }
+
+        .card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            border-radius: 50%;
+
+            background: #ec4899;
+
+            mix-blend-mode: screen;
+
+            top: -80px;
+            right: -50px;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <h2>1. normal</h2>
+
+    <div class="container normal">
+        <div class="box">NORMAL</div>
+    </div>
+
+
+    <h2>2. multiply</h2>
+
+    <div class="container multiply">
+        <div class="box">MULTIPLY</div>
+    </div>
+
+
+    <h2>3. screen</h2>
+
+    <div class="container screen">
+        <div class="box">SCREEN</div>
+    </div>
+
+
+    <h2>4. overlay</h2>
+
+    <div class="container overlay">
+        <div class="box">OVERLAY</div>
+    </div>
+
+
+    <h2>5. darken</h2>
+
+    <div class="container darken">
+        <div class="box">DARKEN</div>
+    </div>
+
+
+    <h2>6. lighten</h2>
+
+    <div class="container lighten">
+        <div class="box">LIGHTEN</div>
+    </div>
+
+
+    <h2>7. color-dodge</h2>
+
+    <div class="container color-dodge">
+        <div class="box">COLOR DODGE</div>
+    </div>
+
+
+    <h2>8. color-burn</h2>
+
+    <div class="container color-burn">
+        <div class="box">COLOR BURN</div>
+    </div>
+
+
+    <h2>9. hard-light</h2>
+
+    <div class="container hard-light">
+        <div class="box">HARD LIGHT</div>
+    </div>
+
+
+    <h2>10. soft-light</h2>
+
+    <div class="container soft-light">
+        <div class="box">SOFT LIGHT</div>
+    </div>
+
+
+    <h2>11. difference</h2>
+
+    <div class="container difference">
+        <div class="box">DIFFERENCE</div>
+    </div>
+
+
+    <h2>12. exclusion</h2>
+
+    <div class="container exclusion">
+        <div class="box">EXCLUSION</div>
+    </div>
+
+
+    <h2>13. hue</h2>
+
+    <div class="container hue">
+        <div class="box">HUE</div>
+    </div>
+
+
+    <h2>14. saturation</h2>
+
+    <div class="container saturation">
+        <div class="box">SATURATION</div>
+    </div>
+
+
+    <h2>15. color</h2>
+
+    <div class="container color-mode">
+        <div class="box">COLOR</div>
+    </div>
+
+
+    <h2>16. luminosity</h2>
+
+    <div class="container luminosity">
+        <div class="box">LUMINOSITY</div>
+    </div>
+
+
+    <h2>17. plus-darker</h2>
+
+    <div class="container plus-darker">
+        <div class="box">PLUS DARKER</div>
+    </div>
+
+
+    <h2>18. plus-lighter</h2>
+
+    <div class="container plus-lighter">
+        <div class="box">PLUS LIGHTER</div>
+    </div>
+
+
+    <h2>19. Multiple Elements</h2>
+
+    <div class="container multiple">
+
+        <div class="circle">
+        </div>
+
+        <div class="circle2">
+        </div>
+
+    </div>
+
+
+    <h2>20. Text Blend</h2>
+
+    <div class="container text-blend">
+
+        <h1>BLEND</h1>
+
+    </div>
+
+
+    <h2>21. Image Blend</h2>
+
+    <div class="container image-blend">
+
+        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7" alt="Örnek görsel">
+
+    </div>
+
+
+    <h2>22. Hover Blend</h2>
+
+    <div class="container hover-blend">
+
+        <div class="box">
+            HOVER
+        </div>
+
+    </div>
+
+
+    <h2>23. Gerçek Proje → Hero Text</h2>
+
+    <section class="container hero">
+
+        <h1>
+            CREATIVE
+        </h1>
+
+    </section>
+
+
+    <h2>24. Gerçek Proje → Image Overlay</h2>
+
+    <div class="container image-overlay">
+
+        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72" alt="Ofis">
+
+    </div>
+
+
+    <h2>25. Gerçek Proje → Color Overlay</h2>
+
+    <div class="container color-overlay">
+    </div>
+
+
+    <h2>26. Gerçek Proje → Duotone</h2>
+
+    <div class="container duotone">
+
+        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72" alt="Ofis">
+
+    </div>
+
+
+    <h2>27. Gerçek Proje → Glow</h2>
+
+    <div class="container glow">
+
+        <div class="box">
+            GLOW
+        </div>
+
+    </div>
+
+
+    <h2>28. Gerçek Proje → Creative Text</h2>
+
+    <div class="container creative-text">
+
+        <h1>
+            DESIGN
+        </h1>
+
+    </div>
+
+
+    <h2>29. isolation + mix-blend-mode</h2>
+
+    <div class="container isolated">
+
+        <div class="box">
+            ISOLATED
+        </div>
+
+    </div>
+
+
+    <h2>30. Gerçek Proje → Card Effect</h2>
+
+    <div class="container card">
+
+        <div class="card-content">
+
+            <h2>Modern Card</h2>
+
+            <p>
+                mix-blend-mode ile oluşturulan
+                dekoratif renk efekti.
+            </p>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

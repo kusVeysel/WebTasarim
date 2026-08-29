@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS display</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            margin-bottom: 45px;
+            padding: 25px;
+
+            background: #f3f4f6;
+        }
+
+        .box {
+            padding: 15px;
+
+            margin: 5px;
+
+            background: white;
+
+            border: 1px solid #ccc;
+        }
+
+
+        /* ==================================================
+       1. display: block
+       ==================================================
+
+       Elementi block element yapar.
+
+       - Yeni satırdan başlar.
+       - Varsayılan olarak bulunduğu alanın
+         genişliğini kaplar.
+       - width / height uygulanabilir.
+
+       div, section, p gibi elementler
+       zaten varsayılan olarak block olabilir.
+    */
+
+        .block {
+            display: block;
+
+            width: 200px;
+            height: 60px;
+        }
+
+
+        /* ==================================================
+       2. display: inline
+       ==================================================
+
+       Elementi inline element yapar.
+
+       - Aynı satırda durabilir.
+       - width ve height normal şekilde
+         uygulanmaz.
+       - İçeriği kadar alan kaplar.
+
+       span, a gibi elementlerde yaygındır.
+    */
+
+        .inline {
+            display: inline;
+
+            /* width / height normal şekilde
+         çalışmaz */
+        }
+
+
+        /* ==================================================
+       3. display: inline-block
+       ==================================================
+
+       Inline gibi aynı satırda durur.
+
+       Fakat block gibi:
+
+       - width
+       - height
+       - padding
+       - margin
+
+       uygulanabilir.
+
+       Gerçek projelerde oldukça kullanışlıdır.
+    */
+
+        .inline-block {
+            display: inline-block;
+
+            width: 150px;
+            height: 70px;
+
+            padding: 15px;
+        }
+
+
+        /* ==================================================
+       4. display: none
+       ==================================================
+
+       Elementi tamamen layout'tan kaldırır.
+
+       Element:
+
+       - görünmez
+       - yer kaplamaz
+       - layout'a dahil olmaz
+    */
+
+        .none {
+            display: none;
+        }
+
+
+        /* ==================================================
+       5. display: flex
+       ==================================================
+
+       Elementi Flex Container yapar.
+
+       İçindeki çocuklar flex item olur.
+
+       Gerçek projelerde:
+
+       - navbar
+       - kartlar
+       - buton grupları
+       - hizalama
+       - responsive layout
+
+       için çok yaygındır.
+    */
+
+        .flex {
+            display: flex;
+
+            gap: 15px;
+        }
+
+
+        /* ==================================================
+       6. display: inline-flex
+       ==================================================
+
+       Flex Container'ın inline versiyonudur.
+
+       İçeriği kadar alan kaplar fakat
+       çocukları flex item olur.
+    */
+
+        .inline-flex {
+            display: inline-flex;
+
+            gap: 10px;
+
+            padding: 15px;
+        }
+
+
+        /* ==================================================
+       7. display: grid
+       ==================================================
+
+       Elementi Grid Container yapar.
+
+       Satır ve sütun tabanlı layout
+       oluşturmak için kullanılır.
+
+       Gerçek projelerde:
+
+       - dashboard
+       - galeri
+       - kart sistemleri
+       - sayfa layoutları
+
+       için çok yaygındır.
+    */
+
+        .grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+        }
+
+
+        /* ==================================================
+       8. display: inline-grid
+       ==================================================
+
+       Grid'in inline versiyonudur.
+
+       Element dışarıdan inline gibi davranır,
+       çocukları grid item olur.
+    */
+
+        .inline-grid {
+            display: inline-grid;
+
+            grid-template-columns:
+                repeat(2, 100px);
+
+            gap: 10px;
+
+            padding: 15px;
+        }
+
+
+        /* ==================================================
+       9. display: table
+       ==================================================
+
+       Elementi tablo benzeri davranan
+       bir container yapar.
+
+       Modern projelerde flex/grid kadar
+       yaygın değildir.
+    */
+
+        .table {
+            display: table;
+
+            width: 100%;
+        }
+
+
+        /* ==================================================
+       10. display: table-row
+       ==================================================
+
+       Elementi table-row gibi davranacak
+       şekilde gösterir.
+    */
+
+        .table-row {
+            display: table-row;
+        }
+
+
+        /* ==================================================
+       11. display: table-cell
+       ==================================================
+
+       Elementi table-cell gibi davranacak
+       şekilde gösterir.
+    */
+
+        .table-cell {
+            display: table-cell;
+
+            padding: 15px;
+
+            border: 1px solid #ccc;
+        }
+
+
+        /* ==================================================
+       12. display: list-item
+       ==================================================
+
+       Elementi liste elemanı gibi gösterir.
+
+       ::marker ile birlikte kullanılabilir.
+    */
+
+        .list-item {
+            display: list-item;
+
+            margin-left: 30px;
+        }
+
+
+        /* ==================================================
+       13. display: contents
+       ==================================================
+
+       Elementin kendi kutusunu ortadan kaldırır.
+
+       Fakat çocuk elementleri layout'ta
+       kalmaya devam eder.
+
+       Dikkatli kullanılmalıdır.
+    */
+
+        .contents {
+            display: contents;
+        }
+
+
+        /* ==================================================
+       14. display: flow-root
+       ==================================================
+
+       Yeni bir block formatting context oluşturur.
+
+       Özellikle float içeren yapılarda
+       parent'ın yüksekliğini düzgün
+       yönetmek için kullanılabilir.
+    */
+
+        .flow-root {
+            display: flow-root;
+        }
+
+
+        /* ==================================================
+       15. display: flow
+       ==================================================
+
+       Normal flow davranışını ifade eder.
+
+       Çok sık elle yazılmaz.
+    */
+
+        .flow {
+            display: flow;
+        }
+
+
+        /* ==================================================
+       16. display: inline flow
+       ==================================================
+
+       Yeni CSS display syntax'ında
+       dış davranış + iç layout
+       ayrı belirtilebilir.
+
+       inline
+       → dış davranış
+
+       flow
+       → iç layout
+    */
+
+        .inline-flow {
+            display: inline flow;
+
+            padding: 15px;
+
+            background: white;
+        }
+
+
+        /* ==================================================
+       17. display: block flow
+       ==================================================
+
+       Block dış davranışı +
+       normal flow iç layout.
+    */
+
+        .block-flow {
+            display: block flow;
+        }
+
+
+        /* ==================================================
+       18. display: flex
+       İÇ / DIŞ MODEL
+       ==================================================
+
+       Modern CSS'te:
+
+       display: flex;
+
+       pratik shorthand'tır.
+
+       Kabaca:
+
+       block flex
+
+       gibi düşünülebilir.
+    */
+
+
+        /* ==================================================
+       19. display: grid
+       İÇ / DIŞ MODEL
+       ==================================================
+
+       Kabaca:
+
+       block grid
+
+       davranışına karşılık gelir.
+    */
+
+
+        /* ==================================================
+       20. display: ruby
+       ==================================================
+
+       Ruby annotation yapıları için kullanılır.
+
+       Özellikle Doğu Asya yazı sistemlerinde
+       metin açıklamaları için kullanılabilir.
+
+       Normal web projelerinde nadirdir.
+    */
+
+        .ruby {
+            display: ruby;
+        }
+
+
+        /* ==================================================
+       21. display: ruby-text
+       ================================================== */
+
+        .ruby-text {
+            display: ruby-text;
+        }
+
+
+        /* ==================================================
+       22. GERÇEK PROJE:
+           NAVBAR
+       ================================================== */
+
+        .navbar {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 20px;
+
+            background: white;
+        }
+
+
+        /* ==================================================
+       23. GERÇEK PROJE:
+           CARD GRID
+       ================================================== */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit,
+                    minmax(200px, 1fr));
+
+            gap: 20px;
+        }
+
+
+        /* ==================================================
+       24. GERÇEK PROJE:
+           CENTER
+       ================================================== */
+
+        .center {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 200px;
+        }
+
+
+        /* ==================================================
+       25. GERÇEK PROJE:
+           MOBILE MENU
+       ================================================== */
+
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 15px;
+        }
+
+
+        /* ==================================================
+       26. GERÇEK PROJE:
+           VISUAL HIDDEN ALTERNATİFİ
+       ==================================================
+
+       display: none'den farklıdır.
+
+       Elementi görsel olarak gizlerken
+       accessibility açısından farklı
+       davranış istenen durumlarda
+       kullanılabilir.
+    */
+
+        .visually-hidden {
+            position: absolute;
+
+            width: 1px;
+            height: 1px;
+
+            padding: 0;
+            margin: -1px;
+
+            overflow: hidden;
+
+            clip: rect(0, 0, 0, 0);
+
+            white-space: nowrap;
+
+            border: 0;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+       1. BLOCK
+       ================================================== -->
+
+    <h2>1. display: block</h2>
+
+    <div class="container">
+
+        <span class="box block">
+            Block
+        </span>
+
+    </div>
+
+
+    <!-- ==================================================
+       2. INLINE
+       ================================================== -->
+
+    <h2>2. display: inline</h2>
+
+    <div class="container">
+
+        <div class="box inline">
+            Inline 1
+        </div>
+
+        <div class="box inline">
+            Inline 2
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       3. INLINE-BLOCK
+       ================================================== -->
+
+    <h2>3. display: inline-block</h2>
+
+    <div class="container">
+
+        <div class="box inline-block">
+            Inline Block
+        </div>
+
+        <div class="box inline-block">
+            Inline Block
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       4. NONE
+       ================================================== -->
+
+    <h2>4. display: none</h2>
+
+    <div class="container">
+
+        <div class="box">
+            Görünür
+        </div>
+
+        <div class="box none">
+            Bu görünmez ve yer kaplamaz.
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       5. FLEX
+       ================================================== -->
+
+    <h2>5. display: flex</h2>
+
+    <div class="container flex">
+
+        <div class="box">
+            1
+        </div>
+
+        <div class="box">
+            2
+        </div>
+
+        <div class="box">
+            3
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       6. INLINE-FLEX
+       ================================================== -->
+
+    <h2>6. display: inline-flex</h2>
+
+    <div class="container">
+
+        <div class="inline-flex">
+
+            <div class="box">
+                A
+            </div>
+
+            <div class="box">
+                B
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       7. GRID
+       ================================================== -->
+
+    <h2>7. display: grid</h2>
+
+    <div class="container grid">
+
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+        <div class="box">6</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       8. INLINE-GRID
+       ================================================== -->
+
+    <h2>8. display: inline-grid</h2>
+
+    <div class="container">
+
+        <div class="inline-grid">
+
+            <div class="box">
+                A
+            </div>
+
+            <div class="box">
+                B
+            </div>
+
+            <div class="box">
+                C
+            </div>
+
+            <div class="box">
+                D
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       9. TABLE
+       ================================================== -->
+
+    <h2>9. display: table</h2>
+
+    <div class="container">
+
+        <div class="table">
+
+            <div class="table-row">
+
+                <div class="table-cell">
+                    Ad
+                </div>
+
+                <div class="table-cell">
+                    Yaş
+                </div>
+
+            </div>
+
+            <div class="table-row">
+
+                <div class="table-cell">
+                    Ali
+                </div>
+
+                <div class="table-cell">
+                    20
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       10. LIST-ITEM
+       ================================================== -->
+
+    <h2>10. display: list-item</h2>
+
+    <div class="container">
+
+        <div class="list-item">
+            Birinci madde
+        </div>
+
+        <div class="list-item">
+            İkinci madde
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       11. CONTENTS
+       ================================================== -->
+
+    <h2>11. display: contents</h2>
+
+    <div class="container">
+
+        <div class="contents">
+
+            <div class="box">
+                Çocuk 1
+            </div>
+
+            <div class="box">
+                Çocuk 2
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       12. FLOW-ROOT
+       ================================================== -->
+
+    <h2>12. display: flow-root</h2>
+
+    <div class="container flow-root">
+
+        <div class="box">
+            Flow Root
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       13. INLINE FLOW
+       ================================================== -->
+
+    <h2>13. display: inline flow</h2>
+
+    <div class="container">
+
+        <span class="inline-flow">
+            Inline Flow
+        </span>
+
+    </div>
+
+
+    <!-- ==================================================
+       14. GERÇEK PROJE:
+           NAVBAR
+       ================================================== -->
+
+    <h2>14. Gerçek Proje → Navbar</h2>
+
+    <nav class="navbar">
+
+        <strong>
+            Logo
+        </strong>
+
+        <div>
+            Ana Sayfa
+            &nbsp;
+            Hakkımızda
+            &nbsp;
+            İletişim
+        </div>
+
+    </nav>
+
+
+    <!-- ==================================================
+       15. GERÇEK PROJE:
+           CARD GRID
+       ================================================== -->
+
+    <h2>15. Gerçek Proje → Card Grid</h2>
+
+    <div class="container cards">
+
+        <div class="box">
+            Kart 1
+        </div>
+
+        <div class="box">
+            Kart 2
+        </div>
+
+        <div class="box">
+            Kart 3
+        </div>
+
+        <div class="box">
+            Kart 4
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       16. GERÇEK PROJE:
+           CENTER
+       ================================================== -->
+
+    <h2>16. Gerçek Proje → Center</h2>
+
+    <div class="container center">
+
+        <div class="box">
+            Tam Ortada
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       17. GERÇEK PROJE:
+           MOBILE MENU
+       ================================================== -->
+
+    <h2>17. Gerçek Proje → Mobile Menu</h2>
+
+    <div class="container">
+
+        <div class="mobile-menu active">
+
+            <a href="#">
+                Ana Sayfa
+            </a>
+
+            <a href="#">
+                Ürünler
+            </a>
+
+            <a href="#">
+                İletişim
+            </a>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

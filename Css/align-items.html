@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>align-items Tüm Değerler</title>
+
+    <style>
+        .container {
+            display: flex;
+            height: 250px;
+            border: 3px solid black;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .item {
+            width: 100px;
+            padding: 20px;
+            background: steelblue;
+            color: white;
+            text-align: center;
+        }
+
+        /* 1. stretch
+       Varsayılan değerdir.
+       Öğeler, çapraz eksende container'ı doldurur.
+       Öğenin yüksekliği açıkça verilmemişse çalışır. */
+        .stretch {
+            align-items: stretch;
+        }
+
+        /* 2. flex-start
+       Öğeleri çapraz eksenin başlangıcına hizalar. */
+        .flex-start {
+            align-items: flex-start;
+        }
+
+        /* 3. flex-end
+       Öğeleri çapraz eksenin sonuna hizalar. */
+        .flex-end {
+            align-items: flex-end;
+        }
+
+        /* 4. center
+       Öğeleri çapraz eksenin ortasına hizalar. */
+        .center {
+            align-items: center;
+        }
+
+        /* 5. baseline
+       Öğelerin yazı taban çizgilerini aynı hizaya getirir.
+       Özellikle farklı yazı boyutlarında kullanışlıdır. */
+        .baseline {
+            align-items: baseline;
+        }
+
+        /* 6. start
+       Öğeleri yazım yönünden bağımsız olarak
+       çapraz eksenin başlangıç tarafına hizalar. */
+        .start {
+            align-items: start;
+        }
+
+        /* 7. end
+       Öğeleri çapraz eksenin bitiş tarafına hizalar. */
+        .end {
+            align-items: end;
+        }
+
+        /* 8. self-start
+       Öğenin kendi yazım yönüne göre
+       başlangıç tarafına hizalanmasını sağlar. */
+        .self-start {
+            align-items: self-start;
+        }
+
+        /* 9. self-end
+       Öğenin kendi yazım yönüne göre
+       bitiş tarafına hizalanmasını sağlar. */
+        .self-end {
+            align-items: self-end;
+        }
+
+        /* 10. normal
+        Normal hizalama davranışını kullanır.
+        Flexbox'ta genellikle stretch gibi davranır. */
+        .normal {
+            align-items: normal;
+        }
+
+        /* 11. safe center
+        Ortalamaya çalışır.
+        Ancak öğenin taşması durumunda güvenli hizalamaya geçebilir. */
+        .safe-center {
+            align-items: safe center;
+        }
+
+        /* 12. unsafe center
+        Öğeyi kesin olarak ortaya hizalamaya çalışır.
+        Taşma olsa bile hizalamayı değiştirmez. */
+        .unsafe-center {
+            align-items: unsafe center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>1. stretch</h2>
+    <div class="container stretch">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+
+    <h2>2. flex-start</h2>
+    <div class="container flex-start">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+
+    <h2>3. flex-end</h2>
+    <div class="container flex-end">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+
+    <h2>4. center</h2>
+    <div class="container center">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+
+    <h2>5. baseline</h2>
+    <div class="container baseline">
+        <div class="item" style="font-size: 15px;">Küçük</div>
+        <div class="item" style="font-size: 30px;">Büyük</div>
+        <div class="item" style="font-size: 20px;">Orta</div>
+    </div>
+
+    <h2>6. start</h2>
+    <div class="container start">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+
+    <h2>7. end</h2>
+    <div class="container end">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+
+    <h2>8. self-start</h2>
+    <div class="container self-start">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+
+    <h2>9. self-end</h2>
+    <div class="container self-end">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+
+    <h2>10. normal</h2>
+    <div class="container normal">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+
+    <h2>11. safe center</h2>
+    <div class="container safe-center">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+
+    <h2>12. unsafe center</h2>
+    <div class="container unsafe-center">
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+    </div>
+
+</body>
+
+</html>

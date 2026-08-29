@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS row - Full</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f4f4;
+        }
+
+        h2 {
+            margin-top: 45px;
+        }
+
+        .container {
+            display: flex;
+
+            gap: 15px;
+
+            min-height: 150px;
+
+            margin-bottom: 30px;
+            padding: 25px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            background: white;
+        }
+
+        .item {
+            width: 80px;
+            height: 60px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 10px;
+
+            background: steelblue;
+            color: white;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           row NEDİR?
+           ==================================================
+
+           row:
+
+           → satır
+           → yatay yön
+
+           Flexbox'ta:
+
+           flex-direction: row;
+
+           Grid'de:
+
+           grid-auto-flow: row;
+
+           grid-row
+
+           gibi özelliklerle ilişkilidir.
+
+           Ayrıca:
+
+           row-gap
+
+           row-start / row-end
+
+           gibi kavramlarda da kullanılır.
+        */
+
+
+        /* ==================================================
+           1. flex-direction: row
+           ==================================================
+
+           Flex öğelerini yatay sıraya dizer.
+
+           Varsayılan flex-direction değeridir.
+        */
+
+        .flex-row {
+            display: flex;
+
+            flex-direction: row;
+        }
+
+
+        /* ==================================================
+           2. flex-direction: row-reverse
+           ==================================================
+
+           Öğeleri yatayda ters sıraya dizer.
+        */
+
+        .flex-row-reverse {
+            display: flex;
+
+            flex-direction: row-reverse;
+        }
+
+
+        /* ==================================================
+           3. row + justify-content
+           ==================================================
+
+           row yönünde:
+
+           justify-content
+           → yatay ekseni kontrol eder.
+        */
+
+        .row-center {
+            display: flex;
+
+            flex-direction: row;
+
+            justify-content: center;
+        }
+
+
+        /* ==================================================
+           4. row + space-between
+           ================================================== */
+
+        .row-between {
+            display: flex;
+
+            flex-direction: row;
+
+            justify-content:
+                space-between;
+        }
+
+
+        /* ==================================================
+           5. row + align-items
+           ==================================================
+
+           row yönünde:
+
+           align-items
+           → dikey ekseni kontrol eder.
+        */
+
+        .row-align {
+            display: flex;
+
+            flex-direction: row;
+
+            align-items: center;
+        }
+
+
+        /* ==================================================
+           6. flex-flow: row wrap
+           ==================================================
+
+           direction + wrapping
+           tek satırda yazılır.
+        */
+
+        .row-wrap {
+            display: flex;
+
+            flex-flow:
+                row wrap;
+        }
+
+        .row-wrap .item {
+            width: 180px;
+        }
+
+
+        /* ==================================================
+           7. flex-flow: row nowrap
+           ================================================== */
+
+        .row-nowrap {
+            display: flex;
+
+            flex-flow:
+                row nowrap;
+        }
+
+
+        /* ==================================================
+           8. flex-flow: row-reverse wrap
+           ================================================== */
+
+        .row-reverse-wrap {
+            display: flex;
+
+            flex-flow:
+                row-reverse wrap;
+        }
+
+        .row-reverse-wrap .item {
+            width: 180px;
+        }
+
+
+        /* ==================================================
+           GRID
+           ================================================== */
+
+
+        /* ==================================================
+           9. grid-auto-flow: row
+           ==================================================
+
+           Grid'in otomatik yerleştirmesini
+           satır yönünde yapar.
+
+           Varsayılan değerdir.
+        */
+
+        .grid-row {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            grid-auto-flow:
+                row;
+        }
+
+
+        /* ==================================================
+           10. grid-auto-flow: row dense
+           ==================================================
+
+           row:
+
+           → satır yönünde yerleştir
+
+           dense:
+
+           → boşlukları mümkün olduğunca doldur.
+        */
+
+        .grid-row-dense {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            grid-auto-flow:
+                row dense;
+        }
+
+        .grid-row-dense .wide {
+            grid-column:
+                span 2;
+        }
+
+
+        /* ==================================================
+           11. grid-auto-flow: column
+           ==================================================
+
+           row'un karşılaştırması.
+
+           Öğeler sütun yönünde ilerler.
+        */
+
+        .grid-column {
+            display: grid;
+
+            grid-template-rows:
+                repeat(2, 70px);
+
+            grid-auto-flow:
+                column;
+        }
+
+
+        /* ==================================================
+           12. grid-row
+           ==================================================
+
+           Bir grid item'ın
+           hangi satırdan başlayıp
+           hangi satırda biteceğini belirler.
+
+           Örnek:
+
+           grid-row: 1 / 3;
+        */
+
+        .grid-row-span {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            grid-template-rows:
+                repeat(3, 60px);
+
+            gap: 10px;
+        }
+
+        .grid-row-span .item:first-child {
+            grid-row:
+                1 / 3;
+        }
+
+
+        /* ==================================================
+           13. grid-row: span 2
+           ==================================================
+
+           Bulunduğu yerden itibaren
+           2 grid satırı kaplar.
+        */
+
+        .grid-row-span-2 {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            grid-template-rows:
+                repeat(2, 70px);
+
+            gap: 10px;
+        }
+
+        .grid-row-span-2 .item:first-child {
+            grid-row:
+                span 2;
+        }
+
+
+        /* ==================================================
+           14. grid-row-start
+           ==================================================
+
+           Grid item'ın başlayacağı satırı belirler.
+        */
+
+        .row-start {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            grid-template-rows:
+                repeat(3, 60px);
+
+            gap: 10px;
+        }
+
+        .row-start .item:first-child {
+            grid-row-start:
+                2;
+        }
+
+
+        /* ==================================================
+           15. grid-row-end
+           ==================================================
+
+           Grid item'ın biteceği satırı belirler.
+        */
+
+        .row-end {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            grid-template-rows:
+                repeat(3, 60px);
+
+            gap: 10px;
+        }
+
+        .row-end .item:first-child {
+            grid-row-start:
+                1;
+
+            grid-row-end:
+                3;
+        }
+
+
+        /* ==================================================
+           16. row-gap
+           ==================================================
+
+           Grid/Flex satırları arasındaki boşluğu
+           belirler.
+
+           column-gap'den farklıdır.
+        */
+
+        .row-gap {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            grid-template-rows:
+                repeat(2, 60px);
+
+            row-gap:
+                30px;
+
+            column-gap:
+                10px;
+        }
+
+
+        /* ==================================================
+           17. row-gap + column-gap
+           ================================================== */
+
+        .gaps {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            row-gap:
+                30px;
+
+            column-gap:
+                50px;
+        }
+
+
+        /* ==================================================
+           18. gap SHORTHAND
+           ==================================================
+
+           gap:
+
+           row-gap column-gap
+        */
+
+        .gap-shorthand {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                20px 40px;
+        }
+
+
+        /* ==================================================
+           19. grid-template-rows
+           ==================================================
+
+           Grid'in satır boyutlarını belirler.
+
+           row kavramının en temel Grid
+           kullanımlarından biridir.
+        */
+
+        .template-rows {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            grid-template-rows:
+                80px 120px;
+        }
+
+
+        /* ==================================================
+           20. repeat() ile rows
+           ================================================== */
+
+        .repeat-rows {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            grid-template-rows:
+                repeat(3, 70px);
+
+            gap: 10px;
+        }
+
+
+        /* ==================================================
+           21. minmax() + rows
+           ================================================== */
+
+        .minmax-rows {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            grid-template-rows:
+                repeat(2, minmax(80px, auto));
+
+            gap: 10px;
+        }
+
+
+        /* ==================================================
+           22. auto-fit + row
+           ==================================================
+
+           Responsive Grid.
+
+           Satırlar otomatik oluşur.
+        */
+
+        .auto-fit-row {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit,
+                    minmax(120px, 1fr));
+
+            grid-auto-flow:
+                row;
+
+            gap: 15px;
+        }
+
+
+        /* ==================================================
+           23. auto-fill + row
+           ================================================== */
+
+        .auto-fill-row {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fill,
+                    minmax(120px, 1fr));
+
+            grid-auto-flow:
+                row;
+
+            gap: 15px;
+        }
+
+
+        /* ==================================================
+           24. row + order
+           ==================================================
+
+           Flexbox'ta order ile
+           row içerisindeki sıralama değiştirilebilir.
+        */
+
+        .ordered {
+            display: flex;
+
+            flex-direction:
+                row;
+        }
+
+        .ordered .item:nth-child(1) {
+            order: 3;
+        }
+
+        .ordered .item:nth-child(2) {
+            order: 1;
+        }
+
+        .ordered .item:nth-child(3) {
+            order: 2;
+        }
+
+
+        /* ==================================================
+           25. row + flex-wrap
+           ================================================== */
+
+        .responsive-row {
+            display: flex;
+
+            flex-direction:
+                row;
+
+            flex-wrap:
+                wrap;
+
+            gap: 15px;
+        }
+
+        .responsive-row .item {
+            flex:
+                1 1 180px;
+        }
+
+
+        /* ==================================================
+           26. row + align-content
+           ==================================================
+
+           Birden fazla satır olduğunda
+           satırların container içindeki
+           dağılımını kontrol eder.
+        */
+
+        .align-content-row {
+            display: flex;
+
+            flex-direction:
+                row;
+
+            flex-wrap:
+                wrap;
+
+            align-content:
+                space-between;
+
+            height: 300px;
+        }
+
+        .align-content-row .item {
+            width: 150px;
+        }
+
+
+        /* ==================================================
+           27. row + writing-mode
+           ==================================================
+
+           Logical yönler kullanıldığında
+           row kavramının fiziksel yönü
+           değişebilir.
+        */
+
+        .vertical {
+            writing-mode:
+                vertical-rl;
+
+            display: flex;
+
+            flex-direction:
+                row;
+        }
+
+
+        /* ==================================================
+           28. RESPONSIVE
+           ================================================== */
+
+        .responsive {
+            display: flex;
+
+            flex-direction:
+                row;
+
+            flex-wrap:
+                wrap;
+        }
+
+        .responsive .item {
+            flex:
+                1 1 200px;
+        }
+
+        @media (max-width: 600px) {
+
+            .responsive {
+                flex-direction:
+                    column;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         FLEXBOX
+         ================================================== -->
+
+    <h2>1. flex-direction: row</h2>
+
+    <div class="container flex-row">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <h2>2. flex-direction: row-reverse</h2>
+
+    <div class="container flex-row-reverse">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <h2>3. row + justify-content</h2>
+
+    <div class="container row-center">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <h2>4. row + space-between</h2>
+
+    <div class="container row-between">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <h2>5. row + align-items</h2>
+
+    <div class="container row-align">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <h2>6. flex-flow: row wrap</h2>
+
+    <div class="container row-wrap">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+
+    </div>
+
+
+    <h2>7. flex-flow: row nowrap</h2>
+
+    <div class="container row-nowrap">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <h2>8. row-reverse + wrap</h2>
+
+    <div class="container row-reverse-wrap">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         GRID
+         ================================================== -->
+
+    <h2>9. grid-auto-flow: row</h2>
+
+    <div class="container grid-row">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+
+    </div>
+
+
+    <h2>10. grid-auto-flow: row dense</h2>
+
+    <div class="container grid-row-dense">
+
+        <div class="item wide">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item wide">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+
+    </div>
+
+
+    <h2>11. grid-auto-flow: column</h2>
+
+    <div class="container grid-column">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+
+    </div>
+
+
+    <h2>12. grid-row: 1 / 3</h2>
+
+    <div class="container grid-row-span">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+        <div class="item">4</div>
+        <div class="item">5</div>
+
+    </div>
+
+
+    <h2>13. grid-row: span 2</h2>
+
+    <div class="container grid-row-span-2">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <h2>14. grid-row-start</h2>
+
+    <div class="container row-start">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <h2>15. grid-row-end</h2>
+
+    <div class="container row-end">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         GAP
+         ================================================== -->
+
+    <h2>16. row-gap</h2>
+
+    <div class="container row-gap">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+
+    </div>
+
+
+    <h2>17. row-gap + column-gap</h2>
+
+    <div class="container gaps">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+
+    </div>
+
+
+    <h2>18. gap: row column</h2>
+
+    <div class="container gap-shorthand">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         GRID ROW SİSTEMİ
+         ================================================== -->
+
+    <h2>19. grid-template-rows</h2>
+
+    <div class="container template-rows">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+
+    </div>
+
+
+    <h2>20. repeat() + rows</h2>
+
+    <div class="container repeat-rows">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+
+    </div>
+
+
+    <h2>21. minmax() + rows</h2>
+
+    <div class="container minmax-rows">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+
+    </div>
+
+
+    <h2>22. auto-fit + row</h2>
+
+    <div class="container auto-fit-row">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+
+    </div>
+
+
+    <h2>23. auto-fill + row</h2>
+
+    <div class="container auto-fill-row">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         DİĞER FLEX KULLANIMLARI
+         ================================================== -->
+
+    <h2>24. row + order</h2>
+
+    <div class="container ordered">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <h2>25. row + flex-wrap + flex</h2>
+
+    <div class="container responsive-row">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+
+    </div>
+
+
+    <h2>26. row + align-content</h2>
+
+    <div class="container align-content-row">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+
+    </div>
+
+
+    <h2>27. row + writing-mode</h2>
+
+    <div class="container vertical">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <h2>28. Responsive row</h2>
+
+    <div class="container responsive">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+
+    </div>
+
+
+</body>
+
+</html>

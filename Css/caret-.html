@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS caret-* Özellikleri</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+
+            margin-bottom: 45px;
+            padding: 30px;
+
+            background: #f3f4f6;
+        }
+
+        input,
+        textarea {
+            width: 250px;
+
+            padding: 12px;
+
+            font-size: 16px;
+
+            border: 2px solid #ccc;
+            border-radius: 8px;
+
+            outline: none;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+
+        /* ==================================================
+       1. caret-color
+       ==================================================
+
+       Input, textarea ve contenteditable
+       alanlarındaki yazma imlecinin
+       (caret) rengini belirler.
+
+       auto
+       → Tarayıcı uygun rengi seçer.
+
+       Renk değeri
+       → İstediğin rengi verebilirsin.
+
+       transparent
+       → İmleci görünmez yapar.
+    */
+
+        .red-caret {
+            caret-color: red;
+        }
+
+
+        /* ==================================================
+       2. caret-color: blue
+       ==================================================
+
+       Yazma imlecini mavi yapar.
+    */
+
+        .blue-caret {
+            caret-color: blue;
+        }
+
+
+        /* ==================================================
+       3. caret-color: transparent
+       ==================================================
+
+       Yazma imlecini görünmez yapar.
+
+       Özel editörler veya özel input
+       arayüzlerinde kullanılabilir.
+    */
+
+        .hidden-caret {
+            caret-color: transparent;
+        }
+
+
+        /* ==================================================
+       4. caret-color: auto
+       ==================================================
+
+       Tarayıcının varsayılan caret rengini
+       kullanır.
+    */
+
+        .auto-caret {
+            caret-color: auto;
+        }
+
+
+        /* ==================================================
+       5. GERÇEK PROJE:
+          DARK INPUT
+       ==================================================
+
+       Koyu temalı inputlarda caret rengini
+       belirgin hale getirmek için kullanılabilir.
+    */
+
+        .dark-input {
+            background: #111827;
+            color: white;
+
+            border-color: #374151;
+
+            caret-color: white;
+        }
+
+
+        /* ==================================================
+       6. GERÇEK PROJE:
+          THEME COLOR
+       ==================================================
+
+       CSS variable ile merkezi olarak
+       caret rengi yönetilebilir.
+    */
+
+        :root {
+            --accent: #7c3aed;
+        }
+
+        .theme-input {
+            caret-color: var(--accent);
+        }
+
+
+        /* ==================================================
+       7. GERÇEK PROJE:
+          CONTENTEDITABLE
+       ==================================================
+
+       caret-color sadece input ve textarea
+       ile sınırlı değildir.
+
+       contenteditable elementlerde de çalışır.
+    */
+
+        .editor {
+            width: 300px;
+            min-height: 120px;
+
+            padding: 15px;
+
+            border: 2px solid #ccc;
+            border-radius: 10px;
+
+            caret-color: purple;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+       1. Kırmızı Caret
+       ================================================== -->
+
+    <h2>1. caret-color: red</h2>
+
+    <div class="container">
+
+        <input class="red-caret" type="text" placeholder="Yazmaya başla...">
+
+    </div>
+
+
+    <!-- ==================================================
+       2. Mavi Caret
+       ================================================== -->
+
+    <h2>2. caret-color: blue</h2>
+
+    <div class="container">
+
+        <textarea class="blue-caret" placeholder="Buraya yaz..."></textarea>
+
+    </div>
+
+
+    <!-- ==================================================
+       3. Transparent
+       ================================================== -->
+
+    <h2>3. caret-color: transparent</h2>
+
+    <div class="container">
+
+        <input class="hidden-caret" type="text" placeholder="Caret görünmez">
+
+    </div>
+
+
+    <!-- ==================================================
+       4. Auto
+       ================================================== -->
+
+    <h2>4. caret-color: auto</h2>
+
+    <div class="container">
+
+        <input class="auto-caret" type="text" placeholder="Varsayılan caret">
+
+    </div>
+
+
+    <!-- ==================================================
+       5. DARK INPUT
+       ================================================== -->
+
+    <h2>5. Gerçek Proje → Dark Input</h2>
+
+    <div class="container">
+
+        <input class="dark-input" type="text" placeholder="Dark input">
+
+    </div>
+
+
+    <!-- ==================================================
+       6. CSS VARIABLE
+       ================================================== -->
+
+    <h2>6. Gerçek Proje → Theme Color</h2>
+
+    <div class="container">
+
+        <input class="theme-input" type="text" placeholder="Theme caret">
+
+    </div>
+
+
+    <!-- ==================================================
+       7. CONTENTEDITABLE
+       ================================================== -->
+
+    <h2>7. Gerçek Proje → Text Editor</h2>
+
+    <div class="container">
+
+        <div class="editor" contenteditable="true">
+            Buraya yazabilirsin...
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

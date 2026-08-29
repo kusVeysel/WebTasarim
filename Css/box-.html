@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS box-* Özellikleri</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+
+            margin-bottom: 45px;
+            padding: 30px;
+
+            background: #f3f4f6;
+        }
+
+        .box {
+            width: 220px;
+            height: 120px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            background: white;
+        }
+
+
+        /* ==================================================
+       1. box-sizing
+       ==================================================
+
+       Elementin width ve height hesaplamasının
+       nasıl yapılacağını belirler.
+
+       content-box
+       → Varsayılan değerdir.
+       → width/height sadece content içindir.
+
+       border-box
+       → width/height;
+          content + padding + border'ı kapsar.
+
+       Gerçek projelerde border-box çok yaygındır.
+    */
+
+        .content-box {
+            box-sizing: content-box;
+
+            width: 200px;
+            height: 100px;
+
+            padding: 20px;
+
+            border: 5px solid steelblue;
+        }
+
+        .border-box {
+            box-sizing: border-box;
+
+            width: 200px;
+            height: 100px;
+
+            padding: 20px;
+
+            border: 5px solid purple;
+        }
+
+
+        /* ==================================================
+       2. box-decoration-break
+       ==================================================
+
+       Bir elementin decoration'ının satır
+       kırılmalarında nasıl davranacağını belirler.
+
+       slice
+       → Decoration tek parça gibi davranır.
+
+       clone
+       → Her satır kendi decoration'ını alır.
+
+       Özellikle inline metinlerde kullanışlıdır.
+    */
+
+        .decoration {
+            width: 300px;
+
+            font-size: 24px;
+            line-height: 2;
+
+            background: transparent;
+        }
+
+        .decoration span {
+            padding: 8px;
+
+            border: 4px solid steelblue;
+            border-radius: 10px;
+
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
+
+
+        /* ==================================================
+       3. box-shadow
+       ==================================================
+
+       Elementin çevresine gölge ekler.
+
+       Sözdizimi:
+
+       box-shadow:
+         x
+         y
+         blur
+         spread
+         color;
+
+       Örnek:
+
+       0 10px 30px rgba(...)
+
+       → Sağa/sola: 0
+       → Aşağı: 10px
+       → Blur: 30px
+    */
+
+        .shadow {
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, .2);
+        }
+
+
+        /* ==================================================
+       4. box-shadow → inset
+       ==================================================
+
+       inset kullanıldığında gölge
+       elementin içine doğru uygulanır.
+    */
+
+        .inset {
+            box-shadow:
+                inset 0 0 20px rgba(0, 0, 0, .25);
+        }
+
+
+        /* ==================================================
+       5. box-shadow → spread
+       ==================================================
+
+       Dördüncü değer gölgenin yayılma miktarıdır.
+
+       0
+       → Yayılma yok.
+
+       Pozitif değer
+       → Gölge büyür.
+
+       Negatif değer
+       → Gölge küçülür.
+    */
+
+        .spread {
+            box-shadow:
+                0 10px 20px 8px rgba(0, 0, 0, .2);
+        }
+
+
+        /* ==================================================
+       6. box-shadow → MULTIPLE
+       ==================================================
+
+       Virgülle birden fazla gölge eklenebilir.
+
+       Gerçek projelerde kart, neon ve
+       katmanlı tasarımlarda kullanışlıdır.
+    */
+
+        .multiple-shadow {
+            box-shadow:
+                0 5px 15px rgba(0, 0, 0, .15),
+                0 20px 40px rgba(0, 0, 0, .1);
+        }
+
+
+        /* ==================================================
+       7. box-shadow → NEON
+       ==================================================
+
+       Birden fazla shadow kullanarak
+       parlak/glow görünümü oluşturabiliriz.
+    */
+
+        .neon {
+            background: #111827;
+            color: white;
+
+            box-shadow:
+                0 0 5px cyan,
+                0 0 15px cyan,
+                0 0 30px cyan;
+        }
+
+
+        /* ==================================================
+       8. box-shadow → CARD
+       ==================================================
+
+       Gerçek projelerde en yaygın
+       kullanımlardan biri.
+    */
+
+        .card {
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, .12);
+        }
+
+
+        /* ==================================================
+       9. box-shadow → HOVER
+       ==================================================
+
+       Hover sırasında gölgeyi değiştirerek
+       yükselme efekti oluşturabiliriz.
+    */
+
+        .hover-card {
+            transition: box-shadow .3s, transform .3s;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, .2);
+        }
+
+
+        /* ==================================================
+       10. box-sizing → GLOBAL KULLANIM
+       ==================================================
+
+       Gerçek projelerde genellikle bütün
+       elementlere border-box uygulanır.
+    */
+
+        .global-box {
+            box-sizing: border-box;
+
+            width: 250px;
+
+            padding: 20px;
+
+            border: 5px solid steelblue;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+       1. box-sizing
+       ================================================== -->
+
+    <h2>1. box-sizing</h2>
+
+    <div class="container">
+
+        <div class="box content-box">
+            content-box
+        </div>
+
+        <div class="box border-box">
+            border-box
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       2. box-decoration-break
+       ================================================== -->
+
+    <h2>2. box-decoration-break</h2>
+
+    <div class="container">
+
+        <div class="decoration">
+
+            <span>
+                Uzun bir metin olduğunda satır
+                kırılmalarında decoration davranışı.
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       3. box-shadow
+       ================================================== -->
+
+    <h2>3. box-shadow</h2>
+
+    <div class="container">
+
+        <div class="box shadow">
+            Normal Shadow
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       4. inset
+       ================================================== -->
+
+    <h2>4. box-shadow → inset</h2>
+
+    <div class="container">
+
+        <div class="box inset">
+            Inner Shadow
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       5. spread
+       ================================================== -->
+
+    <h2>5. box-shadow → spread</h2>
+
+    <div class="container">
+
+        <div class="box spread">
+            Spread
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       6. MULTIPLE SHADOW
+       ================================================== -->
+
+    <h2>6. Multiple Shadow</h2>
+
+    <div class="container">
+
+        <div class="box multiple-shadow">
+            Multiple
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       7. NEON
+       ================================================== -->
+
+    <h2>7. Neon Shadow</h2>
+
+    <div class="container">
+
+        <div class="box neon">
+            NEON
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       8. CARD
+       ================================================== -->
+
+    <h2>8. Gerçek Proje → Card</h2>
+
+    <div class="container">
+
+        <div class="box card">
+            CARD
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       9. HOVER
+       ================================================== -->
+
+    <h2>9. Gerçek Proje → Hover Card</h2>
+
+    <div class="container">
+
+        <div class="box card hover-card">
+            HOVER ME
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       10. GLOBAL BOX-SIZING
+       ================================================== -->
+
+    <h2>10. Gerçek Proje → border-box</h2>
+
+    <div class="container">
+
+        <div class="global-box">
+
+            width: 250px;<br>
+            padding: 20px;<br>
+            border: 5px;
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

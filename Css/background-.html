@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS background- Özellikleri</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        .container {
+            width: 500px;
+            height: 180px;
+
+            margin-bottom: 35px;
+            padding: 20px;
+
+            border: 3px solid black;
+            box-sizing: border-box;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item {
+            width: 280px;
+            height: 120px;
+
+            border: 10px solid rgba(0, 0, 0, .25);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+
+            box-sizing: border-box;
+        }
+
+
+        /* ==================================================
+       1. background-color
+       ==================================================
+
+       Elementin arka plan rengini belirler.
+    */
+
+        .background-color .item {
+            background-color: steelblue;
+        }
+
+
+        /* ==================================================
+       2. background-image
+       ==================================================
+
+       Arka plana resim veya gradient ekler.
+
+       Gerçek projelerde çok yaygındır.
+    */
+
+        .background-image .item {
+            background-image:
+                linear-gradient(135deg,
+                    steelblue,
+                    purple);
+        }
+
+
+        /* ==================================================
+       3. background-repeat
+       ==================================================
+
+       Arka plan resminin tekrarını kontrol eder.
+
+       repeat
+       → Her yönde tekrar
+
+       repeat-x
+       → Yatay tekrar
+
+       repeat-y
+       → Dikey tekrar
+
+       no-repeat
+       → Tekrar etmez
+
+       space
+       → Aralara boşluk koyarak tekrarlar
+
+       round
+       → Alana uyacak şekilde tekrarlar
+    */
+
+        .background-repeat .item {
+            background-image:
+                linear-gradient(45deg,
+                    steelblue 25%,
+                    transparent 25%);
+
+            background-size: 40px 40px;
+            background-repeat: repeat;
+        }
+
+
+        /* ==================================================
+       4. background-position
+       ==================================================
+
+       Arka planın konumunu belirler.
+
+       center
+       top
+       bottom
+       left
+       right
+
+       Ayrıca px ve % kullanılabilir.
+    */
+
+        .background-position .item {
+            background-image:
+                radial-gradient(circle,
+                    steelblue 20px,
+                    transparent 21px);
+
+            background-size: 60px 60px;
+            background-repeat: no-repeat;
+
+            background-position: center;
+        }
+
+
+        /* ==================================================
+       5. background-size
+       ==================================================
+
+       Arka planın boyutunu belirler.
+
+       cover
+       → Alanı tamamen kaplar.
+
+       contain
+       → Resmin tamamını gösterir.
+
+       auto
+       → Doğal boyut.
+
+       Ayrıca px / % kullanılabilir.
+    */
+
+        .background-size .item {
+            background-image:
+                linear-gradient(135deg,
+                    steelblue,
+                    purple);
+
+            background-size: cover;
+        }
+
+
+        /* ==================================================
+       6. background-attachment
+       ==================================================
+
+       Arka planın kaydırma davranışını belirler.
+
+       scroll
+       → Normal davranış
+
+       fixed
+       → Viewport'a göre sabit
+
+       local
+       → Elementin içeriğine göre hareket eder
+    */
+
+        .background-attachment .item {
+            background-image:
+                linear-gradient(135deg,
+                    steelblue,
+                    purple);
+
+            background-attachment: fixed;
+        }
+
+
+        /* ==================================================
+       7. background-origin
+       ==================================================
+
+       Arka planın konumlandırılacağı kutuyu belirler.
+
+       border-box
+       padding-box
+       content-box
+    */
+
+        .background-origin .item {
+            background-image:
+                linear-gradient(135deg,
+                    steelblue,
+                    purple);
+
+            background-origin: padding-box;
+        }
+
+
+        /* ==================================================
+       8. background-clip
+       ==================================================
+
+       Arka planın hangi alana kadar çizileceğini
+       belirler.
+
+       border-box
+       → Border'a kadar
+
+       padding-box
+       → Padding'e kadar
+
+       content-box
+       → Content'e kadar
+
+       text
+       → Yazının içine kadar
+    */
+
+        .background-clip .item {
+            background-image:
+                linear-gradient(90deg,
+                    steelblue,
+                    purple);
+
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            color: transparent;
+        }
+
+
+        /* ==================================================
+       9. background-blend-mode
+       ==================================================
+
+       Birden fazla background katmanının
+       birbirine nasıl karışacağını belirler.
+
+       Gerçek projelerde özellikle görsel
+       overlay efektlerinde kullanışlıdır.
+    */
+
+        .background-blend-mode .item {
+            background-image:
+                linear-gradient(rgba(255, 0, 0, .6),
+                    rgba(0, 0, 255, .6)),
+                linear-gradient(135deg,
+                    white,
+                    black);
+
+            background-blend-mode: multiply;
+        }
+
+
+        /* ==================================================
+       10. background-origin + background-clip
+       ==================================================
+
+       İkisi birlikte kullanılarak arka planın
+       nereden başlayıp nerede biteceği kontrol edilir.
+    */
+
+        .origin-clip .item {
+            background-image:
+                linear-gradient(135deg,
+                    steelblue,
+                    purple);
+
+            background-origin: border-box;
+            background-clip: padding-box;
+        }
+
+
+        /* ==================================================
+       11. MULTIPLE BACKGROUNDS
+       ==================================================
+
+       Birden fazla background katmanında
+       background-* özellikleri de kullanılabilir.
+
+       Her katmana virgülle ayrı değer verilebilir.
+    */
+
+        .multiple .item {
+            background-image:
+                linear-gradient(rgba(0, 0, 0, .4),
+                    rgba(0, 0, 0, .4)),
+                linear-gradient(135deg,
+                    steelblue,
+                    purple);
+
+            background-size:
+                cover,
+                cover;
+
+            background-position:
+                center,
+                center;
+
+            background-repeat:
+                no-repeat,
+                no-repeat;
+        }
+
+
+        /* ==================================================
+       12. background-color + image
+       ==================================================
+
+       Resmin görünmediği bölgelerde
+       background-color kullanılabilir.
+    */
+
+        .color-image .item {
+            background-color: steelblue;
+
+            background-image:
+                radial-gradient(circle,
+                    transparent 30%,
+                    purple 31%);
+        }
+
+
+        /* ==================================================
+       13. GERÇEK PROJE:
+           HERO SECTION
+       ==================================================
+
+       background-* özelliklerinin en yaygın
+       kullanım alanlarından biridir.
+    */
+
+        .hero {
+            width: 500px;
+            height: 250px;
+
+            margin-bottom: 35px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+
+            background-image:
+                linear-gradient(rgba(0, 0, 0, .5),
+                    rgba(0, 0, 0, .5)),
+                url("https://picsum.photos/1000/500");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            border-radius: 15px;
+        }
+
+
+        /* ==================================================
+       14. GERÇEK PROJE:
+           TEXT GRADIENT
+       ================================================== */
+
+        .gradient-text {
+            font-size: 50px;
+            font-weight: bold;
+
+            background-image:
+                linear-gradient(90deg,
+                    steelblue,
+                    purple);
+
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            color: transparent;
+        }
+
+
+        /* ==================================================
+       15. GERÇEK PROJE:
+           PATTERN
+       ================================================== */
+
+        .pattern {
+            width: 500px;
+            height: 200px;
+
+            margin-bottom: 35px;
+
+            background-color: #eee;
+
+            background-image:
+                linear-gradient(45deg,
+                    #ddd 25%,
+                    transparent 25%),
+                linear-gradient(-45deg,
+                    #ddd 25%,
+                    transparent 25%);
+
+            background-size: 40px 40px;
+
+            background-position:
+                0 0,
+                20px 20px;
+
+            background-repeat: repeat;
+        }
+
+
+        /* ==================================================
+       16. GERÇEK PROJE:
+           OVERLAY
+       ================================================== */
+
+        .overlay {
+            width: 500px;
+            height: 220px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+
+            background-image:
+                linear-gradient(rgba(0, 0, 0, .6),
+                    rgba(0, 0, 0, .1)),
+                url("https://picsum.photos/1000/500");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+       1
+       ================================================== -->
+
+    <h2>1. background-color</h2>
+
+    <div class="container background-color">
+        <div class="item">
+            COLOR
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       2
+       ================================================== -->
+
+    <h2>2. background-image</h2>
+
+    <div class="container background-image">
+        <div class="item">
+            IMAGE / GRADIENT
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       3
+       ================================================== -->
+
+    <h2>3. background-repeat</h2>
+
+    <div class="container background-repeat">
+        <div class="item">
+            REPEAT
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       4
+       ================================================== -->
+
+    <h2>4. background-position</h2>
+
+    <div class="container background-position">
+        <div class="item">
+            CENTER
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       5
+       ================================================== -->
+
+    <h2>5. background-size</h2>
+
+    <div class="container background-size">
+        <div class="item">
+            COVER
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       6
+       ================================================== -->
+
+    <h2>6. background-attachment</h2>
+
+    <div class="container background-attachment">
+        <div class="item">
+            FIXED
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       7
+       ================================================== -->
+
+    <h2>7. background-origin</h2>
+
+    <div class="container background-origin">
+        <div class="item">
+            ORIGIN
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       8
+       ================================================== -->
+
+    <h2>8. background-clip</h2>
+
+    <div class="container background-clip">
+        <div class="item">
+            TEXT
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       9
+       ================================================== -->
+
+    <h2>9. background-blend-mode</h2>
+
+    <div class="container background-blend-mode">
+        <div class="item">
+            BLEND
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       10
+       ================================================== -->
+
+    <h2>10. background-origin + clip</h2>
+
+    <div class="container origin-clip">
+        <div class="item">
+            ORIGIN + CLIP
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       11
+       ================================================== -->
+
+    <h2>11. Multiple Backgrounds</h2>
+
+    <div class="container multiple">
+        <div class="item">
+            MULTIPLE
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       12
+       ================================================== -->
+
+    <h2>12. background-color + image</h2>
+
+    <div class="container color-image">
+        <div class="item">
+            COLOR + IMAGE
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+       13
+       ================================================== -->
+
+    <h2>13. Gerçek Proje → Hero</h2>
+
+    <div class="hero">
+        HERO SECTION
+    </div>
+
+
+    <!-- ==================================================
+       14
+       ================================================== -->
+
+    <h2>14. Gerçek Proje → Gradient Text</h2>
+
+    <div class="gradient-text">
+        CSS DESIGN
+    </div>
+
+
+    <!-- ==================================================
+       15
+       ================================================== -->
+
+    <h2>15. Gerçek Proje → Pattern</h2>
+
+    <div class="pattern"></div>
+
+
+    <!-- ==================================================
+       16
+       ================================================== -->
+
+    <h2>16. Gerçek Proje → Image Overlay</h2>
+
+    <div class="overlay">
+        IMAGE OVERLAY
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Min Max - Tüm Kullanımlar</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            margin: 0;
+        }
+
+        .container {
+            margin-bottom: 40px;
+            padding: 25px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            overflow: hidden;
+        }
+
+        .box {
+            background: steelblue;
+            color: white;
+
+            padding: 20px;
+            border-radius: 12px;
+
+            box-sizing: border-box;
+        }
+
+
+        /* ==================================================
+           1. min-width
+           ==================================================
+
+           Elementin sahip olabileceği EN KÜÇÜK genişliği
+           belirler.
+
+           Element bundan daha küçük olamaz.
+
+           Örnek:
+
+           min-width: 300px;
+
+           → Element en az 300px olur.
+        */
+
+        .min-width .box {
+            min-width: 300px;
+        }
+
+
+        /* ==================================================
+           2. max-width
+           ==================================================
+
+           Elementin sahip olabileceği EN BÜYÜK genişliği
+           belirler.
+
+           Örnek:
+
+           max-width: 600px;
+
+           → Element 600px'den daha geniş olmaz.
+        */
+
+        .max-width .box {
+            width: 100%;
+            max-width: 600px;
+        }
+
+
+        /* ==================================================
+           3. min-height
+           ==================================================
+
+           Elementin sahip olabileceği minimum yüksekliği
+           belirler.
+        */
+
+        .min-height .box {
+            min-height: 150px;
+        }
+
+
+        /* ==================================================
+           4. max-height
+           ==================================================
+
+           Elementin sahip olabileceği maksimum yüksekliği
+           belirler.
+        */
+
+        .max-height .box {
+            max-height: 150px;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           5. width + min-width
+           ==================================================
+
+           width normal boyutu belirler.
+
+           min-width ise alt sınırı belirler.
+
+           Eğer width daha küçük kalırsa
+           min-width devreye girer.
+        */
+
+        .width-min .box {
+            width: 200px;
+            min-width: 350px;
+        }
+
+
+        /* ==================================================
+           6. width + max-width
+           ==================================================
+
+           width büyümeye çalışsa bile
+           max-width sınırını geçemez.
+        */
+
+        .width-max .box {
+            width: 100%;
+            max-width: 500px;
+        }
+
+
+        /* ==================================================
+           7. height + min-height
+           ================================================== */
+
+        .height-min .box {
+            height: 50px;
+            min-height: 150px;
+        }
+
+
+        /* ==================================================
+           8. height + max-height
+           ================================================== */
+
+        .height-max .box {
+            height: 300px;
+            max-height: 150px;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           9. min()
+           ==================================================
+
+           Verilen değerlerden EN KÜÇÜĞÜNÜ seçer.
+
+           Örnek:
+
+           width: min(90%, 600px);
+
+           → 90% ile 600px arasından küçük olanı kullanır.
+
+           Responsive tasarımda çok kullanışlıdır.
+        */
+
+        .min-function .box {
+            width: min(90%, 600px);
+        }
+
+
+        /* ==================================================
+           10. max()
+           ==================================================
+
+           Verilen değerlerden EN BÜYÜĞÜNÜ seçer.
+
+           Örnek:
+
+           width: max(300px, 50%);
+
+           → 300px ile 50% arasından büyük olanı kullanır.
+        */
+
+        .max-function .box {
+            width: max(300px, 50%);
+        }
+
+
+        /* ==================================================
+           11. clamp()
+           ==================================================
+
+           Minimum + ideal + maksimum değer belirler.
+
+           clamp(
+               minimum,
+               ideal,
+               maximum
+           )
+
+           Örneğin:
+
+           font-size:
+               clamp(20px, 5vw, 60px);
+
+           → 20px'den küçük olmaz.
+           → Ekrana göre büyür.
+           → 60px'den büyük olmaz.
+        */
+
+        .clamp .box {
+            font-size: clamp(20px,
+                    5vw,
+                    60px);
+        }
+
+
+        /* ==================================================
+           12. width: clamp()
+           ==================================================
+
+           Responsive genişlik.
+        */
+
+        .width-clamp .box {
+            width: clamp(280px,
+                    70%,
+                    700px);
+        }
+
+
+        /* ==================================================
+           13. height: clamp()
+           ================================================== */
+
+        .height-clamp .box {
+            height: clamp(100px,
+                    30vh,
+                    300px);
+        }
+
+
+        /* ==================================================
+           14. padding: clamp()
+           ==================================================
+
+           Responsive padding.
+        */
+
+        .padding-clamp .box {
+            padding: clamp(15px,
+                    4vw,
+                    50px);
+        }
+
+
+        /* ==================================================
+           15. margin: clamp()
+           ==================================================
+
+           Responsive margin.
+        */
+
+        .margin-clamp .box {
+            margin: clamp(10px,
+                    5vw,
+                    80px);
+        }
+
+
+        /* ==================================================
+           16. gap: clamp()
+           ==================================================
+
+           Grid / Flex aralığını responsive yapabiliriz.
+        */
+
+        .gap-clamp {
+            display: flex;
+
+            gap: clamp(10px,
+                    3vw,
+                    40px);
+        }
+
+        .gap-clamp .box {
+            flex: 1;
+        }
+
+
+        /* ==================================================
+           17. min() + width
+           ==================================================
+
+           Gerçek projelerde çok kullanılan kullanım.
+
+           İçeriğin ekranı aşmasını engeller.
+        */
+
+        .content-width .box {
+            width: min(100%,
+                    700px);
+
+            margin-inline: auto;
+        }
+
+
+        /* ==================================================
+           18. max-width: 100%
+           ==================================================
+
+           Görsellerin parent elementten taşmasını
+           engellemek için çok yaygındır.
+        */
+
+        .responsive-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+
+        /* ==================================================
+           19. min-width: 0
+           ==================================================
+
+           Flex ve Grid'de ÇOK ÖNEMLİ.
+
+           Uzun içeriklerin kutuyu zorlayarak
+           taşmasını engelleyebilir.
+        */
+
+        .flex-min-zero {
+            display: flex;
+            gap: 20px;
+        }
+
+        .flex-min-zero .text {
+            min-width: 0;
+            overflow-wrap: break-word;
+        }
+
+
+        /* ==================================================
+           20. min-height: 100%
+           ================================================== */
+
+        .min-height-full {
+            min-height: 100%;
+        }
+
+
+        /* ==================================================
+           21. min-height: 100vh
+           ==================================================
+
+           Sayfanın en az ekran yüksekliği kadar
+           olmasını sağlar.
+        */
+
+        .screen {
+            min-height: 100vh;
+        }
+
+
+        /* ==================================================
+           22. min-height: 100dvh
+           ==================================================
+
+           Modern mobil tarayıcılarda dinamik viewport
+           yüksekliğini dikkate alır.
+        */
+
+        .dynamic-screen {
+            min-height: 100dvh;
+        }
+
+
+        /* ==================================================
+           23. max-width: 100%
+           ==================================================
+
+           İçeriğin parent'ı aşmasını önler.
+        */
+
+        .safe-width .box {
+            width: 900px;
+            max-width: 100%;
+        }
+
+
+        /* ==================================================
+           24. max-height + overflow
+           ==================================================
+
+           İçeriğe maksimum yükseklik verip
+           taşan kısmı scroll yapabiliriz.
+        */
+
+        .scroll-box .box {
+            max-height: 150px;
+
+            overflow-y: auto;
+        }
+
+
+        /* ==================================================
+           25. min-content
+           ==================================================
+
+           İçeriğin mümkün olan minimum boyutunu
+           kullanır.
+
+           Özellikle Grid / Flex'te önemlidir.
+        */
+
+        .min-content {
+            width: min-content;
+        }
+
+
+        /* ==================================================
+           26. max-content
+           ==================================================
+
+           İçeriğin tek satırda ihtiyaç duyduğu
+           maksimum doğal boyutu kullanır.
+        */
+
+        .max-content {
+            width: max-content;
+        }
+
+
+        /* ==================================================
+           27. fit-content()
+           ==================================================
+
+           İçeriğe göre büyür fakat verilen maksimum
+           sınırı geçmez.
+
+           Örnek:
+
+           width: fit-content(300px);
+        */
+
+        .fit-content {
+            width: fit-content(300px);
+        }
+
+
+        /* ==================================================
+           28. minmax()
+           ==================================================
+
+           CSS Grid'in en önemli fonksiyonlarından biridir.
+
+           minmax(
+               minimum,
+               maximum
+           )
+
+           Grid kolonunun minimum ve maksimum boyutunu
+           belirler.
+        */
+
+        .grid-minmax {
+            display: grid;
+
+            grid-template-columns:
+                minmax(200px, 1fr) minmax(200px, 1fr);
+
+            gap: 20px;
+        }
+
+
+        /* ==================================================
+           29. minmax(0, 1fr)
+           ==================================================
+
+           Grid'de taşma problemlerini önlemek için
+           çok kullanışlıdır.
+        */
+
+        .grid-zero {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr) minmax(0, 1fr);
+
+            gap: 20px;
+        }
+
+        .grid-zero .box {
+            overflow-wrap: break-word;
+        }
+
+
+        /* ==================================================
+           30. repeat() + minmax()
+           ==================================================
+
+           Responsive Grid'in en önemli kalıplarından biri.
+        */
+
+        .responsive-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit,
+                    minmax(200px, 1fr));
+
+            gap: 20px;
+        }
+
+
+        /* ==================================================
+           31. auto-fit + minmax()
+           ==================================================
+
+           Kullanılabilir alana göre kolon sayısını
+           otomatik ayarlar.
+
+           Gerçek projelerde çok kullanılır.
+        */
+
+
+        /* ==================================================
+           32. auto-fill + minmax()
+           ================================================== */
+
+        .auto-fill {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fill,
+                    minmax(180px, 1fr));
+
+            gap: 20px;
+        }
+
+
+        /* ==================================================
+           33. clamp() + vw
+           ==================================================
+
+           Responsive başlık.
+
+           Ekran büyüdükçe büyür,
+           ama sınırları aşmaz.
+        */
+
+        .responsive-title {
+            font-size:
+                clamp(28px,
+                    6vw,
+                    80px);
+        }
+
+
+        /* ==================================================
+           34. clamp() + rem
+           ==================================================
+
+           Daha kontrollü responsive yazı.
+        */
+
+        .responsive-text {
+            font-size:
+                clamp(1rem,
+                    2vw,
+                    1.5rem);
+        }
+
+
+        /* ==================================================
+           35. clamp() + padding
+           ==================================================
+
+           Modern section tasarımında kullanışlıdır.
+        */
+
+        .section {
+            padding-block:
+                clamp(30px,
+                    8vw,
+                    100px);
+        }
+
+
+        /* ==================================================
+           36. clamp() + width
+           ==================================================
+
+           Container genişliğini sınırlamak.
+        */
+
+        .container-width {
+            width:
+                min(90%,
+                    1200px);
+
+            margin-inline: auto;
+        }
+
+
+        /* ==================================================
+           37. max() + padding
+           ==================================================
+
+           Padding'in belirli bir değerden
+           daha küçük olmamasını sağlar.
+        */
+
+        .safe-padding {
+            padding-inline:
+                max(20px,
+                    5vw);
+        }
+
+
+        /* ==================================================
+           38. max() + font-size
+           ==================================================
+
+           Yazının belirli bir boyuttan küçük
+           olmamasını sağlar.
+        */
+
+        .minimum-font {
+            font-size:
+                max(18px,
+                    2vw);
+        }
+
+
+        /* ==================================================
+           39. min() + viewport
+           ==================================================
+
+           Ekran genişliği ile sabit sınır arasında
+           küçük olanı seçer.
+        */
+
+        .viewport-limit {
+            width:
+                min(90vw,
+                    1000px);
+
+            margin-inline: auto;
+        }
+
+
+        /* ==================================================
+           40. max() + viewport
+           ==================================================
+
+           Minimum responsive değer oluşturur.
+        */
+
+        .viewport-minimum {
+            width:
+                max(300px,
+                    50vw);
+        }
+
+
+        /* ==================================================
+           41. min() + max() birlikte
+           ==================================================
+
+           Responsive genişliği daha kontrollü
+           hale getirebiliriz.
+        */
+
+        .controlled {
+            width:
+                min(90%,
+                    1200px);
+
+            min-width: 280px;
+        }
+
+
+        /* ==================================================
+           42. GERÇEK PROJE:
+           MODERN CONTAINER
+           ================================================== */
+
+        .real-container {
+            width: min(100% - 40px,
+                    1200px);
+
+            margin-inline: auto;
+        }
+
+
+        /* ==================================================
+           43. GERÇEK PROJE:
+           CARD
+           ================================================== */
+
+        .card {
+            width:
+                min(100%,
+                    400px);
+
+            min-height: 250px;
+        }
+
+
+        /* ==================================================
+           44. GERÇEK PROJE:
+           HERO
+           ================================================== */
+
+        .real-hero {
+            min-height: 100dvh;
+
+            padding:
+                clamp(30px,
+                    8vw,
+                    100px);
+
+            display: flex;
+            align-items: center;
+        }
+
+
+        /* ==================================================
+           45. GERÇEK PROJE:
+           RESPONSIVE TYPOGRAPHY
+           ================================================== */
+
+        .real-title {
+            font-size:
+                clamp(2rem,
+                    6vw,
+                    5rem);
+
+            line-height: 1.05;
+        }
+
+
+        /* ==================================================
+           46. GERÇEK PROJE:
+           RESPONSIVE GRID
+           ================================================== */
+
+        .real-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit,
+                    minmax(250px,
+                        1fr));
+
+            gap:
+                clamp(15px,
+                    3vw,
+                    35px);
+        }
+
+
+        /* ==================================================
+           47. GERÇEK PROJE:
+           MODERN SECTION
+           ================================================== */
+
+        .real-section {
+            width:
+                min(100% - 30px,
+                    1200px);
+
+            min-height:
+                clamp(300px,
+                    50vh,
+                    700px);
+
+            padding-block:
+                clamp(40px,
+                    8vw,
+                    120px);
+
+            margin-inline: auto;
+        }
+
+
+        /* ==================================================
+           48. max-inline-size
+           ==================================================
+
+           Yazım yönünden bağımsız max-width.
+
+           Modern CSS'te kullanılabilir.
+        */
+
+        .logical-max {
+            max-inline-size: 700px;
+        }
+
+
+        /* ==================================================
+           49. min-inline-size
+           ================================================== */
+
+        .logical-min {
+            min-inline-size: 300px;
+        }
+
+
+        /* ==================================================
+           50. max-block-size
+           ================================================== */
+
+        .logical-max-block {
+            max-block-size: 200px;
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           51. min-block-size
+           ================================================== */
+
+        .logical-min-block {
+            min-block-size: 150px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <h2>1. min-width</h2>
+
+    <div class="container min-width">
+        <div class="box">
+            Minimum Width: 300px
+        </div>
+    </div>
+
+
+    <h2>2. max-width</h2>
+
+    <div class="container max-width">
+        <div class="box">
+            Maximum Width: 600px
+        </div>
+    </div>
+
+
+    <h2>3. min-height</h2>
+
+    <div class="container min-height">
+        <div class="box">
+            Minimum Height
+        </div>
+    </div>
+
+
+    <h2>4. max-height</h2>
+
+    <div class="container max-height">
+        <div class="box">
+            Maximum Height
+            <br><br>
+            Uzun içerik burada.
+            <br><br>
+            Scroll oluşabilir.
+            <br><br>
+            Daha fazla içerik.
+        </div>
+    </div>
+
+
+    <h2>5. width + min-width</h2>
+
+    <div class="container width-min">
+        <div class="box">
+            width: 200px
+            <br>
+            min-width: 350px
+        </div>
+    </div>
+
+
+    <h2>6. width + max-width</h2>
+
+    <div class="container width-max">
+        <div class="box">
+            width: 100% + max-width: 500px
+        </div>
+    </div>
+
+
+    <h2>7. height + min-height</h2>
+
+    <div class="container height-min">
+        <div class="box">
+            Minimum Height
+        </div>
+    </div>
+
+
+    <h2>8. height + max-height</h2>
+
+    <div class="container height-max">
+        <div class="box">
+            Maximum Height
+            <br><br>
+            Uzun içerik
+            <br><br>
+            Scroll
+            <br><br>
+            İçerik
+        </div>
+    </div>
+
+
+    <h2>9. min()</h2>
+
+    <div class="container min-function">
+        <div class="box">
+            width: min(90%, 600px)
+        </div>
+    </div>
+
+
+    <h2>10. max()</h2>
+
+    <div class="container max-function">
+        <div class="box">
+            width: max(300px, 50%)
+        </div>
+    </div>
+
+
+    <h2>11. clamp()</h2>
+
+    <div class="container clamp">
+        <div class="box">
+            Ekran boyutuna göre yazı büyür.
+        </div>
+    </div>
+
+
+    <h2>12. width: clamp()</h2>
+
+    <div class="container width-clamp">
+        <div class="box">
+            Responsive Width
+        </div>
+    </div>
+
+
+    <h2>13. height: clamp()</h2>
+
+    <div class="container height-clamp">
+        <div class="box">
+            Responsive Height
+        </div>
+    </div>
+
+
+    <h2>14. padding: clamp()</h2>
+
+    <div class="container padding-clamp">
+        <div class="box">
+            Responsive Padding
+        </div>
+    </div>
+
+
+    <h2>15. margin: clamp()</h2>
+
+    <div class="container margin-clamp">
+        <div class="box">
+            Responsive Margin
+        </div>
+    </div>
+
+
+    <h2>16. gap: clamp()</h2>
+
+    <div class="container gap-clamp">
+
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+
+    </div>
+
+
+    <h2>17. Content Width</h2>
+
+    <div class="container content-width">
+
+        <div class="box">
+            max genişlik sınırı olan içerik.
+        </div>
+
+    </div>
+
+
+    <h2>18. Responsive Image</h2>
+
+    <div class="container responsive-image">
+
+        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7" width="900" alt="Örnek">
+
+    </div>
+
+
+    <h2>19. min-width: 0</h2>
+
+    <div class="container flex-min-zero">
+
+        <div class="box">
+            Sol
+        </div>
+
+        <div class="text">
+            ÇokUzunBirKelimeOrnekMetniTasmasorununuGöstermekIcinKullaniliyor
+        </div>
+
+    </div>
+
+
+    <h2>20. min-height: 100vh</h2>
+
+    <div class="container screen">
+
+        <div class="box">
+            En az ekran yüksekliği kadar.
+        </div>
+
+    </div>
+
+
+    <h2>21. min-height: 100dvh</h2>
+
+    <div class="container dynamic-screen">
+
+        <div class="box">
+            Dynamic Viewport Height
+        </div>
+
+    </div>
+
+
+    <h2>22. max-width: 100%</h2>
+
+    <div class="container safe-width">
+
+        <div class="box">
+            Büyük genişlik verilmesine rağmen
+            parent dışına taşmaz.
+        </div>
+
+    </div>
+
+
+    <h2>23. max-height + overflow</h2>
+
+    <div class="container scroll-box">
+
+        <div class="box">
+            Uzun içerik.
+            <br><br>
+            Satır 1
+            <br>
+            Satır 2
+            <br>
+            Satır 3
+            <br>
+            Satır 4
+            <br>
+            Satır 5
+            <br>
+            Satır 6
+        </div>
+
+    </div>
+
+
+    <h2>24. min-content</h2>
+
+    <div class="container">
+
+        <div class="box min-content">
+            Minimum Content
+        </div>
+
+    </div>
+
+
+    <h2>25. max-content</h2>
+
+    <div class="container">
+
+        <div class="box max-content">
+            Maximum Content Width
+        </div>
+
+    </div>
+
+
+    <h2>26. fit-content()</h2>
+
+    <div class="container">
+
+        <div class="box fit-content">
+            Fit Content
+        </div>
+
+    </div>
+
+
+    <h2>27. Grid minmax()</h2>
+
+    <div class="container grid-minmax">
+
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+
+    </div>
+
+
+    <h2>28. minmax(0, 1fr)</h2>
+
+    <div class="container grid-zero">
+
+        <div class="box">
+            ÇokUzunBirKelimeBuradaTaşmaSorununuEngellemekIcin
+        </div>
+
+        <div class="box">
+            Diğer kolon
+        </div>
+
+    </div>
+
+
+    <h2>29. Responsive Grid → auto-fit + minmax()</h2>
+
+    <div class="container responsive-grid">
+
+        <div class="box">Kart 1</div>
+        <div class="box">Kart 2</div>
+        <div class="box">Kart 3</div>
+        <div class="box">Kart 4</div>
+        <div class="box">Kart 5</div>
+        <div class="box">Kart 6</div>
+
+    </div>
+
+
+    <h2>30. auto-fill + minmax()</h2>
+
+    <div class="container auto-fill">
+
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+
+    </div>
+
+
+    <h2>31. Responsive Title</h2>
+
+    <div class="container">
+
+        <h1 class="responsive-title">
+            RESPONSIVE TITLE
+        </h1>
+
+    </div>
+
+
+    <h2>32. Responsive Text</h2>
+
+    <div class="container">
+
+        <p class="responsive-text">
+            Ekran boyutuna göre kontrollü şekilde
+            büyüyen yazı.
+        </p>
+
+    </div>
+
+
+    <h2>33. clamp() + padding</h2>
+
+    <div class="container section">
+
+        <div class="box">
+            Responsive Section
+        </div>
+
+    </div>
+
+
+    <h2>34. Container Width</h2>
+
+    <div class="container container-width">
+
+        <div class="box">
+            max-width sınırı olan container.
+        </div>
+
+    </div>
+
+
+    <h2>35. max() + padding</h2>
+
+    <div class="container safe-padding">
+
+        <div class="box">
+            Minimum padding korunuyor.
+        </div>
+
+    </div>
+
+
+    <h2>36. max() + font-size</h2>
+
+    <div class="container">
+
+        <div class="box minimum-font">
+            Minimum Font Size
+        </div>
+
+    </div>
+
+
+    <h2>37. min() + viewport</h2>
+
+    <div class="container viewport-limit">
+
+        <div class="box">
+            max-width benzeri responsive sınır.
+        </div>
+
+    </div>
+
+
+    <h2>38. max() + viewport</h2>
+
+    <div class="container viewport-minimum">
+
+        <div class="box">
+            Minimum responsive width.
+        </div>
+
+    </div>
+
+
+    <h2>39. min() + min-width</h2>
+
+    <div class="container controlled">
+
+        <div class="box">
+            Kontrollü responsive genişlik.
+        </div>
+
+    </div>
+
+
+    <h2>40. Gerçek Proje → Container</h2>
+
+    <div class="container">
+
+        <div class="real-container">
+
+            <div class="box">
+                Modern Container
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <h2>41. Gerçek Proje → Card</h2>
+
+    <div class="container">
+
+        <div class="box card">
+            Responsive Card
+        </div>
+
+    </div>
+
+
+    <h2>42. Gerçek Proje → Hero</h2>
+
+    <section class="container real-hero">
+
+        <div>
+
+            <h1 class="real-title">
+                Modern Hero
+            </h1>
+
+            <p>
+                Responsive tasarım.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <h2>43. Gerçek Proje → Responsive Grid</h2>
+
+    <div class="container real-grid">
+
+        <div class="box">Card 1</div>
+        <div class="box">Card 2</div>
+        <div class="box">Card 3</div>
+        <div class="box">Card 4</div>
+        <div class="box">Card 5</div>
+        <div class="box">Card 6</div>
+
+    </div>
+
+
+    <h2>44. Gerçek Proje → Section</h2>
+
+    <section class="container real-section">
+
+        <div class="box">
+            Responsive Section
+        </div>
+
+    </section>
+
+
+    <h2>45. max-inline-size</h2>
+
+    <div class="container">
+
+        <div class="box logical-max">
+            Logical max size
+        </div>
+
+    </div>
+
+
+    <h2>46. min-inline-size</h2>
+
+    <div class="container">
+
+        <div class="box logical-min">
+            Logical min size
+        </div>
+
+    </div>
+
+
+    <h2>47. max-block-size</h2>
+
+    <div class="container">
+
+        <div class="box logical-max-block">
+            Uzun içerik.
+            <br><br>
+            Scroll oluşturabilir.
+            <br><br>
+            Daha fazla içerik.
+        </div>
+
+    </div>
+
+
+    <h2>48. min-block-size</h2>
+
+    <div class="container">
+
+        <div class="box logical-min-block">
+            Minimum block size
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

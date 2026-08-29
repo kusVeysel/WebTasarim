@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS empty-cells</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            margin-bottom: 45px;
+            padding: 25px;
+
+            background: #f3f4f6;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: separate;
+
+            border-spacing: 8px;
+        }
+
+        td,
+        th {
+            min-width: 100px;
+
+            padding: 15px;
+
+            border: 2px solid #999;
+
+            text-align: center;
+        }
+
+
+        /* ==================================================
+       1. empty-cells: show
+       ==================================================
+
+       BOŞ hücrelerin:
+
+       - border
+       - background
+
+       gibi görsel özelliklerini
+       göstermeye devam eder.
+
+       Varsayılan değerdir.
+    */
+
+        .show {
+            empty-cells: show;
+        }
+
+
+        /* ==================================================
+       2. empty-cells: hide
+       ==================================================
+
+       Tamamen boş olan hücrelerin
+       görsel olarak gösterilmemesini sağlar.
+
+       Boş hücrenin:
+
+       - border
+       - background
+
+       gibi özellikleri gösterilmez.
+
+       ⚠️ Hücrenin kendisi DOM'dan
+       silinmez.
+    */
+
+        .hide {
+            empty-cells: hide;
+        }
+
+
+        /* ==================================================
+       3. empty-cells: inherit
+       ==================================================
+
+       Parent elementin
+       empty-cells değerini miras alır.
+    */
+
+        .inherit {
+            empty-cells: inherit;
+        }
+
+
+        /* ==================================================
+       4. empty-cells: initial
+       ==================================================
+
+       Başlangıç değerine döner.
+
+       empty-cells için:
+
+       show
+    */
+
+        .initial {
+            empty-cells: initial;
+        }
+
+
+        /* ==================================================
+       5. empty-cells: unset
+       ==================================================
+
+       inherit edilebiliyorsa parent'tan
+       miras alır.
+
+       Aksi durumda initial değerini kullanır.
+    */
+
+        .unset {
+            empty-cells: unset;
+        }
+
+
+        /* ==================================================
+       6. empty-cells: revert
+       ==================================================
+
+       Önceki cascade seviyesindeki
+       değere geri döner.
+    */
+
+        .revert {
+            empty-cells: revert;
+        }
+
+
+        /* ==================================================
+       7. empty-cells: revert-layer
+       ==================================================
+
+       Önceki cascade layer seviyesindeki
+       değere geri döner.
+    */
+
+        .revert-layer {
+            empty-cells: revert-layer;
+        }
+
+
+        /* ==================================================
+       8. GERÇEK PROJE:
+          BOŞ HÜCRELERİ GİZLE
+       ==================================================
+
+       Özellikle tablo içerisinde
+       bazı hücrelerin boş kalabildiği
+       durumlarda kullanılabilir.
+    */
+
+        .clean-table {
+            empty-cells: hide;
+        }
+
+
+        /* ==================================================
+       9. GERÇEK PROJE:
+          BOŞ HÜCRELERİ GÖSTER
+       ==================================================
+
+       Tablo yapısının grid görünümünün
+       korunması gerektiğinde kullanılabilir.
+    */
+
+        .full-table {
+            empty-cells: show;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+       1. SHOW
+       ================================================== -->
+
+    <h2>1. empty-cells: show</h2>
+
+    <div class="container">
+
+        <table class="show">
+
+            <tr>
+
+                <td>HTML</td>
+
+                <td></td>
+
+                <td>CSS</td>
+
+            </tr>
+
+            <tr>
+
+                <td></td>
+
+                <td>JavaScript</td>
+
+                <td></td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ==================================================
+       2. HIDE
+       ================================================== -->
+
+    <h2>2. empty-cells: hide</h2>
+
+    <div class="container">
+
+        <table class="hide">
+
+            <tr>
+
+                <td>HTML</td>
+
+                <td></td>
+
+                <td>CSS</td>
+
+            </tr>
+
+            <tr>
+
+                <td></td>
+
+                <td>JavaScript</td>
+
+                <td></td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ==================================================
+       3. INHERIT
+       ================================================== -->
+
+    <h2>3. empty-cells: inherit</h2>
+
+    <div class="container">
+
+        <table class="show" style="empty-cells: hide;">
+
+            <tr>
+
+                <td class="inherit">
+                    HTML
+                </td>
+
+                <td class="inherit"></td>
+
+                <td class="inherit">
+                    CSS
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ==================================================
+       4. INITIAL
+       ================================================== -->
+
+    <h2>4. empty-cells: initial</h2>
+
+    <div class="container">
+
+        <table class="initial">
+
+            <tr>
+
+                <td>HTML</td>
+
+                <td></td>
+
+                <td>CSS</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ==================================================
+       5. UNSET
+       ================================================== -->
+
+    <h2>5. empty-cells: unset</h2>
+
+    <div class="container">
+
+        <table class="unset">
+
+            <tr>
+
+                <td>HTML</td>
+
+                <td></td>
+
+                <td>CSS</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ==================================================
+       6. REVERT
+       ================================================== -->
+
+    <h2>6. empty-cells: revert</h2>
+
+    <div class="container">
+
+        <table class="revert">
+
+            <tr>
+
+                <td>HTML</td>
+
+                <td></td>
+
+                <td>CSS</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ==================================================
+       7. REVERT-LAYER
+       ================================================== -->
+
+    <h2>7. empty-cells: revert-layer</h2>
+
+    <div class="container">
+
+        <table class="revert-layer">
+
+            <tr>
+
+                <td>HTML</td>
+
+                <td></td>
+
+                <td>CSS</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ==================================================
+       8. GERÇEK PROJE:
+          CLEAN TABLE
+       ================================================== -->
+
+    <h2>8. Gerçek Proje → Clean Table</h2>
+
+    <div class="container">
+
+        <table class="clean-table">
+
+            <tr>
+
+                <th>Ürün</th>
+
+                <th>Stok</th>
+
+                <th>Fiyat</th>
+
+            </tr>
+
+            <tr>
+
+                <td>Keyboard</td>
+
+                <td>15</td>
+
+                <td>₺500</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Mouse</td>
+
+                <td></td>
+
+                <td>₺300</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ==================================================
+       9. GERÇEK PROJE:
+          FULL TABLE
+       ================================================== -->
+
+    <h2>9. Gerçek Proje → Full Table</h2>
+
+    <div class="container">
+
+        <table class="full-table">
+
+            <tr>
+
+                <th>Pazartesi</th>
+
+                <th>Salı</th>
+
+                <th>Çarşamba</th>
+
+            </tr>
+
+            <tr>
+
+                <td>Matematik</td>
+
+                <td></td>
+
+                <td>CSS</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+</body>
+
+</html>

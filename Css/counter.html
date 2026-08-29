@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>CSS counter</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            margin-bottom: 45px;
+            padding: 30px;
+
+            background: #f3f4f6;
+        }
+
+
+        /* ==================================================
+       1. counter-reset
+       ==================================================
+
+       Bir counter oluşturur veya sıfırlar.
+
+       Syntax:
+
+       counter-reset: isim;
+       counter-reset: isim başlangıç-değeri;
+
+       Örnek:
+
+       counter-reset: section;
+
+       → section counter'ı 0'dan başlar.
+    */
+
+        .reset {
+            counter-reset: item;
+        }
+
+
+        /* ==================================================
+       2. counter-reset: başlangıç değeri
+       ==================================================
+
+       Counter'ın başlangıç değerini
+       kendin belirleyebilirsin.
+    */
+
+        .reset-start {
+            counter-reset: item 10;
+        }
+
+
+        /* ==================================================
+       3. counter-increment
+       ==================================================
+
+       Counter'ın değerini artırır.
+
+       Örnek:
+
+       counter-increment: item;
+
+       → Her elementte 1 artırır.
+    */
+
+        .increment {
+            counter-increment: item;
+        }
+
+
+        /* ==================================================
+       4. counter-increment: 2
+       ==================================================
+
+       Counter'ı 2'şer artırabiliriz.
+
+       counter-increment: item 2;
+    */
+
+        .increment-two {
+            counter-increment: item 2;
+        }
+
+
+        /* ==================================================
+       5. counter()
+       ==================================================
+
+       Counter'ın mevcut değerini ekrana getirir.
+
+       Syntax:
+
+       counter(isim)
+
+       Örnek:
+
+       content: counter(item);
+    */
+
+        .counter-value {
+            counter-increment: item;
+        }
+
+        .counter-value::before {
+            content: counter(item) ". ";
+        }
+
+
+        /* ==================================================
+       6. counter() + string
+       ==================================================
+
+       Counter değerinin yanına
+       normal metin eklenebilir.
+    */
+
+        .numbered {
+            counter-increment: number;
+        }
+
+        .numbered::before {
+            content: "Madde " counter(number) ": ";
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+       7. counter() + list-style
+       ==================================================
+
+       Counter ile özel liste
+       numaralandırması yapılabilir.
+    */
+
+        .custom-list {
+            counter-reset: list;
+        }
+
+        .custom-item {
+            counter-increment: list;
+        }
+
+        .custom-item::before {
+            content: counter(list) ") ";
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+       8. counter-style
+       ==================================================
+
+       Counter'ın görüntülenecek biçimini
+       belirleyebiliriz.
+
+       decimal
+       → 1, 2, 3
+
+       upper-alpha
+       → A, B, C
+
+       lower-alpha
+       → a, b, c
+
+       upper-roman
+       → I, II, III
+
+       lower-roman
+       → i, ii, iii
+    */
+
+        .alpha {
+            counter-reset: item;
+        }
+
+        .alpha-item {
+            counter-increment: item;
+        }
+
+        .alpha-item::before {
+            content: counter(item, upper-alpha) ". ";
+        }
+
+
+        /* ==================================================
+       9. lower-alpha
+       ================================================== */
+
+        .lower-alpha {
+            counter-reset: item;
+        }
+
+        .lower-alpha-item {
+            counter-increment: item;
+        }
+
+        .lower-alpha-item::before {
+            content: counter(item, lower-alpha) ". ";
+        }
+
+
+        /* ==================================================
+       10. upper-roman
+       ================================================== */
+
+        .roman {
+            counter-reset: item;
+        }
+
+        .roman-item {
+            counter-increment: item;
+        }
+
+        .roman-item::before {
+            content: counter(item, upper-roman) ". ";
+        }
+
+
+        /* ==================================================
+       11. lower-roman
+       ================================================== */
+
+        .lower-roman {
+            counter-reset: item;
+        }
+
+        .lower-roman-item {
+            counter-increment: item;
+        }
+
+        .lower-roman-item::before {
+            content: counter(item, lower-roman) ". ";
+        }
+
+
+        /* ==================================================
+       12. counters()
+       ==================================================
+
+       İç içe counter'ları göstermek için kullanılır.
+
+       Örneğin:
+
+       1. Bölüm
+         1.1 Konu
+         1.2 Konu
+
+       2. Bölüm
+         2.1 Konu
+         2.2 Konu
+    */
+
+        .chapters {
+            counter-reset: chapter;
+        }
+
+        .chapter {
+            counter-increment: chapter;
+
+            counter-reset: section;
+        }
+
+        .chapter-title::before {
+            content: counter(chapter) ". ";
+        }
+
+        .section {
+            counter-increment: section;
+
+            margin-left: 25px;
+        }
+
+        .section::before {
+            content:
+                counter(chapter) "."
+                counter(section) " ";
+        }
+
+
+        /* ==================================================
+       13. GERÇEK PROJE:
+           DOKÜMAN NUMARALANDIRMA
+       ================================================== */
+
+        .document {
+            counter-reset: heading;
+        }
+
+        .document h3 {
+            counter-increment: heading;
+        }
+
+        .document h3::before {
+            content: "Bölüm "
+                counter(heading) " — ";
+        }
+
+
+        /* ==================================================
+       14. GERÇEK PROJE:
+           FAQ
+       ================================================== */
+
+        .faq {
+            counter-reset: question;
+        }
+
+        .faq-item {
+            counter-increment: question;
+
+            margin-bottom: 15px;
+
+            padding: 15px;
+
+            background: white;
+
+            border-radius: 8px;
+        }
+
+        .faq-item::before {
+            content: "Soru "
+                counter(question) ": ";
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+       15. GERÇEK PROJE:
+           ADIMLAR
+       ================================================== */
+
+        .steps {
+            counter-reset: step;
+        }
+
+        .step {
+            counter-increment: step;
+
+            margin-bottom: 15px;
+
+            padding: 15px;
+
+            background: white;
+
+            border-radius: 10px;
+        }
+
+        .step::before {
+            content: counter(step);
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            width: 30px;
+            height: 30px;
+
+            margin-right: 10px;
+
+            border-radius: 50%;
+
+            background: #ddd;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+       16. GERÇEK PROJE:
+           CSS RESET
+       ==================================================
+
+       Birden fazla counter'ı aynı anda
+       sıfırlayabilirsin.
+    */
+
+        .multi-reset {
+            counter-reset:
+                chapter section item;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+       1. counter-reset
+       ================================================== -->
+
+    <h2>1. counter-reset</h2>
+
+    <div class="container reset">
+
+        <p>
+            Counter oluşturuldu ve 0'dan başladı.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+       2. Başlangıç değeri
+       ================================================== -->
+
+    <h2>2. counter-reset: item 10</h2>
+
+    <div class="container reset-start">
+
+        <p>
+            Counter başlangıç değeri 10.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+       3. counter-increment
+       ================================================== -->
+
+    <h2>3. counter-increment</h2>
+
+    <div class="container reset">
+
+        <div class="increment">
+            Birinci
+        </div>
+
+        <div class="increment">
+            İkinci
+        </div>
+
+        <div class="increment">
+            Üçüncü
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       4. 2'ŞER ARTIRMA
+       ================================================== -->
+
+    <h2>4. counter-increment: 2</h2>
+
+    <div class="container reset">
+
+        <div class="increment-two">
+            Birinci
+        </div>
+
+        <div class="increment-two">
+            İkinci
+        </div>
+
+        <div class="increment-two">
+            Üçüncü
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       5. counter()
+       ================================================== -->
+
+    <h2>5. counter()</h2>
+
+    <div class="container reset">
+
+        <div class="counter-value">
+            HTML
+        </div>
+
+        <div class="counter-value">
+            CSS
+        </div>
+
+        <div class="counter-value">
+            JavaScript
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       6. METİN + COUNTER
+       ================================================== -->
+
+    <h2>6. Metin + counter()</h2>
+
+    <div class="container">
+
+        <div class="numbered">
+            HTML
+        </div>
+
+        <div class="numbered">
+            CSS
+        </div>
+
+        <div class="numbered">
+            JavaScript
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       7. CUSTOM LIST
+       ================================================== -->
+
+    <h2>7. Özel Liste</h2>
+
+    <div class="container custom-list">
+
+        <div class="custom-item">
+            HTML
+        </div>
+
+        <div class="custom-item">
+            CSS
+        </div>
+
+        <div class="custom-item">
+            JavaScript
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       8. UPPER ALPHA
+       ================================================== -->
+
+    <h2>8. upper-alpha</h2>
+
+    <div class="container alpha">
+
+        <div class="alpha-item">
+            HTML
+        </div>
+
+        <div class="alpha-item">
+            CSS
+        </div>
+
+        <div class="alpha-item">
+            JavaScript
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       9. LOWER ALPHA
+       ================================================== -->
+
+    <h2>9. lower-alpha</h2>
+
+    <div class="container lower-alpha">
+
+        <div class="lower-alpha-item">
+            HTML
+        </div>
+
+        <div class="lower-alpha-item">
+            CSS
+        </div>
+
+        <div class="lower-alpha-item">
+            JavaScript
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       10. UPPER ROMAN
+       ================================================== -->
+
+    <h2>10. upper-roman</h2>
+
+    <div class="container roman">
+
+        <div class="roman-item">
+            HTML
+        </div>
+
+        <div class="roman-item">
+            CSS
+        </div>
+
+        <div class="roman-item">
+            JavaScript
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       11. LOWER ROMAN
+       ================================================== -->
+
+    <h2>11. lower-roman</h2>
+
+    <div class="container lower-roman">
+
+        <div class="lower-roman-item">
+            HTML
+        </div>
+
+        <div class="lower-roman-item">
+            CSS
+        </div>
+
+        <div class="lower-roman-item">
+            JavaScript
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       12. NESTED COUNTER
+       ================================================== -->
+
+    <h2>12. İç İçe Counter</h2>
+
+    <div class="container chapters">
+
+        <div class="chapter">
+
+            <h3 class="chapter-title">
+                HTML
+            </h3>
+
+            <div class="section">
+                Etiketler
+            </div>
+
+            <div class="section">
+                Formlar
+            </div>
+
+        </div>
+
+
+        <div class="chapter">
+
+            <h3 class="chapter-title">
+                CSS
+            </h3>
+
+            <div class="section">
+                Flexbox
+            </div>
+
+            <div class="section">
+                Grid
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       13. DOCUMENT
+       ================================================== -->
+
+    <h2>13. Gerçek Proje → Doküman</h2>
+
+    <div class="container document">
+
+        <h3>Giriş</h3>
+
+        <p>
+            Dokümanın giriş bölümü.
+        </p>
+
+        <h3>Temel Bilgiler</h3>
+
+        <p>
+            Temel bilgiler bölümü.
+        </p>
+
+        <h3>İleri Konular</h3>
+
+        <p>
+            İleri konular bölümü.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+       14. FAQ
+       ================================================== -->
+
+    <h2>14. Gerçek Proje → FAQ</h2>
+
+    <div class="container faq">
+
+        <div class="faq-item">
+            CSS nedir?
+        </div>
+
+        <div class="faq-item">
+            Flexbox nedir?
+        </div>
+
+        <div class="faq-item">
+            Grid nedir?
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       15. STEPS
+       ================================================== -->
+
+    <h2>15. Gerçek Proje → Steps</h2>
+
+    <div class="container steps">
+
+        <div class="step">
+            Hesap oluştur
+        </div>
+
+        <div class="step">
+            E-posta doğrula
+        </div>
+
+        <div class="step">
+            Profilini tamamla
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

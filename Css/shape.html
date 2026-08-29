@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS Shape - Full</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f4f4;
+
+            line-height: 1.7;
+        }
+
+        h2 {
+            margin-top: 50px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+
+            margin-bottom: 35px;
+            padding: 30px;
+
+            border: 3px solid black;
+            border-radius: 20px;
+
+            background: white;
+
+            overflow: hidden;
+        }
+
+        .shape-demo {
+            min-height: 250px;
+        }
+
+
+        /* ==================================================
+           1. shape-outside: none
+           ==================================================
+
+           Float elementinin çevresindeki metin
+           normal dikdörtgen akışına göre davranır.
+
+           Varsayılan değerdir.
+        */
+
+        .shape-none {
+            shape-outside: none;
+        }
+
+
+        /* ==================================================
+           2. shape-outside: margin-box
+           ==================================================
+
+           Shape hesaplamasında elementin
+           margin box'ını kullanır.
+
+           FLOAT ile birlikte kullanılır.
+        */
+
+        .shape-margin-box {
+            float: left;
+
+            width: 180px;
+            height: 180px;
+
+            margin: 20px;
+
+            shape-outside: margin-box;
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           3. shape-outside: border-box
+           ==================================================
+
+           Elementin border box'ını shape olarak kullanır.
+        */
+
+        .shape-border-box {
+            float: left;
+
+            width: 180px;
+            height: 180px;
+
+            border: 20px solid steelblue;
+
+            shape-outside: border-box;
+
+            margin-right: 25px;
+        }
+
+
+        /* ==================================================
+           4. shape-outside: padding-box
+           ==================================================
+
+           Padding box'ı shape olarak kullanır.
+        */
+
+        .shape-padding-box {
+            float: left;
+
+            width: 180px;
+            height: 180px;
+
+            padding: 25px;
+
+            shape-outside: padding-box;
+
+            background: steelblue;
+
+            margin-right: 25px;
+        }
+
+
+        /* ==================================================
+           5. shape-outside: content-box
+           ==================================================
+
+           Sadece content box shape olarak
+           kullanılır.
+        */
+
+        .shape-content-box {
+            float: left;
+
+            width: 180px;
+            height: 180px;
+
+            padding: 25px;
+
+            shape-outside: content-box;
+
+            background: steelblue;
+
+            margin-right: 25px;
+        }
+
+
+        /* ==================================================
+           6. shape-outside: circle()
+           ==================================================
+
+           Metni dairenin çevresinde
+           akıtmak için kullanılır.
+
+           Syntax:
+
+           circle(radius at x y)
+        */
+
+        .shape-circle {
+            float: left;
+
+            width: 220px;
+            height: 220px;
+
+            margin: 20px;
+
+            shape-outside:
+                circle(50%);
+
+            clip-path:
+                circle(50%);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           7. circle() özel radius
+           ================================================== */
+
+        .shape-circle-radius {
+            float: left;
+
+            width: 220px;
+            height: 220px;
+
+            margin: 20px;
+
+            shape-outside:
+                circle(80px);
+
+            clip-path:
+                circle(80px);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           8. circle() at
+           ==================================================
+
+           Dairenin merkezini değiştirir.
+        */
+
+        .shape-circle-position {
+            float: left;
+
+            width: 220px;
+            height: 220px;
+
+            margin: 20px;
+
+            shape-outside:
+                circle(80px at 30% 40%);
+
+            clip-path:
+                circle(80px at 30% 40%);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           9. shape-outside: ellipse()
+           ==================================================
+
+           Elips şeklinde text wrapping.
+        */
+
+        .shape-ellipse {
+            float: left;
+
+            width: 280px;
+            height: 180px;
+
+            margin: 20px;
+
+            shape-outside:
+                ellipse(50% 50%);
+
+            clip-path:
+                ellipse(50% 50%);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           10. ellipse() özel boyut
+           ================================================== */
+
+        .shape-ellipse-size {
+            float: left;
+
+            width: 280px;
+            height: 180px;
+
+            margin: 20px;
+
+            shape-outside:
+                ellipse(100px 60px);
+
+            clip-path:
+                ellipse(100px 60px);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           11. ellipse() position
+           ================================================== */
+
+        .shape-ellipse-position {
+            float: left;
+
+            width: 280px;
+            height: 180px;
+
+            margin: 20px;
+
+            shape-outside:
+                ellipse(100px 60px at 30% 40%);
+
+            clip-path:
+                ellipse(100px 60px at 30% 40%);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           12. shape-outside: inset()
+           ==================================================
+
+           Dikdörtgenin içinden
+           shape oluşturur.
+
+           Syntax:
+
+           inset(top right bottom left)
+        */
+
+        .shape-inset {
+            float: left;
+
+            width: 220px;
+            height: 220px;
+
+            margin: 20px;
+
+            shape-outside:
+                inset(30px);
+
+            clip-path:
+                inset(30px);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           13. inset() farklı değerler
+           ================================================== */
+
+        .shape-inset-values {
+            float: left;
+
+            width: 240px;
+            height: 220px;
+
+            margin: 20px;
+
+            shape-outside:
+                inset(20px 40px 60px 80px);
+
+            clip-path:
+                inset(20px 40px 60px 80px);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           14. inset() border-radius
+           ==================================================
+
+           Yuvarlatılmış dikdörtgen.
+        */
+
+        .shape-inset-radius {
+            float: left;
+
+            width: 240px;
+            height: 220px;
+
+            margin: 20px;
+
+            shape-outside:
+                inset(20px round 40px);
+
+            clip-path:
+                inset(20px round 40px);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           15. shape-outside: polygon()
+           ==================================================
+
+           Çokgen oluşturur.
+
+           En güçlü shape fonksiyonlarından biridir.
+
+           Syntax:
+
+           polygon(
+               x y,
+               x y,
+               x y
+           )
+        */
+
+        .shape-polygon {
+            float: left;
+
+            width: 250px;
+            height: 250px;
+
+            margin: 20px;
+
+            shape-outside:
+                polygon(50% 0,
+                    100% 100%,
+                    0 100%);
+
+            clip-path:
+                polygon(50% 0,
+                    100% 100%,
+                    0 100%);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           16. polygon() yıldız
+           ================================================== */
+
+        .shape-star {
+            float: left;
+
+            width: 250px;
+            height: 250px;
+
+            margin: 20px;
+
+            shape-outside:
+                polygon(50% 0%,
+                    61% 35%,
+                    98% 35%,
+                    68% 57%,
+                    79% 100%,
+                    50% 75%,
+                    21% 100%,
+                    32% 57%,
+                    2% 35%,
+                    39% 35%);
+
+            clip-path:
+                polygon(50% 0%,
+                    61% 35%,
+                    98% 35%,
+                    68% 57%,
+                    79% 100%,
+                    50% 75%,
+                    21% 100%,
+                    32% 57%,
+                    2% 35%,
+                    39% 35%);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           17. shape-outside: path()
+           ==================================================
+
+           SVG benzeri path kullanır.
+
+           Çok daha karmaşık şekiller oluşturabilir.
+        */
+
+        .shape-path {
+            float: left;
+
+            width: 280px;
+            height: 220px;
+
+            margin: 20px;
+
+            shape-outside:
+                path("M 0 0
+ L 280 0 L 220 220 L 60 220 Z"
+);
+
+            clip-path:
+                path("M 0 0
+ L 280 0 L 220 220 L 60 220 Z"
+);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           18. shape-outside: url()
+           ==================================================
+
+           Görselin alpha kanalından shape
+           oluşturabilir.
+
+           Örnek:
+
+           shape-outside:
+               url("image.png");
+
+           Şeffaf PNG'ler için özellikle kullanışlıdır.
+        */
+
+        .shape-image {
+            float: left;
+
+            width: 250px;
+            height: 250px;
+
+            margin: 20px;
+
+            /*
+            shape-outside:
+                url("shape.png");
+            */
+
+            background: steelblue;
+
+            clip-path:
+                circle(45%);
+        }
+
+
+        /* ==================================================
+           19. shape-image-threshold
+           ==================================================
+
+           Görsel tabanlı shape kullanırken
+           hangi alpha değerinin shape kabul
+           edileceğini belirler.
+
+           0
+           → En küçük alpha değerleri bile dahil.
+
+           1
+           → Sadece tamamen opak alanlar.
+        */
+
+        .image-threshold {
+            float: left;
+
+            width: 250px;
+            height: 250px;
+
+            margin: 20px;
+
+            shape-image-threshold:
+                0.5;
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           20. shape-margin
+           ==================================================
+
+           Shape ile metin arasında
+           boşluk oluşturur.
+
+           ÖNEMLİ:
+
+           shape-margin sadece
+           shape-outside ile çalışır.
+        */
+
+        .shape-with-margin {
+            float: left;
+
+            width: 220px;
+            height: 220px;
+
+            margin: 20px;
+
+            shape-outside:
+                circle(50%);
+
+            shape-margin:
+                25px;
+
+            clip-path:
+                circle(50%);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           21. shape-margin: yüzde
+           ================================================== */
+
+        .shape-margin-percent {
+            float: left;
+
+            width: 220px;
+            height: 220px;
+
+            margin: 20px;
+
+            shape-outside:
+                circle(50%);
+
+            shape-margin:
+                10%;
+
+            clip-path:
+                circle(50%);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           22. shape + float right
+           ==================================================
+
+           Shape yalnızca float elementleriyle
+           text wrapping yapmak için tasarlanmıştır.
+        */
+
+        .shape-right {
+            float: right;
+
+            width: 220px;
+            height: 220px;
+
+            margin: 20px;
+
+            shape-outside:
+                circle(50%);
+
+            clip-path:
+                circle(50%);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           23. shape + image
+           ==================================================
+
+           Gerçek kullanım:
+
+           Profil resmi etrafında metin.
+        */
+
+        .profile-shape {
+            float: left;
+
+            width: 180px;
+            height: 180px;
+
+            margin:
+                10px 30px 20px 0;
+
+            border-radius: 50%;
+
+            shape-outside:
+                circle(50%);
+
+            clip-path:
+                circle(50%);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           24. shape + polygon article
+           ================================================== */
+
+        .article-shape {
+            float: left;
+
+            width: 240px;
+            height: 300px;
+
+            margin:
+                0 30px 20px 0;
+
+            shape-outside:
+                polygon(0 0,
+                    100% 0,
+                    70% 100%,
+                    0 100%);
+
+            clip-path:
+                polygon(0 0,
+                    100% 0,
+                    70% 100%,
+                    0 100%);
+
+            background: steelblue;
+        }
+
+
+        /* ==================================================
+           25. shape + initial
+           ================================================== */
+
+        .shape-initial {
+            shape-margin: initial;
+        }
+
+
+        /* ==================================================
+           26. shape + inherit
+           ================================================== */
+
+        .shape-inherit {
+            shape-margin: inherit;
+        }
+
+
+        /* ==================================================
+           27. shape + unset
+           ================================================== */
+
+        .shape-unset {
+            shape-margin: unset;
+        }
+
+
+        /* ==================================================
+           28. shape + revert
+           ================================================== */
+
+        .shape-revert {
+            shape-margin: revert;
+        }
+
+
+        /* ==================================================
+           MODERN CORNER SHAPES
+           ==================================================
+
+           Not:
+
+           corner-shape ve corner-shape-*
+           modern CSS özellikleridir.
+
+           Standart border-radius'in ötesinde
+           köşe şekilleri oluşturmayı amaçlar.
+
+           Tarayıcı desteği geleneksel CSS
+           özelliklerinden daha sınırlı olabilir.
+        */
+
+        .corner-shape-demo {
+            width: 280px;
+            height: 180px;
+
+            border-radius: 40px;
+
+            corner-shape:
+                bevel;
+        }
+
+
+        /* ==================================================
+           29. corner-shape: round
+           ================================================== */
+
+        .corner-round {
+            corner-shape: round;
+        }
+
+
+        /* ==================================================
+           30. corner-shape: bevel
+           ================================================== */
+
+        .corner-bevel {
+            corner-shape: bevel;
+        }
+
+
+        /* ==================================================
+           31. corner-shape: notch
+           ================================================== */
+
+        .corner-notch {
+            corner-shape: notch;
+        }
+
+
+        /* ==================================================
+           32. corner-shape: scoop
+           ================================================== */
+
+        .corner-scoop {
+            corner-shape: scoop;
+        }
+
+
+        /* ==================================================
+           33. corner-shape: square
+           ================================================== */
+
+        .corner-square {
+            corner-shape: square;
+        }
+
+
+        /* ==================================================
+           34. corner-shape: squircle
+           ================================================== */
+
+        .corner-squircle {
+            corner-shape: squircle;
+        }
+
+
+        /* ==================================================
+           35. corner-shape: superellipse()
+           ================================================== */
+
+        .corner-superellipse {
+            corner-shape:
+                superellipse(1.5);
+        }
+
+
+        /* ==================================================
+           36. corner-shape-*-start/end
+           ==================================================
+
+           Her köşeyi ayrı ayrı kontrol etmek
+           için mantıksal köşe özellikleri
+           kullanılabilir.
+
+           Tarayıcı desteği kontrol edilmelidir.
+        */
+
+        .corner-mixed {
+            corner-shape:
+                round bevel notch scoop;
+        }
+
+
+        /* ==================================================
+           TEMİZLEME
+           ================================================== */
+
+        .clear {
+            clear: both;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         BASIC BOX VALUES
+         ================================================== -->
+
+    <h2>1. shape-outside: none</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-none" style="
+                float:left;
+                width:180px;
+                height:180px;
+                margin:20px;
+                background:steelblue;
+            "></div>
+
+        <p>
+            Bu örnekte shape-outside none olduğu için
+            float elementinin çevresindeki metin normal
+            kutu geometrisine göre akar.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>2. shape-outside: margin-box</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-margin-box"></div>
+
+        <p>
+            Margin box kullanılarak oluşturulan shape.
+            Metin şeklin çevresinden akar.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>3. shape-outside: border-box</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-border-box"></div>
+
+        <p>
+            Border box shape olarak kullanılıyor.
+            Bu yöntem özellikle geometrik
+            float tasarımlarında kullanılabilir.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>4. shape-outside: padding-box</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-padding-box"></div>
+
+        <p>
+            Padding box üzerinden shape hesaplanır.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>5. shape-outside: content-box</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-content-box"></div>
+
+        <p>
+            Yalnızca content box shape olarak kullanılır.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         CIRCLE
+         ================================================== -->
+
+    <h2>6. shape-outside: circle()</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-circle"></div>
+
+        <p>
+            Daire şeklindeki bir elementin çevresinde
+            metin akışı oluşturuyoruz. Profil fotoğrafı,
+            makale görseli ve editorial tasarımlarda
+            oldukça kullanışlıdır.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>7. circle() radius</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-circle-radius"></div>
+
+        <p>
+            circle() içerisinde yarıçapı doğrudan
+            belirleyebiliriz.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>8. circle() position</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-circle-position"></div>
+
+        <p>
+            Dairenin merkezini de değiştirebiliriz.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         ELLIPSE
+         ================================================== -->
+
+    <h2>9. shape-outside: ellipse()</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-ellipse"></div>
+
+        <p>
+            Elips şeklinde text wrapping.
+            Dairesel olmayan görseller için
+            kullanılabilir.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>10. ellipse() size</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-ellipse-size"></div>
+
+        <p>
+            Elipsin yatay ve dikey yarıçaplarını
+            ayrı ayrı belirleyebiliriz.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>11. ellipse() position</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-ellipse-position"></div>
+
+        <p>
+            Elipsin konumu da değiştirilebilir.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         INSET
+         ================================================== -->
+
+    <h2>12. shape-outside: inset()</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-inset"></div>
+
+        <p>
+            inset() ile dikdörtgenin içinden
+            yeni bir shape oluşturuyoruz.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>13. inset() farklı değerler</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-inset-values"></div>
+
+        <p>
+            Dört tarafı ayrı ayrı ayarlayabiliriz.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>14. inset() + round</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-inset-radius"></div>
+
+        <p>
+            inset() ile oluşturulan shape'e
+            radius da eklenebilir.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         POLYGON
+         ================================================== -->
+
+    <h2>15. shape-outside: polygon()</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-polygon"></div>
+
+        <p>
+            Polygon ile üçgen gibi çokgen şekiller
+            oluşturabiliriz. Metin bu geometrinin
+            çevresinden akar.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>16. polygon() yıldız</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-star"></div>
+
+        <p>
+            Polygon kullanarak karmaşık şekiller
+            bile oluşturabiliriz.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         PATH
+         ================================================== -->
+
+    <h2>17. shape-outside: path()</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-path"></div>
+
+        <p>
+            path() ile daha gelişmiş geometriler
+            oluşturabiliriz. SVG path mantığına
+            benzer şekilde çalışır.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         IMAGE
+         ================================================== -->
+
+    <h2>18. shape-outside: url()</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-image"></div>
+
+        <p>
+            Gerçek projelerde transparan PNG gibi
+            görsellerin dış hatlarını shape olarak
+            kullanmak mümkündür.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>19. shape-image-threshold</h2>
+
+    <div class="container shape-demo">
+
+        <div class="image-threshold"></div>
+
+        <p>
+            Görsel tabanlı shape kullanılırken
+            alpha threshold değeri shape'in
+            hangi bölgelere kadar uzanacağını etkiler.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         SHAPE MARGIN
+         ================================================== -->
+
+    <h2>20. shape-margin</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-with-margin"></div>
+
+        <p>
+            Shape ile metin arasında ekstra
+            boşluk bırakmak için shape-margin kullanılır.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <h2>21. shape-margin: %</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-margin-percent"></div>
+
+        <p>
+            Shape margin yüzde olarak da verilebilir.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         FLOAT RIGHT
+         ================================================== -->
+
+    <h2>22. shape-outside + float: right</h2>
+
+    <div class="container shape-demo">
+
+        <div class="shape-right"></div>
+
+        <p>
+            Shape sadece sola değil sağa float edilen
+            elementlerde de kullanılabilir.
+            Metin sağdaki şeklin çevresinden akar.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         PROFILE
+         ================================================== -->
+
+    <h2>23. Gerçek proje: Profil görseli</h2>
+
+    <div class="container shape-demo">
+
+        <div class="profile-shape"></div>
+
+        <p>
+            Kullanıcı profil fotoğrafı gibi yuvarlak
+            bir görselin çevresinde metnin akmasını
+            sağlayabiliriz. Bu yöntem özellikle
+            blog ve editorial tasarımlarda kullanılabilir.
+        </p>
+
+        <p>
+            Shape-outside sayesinde metin artık
+            fotoğrafın dikdörtgen kutusuna göre değil,
+            dairesel şekline göre yerleşir.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         ARTICLE
+         ================================================== -->
+
+    <h2>24. Gerçek proje: Editorial tasarım</h2>
+
+    <div class="container shape-demo">
+
+        <div class="article-shape"></div>
+
+        <p>
+            Büyük bir dekoratif geometrinin çevresinde
+            yazı akışı oluşturmak için polygon oldukça
+            güçlü bir yöntemdir.
+        </p>
+
+        <p>
+            Dergi tarzı web tasarımlarında, haber
+            sayfalarında ve özel landing page'lerde
+            kullanılabilir.
+        </p>
+
+        <div class="clear"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         CORNER SHAPE
+         ================================================== -->
+
+    <h2>25. corner-shape: round</h2>
+
+    <div class="container">
+
+        <div class="box corner-shape-demo corner-round">
+            ROUND
+        </div>
+
+    </div>
+
+
+    <h2>26. corner-shape: bevel</h2>
+
+    <div class="container">
+
+        <div class="box corner-shape-demo corner-bevel">
+            BEVEL
+        </div>
+
+    </div>
+
+
+    <h2>27. corner-shape: notch</h2>
+
+    <div class="container">
+
+        <div class="box corner-shape-demo corner-notch">
+            NOTCH
+        </div>
+
+    </div>
+
+
+    <h2>28. corner-shape: scoop</h2>
+
+    <div class="container">
+
+        <div class="box corner-shape-demo corner-scoop">
+            SCOOP
+        </div>
+
+    </div>
+
+
+    <h2>29. corner-shape: square</h2>
+
+    <div class="container">
+
+        <div class="box corner-shape-demo corner-square">
+            SQUARE
+        </div>
+
+    </div>
+
+
+    <h2>30. corner-shape: squircle</h2>
+
+    <div class="container">
+
+        <div class="box corner-shape-demo corner-squircle">
+            SQUIRCLE
+        </div>
+
+    </div>
+
+
+    <h2>31. corner-shape: superellipse()</h2>
+
+    <div class="container">
+
+        <div class="box corner-shape-demo corner-superellipse">
+            SUPERELLIPSE
+        </div>
+
+    </div>
+
+
+    <h2>32. Farklı köşe şekilleri</h2>
+
+    <div class="container">
+
+        <div class="box corner-shape-demo corner-mixed">
+            MIXED CORNERS
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

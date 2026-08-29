@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS align-self - Tüm Değerler</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        .container {
+            display: flex;
+            height: 250px;
+            gap: 15px;
+            padding: 20px;
+            border: 3px solid black;
+        }
+
+        .item {
+            width: 80px;
+            height: 60px;
+            padding: 10px;
+            background: steelblue;
+            color: white;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+
+        /* ==================================================
+       1. align-self: auto
+       ==================================================
+
+       Öğenin align-self değeri belirlenmemiş gibi davranır
+       ve parent'ın align-items değerini kullanır.
+
+       Parent:
+       align-items: center;
+    */
+
+        .auto .item {
+            align-self: auto;
+        }
+
+
+        /* ==================================================
+       2. align-self: normal
+       ==================================================
+
+       Normal hizalama davranışını kullanır.
+
+       Flexbox'ta çoğu durumda stretch davranışına
+       benzer şekilde çalışır.
+    */
+
+        .normal .item {
+            align-self: normal;
+        }
+
+
+        /* ==================================================
+       3. align-self: stretch
+       ==================================================
+
+       Öğeyi çapraz eksende container'ın alanını
+       dolduracak şekilde genişletir.
+
+       Öğeye çapraz eksende sabit boyut verilmemelidir.
+    */
+
+        .stretch .item {
+            height: auto;
+            align-self: stretch;
+        }
+
+
+        /* ==================================================
+       4. align-self: flex-start
+       ==================================================
+
+       Öğeyi çapraz eksenin başlangıç tarafına hizalar.
+    */
+
+        .flex-start .item {
+            align-self: flex-start;
+        }
+
+
+        /* ==================================================
+       5. align-self: flex-end
+       ==================================================
+
+       Öğeyi çapraz eksenin bitiş tarafına hizalar.
+    */
+
+        .flex-end .item {
+            align-self: flex-end;
+        }
+
+
+        /* ==================================================
+       6. align-self: center
+       ==================================================
+
+       Öğeyi çapraz eksenin ortasına hizalar.
+    */
+
+        .center .item {
+            align-self: center;
+        }
+
+
+        /* ==================================================
+       7. align-self: baseline
+       ==================================================
+
+       Öğelerin yazı taban çizgilerini hizalar.
+
+       Farklı yazı boyutlarına sahip öğelerde
+       özellikle kullanışlıdır.
+    */
+
+        .baseline .item {
+            align-self: baseline;
+        }
+
+
+        /* ==================================================
+       8. align-self: start
+       ==================================================
+
+       Öğeyi çapraz eksenin mantıksal başlangıcına
+       hizalar.
+
+       Yazım yönü ve layout yönüne göre çalışır.
+    */
+
+        .start .item {
+            align-self: start;
+        }
+
+
+        /* ==================================================
+       9. align-self: end
+       ==================================================
+
+       Öğeyi çapraz eksenin mantıksal bitişine
+       hizalar.
+    */
+
+        .end .item {
+            align-self: end;
+        }
+
+
+        /* ==================================================
+       10. align-self: self-start
+       ==================================================
+
+       Öğeyi kendi yazım yönüne göre
+       başlangıç tarafına hizalar.
+    */
+
+        .self-start .item {
+            align-self: self-start;
+        }
+
+
+        /* ==================================================
+       11. align-self: self-end
+       ==================================================
+
+       Öğeyi kendi yazım yönüne göre
+       bitiş tarafına hizalar.
+    */
+
+        .self-end .item {
+            align-self: self-end;
+        }
+
+
+        /* ==================================================
+       12. align-self: safe center
+       ==================================================
+
+       Öğeyi ortaya hizalamaya çalışır.
+
+       Ancak taşma meydana gelirse daha güvenli
+       bir hizalamaya geçebilir.
+    */
+
+        .safe-center .item {
+            align-self: safe center;
+        }
+
+
+        /* ==================================================
+       13. align-self: unsafe center
+       ==================================================
+
+       Öğeyi ortaya hizalar.
+
+       Taşma meydana gelse bile hizalamayı
+       korumaya çalışır.
+    */
+
+        .unsafe-center .item {
+            align-self: unsafe center;
+        }
+
+
+        /* ==================================================
+       ÖZEL ÖRNEK
+       ==================================================
+
+       align-items parent'taki bütün öğeleri etkiler.
+
+       align-self ise yalnızca uygulandığı
+       öğeyi değiştirir.
+    */
+
+        .special {
+            align-items: center;
+        }
+
+        .special .item:nth-child(1) {
+            align-self: flex-start;
+        }
+
+        .special .item:nth-child(2) {
+            align-self: center;
+        }
+
+        .special .item:nth-child(3) {
+            align-self: flex-end;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- 1. auto -->
+
+    <h2>1. align-self: auto</h2>
+
+    <div class="container auto">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 2. normal -->
+
+    <h2>2. align-self: normal</h2>
+
+    <div class="container normal">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 3. stretch -->
+
+    <h2>3. align-self: stretch</h2>
+
+    <div class="container stretch">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 4. flex-start -->
+
+    <h2>4. align-self: flex-start</h2>
+
+    <div class="container flex-start">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 5. flex-end -->
+
+    <h2>5. align-self: flex-end</h2>
+
+    <div class="container flex-end">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 6. center -->
+
+    <h2>6. align-self: center</h2>
+
+    <div class="container center">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 7. baseline -->
+
+    <h2>7. align-self: baseline</h2>
+
+    <div class="container baseline">
+
+        <div class="item" style="font-size: 14px;">
+            Küçük
+        </div>
+
+        <div class="item" style="font-size: 30px;">
+            Büyük
+        </div>
+
+    </div>
+
+
+    <!-- 8. start -->
+
+    <h2>8. align-self: start</h2>
+
+    <div class="container start">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 9. end -->
+
+    <h2>9. align-self: end</h2>
+
+    <div class="container end">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 10. self-start -->
+
+    <h2>10. align-self: self-start</h2>
+
+    <div class="container self-start">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 11. self-end -->
+
+    <h2>11. align-self: self-end</h2>
+
+    <div class="container self-end">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 12. safe center -->
+
+    <h2>12. align-self: safe center</h2>
+
+    <div class="container safe-center">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 13. unsafe center -->
+
+    <h2>13. align-self: unsafe center</h2>
+
+    <div class="container unsafe-center">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- ÖZEL ÖRNEK -->
+
+    <h2>align-items + align-self birlikte</h2>
+
+    <div class="container special">
+
+        <div class="item">
+            flex-start
+        </div>
+
+        <div class="item">
+            center
+        </div>
+
+        <div class="item">
+            flex-end
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS align-self - Tüm Değerler</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        .container {
+            display: flex;
+            height: 250px;
+            gap: 15px;
+            padding: 20px;
+            border: 3px solid black;
+        }
+
+        .item {
+            width: 80px;
+            height: 60px;
+            padding: 10px;
+            background: steelblue;
+            color: white;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+
+        /* ==================================================
+       1. align-self: auto
+       ==================================================
+
+       Öğenin align-self değeri belirlenmemiş gibi davranır
+       ve parent'ın align-items değerini kullanır.
+
+       Parent:
+       align-items: center;
+    */
+
+        .auto .item {
+            align-self: auto;
+        }
+
+
+        /* ==================================================
+       2. align-self: normal
+       ==================================================
+
+       Normal hizalama davranışını kullanır.
+
+       Flexbox'ta çoğu durumda stretch davranışına
+       benzer şekilde çalışır.
+    */
+
+        .normal .item {
+            align-self: normal;
+        }
+
+
+        /* ==================================================
+       3. align-self: stretch
+       ==================================================
+
+       Öğeyi çapraz eksende container'ın alanını
+       dolduracak şekilde genişletir.
+
+       Öğeye çapraz eksende sabit boyut verilmemelidir.
+    */
+
+        .stretch .item {
+            height: auto;
+            align-self: stretch;
+        }
+
+
+        /* ==================================================
+       4. align-self: flex-start
+       ==================================================
+
+       Öğeyi çapraz eksenin başlangıç tarafına hizalar.
+    */
+
+        .flex-start .item {
+            align-self: flex-start;
+        }
+
+
+        /* ==================================================
+       5. align-self: flex-end
+       ==================================================
+
+       Öğeyi çapraz eksenin bitiş tarafına hizalar.
+    */
+
+        .flex-end .item {
+            align-self: flex-end;
+        }
+
+
+        /* ==================================================
+       6. align-self: center
+       ==================================================
+
+       Öğeyi çapraz eksenin ortasına hizalar.
+    */
+
+        .center .item {
+            align-self: center;
+        }
+
+
+        /* ==================================================
+       7. align-self: baseline
+       ==================================================
+
+       Öğelerin yazı taban çizgilerini hizalar.
+
+       Farklı yazı boyutlarına sahip öğelerde
+       özellikle kullanışlıdır.
+    */
+
+        .baseline .item {
+            align-self: baseline;
+        }
+
+
+        /* ==================================================
+       8. align-self: start
+       ==================================================
+
+       Öğeyi çapraz eksenin mantıksal başlangıcına
+       hizalar.
+
+       Yazım yönü ve layout yönüne göre çalışır.
+    */
+
+        .start .item {
+            align-self: start;
+        }
+
+
+        /* ==================================================
+       9. align-self: end
+       ==================================================
+
+       Öğeyi çapraz eksenin mantıksal bitişine
+       hizalar.
+    */
+
+        .end .item {
+            align-self: end;
+        }
+
+
+        /* ==================================================
+       10. align-self: self-start
+       ==================================================
+
+       Öğeyi kendi yazım yönüne göre
+       başlangıç tarafına hizalar.
+    */
+
+        .self-start .item {
+            align-self: self-start;
+        }
+
+
+        /* ==================================================
+       11. align-self: self-end
+       ==================================================
+
+       Öğeyi kendi yazım yönüne göre
+       bitiş tarafına hizalar.
+    */
+
+        .self-end .item {
+            align-self: self-end;
+        }
+
+
+        /* ==================================================
+       12. align-self: safe center
+       ==================================================
+
+       Öğeyi ortaya hizalamaya çalışır.
+
+       Ancak taşma meydana gelirse daha güvenli
+       bir hizalamaya geçebilir.
+    */
+
+        .safe-center .item {
+            align-self: safe center;
+        }
+
+
+        /* ==================================================
+       13. align-self: unsafe center
+       ==================================================
+
+       Öğeyi ortaya hizalar.
+
+       Taşma meydana gelse bile hizalamayı
+       korumaya çalışır.
+    */
+
+        .unsafe-center .item {
+            align-self: unsafe center;
+        }
+
+
+        /* ==================================================
+       ÖZEL ÖRNEK
+       ==================================================
+
+       align-items parent'taki bütün öğeleri etkiler.
+
+       align-self ise yalnızca uygulandığı
+       öğeyi değiştirir.
+    */
+
+        .special {
+            align-items: center;
+        }
+
+        .special .item:nth-child(1) {
+            align-self: flex-start;
+        }
+
+        .special .item:nth-child(2) {
+            align-self: center;
+        }
+
+        .special .item:nth-child(3) {
+            align-self: flex-end;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- 1. auto -->
+
+    <h2>1. align-self: auto</h2>
+
+    <div class="container auto">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 2. normal -->
+
+    <h2>2. align-self: normal</h2>
+
+    <div class="container normal">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 3. stretch -->
+
+    <h2>3. align-self: stretch</h2>
+
+    <div class="container stretch">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 4. flex-start -->
+
+    <h2>4. align-self: flex-start</h2>
+
+    <div class="container flex-start">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 5. flex-end -->
+
+    <h2>5. align-self: flex-end</h2>
+
+    <div class="container flex-end">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 6. center -->
+
+    <h2>6. align-self: center</h2>
+
+    <div class="container center">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 7. baseline -->
+
+    <h2>7. align-self: baseline</h2>
+
+    <div class="container baseline">
+
+        <div class="item" style="font-size: 14px;">
+            Küçük
+        </div>
+
+        <div class="item" style="font-size: 30px;">
+            Büyük
+        </div>
+
+    </div>
+
+
+    <!-- 8. start -->
+
+    <h2>8. align-self: start</h2>
+
+    <div class="container start">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 9. end -->
+
+    <h2>9. align-self: end</h2>
+
+    <div class="container end">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 10. self-start -->
+
+    <h2>10. align-self: self-start</h2>
+
+    <div class="container self-start">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 11. self-end -->
+
+    <h2>11. align-self: self-end</h2>
+
+    <div class="container self-end">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 12. safe center -->
+
+    <h2>12. align-self: safe center</h2>
+
+    <div class="container safe-center">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- 13. unsafe center -->
+
+    <h2>13. align-self: unsafe center</h2>
+
+    <div class="container unsafe-center">
+        <div class="item">A</div>
+        <div class="item">B</div>
+    </div>
+
+
+    <!-- ÖZEL ÖRNEK -->
+
+    <h2>align-items + align-self birlikte</h2>
+
+    <div class="container special">
+
+        <div class="item">
+            flex-start
+        </div>
+
+        <div class="item">
+            center
+        </div>
+
+        <div class="item">
+            flex-end
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
+<!-- 
+
+! align-items: tüm elemanı sıralamak için kullanılır
+! align-self: tek bir elemanı sıralamak için kullanılır
+! elemanların tüm hepsini sıralarken spefisik bir durum için align-self verilir
+
+-->

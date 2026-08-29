@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Mask - Tüm Kullanımlar</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin-bottom: 40px;
+            padding: 30px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+        }
+
+        .box {
+            width: 180px;
+            height: 120px;
+
+            background: linear-gradient(135deg,
+                    #2563eb,
+                    #7c3aed,
+                    #ec4899);
+
+            border-radius: 15px;
+        }
+
+
+        /* ==================================================
+           1. mask
+           ==================================================
+
+           Mask, bir elementin hangi bölgelerinin
+           görüneceğini kontrol eder.
+
+           Beyaz / görünür alan
+           → Element görünür.
+
+           Siyah / şeffaf alan
+           → Element gizlenir.
+
+           Gri / yarı saydam alan
+           → Kısmen görünür.
+
+           mask shorthand özelliğidir.
+        */
+
+
+        /* ==================================================
+           2. mask-image
+           ==================================================
+
+           Maskenin kendisini belirler.
+
+           Gradient veya image kullanılabilir.
+        */
+
+        .mask-image .box {
+            mask-image: linear-gradient(to right,
+                    transparent,
+                    black);
+        }
+
+
+        /* ==================================================
+           3. linear-gradient()
+           ==================================================
+
+           Soldan sağa geçişli maske.
+
+           transparent
+           → Gizli
+
+           black
+           → Görünür
+        */
+
+        .linear .box {
+            mask-image: linear-gradient(to right,
+                    transparent,
+                    black);
+        }
+
+
+        /* ==================================================
+           4. linear-gradient() - FADE OUT
+           ==================================================
+
+           Elementin sağ tarafını yavaşça gizler.
+        */
+
+        .fade-right .box {
+            mask-image: linear-gradient(to right,
+                    black 70%,
+                    transparent 100%);
+        }
+
+
+        /* ==================================================
+           5. linear-gradient() - FADE IN
+           ================================================== */
+
+        .fade-left .box {
+            mask-image: linear-gradient(to right,
+                    transparent 0%,
+                    black 30%);
+        }
+
+
+        /* ==================================================
+           6. radial-gradient()
+           ==================================================
+
+           Dairesel maske oluşturur.
+
+           Ortası görünür,
+           dış taraflar kaybolabilir.
+        */
+
+        .radial .box {
+            mask-image: radial-gradient(circle,
+                    black 40%,
+                    transparent 75%);
+        }
+
+
+        /* ==================================================
+           7. radial-gradient() - YUMUŞAK DAİRE
+           ================================================== */
+
+        .radial-soft .box {
+            mask-image: radial-gradient(circle at center,
+                    black 20%,
+                    transparent 70%);
+        }
+
+
+        /* ==================================================
+           8. radial-gradient() - KONUM
+           ==================================================
+
+           Maskenin merkezini değiştirebiliriz.
+        */
+
+        .radial-position .box {
+            mask-image: radial-gradient(circle at 20% 50%,
+                    black 20%,
+                    transparent 70%);
+        }
+
+
+        /* ==================================================
+           9. conic-gradient()
+           ==================================================
+
+           Merkezden açısal olarak ilerleyen maske.
+        */
+
+        .conic .box {
+            mask-image: conic-gradient(black,
+                    transparent,
+                    black);
+        }
+
+
+        /* ==================================================
+           10. MULTIPLE MASK
+           ==================================================
+
+           Birden fazla mask-image kullanılabilir.
+
+           Maskeler virgülle ayrılır.
+        */
+
+        .multiple .box {
+            mask-image:
+                radial-gradient(circle at 20% 50%,
+                    black 20%,
+                    transparent 45%),
+                linear-gradient(black,
+                    black);
+        }
+
+
+        /* ==================================================
+           11. mask-mode
+           ==================================================
+
+           Maskenin nasıl yorumlanacağını belirler.
+
+           alpha
+           → Alpha kanalına göre
+
+           luminance
+           → Parlaklık değerine göre
+
+           match-source
+           → Kaynağın türüne göre
+        */
+
+        .mode .box {
+            mask-image: linear-gradient(black,
+                    transparent);
+
+            mask-mode: alpha;
+        }
+
+
+        /* ==================================================
+           12. mask-repeat
+           ==================================================
+
+           Maskenin tekrar edip etmeyeceğini belirler.
+
+           repeat
+           → Tekrarlar
+
+           no-repeat
+           → Tekrarlamaz
+
+           repeat-x
+           → Yatay tekrar
+
+           repeat-y
+           → Dikey tekrar
+
+           space
+           → Boşluk bırakarak
+
+           round
+           → Boyutu ayarlayarak
+        */
+
+        .repeat .box {
+            mask-image: radial-gradient(circle,
+                    black 40%,
+                    transparent 45%);
+
+            mask-repeat: repeat;
+            mask-size: 50px 50px;
+        }
+
+
+        /* ==================================================
+           13. mask-repeat: no-repeat
+           ================================================== */
+
+        .no-repeat .box {
+            mask-image: radial-gradient(circle,
+                    black,
+                    transparent);
+
+            mask-repeat: no-repeat;
+        }
+
+
+        /* ==================================================
+           14. mask-position
+           ==================================================
+
+           Maskenin konumunu belirler.
+        */
+
+        .position .box {
+            mask-image: radial-gradient(circle,
+                    black 30%,
+                    transparent 70%);
+
+            mask-repeat: no-repeat;
+
+            mask-position: right center;
+        }
+
+
+        /* ==================================================
+           15. mask-position: CENTER
+           ================================================== */
+
+        .position-center .box {
+            mask-image: radial-gradient(circle,
+                    black 30%,
+                    transparent 70%);
+
+            mask-repeat: no-repeat;
+
+            mask-position: center;
+        }
+
+
+        /* ==================================================
+           16. mask-position: YÜZDE
+           ================================================== */
+
+        .position-percent .box {
+            mask-image: radial-gradient(circle,
+                    black 30%,
+                    transparent 70%);
+
+            mask-repeat: no-repeat;
+
+            mask-position: 20% 50%;
+        }
+
+
+        /* ==================================================
+           17. mask-size
+           ==================================================
+
+           Maskenin boyutunu belirler.
+
+           cover
+           contain
+           px
+           %
+        */
+
+        .size .box {
+            mask-image: radial-gradient(circle,
+                    black 30%,
+                    transparent 70%);
+
+            mask-repeat: no-repeat;
+
+            mask-size: 100px 100px;
+        }
+
+
+        /* ==================================================
+           18. mask-size: cover
+           ================================================== */
+
+        .size-cover .box {
+            mask-image: radial-gradient(circle,
+                    black 30%,
+                    transparent 70%);
+
+            mask-repeat: no-repeat;
+
+            mask-size: cover;
+        }
+
+
+        /* ==================================================
+           19. mask-size: contain
+           ================================================== */
+
+        .size-contain .box {
+            mask-image: radial-gradient(circle,
+                    black 30%,
+                    transparent 70%);
+
+            mask-repeat: no-repeat;
+
+            mask-size: contain;
+        }
+
+
+        /* ==================================================
+           20. mask-origin
+           ==================================================
+
+           Maskenin hangi kutudan başlamasını belirler.
+
+           border-box
+           padding-box
+           content-box
+        */
+
+        .origin .box {
+            mask-image: linear-gradient(black,
+                    transparent);
+
+            mask-origin: border-box;
+        }
+
+
+        /* ==================================================
+           21. mask-clip
+           ==================================================
+
+           Maskenin hangi alanla sınırlandırılacağını
+           belirler.
+
+           border-box
+           padding-box
+           content-box
+           fill-box
+           stroke-box
+           view-box
+        */
+
+        .clip .box {
+            mask-image: linear-gradient(black,
+                    transparent);
+
+            mask-clip: padding-box;
+        }
+
+
+        /* ==================================================
+           22. mask-composite
+           ==================================================
+
+           Birden fazla maskenin nasıl birleştirileceğini
+           belirler.
+
+           add
+           → Birleştirir
+
+           subtract
+           → Çıkarır
+
+           intersect
+           → Kesişimi alır
+
+           exclude
+           → Kesişimi çıkarır
+        */
+
+        .composite .box {
+            mask-image:
+                radial-gradient(circle at 30% 50%,
+                    black 30%,
+                    transparent 31%),
+                radial-gradient(circle at 70% 50%,
+                    black 30%,
+                    transparent 31%);
+
+            mask-composite: add;
+        }
+
+
+        /* ==================================================
+           23. mask-composite: subtract
+           ================================================== */
+
+        .subtract .box {
+            mask-image:
+                linear-gradient(black,
+                    black),
+                radial-gradient(circle at center,
+                    black 30%,
+                    transparent 31%);
+
+            mask-composite: subtract;
+        }
+
+
+        /* ==================================================
+           24. mask-composite: intersect
+           ================================================== */
+
+        .intersect .box {
+            mask-image:
+                linear-gradient(to right,
+                    transparent 20%,
+                    black 20%,
+                    black 80%,
+                    transparent 80%),
+                linear-gradient(to bottom,
+                    transparent 20%,
+                    black 20%,
+                    black 80%,
+                    transparent 80%);
+
+            mask-composite: intersect;
+        }
+
+
+        /* ==================================================
+           25. mask-composite: exclude
+           ================================================== */
+
+        .exclude .box {
+            mask-image:
+                radial-gradient(circle at 35% 50%,
+                    black 30%,
+                    transparent 31%),
+                radial-gradient(circle at 65% 50%,
+                    black 30%,
+                    transparent 31%);
+
+            mask-composite: exclude;
+        }
+
+
+        /* ==================================================
+           26. mask-type
+           ==================================================
+
+           SVG ile kullanılan maskelerde önemlidir.
+
+           luminance
+           alpha
+        */
+
+        .mask-type {
+            mask-type: alpha;
+        }
+
+
+        /* ==================================================
+           27. url() İLE MASK
+           ==================================================
+
+           Harici SVG / image maskesi kullanılabilir.
+
+           Örneğin:
+
+           mask-image: url("mask.svg");
+
+           Gerçek projelerde SVG ile çok kullanışlıdır.
+        */
+
+        .url-mask .box {
+            /*
+            mask-image: url("mask.svg");
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: contain;
+            */
+        }
+
+
+        /* ==================================================
+           28. SVG MASK
+           ==================================================
+
+           SVG maskeler karmaşık şekiller oluşturabilir.
+
+           HTML içinde SVG kullanımıyla yapılabilir.
+        */
+
+        .svg-mask .box {
+            mask-image: url(#myMask);
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: 100% 100%;
+        }
+
+
+        /* ==================================================
+           29. MASK SHORTHAND
+           ==================================================
+
+           Birçok mask özelliğini tek satırda
+           yazabiliriz.
+
+           Genel yapı:
+
+           mask:
+           image
+           position
+           /
+           size
+           repeat
+           origin
+           clip
+           mode;
+        */
+
+        .shorthand .box {
+            mask:
+                radial-gradient(circle,
+                    black 40%,
+                    transparent 70%) center / cover no-repeat;
+        }
+
+
+        /* ==================================================
+           30. TEXT FADE
+           ==================================================
+
+           Uzun metnin alt tarafını yavaşça
+           görünmez yapmak için mask kullanılabilir.
+        */
+
+        .text-fade {
+            width: 400px;
+            max-height: 120px;
+            overflow: hidden;
+
+            mask-image: linear-gradient(to bottom,
+                    black 70%,
+                    transparent 100%);
+        }
+
+
+        /* ==================================================
+           31. IMAGE FADE
+           ==================================================
+
+           Görselin kenarını yumuşak şekilde
+           görünmez yapmak.
+        */
+
+        .image-fade img {
+            width: 400px;
+            display: block;
+
+            mask-image: linear-gradient(to right,
+                    black 60%,
+                    transparent 100%);
+        }
+
+
+        /* ==================================================
+           32. IMAGE CIRCLE
+           ==================================================
+
+           Görseli dairesel maske ile kırpabiliriz.
+        */
+
+        .image-circle img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+
+            mask-image: radial-gradient(circle,
+                    black 68%,
+                    transparent 70%);
+        }
+
+
+        /* ==================================================
+           33. IMAGE FADE EDGES
+           ==================================================
+
+           Görselin dört tarafını yumuşatır.
+        */
+
+        .image-edges img {
+            width: 400px;
+
+            mask-image:
+                linear-gradient(to right,
+                    transparent,
+                    black 15%,
+                    black 85%,
+                    transparent);
+        }
+
+
+        /* ==================================================
+           34. HERO FADE
+           ==================================================
+
+           Hero görselinin altını fade yapmak
+           modern web sitelerinde yaygındır.
+        */
+
+        .hero {
+            position: relative;
+            height: 300px;
+
+            background:
+                url("https://images.unsplash.com/photo-1500534623283-312aade485b7") center / cover;
+
+            mask-image:
+                linear-gradient(to bottom,
+                    black 70%,
+                    transparent);
+        }
+
+
+        /* ==================================================
+           35. DIAGONAL MASK
+           ==================================================
+
+           Çapraz kesim oluşturur.
+        */
+
+        .diagonal .box {
+            mask-image: linear-gradient(135deg,
+                    black 0 70%,
+                    transparent 70% 100%);
+        }
+
+
+        /* ==================================================
+           36. STRIPE MASK
+           ==================================================
+
+           Çizgili maske.
+        */
+
+        .stripe .box {
+            mask-image: repeating-linear-gradient(45deg,
+                    black 0 10px,
+                    transparent 10px 20px);
+        }
+
+
+        /* ==================================================
+           37. DOT MASK
+           ==================================================
+
+           Noktalı maske.
+        */
+
+        .dots .box {
+            mask-image: radial-gradient(circle,
+                    black 3px,
+                    transparent 4px);
+
+            mask-size: 20px 20px;
+            mask-repeat: repeat;
+        }
+
+
+        /* ==================================================
+           38. FADE BORDER EFFECT
+           ==================================================
+
+           Elementin kenarlarında yumuşak görünüm.
+        */
+
+        .soft-edge .box {
+            mask-image:
+                linear-gradient(black,
+                    transparent),
+                linear-gradient(to right,
+                    transparent,
+                    black,
+                    transparent);
+        }
+
+
+        /* ==================================================
+           39. HOVER MASK
+           ==================================================
+
+           Hover durumunda maskeyi değiştirebiliriz.
+        */
+
+        .hover-mask .box {
+            mask-image: linear-gradient(to right,
+                    black 50%,
+                    transparent 50%);
+
+            transition: mask-image 0.4s ease;
+        }
+
+        .hover-mask .box:hover {
+            mask-image: linear-gradient(to right,
+                    black,
+                    black);
+        }
+
+
+        /* ==================================================
+           40. GERÇEK PROJE:
+           PROFILE IMAGE
+           ================================================== */
+
+        .profile img {
+            width: 180px;
+            height: 180px;
+
+            object-fit: cover;
+
+            mask-image: radial-gradient(circle,
+                    black 65%,
+                    transparent 70%);
+        }
+
+
+        /* ==================================================
+           41. GERÇEK PROJE:
+           CARD IMAGE
+           ================================================== */
+
+        .card-image img {
+            width: 100%;
+            max-width: 500px;
+
+            mask-image: linear-gradient(to bottom,
+                    black 70%,
+                    transparent);
+        }
+
+
+        /* ==================================================
+           42. GERÇEK PROJE:
+           SECTION DECORATION
+           ================================================== */
+
+        .decoration {
+            height: 120px;
+
+            background:
+                linear-gradient(135deg,
+                    #2563eb,
+                    #9333ea);
+
+            mask-image:
+                linear-gradient(135deg,
+                    black 70%,
+                    transparent 70%);
+        }
+
+
+        /* ==================================================
+           43. GERÇEK PROJE:
+           LOGO / ICON MASK
+           ==================================================
+
+           Tek renkli SVG ikonları CSS background
+           ile renklendirmek için kullanılabilir.
+        */
+
+        .icon-mask {
+            width: 80px;
+            height: 80px;
+
+            background: crimson;
+
+            /*
+            mask-image: url("icon.svg");
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: contain;
+            */
+        }
+
+
+        /* ==================================================
+           44. GERÇEK PROJE:
+           RESPONSIVE MASK
+           ================================================== */
+
+        .responsive .box {
+            mask-image: linear-gradient(to right,
+                    transparent,
+                    black 15%,
+                    black 85%,
+                    transparent);
+
+            mask-size: 100% 100%;
+            mask-repeat: no-repeat;
+        }
+
+
+        /* ==================================================
+           45. COMPLEX MASK
+           ==================================================
+
+           Gradientleri birleştirerek karmaşık
+           şekiller oluşturabiliriz.
+        */
+
+        .complex .box {
+            mask-image:
+                radial-gradient(circle at 20% 50%,
+                    transparent 0 20px,
+                    black 21px),
+                radial-gradient(circle at 80% 50%,
+                    transparent 0 20px,
+                    black 21px),
+                linear-gradient(black,
+                    black);
+
+            mask-composite: intersect;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <h2>1. mask-image</h2>
+
+    <div class="container mask-image">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>2. linear-gradient()</h2>
+
+    <div class="container linear">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>3. Fade Right</h2>
+
+    <div class="container fade-right">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>4. Fade Left</h2>
+
+    <div class="container fade-left">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>5. radial-gradient()</h2>
+
+    <div class="container radial">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>6. Radial Soft</h2>
+
+    <div class="container radial-soft">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>7. Radial Position</h2>
+
+    <div class="container radial-position">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>8. conic-gradient()</h2>
+
+    <div class="container conic">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>9. Multiple Mask</h2>
+
+    <div class="container multiple">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>10. mask-mode</h2>
+
+    <div class="container mode">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>11. mask-repeat</h2>
+
+    <div class="container repeat">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>12. mask-repeat: no-repeat</h2>
+
+    <div class="container no-repeat">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>13. mask-position</h2>
+
+    <div class="container position">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>14. mask-position: center</h2>
+
+    <div class="container position-center">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>15. mask-position: %</h2>
+
+    <div class="container position-percent">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>16. mask-size</h2>
+
+    <div class="container size">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>17. mask-size: cover</h2>
+
+    <div class="container size-cover">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>18. mask-size: contain</h2>
+
+    <div class="container size-contain">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>19. mask-origin</h2>
+
+    <div class="container origin">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>20. mask-clip</h2>
+
+    <div class="container clip">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>21. mask-composite: add</h2>
+
+    <div class="container composite">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>22. mask-composite: subtract</h2>
+
+    <div class="container subtract">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>23. mask-composite: intersect</h2>
+
+    <div class="container intersect">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>24. mask-composite: exclude</h2>
+
+    <div class="container exclude">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>25. mask shorthand</h2>
+
+    <div class="container shorthand">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>26. Text Fade</h2>
+
+    <div class="container">
+
+        <p class="text-fade">
+            CSS mask kullanarak uzun içeriklerin
+            alt tarafını yumuşak şekilde gizleyebiliriz.
+            Bu teknik özellikle kartlarda, açıklamalarda
+            ve içerik önizlemelerinde kullanışlıdır.
+            Kullanıcıya içeriğin devam ettiği hissini
+            vermek için oldukça güzel bir yöntemdir.
+        </p>
+
+    </div>
+
+
+    <h2>27. Image Fade</h2>
+
+    <div class="container image-fade">
+
+        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7" alt="Örnek görsel">
+
+    </div>
+
+
+    <h2>28. Image Circle</h2>
+
+    <div class="container image-circle">
+
+        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72" alt="Örnek görsel">
+
+    </div>
+
+
+    <h2>29. Image Edges</h2>
+
+    <div class="container image-edges">
+
+        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7" alt="Örnek görsel">
+
+    </div>
+
+
+    <h2>30. Diagonal Mask</h2>
+
+    <div class="container diagonal">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>31. Stripe Mask</h2>
+
+    <div class="container stripe">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>32. Dot Mask</h2>
+
+    <div class="container dots">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>33. Hover Mask</h2>
+
+    <div class="container hover-mask">
+        <div class="box"></div>
+    </div>
+
+
+    <h2>34. Gerçek Proje → Profile Image</h2>
+
+    <div class="container profile">
+
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" alt="Profil">
+
+    </div>
+
+
+    <h2>35. Gerçek Proje → Card Image</h2>
+
+    <div class="container card-image">
+
+        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7" alt="Kart görseli">
+
+    </div>
+
+
+    <h2>36. Gerçek Proje → Section Decoration</h2>
+
+    <div class="container">
+
+        <div class="decoration"></div>
+
+    </div>
+
+
+    <h2>37. Icon Mask</h2>
+
+    <div class="container">
+
+        <div class="icon-mask"></div>
+
+    </div>
+
+
+    <h2>38. Responsive Mask</h2>
+
+    <div class="container responsive">
+
+        <div class="box"></div>
+
+    </div>
+
+
+    <h2>39. Complex Mask</h2>
+
+    <div class="container complex">
+
+        <div class="box"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         SVG MASK
+         ================================================== -->
+
+    <svg width="0" height="0">
+
+        <defs>
+
+            <mask id="myMask">
+
+                <rect width="100%" height="100%" fill="white" />
+
+                <circle cx="50%" cy="50%" r="30%" fill="black" />
+
+            </mask>
+
+        </defs>
+
+    </svg>
+
+
+    <h2>40. SVG Mask</h2>
+
+    <div class="container svg-mask">
+
+        <div class="box"></div>
+
+    </div>
+
+
+</body>
+
+</html>

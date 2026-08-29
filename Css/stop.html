@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SVG stop - Full</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f4f4;
+        }
+
+        h2 {
+            margin-top: 45px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+
+            min-height: 220px;
+
+            margin-bottom: 30px;
+            padding: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+
+            border: 3px solid black;
+            border-radius: 20px;
+
+            background: white;
+        }
+
+        svg {
+            width: 250px;
+            height: 160px;
+        }
+
+
+        /* ==================================================
+           1. stop-color
+           ==================================================
+
+           Gradient içerisindeki belirli bir noktadaki
+           rengi belirler.
+        */
+
+        .color-1 {
+            stop-color: crimson;
+        }
+
+        .color-2 {
+            stop-color: gold;
+        }
+
+
+        /* ==================================================
+           2. stop-opacity
+           ==================================================
+
+           Gradient stop'un saydamlığını belirler.
+
+           1   → tamamen görünür
+           0.5 → %50
+           0   → görünmez
+        */
+
+        .opacity-1 {
+            stop-opacity: 1;
+        }
+
+        .opacity-2 {
+            stop-opacity: 0.5;
+        }
+
+        .opacity-3 {
+            stop-opacity: 0;
+        }
+
+
+        /* ==================================================
+           3. CSS ile stop-color
+           ================================================== */
+
+        .css-stop {
+            stop-color: steelblue;
+        }
+
+
+        /* ==================================================
+           4. currentColor
+           ================================================== */
+
+        .current-stop {
+            color: crimson;
+
+            stop-color: currentColor;
+        }
+
+
+        /* ==================================================
+           5. CSS variable
+           ================================================== */
+
+        .variable-stop {
+            --gradient-color: seagreen;
+
+            stop-color:
+                var(--gradient-color);
+        }
+
+
+        /* ==================================================
+           6. Hover ile gradient değiştirme
+           ================================================== */
+
+        .hover-gradient stop {
+            transition:
+                stop-color 0.3s ease;
+        }
+
+        .hover-gradient:hover .first-stop {
+            stop-color: crimson;
+        }
+
+        .hover-gradient:hover .second-stop {
+            stop-color: orange;
+        }
+
+
+        /* ==================================================
+           7. SVG şekli
+           ================================================== */
+
+        .shape {
+            stroke: black;
+            stroke-width: 2;
+        }
+
+
+        /* ==================================================
+           8. Global values
+           ================================================== */
+
+        .stop-initial {
+            stop-color: initial;
+        }
+
+        .stop-inherit {
+            stop-color: inherit;
+        }
+
+        .stop-unset {
+            stop-color: unset;
+        }
+
+        .stop-revert {
+            stop-color: revert;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. Temel stop
+         ================================================== -->
+
+    <h2>1. Temel stop</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 250 160">
+
+            <defs>
+
+                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+
+                    <stop offset="0%" class="color-1" />
+
+                    <stop offset="100%" class="color-2" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <rect x="20" y="30" width="210" height="100" rx="20" fill="url(#gradient1)" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         2. offset
+         ==================================================
+
+         Gradient içerisindeki stop'un konumunu belirler.
+
+         0%
+         → Başlangıç
+
+         50%
+         → Orta
+
+         100%
+         → Son
+         ================================================== -->
+
+    <h2>2. offset: 0% / 50% / 100%</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 250 160">
+
+            <defs>
+
+                <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+
+                    <stop offset="0%" stop-color="crimson" />
+
+                    <stop offset="50%" stop-color="gold" />
+
+                    <stop offset="100%" stop-color="steelblue" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <rect x="20" y="30" width="210" height="100" rx="20" fill="url(#gradient2)" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         3. Birden fazla stop
+         ================================================== -->
+
+    <h2>3. Çoklu stop</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 250 160">
+
+            <defs>
+
+                <linearGradient id="gradient3">
+
+                    <stop offset="0%" stop-color="crimson" />
+
+                    <stop offset="25%" stop-color="orange" />
+
+                    <stop offset="50%" stop-color="gold" />
+
+                    <stop offset="75%" stop-color="seagreen" />
+
+                    <stop offset="100%" stop-color="steelblue" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <rect x="20" y="30" width="210" height="100" rx="20" fill="url(#gradient3)" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         4. stop-opacity
+         ================================================== -->
+
+    <h2>4. stop-opacity</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 250 160">
+
+            <defs>
+
+                <linearGradient id="gradient4">
+
+                    <stop offset="0%" stop-color="crimson" class="opacity-1" />
+
+                    <stop offset="50%" stop-color="crimson" class="opacity-2" />
+
+                    <stop offset="100%" stop-color="crimson" class="opacity-3" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <rect x="20" y="30" width="210" height="100" rx="20" fill="url(#gradient4)" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         5. stop-color CSS
+         ================================================== -->
+
+    <h2>5. CSS ile stop-color</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 250 160">
+
+            <defs>
+
+                <linearGradient id="gradient5">
+
+                    <stop offset="0%" class="css-stop" />
+
+                    <stop offset="100%" stop-color="white" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <rect x="20" y="30" width="210" height="100" rx="20" fill="url(#gradient5)" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         6. currentColor
+         ================================================== -->
+
+    <h2>6. stop-color: currentColor</h2>
+
+    <div class="container">
+
+        <svg class="current-stop" viewBox="0 0 250 160">
+
+            <defs>
+
+                <linearGradient id="gradient6">
+
+                    <stop offset="0%" class="current-stop" />
+
+                    <stop offset="100%" stop-color="white" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <rect x="20" y="30" width="210" height="100" rx="20" fill="url(#gradient6)" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         7. CSS variable
+         ================================================== -->
+
+    <h2>7. CSS variable</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 250 160">
+
+            <defs>
+
+                <linearGradient id="gradient7">
+
+                    <stop offset="0%" class="variable-stop" />
+
+                    <stop offset="100%" stop-color="white" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <rect x="20" y="30" width="210" height="100" rx="20" fill="url(#gradient7)" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         8. Radial gradient
+         ==================================================
+
+         stop sadece linearGradient ile sınırlı değildir.
+
+         radialGradient içinde de kullanılır.
+         ================================================== -->
+
+    <h2>8. radialGradient + stop</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 250 160">
+
+            <defs>
+
+                <radialGradient id="gradient8">
+
+                    <stop offset="0%" stop-color="white" />
+
+                    <stop offset="50%" stop-color="gold" />
+
+                    <stop offset="100%" stop-color="crimson" />
+
+                </radialGradient>
+
+            </defs>
+
+
+            <circle cx="125" cy="80" r="65" fill="url(#gradient8)" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         9. Gerçek proje: Button gradient
+         ================================================== -->
+
+    <h2>9. Gerçek proje: Gradient Button</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 300 100">
+
+            <defs>
+
+                <linearGradient id="buttonGradient">
+
+                    <stop offset="0%" stop-color="steelblue" />
+
+                    <stop offset="100%" stop-color="seagreen" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <rect x="10" y="15" width="280" height="70" rx="20" fill="url(#buttonGradient)" />
+
+            <text x="150" y="58" text-anchor="middle" fill="white" font-size="22">
+                BUTTON
+            </text>
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         10. Gerçek proje: Logo
+         ================================================== -->
+
+    <h2>10. Gerçek proje: Gradient Logo</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 220 180">
+
+            <defs>
+
+                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+
+                    <stop offset="0%" stop-color="crimson" />
+
+                    <stop offset="50%" stop-color="orange" />
+
+                    <stop offset="100%" stop-color="gold" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <path d="
+                    M110 20
+                    L175 65
+                    L150 145
+                    L70 145
+                    L45 65
+                    Z
+                " fill="url(#logoGradient)" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         11. Hover gradient
+         ================================================== -->
+
+    <h2>11. Hover ile stop-color değiştirme</h2>
+
+    <div class="container">
+
+        <svg class="hover-gradient" viewBox="0 0 250 160">
+
+            <defs>
+
+                <linearGradient id="gradient11">
+
+                    <stop offset="0%" class="first-stop" stop-color="steelblue" />
+
+                    <stop offset="100%" class="second-stop" stop-color="seagreen" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <rect x="20" y="30" width="210" height="100" rx="20" fill="url(#gradient11)" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         12. Gradient stroke
+         ==================================================
+
+         stop sadece fill için değildir.
+
+         stroke içine de gradient verebiliriz.
+         ================================================== -->
+
+    <h2>12. Gradient stroke</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 250 160">
+
+            <defs>
+
+                <linearGradient id="gradient12">
+
+                    <stop offset="0%" stop-color="crimson" />
+
+                    <stop offset="50%" stop-color="gold" />
+
+                    <stop offset="100%" stop-color="steelblue" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <circle cx="125" cy="80" r="55" fill="none" stroke="url(#gradient12)" stroke-width="15" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         13. Progress bar
+         ================================================== -->
+
+    <h2>13. Gerçek proje: Progress bar</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 300 80">
+
+            <defs>
+
+                <linearGradient id="progressGradient">
+
+                    <stop offset="0%" stop-color="seagreen" />
+
+                    <stop offset="100%" stop-color="steelblue" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <rect x="10" y="25" width="280" height="30" rx="15" fill="#ddd" />
+
+            <rect x="10" y="25" width="190" height="30" rx="15" fill="url(#progressGradient)" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         14. Global values
+         ================================================== -->
+
+    <h2>14. Global değerler</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 250 160">
+
+            <defs>
+
+                <linearGradient id="gradient14">
+
+                    <stop offset="0%" class="stop-initial" />
+
+                    <stop offset="100%" stop-color="steelblue" />
+
+                </linearGradient>
+
+            </defs>
+
+
+            <rect x="20" y="30" width="210" height="100" fill="url(#gradient14)" />
+
+        </svg>
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS line- Tüm Özellikler</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            margin-bottom: 30px;
+            padding: 20px;
+
+            border: 3px solid black;
+
+            max-inline-size: 800px;
+        }
+
+        .text {
+            font-size: 20px;
+        }
+
+
+        /* ==================================================
+           1. line-height
+           ==================================================
+
+           Metin satırları arasındaki satır yüksekliğini
+           belirler.
+
+           En yaygın line- özelliğidir.
+
+           normal
+           → Tarayıcının varsayılan satır yüksekliği
+
+           1.5
+           → Font boyutunun 1.5 katı
+
+           30px
+           → Sabit satır yüksekliği
+        */
+
+        .normal .text {
+            line-height: normal;
+        }
+
+        .number .text {
+            line-height: 1.5;
+        }
+
+        .px .text {
+            line-height: 30px;
+        }
+
+        .em .text {
+            line-height: 1.8em;
+        }
+
+
+        /* ==================================================
+           2. line-height: 1
+           ==================================================
+
+           Satır yüksekliğini font boyutuna yakın tutar.
+
+           Başlıklar ve kompakt UI elemanlarında
+           kullanılabilir.
+        */
+
+        .compact .text {
+            line-height: 1;
+        }
+
+
+        /* ==================================================
+           3. line-height: 2
+           ==================================================
+
+           Daha geniş satır aralığı oluşturur.
+
+           Uzun metinlerde okunabilirliği artırabilir.
+        */
+
+        .wide .text {
+            line-height: 2;
+        }
+
+
+        /* ==================================================
+           4. line-height: clamp()
+           ==================================================
+
+           Responsive line-height.
+
+           Ekran boyutuna göre satır yüksekliğini
+           kontrollü şekilde değiştirebilir.
+        */
+
+        .responsive .text {
+            line-height:
+                clamp(1.4, 2vw, 1.8);
+        }
+
+
+        /* ==================================================
+           5. line-height + font-size
+           ==================================================
+
+           Gerçek projelerde genellikle birlikte
+           kullanılır.
+        */
+
+        .typography .text {
+            font-size: 24px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ==================================================
+           6. line-height: inherit
+           ==================================================
+
+           Parent'ın line-height değerini miras alır.
+        */
+
+        .inherit {
+            line-height: 1.8;
+        }
+
+        .inherit .text {
+            line-height: inherit;
+        }
+
+
+        /* ==================================================
+           7. line-height: initial
+           ==================================================
+
+           Özelliği varsayılan başlangıç değerine
+           döndürür.
+        */
+
+        .initial .text {
+            line-height: initial;
+        }
+
+
+        /* ==================================================
+           8. line-height: unset
+           ==================================================
+
+           Miras alınabiliyorsa inherit,
+           alınamıyorsa initial davranışı verir.
+        */
+
+        .unset .text {
+            line-height: unset;
+        }
+
+
+        /* ==================================================
+           9. line-clamp
+           ==================================================
+
+           Metni belirli sayıda satırla sınırlar.
+
+           Örneğin:
+
+           3 satırdan sonra
+           → devamını gizler.
+        */
+
+        .clamp .text {
+            display: -webkit-box;
+
+            -webkit-box-orient: vertical;
+
+            -webkit-line-clamp: 3;
+
+            overflow: hidden;
+        }
+
+
+        /* ==================================================
+           10. line-clamp: 2
+           ==================================================
+
+           Daha kısa kart açıklamaları için.
+        */
+
+        .clamp-two .text {
+            display: -webkit-box;
+
+            -webkit-box-orient: vertical;
+
+            -webkit-line-clamp: 2;
+
+            overflow: hidden;
+        }
+
+
+        /* ==================================================
+           11. line-clamp: 4
+           ================================================== */
+
+        .clamp-four .text {
+            display: -webkit-box;
+
+            -webkit-box-orient: vertical;
+
+            -webkit-line-clamp: 4;
+
+            overflow: hidden;
+        }
+
+
+        /* ==================================================
+           12. line-clamp: none
+           ==================================================
+
+           Satır sınırlandırmasını kaldırır.
+
+           Modern tarayıcılarda doğrudan
+           line-clamp: none kullanılabilir.
+        */
+
+        .clamp-none .text {
+            line-clamp: none;
+        }
+
+
+        /* ==================================================
+           13. line-clamp + ellipsis
+           ==================================================
+
+           Kart başlıklarında / açıklamalarında
+           çok kullanılan yapı.
+        */
+
+        .ellipsis .text {
+            display: -webkit-box;
+
+            -webkit-box-orient: vertical;
+
+            -webkit-line-clamp: 3;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* ==================================================
+           14. line-height + max-height
+           ==================================================
+
+           Eski / alternatif yöntem.
+
+           Örneğin:
+
+           3 satır × 1.5 line-height
+        */
+
+        .max-height .text {
+            line-height: 1.5;
+
+            max-height:
+                calc(1.5em * 3);
+
+            overflow: hidden;
+        }
+
+
+        /* ==================================================
+           15. GERÇEK PROJE:
+           BLOG
+           ================================================== */
+
+        .blog p {
+            font-size: 18px;
+
+            line-height: 1.7;
+
+            max-inline-size: 700px;
+        }
+
+
+        /* ==================================================
+           16. GERÇEK PROJE:
+           CARD DESCRIPTION
+           ================================================== */
+
+        .card p {
+            line-height: 1.5;
+
+            display: -webkit-box;
+
+            -webkit-box-orient: vertical;
+
+            -webkit-line-clamp: 3;
+
+            overflow: hidden;
+        }
+
+
+        /* ==================================================
+           17. GERÇEK PROJE:
+           BUTTON
+           ================================================== */
+
+        .button {
+            display: inline-flex;
+
+            align-items: center;
+
+            line-height: 1;
+        }
+
+
+        /* ==================================================
+           18. GERÇEK PROJE:
+           NAVBAR
+           ================================================== */
+
+        .navbar {
+            display: flex;
+
+            align-items: center;
+
+            line-height: 1;
+        }
+
+
+        /* ==================================================
+           19. GERÇEK PROJE:
+           ARTICLE
+           ================================================== */
+
+        .article {
+            max-inline-size: 750px;
+        }
+
+        .article p {
+            font-size: 18px;
+
+            line-height: 1.8;
+        }
+
+
+        /* ==================================================
+           20. GERÇEK PROJE:
+           HEADING
+           ================================================== */
+
+        .heading h2 {
+            font-size: 40px;
+
+            line-height: 1.1;
+
+            margin: 0;
+        }
+
+
+        /* ==================================================
+           21. GERÇEK PROJE:
+           MULTI-LINE TITLE
+           ================================================== */
+
+        .title h2 {
+            max-inline-size: 500px;
+
+            font-size: 40px;
+
+            line-height: 1.1;
+        }
+
+
+        /* ==================================================
+           22. line-break
+           ==================================================
+
+           line-break, özellikle Doğu Asya yazı
+           sistemlerinde satır kırma kurallarını
+           kontrol eder.
+
+           auto
+           → Tarayıcı karar verir.
+
+           loose
+           → Daha esnek kurallar.
+
+           normal
+           → Normal kurallar.
+
+           strict
+           → Daha katı kurallar.
+
+           anywhere
+           → Gerektiğinde herhangi bir noktadan
+             kırılmaya izin verir.
+        */
+
+        .line-break-auto {
+            line-break: auto;
+        }
+
+        .line-break-loose {
+            line-break: loose;
+        }
+
+        .line-break-normal {
+            line-break: normal;
+        }
+
+        .line-break-strict {
+            line-break: strict;
+        }
+
+        .line-break-anywhere {
+            line-break: anywhere;
+        }
+
+
+        /* ==================================================
+           23. line-break + LONG TEXT
+           ================================================== */
+
+        .break-anywhere {
+            line-break: anywhere;
+
+            overflow-wrap: anywhere;
+        }
+
+
+        /* ==================================================
+           24. GERÇEK PROJE:
+           RESPONSIVE TEXT
+           ================================================== */
+
+        .responsive-text {
+            font-size:
+                clamp(16px, 2vw, 22px);
+
+            line-height:
+                1.6;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         line-height
+         ================================================== -->
+
+    <h2>1. line-height: normal</h2>
+
+    <div class="container normal">
+        <p class="text">
+            Bu metin normal line-height değerini kullanır.
+            Satırlar arasındaki boşluk tarayıcı tarafından
+            belirlenir.
+        </p>
+    </div>
+
+
+    <h2>2. line-height: 1.5</h2>
+
+    <div class="container number">
+        <p class="text">
+            Bu metin 1.5 line-height kullanır.
+            Paragraf metinlerinde oldukça yaygın
+            bir değerdir.
+        </p>
+    </div>
+
+
+    <h2>3. line-height: 30px</h2>
+
+    <div class="container px">
+        <p class="text">
+            Sabit piksel değeriyle satır yüksekliği
+            belirlenmiştir.
+        </p>
+    </div>
+
+
+    <h2>4. line-height: 1.8em</h2>
+
+    <div class="container em">
+        <p class="text">
+            em kullanılarak satır yüksekliği
+            font boyutuna göre belirlenmiştir.
+        </p>
+    </div>
+
+
+    <h2>5. line-height: 1</h2>
+
+    <div class="container compact">
+        <p class="text">
+            Kompakt metin.
+        </p>
+    </div>
+
+
+    <h2>6. line-height: 2</h2>
+
+    <div class="container wide">
+        <p class="text">
+            Daha geniş satır aralığı.
+            Özellikle uzun metinlerde
+            okunabilirliği artırabilir.
+        </p>
+    </div>
+
+
+    <h2>7. Responsive line-height</h2>
+
+    <div class="container responsive">
+        <p class="text">
+            Ekran boyutuna göre satır yüksekliği
+            kontrollü şekilde değişebilir.
+        </p>
+    </div>
+
+
+    <h2>8. font-size + line-height</h2>
+
+    <div class="container typography">
+        <p class="text">
+            Gerçek projelerde font-size ile
+            line-height çoğunlukla birlikte ayarlanır.
+        </p>
+    </div>
+
+
+    <h2>9. line-height: inherit</h2>
+
+    <div class="container inherit">
+        <p class="text">
+            Parent'ın line-height değerini miras alır.
+        </p>
+    </div>
+
+
+    <h2>10. line-height: initial</h2>
+
+    <div class="container initial">
+        <p class="text">
+            Varsayılan değere döndürülür.
+        </p>
+    </div>
+
+
+    <h2>11. line-height: unset</h2>
+
+    <div class="container unset">
+        <p class="text">
+            unset kullanımı.
+        </p>
+    </div>
+
+
+    <!-- ==================================================
+         line-clamp
+         ================================================== -->
+
+    <h2>12. line-clamp → 3 satır</h2>
+
+    <div class="container clamp">
+        <p class="text">
+            Bu uzun bir metindir. Üç satırdan daha fazla
+            içerik olsa bile yalnızca belirlenen satır
+            sayısı gösterilir. Kart tasarımlarında,
+            blog listelerinde ve ürün açıklamalarında
+            oldukça kullanışlıdır.
+        </p>
+    </div>
+
+
+    <h2>13. line-clamp → 2 satır</h2>
+
+    <div class="container clamp-two">
+        <p class="text">
+            İki satırlık kısa açıklama.
+            Fazla içerik gizlenir.
+            Buradaki devam eden metin gösterilmez.
+        </p>
+    </div>
+
+
+    <h2>14. line-clamp → 4 satır</h2>
+
+    <div class="container clamp-four">
+        <p class="text">
+            Dört satırlık içerik gösterilir.
+            Daha fazla metin olduğunda
+            kalan bölüm gizlenir.
+            Bu yöntem kart açıklamalarında
+            kullanılabilir.
+        </p>
+    </div>
+
+
+    <h2>15. line-clamp: none</h2>
+
+    <div class="container clamp-none">
+        <p class="text">
+            Satır sınırı kaldırılmıştır.
+        </p>
+    </div>
+
+
+    <h2>16. line-clamp + ellipsis</h2>
+
+    <div class="container ellipsis">
+        <p class="text">
+            Bu örnekte metin belirli bir satır sayısından
+            sonra kesilir. Kart ve içerik listelerinde
+            uzun açıklamaların tasarımı bozmasını önlemek
+            için kullanılabilir.
+        </p>
+    </div>
+
+
+    <h2>17. line-height + max-height</h2>
+
+    <div class="container max-height">
+        <p class="text">
+            Alternatif olarak line-height ve max-height
+            birlikte kullanılabilir. Bu yöntemde
+            gösterilecek satır sayısına göre maksimum
+            yükseklik hesaplanır.
+        </p>
+    </div>
+
+
+    <!-- ==================================================
+         GERÇEK PROJELER
+         ================================================== -->
+
+    <h2>18. Gerçek Proje → Blog</h2>
+
+    <div class="container blog">
+
+        <p>
+            Blog yazılarında uygun line-height kullanmak
+            uzun metinlerin daha rahat okunmasını sağlar.
+            Özellikle gövde metinlerinde line-height
+            tasarımın önemli parçalarından biridir.
+        </p>
+
+    </div>
+
+
+    <h2>19. Gerçek Proje → Card Description</h2>
+
+    <div class="container card">
+
+        <p>
+            Ürün veya blog kartlarında açıklamanın
+            belirli sayıda satırı geçmemesi için
+            line-clamp kullanılabilir. Böylece farklı
+            uzunluktaki içerikler aynı tasarım içerisinde
+            daha düzenli görünür.
+        </p>
+
+    </div>
+
+
+    <h2>20. Gerçek Proje → Button</h2>
+
+    <div class="container">
+
+        <button class="button">
+            Buton
+        </button>
+
+    </div>
+
+
+    <h2>21. Gerçek Proje → Navbar</h2>
+
+    <div class="container navbar">
+
+        <span>LOGO</span>
+
+        <span>HOME</span>
+
+        <span>ABOUT</span>
+
+        <span>CONTACT</span>
+
+    </div>
+
+
+    <h2>22. Gerçek Proje → Article</h2>
+
+    <div class="container article">
+
+        <p>
+            Makale tasarımında line-height oldukça
+            önemlidir. Çok sıkışık satırlar okumayı
+            zorlaştırabilirken, aşırı geniş satır aralığı
+            da metnin bütünlüğünü bozabilir.
+        </p>
+
+    </div>
+
+
+    <h2>23. Gerçek Proje → Heading</h2>
+
+    <div class="container heading">
+
+        <h2>
+            Modern Web Tasarımı
+        </h2>
+
+    </div>
+
+
+    <h2>24. Gerçek Proje → Multi-line Title</h2>
+
+    <div class="container title">
+
+        <h2>
+            Modern ve Responsive Web Tasarımı
+        </h2>
+
+    </div>
+
+
+    <!-- ==================================================
+         line-break
+         ================================================== -->
+
+    <h2>25. line-break: auto</h2>
+
+    <div class="container line-break-auto">
+        <p class="text">
+            Satır kırma davranışı tarayıcı tarafından
+            belirlenir.
+        </p>
+    </div>
+
+
+    <h2>26. line-break: loose</h2>
+
+    <div class="container line-break-loose">
+        <p class="text">
+            Daha esnek satır kırma kuralları.
+        </p>
+    </div>
+
+
+    <h2>27. line-break: normal</h2>
+
+    <div class="container line-break-normal">
+        <p class="text">
+            Normal satır kırma kuralları.
+        </p>
+    </div>
+
+
+    <h2>28. line-break: strict</h2>
+
+    <div class="container line-break-strict">
+        <p class="text">
+            Daha katı satır kırma kuralları.
+        </p>
+    </div>
+
+
+    <h2>29. line-break: anywhere</h2>
+
+    <div class="container line-break-anywhere">
+        <p class="text">
+            Gerektiğinde herhangi bir noktadan satır
+            kırılmasına izin verir.
+        </p>
+    </div>
+
+
+    <h2>30. Responsive Text</h2>
+
+    <div class="container responsive-text">
+
+        Responsive metinlerde font-size ve line-height
+        birlikte kullanılarak farklı ekran boyutlarında
+        daha dengeli bir tipografi oluşturulabilir.
+
+    </div>
+
+
+</body>
+
+</html>

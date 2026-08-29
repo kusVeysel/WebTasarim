@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS border-* Özellikleri</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+
+            margin-bottom: 35px;
+            padding: 25px;
+
+            border: 1px solid #ddd;
+        }
+
+        .box {
+            width: 180px;
+            height: 100px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-sizing: border-box;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+       1. border-width
+       ==================================================
+
+       Border'ın kalınlığını belirler.
+
+       thin
+       medium
+       thick
+
+       veya px, rem vb.
+    */
+
+        .width-1 {
+            border-width: 5px;
+            border-style: solid;
+            border-color: steelblue;
+        }
+
+        .width-2 {
+            border-width: 2px 8px 5px 12px;
+            border-style: solid;
+            border-color: purple;
+        }
+
+
+        /* ==================================================
+       2. border-style
+       ==================================================
+
+       Border'ın çizgi stilini belirler.
+
+       none
+       hidden
+       solid
+       double
+       dotted
+       dashed
+       groove
+       ridge
+       inset
+       outset
+    */
+
+        .style-solid {
+            border-width: 5px;
+            border-style: solid;
+            border-color: steelblue;
+        }
+
+        .style-dashed {
+            border-width: 5px;
+            border-style: dashed;
+            border-color: crimson;
+        }
+
+        .style-dotted {
+            border-width: 5px;
+            border-style: dotted;
+            border-color: green;
+        }
+
+        .style-double {
+            border-width: 7px;
+            border-style: double;
+            border-color: orange;
+        }
+
+
+        /* ==================================================
+       3. border-color
+       ==================================================
+
+       Border'ın rengini belirler.
+
+       İsim
+       HEX
+       RGB
+       HSL
+       transparent
+       vb.
+    */
+
+        .color-name {
+            border-width: 5px;
+            border-style: solid;
+            border-color: steelblue;
+        }
+
+        .color-hex {
+            border-width: 5px;
+            border-style: solid;
+            border-color: #8b5cf6;
+        }
+
+        .color-rgb {
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgb(220, 38, 38);
+        }
+
+
+        /* ==================================================
+       4. border-top
+       ==================================================
+
+       Sadece üst border'ı kontrol eder.
+
+       Shorthand'tır:
+
+       genişlik + stil + renk
+    */
+
+        .top {
+            border-top: 5px solid steelblue;
+        }
+
+
+        /* ==================================================
+       5. border-right
+       ==================================================
+
+       Sadece sağ border'ı kontrol eder.
+    */
+
+        .right {
+            border-right: 5px solid purple;
+        }
+
+
+        /* ==================================================
+       6. border-bottom
+       ==================================================
+
+       Sadece alt border'ı kontrol eder.
+
+       Gerçek projelerde özellikle
+       başlıkların ve inputların altında
+       çok kullanılır.
+    */
+
+        .bottom {
+            border-bottom: 5px solid crimson;
+        }
+
+
+        /* ==================================================
+       7. border-left
+       ==================================================
+
+       Sadece sol border'ı kontrol eder.
+
+       Örneğin:
+       quote / sidebar / vurgu alanlarında
+       kullanışlıdır.
+    */
+
+        .left {
+            border-left: 6px solid orange;
+        }
+
+
+        /* ==================================================
+       8. border-top-width
+       ==================================================
+
+       Sadece üst border'ın genişliğini belirler.
+    */
+
+        .top-width {
+            border-top-width: 10px;
+            border-top-style: solid;
+            border-top-color: steelblue;
+        }
+
+
+        /* ==================================================
+       9. border-right-width
+       ================================================== */
+
+        .right-width {
+            border-right-width: 10px;
+            border-right-style: solid;
+            border-right-color: purple;
+        }
+
+
+        /* ==================================================
+       10. border-bottom-width
+       ================================================== */
+
+        .bottom-width {
+            border-bottom-width: 10px;
+            border-bottom-style: solid;
+            border-bottom-color: crimson;
+        }
+
+
+        /* ==================================================
+       11. border-left-width
+       ================================================== */
+
+        .left-width {
+            border-left-width: 10px;
+            border-left-style: solid;
+            border-left-color: orange;
+        }
+
+
+        /* ==================================================
+       12. border-top-style
+       ================================================== */
+
+        .top-style {
+            border-top-width: 5px;
+            border-top-style: dashed;
+            border-top-color: steelblue;
+        }
+
+
+        /* ==================================================
+       13. border-right-style
+       ================================================== */
+
+        .right-style {
+            border-right-width: 5px;
+            border-right-style: dotted;
+            border-right-color: purple;
+        }
+
+
+        /* ==================================================
+       14. border-bottom-style
+       ================================================== */
+
+        .bottom-style {
+            border-bottom-width: 5px;
+            border-bottom-style: double;
+            border-bottom-color: crimson;
+        }
+
+
+        /* ==================================================
+       15. border-left-style
+       ================================================== */
+
+        .left-style {
+            border-left-width: 5px;
+            border-left-style: groove;
+            border-left-color: orange;
+        }
+
+
+        /* ==================================================
+       16. border-top-color
+       ================================================== */
+
+        .top-color {
+            border-top-width: 6px;
+            border-top-style: solid;
+            border-top-color: steelblue;
+        }
+
+
+        /* ==================================================
+       17. border-right-color
+       ================================================== */
+
+        .right-color {
+            border-right-width: 6px;
+            border-right-style: solid;
+            border-right-color: purple;
+        }
+
+
+        /* ==================================================
+       18. border-bottom-color
+       ================================================== */
+
+        .bottom-color {
+            border-bottom-width: 6px;
+            border-bottom-style: solid;
+            border-bottom-color: crimson;
+        }
+
+
+        /* ==================================================
+       19. border-left-color
+       ================================================== */
+
+        .left-color {
+            border-left-width: 6px;
+            border-left-style: solid;
+            border-left-color: orange;
+        }
+
+
+        /* ==================================================
+       20. border-image
+       ==================================================
+
+       Border'a görsel veya gradient
+       uygulanmasını sağlar.
+
+       Özellikle özel tasarımlarda kullanışlıdır.
+    */
+
+        .image-border {
+            border: 8px solid transparent;
+
+            border-image:
+                linear-gradient(90deg,
+                    steelblue,
+                    purple) 1;
+        }
+
+
+        /* ==================================================
+       21. border-image-source
+       ==================================================
+
+       Border image'ın kaynağını belirler.
+    */
+
+        .image-source {
+            border: 8px solid transparent;
+
+            border-image-source:
+                linear-gradient(90deg,
+                    steelblue,
+                    purple);
+
+            border-image-slice: 1;
+        }
+
+
+        /* ==================================================
+       22. border-image-slice
+       ==================================================
+
+       Border image'ın hangi bölümlerinin
+       kullanılacağını belirler.
+    */
+
+        .image-slice {
+            border: 8px solid transparent;
+
+            border-image-source:
+                linear-gradient(90deg,
+                    steelblue,
+                    purple);
+
+            border-image-slice: 1;
+        }
+
+
+        /* ==================================================
+       23. border-image-width
+       ==================================================
+
+       Border image'ın genişliğini belirler.
+    */
+
+        .image-width {
+            border: 8px solid transparent;
+
+            border-image:
+                linear-gradient(90deg,
+                    steelblue,
+                    purple) 1;
+
+            border-image-width: 1;
+        }
+
+
+        /* ==================================================
+       24. border-image-outset
+       ==================================================
+
+       Border image'ın border kutusunun
+       dışına ne kadar taşacağını belirler.
+    */
+
+        .image-outset {
+            border: 5px solid transparent;
+
+            border-image:
+                linear-gradient(90deg,
+                    steelblue,
+                    purple) 1;
+
+            border-image-outset: 3px;
+        }
+
+
+        /* ==================================================
+       25. border-image-repeat
+       ==================================================
+
+       Border image'ın kenarlarda
+       nasıl tekrar edileceğini belirler.
+
+       stretch
+       repeat
+       round
+       space
+    */
+
+        .image-repeat {
+            border: 8px solid transparent;
+
+            border-image:
+                linear-gradient(90deg,
+                    steelblue,
+                    purple) 1;
+
+            border-image-repeat: stretch;
+        }
+
+
+        /* ==================================================
+       26. GERÇEK PROJE:
+           INPUT
+       ================================================== */
+
+        .input {
+            width: 280px;
+            padding: 12px 15px;
+
+            border-width: 1px;
+            border-style: solid;
+            border-color: #ccc;
+
+            border-radius: 8px;
+
+            outline: none;
+        }
+
+
+        /* ==================================================
+       27. GERÇEK PROJE:
+           VURGU ÇİZGİSİ
+       ================================================== */
+
+        .quote {
+            padding: 20px;
+
+            border-left-width: 5px;
+            border-left-style: solid;
+            border-left-color: steelblue;
+
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <h2>1. border-width</h2>
+
+    <div class="container">
+
+        <div class="box width-1">
+            5px
+        </div>
+
+        <div class="box width-2">
+            4 farklı width
+        </div>
+
+    </div>
+
+
+    <h2>2. border-style</h2>
+
+    <div class="container">
+
+        <div class="box style-solid">solid</div>
+        <div class="box style-dashed">dashed</div>
+        <div class="box style-dotted">dotted</div>
+        <div class="box style-double">double</div>
+
+    </div>
+
+
+    <h2>3. border-color</h2>
+
+    <div class="container">
+
+        <div class="box color-name">name</div>
+        <div class="box color-hex">HEX</div>
+        <div class="box color-rgb">RGB</div>
+
+    </div>
+
+
+    <h2>4-7. Tek taraflı border</h2>
+
+    <div class="container">
+
+        <div class="box top">top</div>
+        <div class="box right">right</div>
+        <div class="box bottom">bottom</div>
+        <div class="box left">left</div>
+
+    </div>
+
+
+    <h2>8-11. Tek taraflı width</h2>
+
+    <div class="container">
+
+        <div class="box top-width">top</div>
+        <div class="box right-width">right</div>
+        <div class="box bottom-width">bottom</div>
+        <div class="box left-width">left</div>
+
+    </div>
+
+
+    <h2>12-15. Tek taraflı style</h2>
+
+    <div class="container">
+
+        <div class="box top-style">top</div>
+        <div class="box right-style">right</div>
+        <div class="box bottom-style">bottom</div>
+        <div class="box left-style">left</div>
+
+    </div>
+
+
+    <h2>16-19. Tek taraflı color</h2>
+
+    <div class="container">
+
+        <div class="box top-color">top</div>
+        <div class="box right-color">right</div>
+        <div class="box bottom-color">bottom</div>
+        <div class="box left-color">left</div>
+
+    </div>
+
+
+    <h2>20. border-image</h2>
+
+    <div class="container">
+
+        <div class="box image-border">
+            Gradient Border
+        </div>
+
+    </div>
+
+
+    <h2>21. border-image-source</h2>
+
+    <div class="container">
+
+        <div class="box image-source">
+            Source
+        </div>
+
+    </div>
+
+
+    <h2>22. border-image-slice</h2>
+
+    <div class="container">
+
+        <div class="box image-slice">
+            Slice
+        </div>
+
+    </div>
+
+
+    <h2>23. border-image-width</h2>
+
+    <div class="container">
+
+        <div class="box image-width">
+            Width
+        </div>
+
+    </div>
+
+
+    <h2>24. border-image-outset</h2>
+
+    <div class="container">
+
+        <div class="box image-outset">
+            Outset
+        </div>
+
+    </div>
+
+
+    <h2>25. border-image-repeat</h2>
+
+    <div class="container">
+
+        <div class="box image-repeat">
+            Repeat
+        </div>
+
+    </div>
+
+
+    <h2>26. Gerçek Proje → Input</h2>
+
+    <div class="container">
+
+        <input class="input" type="text" placeholder="Adınızı yazın...">
+
+    </div>
+
+
+    <h2>27. Gerçek Proje → Vurgu Alanı</h2>
+
+    <div class="container">
+
+        <div class="quote">
+            Önemli bir bilgi veya alıntı.
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

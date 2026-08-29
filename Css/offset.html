@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Offset - Tüm Kullanımlar</title>
+
+    <style>
+
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        h2 {
+            margin-top: 45px;
+        }
+
+        .container {
+            position: relative;
+
+            width: 100%;
+            height: 220px;
+
+            margin-bottom: 30px;
+            padding: 20px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            background: white;
+
+            box-sizing: border-box;
+        }
+
+        .item {
+            width: 50px;
+            height: 50px;
+
+            border-radius: 50%;
+
+            background: steelblue;
+
+            position: absolute;
+        }
+
+
+        /* ==================================================
+           OFFSET NEDİR?
+           ==================================================
+
+           offset-* özellikleri bir elementi
+           belirli bir yol/path üzerinde hareket
+           ettirmek için kullanılır.
+
+           Özellikle:
+
+           - Animasyon
+           - Hareketli ikonlar
+           - Araç/araç rotası
+           - Dairesel hareket
+           - SVG benzeri yollar
+           - Dekoratif hareketler
+
+           için kullanışlıdır.
+
+           Ana özellikler:
+
+           offset-path
+           offset-distance
+           offset-position
+           offset-rotate
+           offset-anchor
+
+           shorthand:
+
+           offset
+        */
+
+
+        /* ==================================================
+           1. offset-path
+           ==================================================
+
+           Elementin izleyeceği yolu belirler.
+
+           En önemli offset özelliğidir.
+
+           Örnek:
+
+           offset-path: path("M 0 0 L 300 0");
+
+           Element bu yolu takip eder.
+        */
+
+        .path-basic .item {
+
+            offset-path:
+                path("M 0 0 L 350 0");
+
+            animation:
+                move-path 3s linear infinite;
+        }
+
+
+        /* ==================================================
+           2. offset-path: path()
+           ==================================================
+
+           Özel SVG path benzeri bir yol oluşturur.
+
+           M → Move
+           L → Line
+           H → Horizontal
+           V → Vertical
+           C → Cubic Bézier
+           S → Smooth Cubic Bézier
+           Q → Quadratic Bézier
+           T → Smooth Quadratic Bézier
+           A → Arc
+           Z → Close
+        */
+
+        .path-commands .item {
+
+            offset-path:
+                path("M 0 80 C 100 -50 250 200 400 50");
+
+            animation:
+                move-command 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           3. offset-path: circle()
+           ==================================================
+
+           Elementi dairesel bir yol üzerinde
+           hareket ettirebilir.
+
+           circle(radius)
+        */
+
+        .circle-path .item {
+
+            offset-path:
+                circle(70px);
+
+            animation:
+                circle-move 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           4. offset-path: ellipse()
+           ==================================================
+
+           Eliptik yol oluşturur.
+        */
+
+        .ellipse-path .item {
+
+            offset-path:
+                ellipse(180px 70px);
+
+            animation:
+                ellipse-move 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           5. offset-path: inset()
+           ==================================================
+
+           Dikdörtgen benzeri kapalı bir yol oluşturur.
+
+           inset(top right bottom left)
+        */
+
+        .inset-path .item {
+
+            offset-path:
+                inset(20px);
+
+            animation:
+                inset-move 5s linear infinite;
+        }
+
+
+        /* ==================================================
+           6. offset-path: polygon()
+           ==================================================
+
+           Çok noktalı bir yol oluşturur.
+        */
+
+        .polygon-path .item {
+
+            offset-path:
+                polygon(
+                    0 80%,
+                    25% 10%,
+                    50% 80%,
+                    75% 10%,
+                    100% 80%
+                );
+
+            animation:
+                polygon-move 5s linear infinite;
+        }
+
+
+        /* ==================================================
+           7. offset-distance
+           ==================================================
+
+           Elementin path üzerinde ne kadar ilerlediğini
+           belirler.
+
+           0%
+           → Başlangıç
+
+           50%
+           → Yolun ortası
+
+           100%
+           → Yolun sonu
+        */
+
+        .distance .item {
+
+            offset-path:
+                path("M 0 0 L 400 0");
+
+            offset-distance: 50%;
+        }
+
+
+        /* ==================================================
+           8. offset-distance: 0%
+           ==================================================
+
+           Path'in başlangıcı.
+        */
+
+        .distance-0 .item {
+
+            offset-path:
+                path("M 0 0 L 400 0");
+
+            offset-distance: 0%;
+        }
+
+
+        /* ==================================================
+           9. offset-distance: 25%
+           ================================================== */
+
+        .distance-25 .item {
+
+            offset-path:
+                path("M 0 0 L 400 0");
+
+            offset-distance: 25%;
+        }
+
+
+        /* ==================================================
+           10. offset-distance: 75%
+           ================================================== */
+
+        .distance-75 .item {
+
+            offset-path:
+                path("M 0 0 L 400 0");
+
+            offset-distance: 75%;
+        }
+
+
+        /* ==================================================
+           11. offset-distance: 100%
+           ================================================== */
+
+        .distance-100 .item {
+
+            offset-path:
+                path("M 0 0 L 400 0");
+
+            offset-distance: 100%;
+        }
+
+
+        /* ==================================================
+           12. offset-distance ile animasyon
+           ==================================================
+
+           Path boyunca hareketin temel yöntemlerinden biri.
+        */
+
+        .distance-animation .item {
+
+            offset-path:
+                path("M 0 0 C 100 -100 300 200 400 0");
+
+            animation:
+                distance-animation 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           13. offset-position
+           ==================================================
+
+           Offset path'in başlangıç referans konumunu
+           belirlemeye yardımcı olur.
+
+           auto
+           <position>
+        */
+
+        .position-auto .item {
+
+            offset-path:
+                path("M 0 0 L 300 0");
+
+            offset-position: auto;
+
+            animation:
+                position-auto 3s linear infinite;
+        }
+
+
+        /* ==================================================
+           14. offset-position: center
+           ================================================== */
+
+        .position-center .item {
+
+            offset-path:
+                path("M 0 0 L 300 0");
+
+            offset-position: center;
+
+            animation:
+                position-center 3s linear infinite;
+        }
+
+
+        /* ==================================================
+           15. offset-position: 50% 50%
+           ================================================== */
+
+        .position-custom .item {
+
+            offset-path:
+                path("M 0 0 L 300 0");
+
+            offset-position: 50% 50%;
+
+            animation:
+                position-custom 3s linear infinite;
+        }
+
+
+        /* ==================================================
+           16. offset-rotate
+           ==================================================
+
+           Elementin path üzerinde ilerlerken
+           hangi yöne döneceğini belirler.
+
+           auto
+           reverse
+           <angle>
+           auto <angle>
+           reverse <angle>
+        */
+
+        .rotate-auto .item {
+
+            offset-path:
+                path("M 0 100 C 100 -50 250 250 400 50");
+
+            offset-rotate: auto;
+
+            animation:
+                rotate-auto 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           17. offset-rotate: reverse
+           ==================================================
+
+           Path yönünün tersine bakar.
+        */
+
+        .rotate-reverse .item {
+
+            offset-path:
+                path("M 0 100 C 100 -50 250 250 400 50");
+
+            offset-rotate: reverse;
+
+            animation:
+                rotate-reverse 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           18. offset-rotate: 0deg
+           ==================================================
+
+           Element dönmez.
+        */
+
+        .rotate-zero .item {
+
+            offset-path:
+                path("M 0 100 C 100 -50 250 250 400 50");
+
+            offset-rotate: 0deg;
+
+            animation:
+                rotate-zero 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           19. offset-rotate: 90deg
+           ==================================================
+
+           Path yönüne ek olarak 90 derece döndürür.
+        */
+
+        .rotate-90 .item {
+
+            offset-path:
+                path("M 0 100 C 100 -50 250 250 400 50");
+
+            offset-rotate: 90deg;
+
+            animation:
+                rotate-90 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           20. offset-rotate: auto 30deg
+           ==================================================
+
+           Path yönünü takip eder + 30 derece ekler.
+        */
+
+        .rotate-auto-30 .item {
+
+            offset-path:
+                path("M 0 100 C 100 -50 250 250 400 50");
+
+            offset-rotate: auto 30deg;
+
+            animation:
+                rotate-auto-30 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           21. offset-anchor
+           ==================================================
+
+           Elementin path üzerindeki hangi noktasının
+           path'e bağlanacağını belirler.
+
+           Varsayılan:
+
+           auto
+        */
+
+        .anchor-auto .item {
+
+            offset-path:
+                path("M 0 0 L 400 0");
+
+            offset-anchor: auto;
+
+            animation:
+                anchor-auto 3s linear infinite;
+        }
+
+
+        /* ==================================================
+           22. offset-anchor: center
+           ==================================================
+
+           Elementin merkezini path'e bağlar.
+        */
+
+        .anchor-center .item {
+
+            offset-path:
+                path("M 0 0 L 400 0");
+
+            offset-anchor: center;
+
+            animation:
+                anchor-center 3s linear infinite;
+        }
+
+
+        /* ==================================================
+           23. offset-anchor: top left
+           ==================================================
+
+           Elementin sol üst kısmını path'e bağlar.
+        */
+
+        .anchor-top-left .item {
+
+            offset-path:
+                path("M 0 0 L 400 0");
+
+            offset-anchor: top left;
+
+            animation:
+                anchor-top-left 3s linear infinite;
+        }
+
+
+        /* ==================================================
+           24. offset-anchor: 100% 100%
+           ==================================================
+
+           Elementin sağ alt kısmını path'e bağlar.
+        */
+
+        .anchor-bottom-right .item {
+
+            offset-path:
+                path("M 0 0 L 400 0");
+
+            offset-anchor: 100% 100%;
+
+            animation:
+                anchor-bottom-right 3s linear infinite;
+        }
+
+
+        /* ==================================================
+           25. offset SHORTHAND
+           ==================================================
+
+           Offset özelliklerini tek satırda
+           kullanmaya yarar.
+
+           Genel olarak:
+
+           offset:
+               position
+               / path
+               distance
+               rotate
+               anchor;
+
+           Modern CSS'te daha ileri kullanımlar
+           için kullanılabilir.
+
+           Ayrı özellikleri öğrenmek daha anlaşılırdır.
+        */
+
+        .shorthand .item {
+
+            offset:
+                50% 50%
+                path("M 0 0 L 400 0")
+                50%
+                auto;
+
+        }
+
+
+        /* ==================================================
+           26. DÜZ ÇİZGİ
+           ================================================== */
+
+        .straight .item {
+
+            offset-path:
+                path("M 0 0 L 450 0");
+
+            animation:
+                straight 3s linear infinite;
+        }
+
+
+        /* ==================================================
+           27. ZIGZAG
+           ================================================== */
+
+        .zigzag .item {
+
+            offset-path:
+                path(
+                    "M 0 80 L 100 10 L 200 80 L 300 10 L 400 80"
+                );
+
+            animation:
+                zigzag 5s linear infinite;
+        }
+
+
+        /* ==================================================
+           28. WAVE
+           ================================================== */
+
+        .wave .item {
+
+            offset-path:
+                path(
+                    "M 0 100
+                     C 100 0 200 200 300 100
+                     C 400 0 500 200 600 100"
+                );
+
+            animation:
+                wave 5s linear infinite;
+        }
+
+
+        /* ==================================================
+           29. CIRCLE MOTION
+           ================================================== */
+
+        .circle-motion .item {
+
+            offset-path:
+                circle(80px);
+
+            animation:
+                circle-motion 4s linear infinite;
+
+        }
+
+
+        /* ==================================================
+           30. ELLIPSE MOTION
+           ================================================== */
+
+        .ellipse-motion .item {
+
+            offset-path:
+                ellipse(200px 70px);
+
+            animation:
+                ellipse-motion 5s linear infinite;
+
+        }
+
+
+        /* ==================================================
+           31. ORBIT
+           ================================================== */
+
+        .orbit {
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .orbit-center {
+
+            width: 60px;
+            height: 60px;
+
+            border-radius: 50%;
+
+            background: black;
+        }
+
+        .orbit .item {
+
+            offset-path:
+                circle(80px);
+
+            animation:
+                orbit 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           32. CAR MOVEMENT
+           ================================================== */
+
+        .car .item {
+
+            width: 70px;
+            height: 35px;
+
+            border-radius: 10px;
+
+            offset-path:
+                path(
+                    "M 0 120
+                     C 100 0 300 200 500 70"
+                );
+
+            offset-rotate: auto;
+
+            animation:
+                car-move 5s linear infinite;
+        }
+
+
+        /* ==================================================
+           33. ROCKET MOVEMENT
+           ================================================== */
+
+        .rocket .item {
+
+            border-radius: 10px;
+
+            offset-path:
+                path(
+                    "M 0 150
+                     C 100 20 300 200 500 20"
+                );
+
+            offset-rotate: auto;
+
+            animation:
+                rocket-move 5s ease-in-out infinite;
+        }
+
+
+        /* ==================================================
+           34. OFFSET + TRANSFORM
+           ==================================================
+
+           Offset ile transform birlikte kullanılabilir.
+
+           Offset:
+           → Elementin path üzerindeki konumu
+
+           Transform:
+           → Elementin kendi dönüşü / ölçeği / şekli
+        */
+
+        .transform .item {
+
+            offset-path:
+                path("M 0 100 C 150 -50 300 250 500 50");
+
+            animation:
+                transform-path 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           35. OFFSET + SCALE
+           ================================================== */
+
+        .scale .item {
+
+            offset-path:
+                path("M 0 100 C 150 -50 300 250 500 50");
+
+            animation:
+                scale-path 4s ease-in-out infinite;
+        }
+
+
+        /* ==================================================
+           36. OFFSET + ROTATE
+           ================================================== */
+
+        .combined-rotate .item {
+
+            offset-path:
+                path("M 0 100 C 150 -50 300 250 500 50");
+
+            offset-rotate: auto;
+
+            animation:
+                combined-rotate 4s linear infinite;
+        }
+
+
+        /* ==================================================
+           KEYFRAMES
+           ================================================== */
+
+
+        @keyframes move-path {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes move-command {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes circle-move {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes ellipse-move {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes inset-move {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes polygon-move {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes distance-animation {
+
+            0% {
+                offset-distance: 0%;
+            }
+
+            50% {
+                offset-distance: 50%;
+            }
+
+            100% {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes position-auto {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes position-center {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes position-custom {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes rotate-auto {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes rotate-reverse {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes rotate-zero {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes rotate-90 {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes rotate-auto-30 {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes anchor-auto {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes anchor-center {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes anchor-top-left {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes anchor-bottom-right {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes straight {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes zigzag {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes wave {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes circle-motion {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes ellipse-motion {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes orbit {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes car-move {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes rocket-move {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+
+        @keyframes transform-path {
+
+            from {
+                offset-distance: 0%;
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.4);
+            }
+
+            to {
+                offset-distance: 100%;
+                transform: scale(1);
+            }
+
+        }
+
+
+        @keyframes scale-path {
+
+            from {
+                offset-distance: 0%;
+                transform: scale(.7);
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+
+            to {
+                offset-distance: 100%;
+                transform: scale(.7);
+            }
+
+        }
+
+
+        @keyframes combined-rotate {
+
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. offset-path
+         ================================================== -->
+
+    <h2>1. offset-path</h2>
+
+    <div class="container path-basic">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         2. path commands
+         ================================================== -->
+
+    <h2>2. offset-path: path()</h2>
+
+    <div class="container path-commands">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         3. circle
+         ================================================== -->
+
+    <h2>3. offset-path: circle()</h2>
+
+    <div class="container circle-path">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         4. ellipse
+         ================================================== -->
+
+    <h2>4. offset-path: ellipse()</h2>
+
+    <div class="container ellipse-path">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         5. inset
+         ================================================== -->
+
+    <h2>5. offset-path: inset()</h2>
+
+    <div class="container inset-path">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         6. polygon
+         ================================================== -->
+
+    <h2>6. offset-path: polygon()</h2>
+
+    <div class="container polygon-path">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         7. offset-distance 50%
+         ================================================== -->
+
+    <h2>7. offset-distance: 50%</h2>
+
+    <div class="container distance">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         8. offset-distance 0%
+         ================================================== -->
+
+    <h2>8. offset-distance: 0%</h2>
+
+    <div class="container distance-0">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         9. offset-distance 25%
+         ================================================== -->
+
+    <h2>9. offset-distance: 25%</h2>
+
+    <div class="container distance-25">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         10. offset-distance 75%
+         ================================================== -->
+
+    <h2>10. offset-distance: 75%</h2>
+
+    <div class="container distance-75">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         11. offset-distance 100%
+         ================================================== -->
+
+    <h2>11. offset-distance: 100%</h2>
+
+    <div class="container distance-100">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         12. distance animation
+         ================================================== -->
+
+    <h2>12. offset-distance + animation</h2>
+
+    <div class="container distance-animation">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         13. offset-position auto
+         ================================================== -->
+
+    <h2>13. offset-position: auto</h2>
+
+    <div class="container position-auto">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         14. offset-position center
+         ================================================== -->
+
+    <h2>14. offset-position: center</h2>
+
+    <div class="container position-center">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         15. offset-position custom
+         ================================================== -->
+
+    <h2>15. offset-position: 50% 50%</h2>
+
+    <div class="container position-custom">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         16. offset-rotate auto
+         ================================================== -->
+
+    <h2>16. offset-rotate: auto</h2>
+
+    <div class="container rotate-auto">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         17. offset-rotate reverse
+         ================================================== -->
+
+    <h2>17. offset-rotate: reverse</h2>
+
+    <div class="container rotate-reverse">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         18. offset-rotate 0deg
+         ================================================== -->
+
+    <h2>18. offset-rotate: 0deg</h2>
+
+    <div class="container rotate-zero">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         19. offset-rotate 90deg
+         ================================================== -->
+
+    <h2>19. offset-rotate: 90deg</h2>
+
+    <div class="container rotate-90">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         20. auto + angle
+         ================================================== -->
+
+    <h2>20. offset-rotate: auto 30deg</h2>
+
+    <div class="container rotate-auto-30">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         21. offset-anchor auto
+         ================================================== -->
+
+    <h2>21. offset-anchor: auto</h2>
+
+    <div class="container anchor-auto">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         22. offset-anchor center
+         ================================================== -->
+
+    <h2>22. offset-anchor: center</h2>
+
+    <div class="container anchor-center">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         23. offset-anchor top left
+         ================================================== -->
+
+    <h2>23. offset-anchor: top left</h2>
+
+    <div class="container anchor-top-left">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         24. offset-anchor bottom right
+         ================================================== -->
+
+    <h2>24. offset-anchor: 100% 100%</h2>
+
+    <div class="container anchor-bottom-right">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         25. offset shorthand
+         ================================================== -->
+
+    <h2>25. offset shorthand</h2>
+
+    <div class="container shorthand">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         26. straight
+         ================================================== -->
+
+    <h2>26. Düz Yol</h2>
+
+    <div class="container straight">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         27. zigzag
+         ================================================== -->
+
+    <h2>27. Zigzag</h2>
+
+    <div class="container zigzag">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         28. wave
+         ================================================== -->
+
+    <h2>28. Wave</h2>
+
+    <div class="container wave">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         29. circle motion
+         ================================================== -->
+
+    <h2>29. Circle Motion</h2>
+
+    <div class="container circle-motion">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         30. ellipse motion
+         ================================================== -->
+
+    <h2>30. Ellipse Motion</h2>
+
+    <div class="container ellipse-motion">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         31. orbit
+         ================================================== -->
+
+    <h2>31. Orbit</h2>
+
+    <div class="container orbit">
+
+        <div class="orbit-center"></div>
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         32. car
+         ================================================== -->
+
+    <h2>32. Araç Hareketi</h2>
+
+    <div class="container car">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         33. rocket
+         ================================================== -->
+
+    <h2>33. Rocket</h2>
+
+    <div class="container rocket">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         34. transform
+         ================================================== -->
+
+    <h2>34. Offset + Transform</h2>
+
+    <div class="container transform">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         35. scale
+         ================================================== -->
+
+    <h2>35. Offset + Scale</h2>
+
+    <div class="container scale">
+
+        <div class="item"></div>
+
+    </div>
+
+
+    <!-- ==================================================
+         36. rotate
+         ================================================== -->
+
+    <h2>36. Offset + Rotate</h2>
+
+    <div class="container combined-rotate">
+
+        <div class="item"></div>
+
+    </div>
+
+
+</body>
+
+</html>

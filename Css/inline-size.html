@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS inline-size Tüm Değerler</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            margin-bottom: 25px;
+            padding: 20px;
+
+            border: 3px solid black;
+
+            writing-mode: horizontal-tb;
+        }
+
+        .item {
+            background: steelblue;
+            color: white;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           1. inline-size: auto
+           ==================================================
+
+           Varsayılan davranış.
+
+           Elemanın inline boyutunu içeriğe / normal
+           layout kurallarına göre belirler.
+        */
+
+        .auto .item {
+            inline-size: auto;
+        }
+
+
+        /* ==================================================
+           2. inline-size: 200px
+           ==================================================
+
+           Sabit inline boyutu.
+
+           Normal horizontal writing-mode'da:
+
+           inline-size ≈ width
+        */
+
+        .px .item {
+            inline-size: 200px;
+        }
+
+
+        /* ==================================================
+           3. inline-size: 50%
+           ==================================================
+
+           Parent'ın inline boyutunun %50'si.
+        */
+
+        .percent .item {
+            inline-size: 50%;
+        }
+
+
+        /* ==================================================
+           4. inline-size: 50vw
+           ==================================================
+
+           Viewport genişliğinin %50'si.
+
+           Responsive tasarımlarda kullanılabilir.
+        */
+
+        .vw .item {
+            inline-size: 50vw;
+        }
+
+
+        /* ==================================================
+           5. inline-size: 20rem
+           ==================================================
+
+           rem ile boyutlandırma.
+
+           Font-size tabanlı responsive tasarımlarda
+           kullanışlıdır.
+        */
+
+        .rem .item {
+            inline-size: 20rem;
+        }
+
+
+        /* ==================================================
+           6. inline-size: min-content
+           ==================================================
+
+           İçeriğin mümkün olan en küçük
+           inline boyutunu kullanmaya çalışır.
+        */
+
+        .min-content .item {
+            inline-size: min-content;
+        }
+
+
+        /* ==================================================
+           7. inline-size: max-content
+           ==================================================
+
+           İçeriğin tek satırda ihtiyaç duyduğu
+           boyutu kullanır.
+        */
+
+        .max-content .item {
+            inline-size: max-content;
+        }
+
+
+        /* ==================================================
+           8. inline-size: fit-content
+           ==================================================
+
+           İçeriğe göre boyutu ayarlar ancak
+           mevcut alanın dışına taşmamaya çalışır.
+        */
+
+        .fit-content .item {
+            inline-size: fit-content;
+        }
+
+
+        /* ==================================================
+           9. inline-size: fit-content(300px)
+           ==================================================
+
+           İçeriğe göre boyutlandırır ancak
+           belirlenen sınırı aşmaz.
+        */
+
+        .fit-limit .item {
+            inline-size: fit-content(300px);
+        }
+
+
+        /* ==================================================
+           10. inline-size: min()
+           ==================================================
+
+           Verilen değerler arasından
+           en küçük olanı kullanır.
+        */
+
+        .min .item {
+            inline-size:
+                min(80%, 400px);
+        }
+
+
+        /* ==================================================
+           11. inline-size: max()
+           ==================================================
+
+           Verilen değerler arasından
+           en büyük olanı kullanır.
+        */
+
+        .max .item {
+            inline-size:
+                max(300px, 50%);
+        }
+
+
+        /* ==================================================
+           12. inline-size: clamp()
+           ==================================================
+
+           Responsive boyutlandırmanın
+           en kullanışlı yöntemlerinden biridir.
+
+           minimum
+           tercih edilen
+           maximum
+        */
+
+        .clamp .item {
+            inline-size:
+                clamp(200px, 50vw, 600px);
+        }
+
+
+        /* ==================================================
+           13. inline-size: calc()
+           ==================================================
+
+           CSS içerisinde matematiksel hesaplama.
+        */
+
+        .calc .item {
+            inline-size:
+                calc(100% - 40px);
+        }
+
+
+        /* ==================================================
+           14. inline-size: 100%
+           ==================================================
+
+           Parent'ın inline alanının tamamını
+           kullanır.
+        */
+
+        .full .item {
+            inline-size: 100%;
+        }
+
+
+        /* ==================================================
+           15. inline-size: 100% + box-sizing
+           ==================================================
+
+           Padding ve border'ın boyut hesabını
+           kontrol etmek için box-sizing ile
+           birlikte kullanılabilir.
+        */
+
+        .box-sizing .item {
+            inline-size: 100%;
+
+            box-sizing: border-box;
+        }
+
+
+        /* ==================================================
+           16. min-inline-size
+           ==================================================
+
+           Elemanın minimum inline boyutunu
+           belirler.
+
+           inline-size küçülse bile
+           bu değerin altına inmemesini sağlar.
+        */
+
+        .minimum .item {
+            min-inline-size: 250px;
+
+            inline-size: 100%;
+        }
+
+
+        /* ==================================================
+           17. max-inline-size
+           ==================================================
+
+           Elemanın maksimum inline boyutunu
+           belirler.
+
+           Responsive tasarımda çok kullanışlıdır.
+        */
+
+        .maximum .item {
+            inline-size: 100%;
+
+            max-inline-size: 500px;
+        }
+
+
+        /* ==================================================
+           18. min + max INLINE SIZE
+           ==================================================
+
+           Hem minimum hem maksimum sınır
+           belirlenebilir.
+        */
+
+        .min-max .item {
+            inline-size: 100%;
+
+            min-inline-size: 200px;
+            max-inline-size: 600px;
+        }
+
+
+        /* ==================================================
+           19. GERÇEK PROJE:
+           RESPONSIVE CONTENT
+           ==================================================
+
+           İçerik alanı ekran büyüse bile
+           aşırı genişlemez.
+        */
+
+        .content {
+            max-inline-size: 700px;
+
+            margin-inline: auto;
+        }
+
+
+        /* ==================================================
+           20. GERÇEK PROJE:
+           RESPONSIVE CARD
+           ================================================== */
+
+        .card {
+            inline-size: 100%;
+
+            max-inline-size: 350px;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            background: #eee;
+        }
+
+
+        /* ==================================================
+           21. GERÇEK PROJE:
+           FORM INPUT
+           ================================================== */
+
+        .form-input {
+            inline-size: 100%;
+
+            max-inline-size: 500px;
+
+            padding: 12px;
+
+            box-sizing: border-box;
+        }
+
+
+        /* ==================================================
+           22. GERÇEK PROJE:
+           SIDEBAR
+           ================================================== */
+
+        .sidebar {
+            inline-size: 280px;
+
+            max-inline-size: 100%;
+        }
+
+
+        /* ==================================================
+           23. WRITING-MODE
+           ==================================================
+
+           inline-size'in en önemli avantajlarından biri:
+
+           writing-mode değiştiğinde
+           fiziksel width yerine
+           inline eksenini takip eder.
+        */
+
+        .vertical {
+            writing-mode: vertical-rl;
+
+            block-size: 250px;
+        }
+
+        .vertical .item {
+            inline-size: 150px;
+        }
+
+
+        /* ==================================================
+           24. RTL
+           ==================================================
+
+           RTL'de inline yönü değişir.
+
+           inline-size bundan etkilenmez;
+           çünkü yön değil, inline ekseninin
+           boyutunu belirler.
+        */
+
+        .rtl {
+            direction: rtl;
+        }
+
+        .rtl .item {
+            inline-size: 70%;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. AUTO
+         ================================================== -->
+
+    <h2>1. inline-size: auto</h2>
+
+    <div class="container auto">
+        <div class="item">
+            Auto boyut
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         2. PX
+         ================================================== -->
+
+    <h2>2. inline-size: 200px</h2>
+
+    <div class="container px">
+        <div class="item">
+            200px
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         3. PERCENT
+         ================================================== -->
+
+    <h2>3. inline-size: 50%</h2>
+
+    <div class="container percent">
+        <div class="item">
+            %50
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         4. VW
+         ================================================== -->
+
+    <h2>4. inline-size: 50vw</h2>
+
+    <div class="container vw">
+        <div class="item">
+            50vw
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         5. REM
+         ================================================== -->
+
+    <h2>5. inline-size: 20rem</h2>
+
+    <div class="container rem">
+        <div class="item">
+            20rem
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         6. MIN-CONTENT
+         ================================================== -->
+
+    <h2>6. inline-size: min-content</h2>
+
+    <div class="container min-content">
+        <div class="item">
+            Minimum Content
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         7. MAX-CONTENT
+         ================================================== -->
+
+    <h2>7. inline-size: max-content</h2>
+
+    <div class="container max-content">
+        <div class="item">
+            Maximum Content
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         8. FIT-CONTENT
+         ================================================== -->
+
+    <h2>8. inline-size: fit-content</h2>
+
+    <div class="container fit-content">
+        <div class="item">
+            Fit Content
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         9. FIT-CONTENT LIMIT
+         ================================================== -->
+
+    <h2>9. inline-size: fit-content(300px)</h2>
+
+    <div class="container fit-limit">
+        <div class="item">
+            Fit Content Limit
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         10. MIN()
+         ================================================== -->
+
+    <h2>10. inline-size: min()</h2>
+
+    <div class="container min">
+        <div class="item">
+            min()
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         11. MAX()
+         ================================================== -->
+
+    <h2>11. inline-size: max()</h2>
+
+    <div class="container max">
+        <div class="item">
+            max()
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         12. CLAMP()
+         ================================================== -->
+
+    <h2>12. inline-size: clamp()</h2>
+
+    <div class="container clamp">
+        <div class="item">
+            clamp()
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         13. CALC()
+         ================================================== -->
+
+    <h2>13. inline-size: calc()</h2>
+
+    <div class="container calc">
+        <div class="item">
+            calc()
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         14. 100%
+         ================================================== -->
+
+    <h2>14. inline-size: 100%</h2>
+
+    <div class="container full">
+        <div class="item">
+            Full Width
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         15. BOX-SIZING
+         ================================================== -->
+
+    <h2>15. inline-size + box-sizing</h2>
+
+    <div class="container box-sizing">
+        <div class="item">
+            Border Box
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         16. MIN-INLINE-SIZE
+         ================================================== -->
+
+    <h2>16. min-inline-size</h2>
+
+    <div class="container minimum">
+        <div class="item">
+            Minimum
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         17. MAX-INLINE-SIZE
+         ================================================== -->
+
+    <h2>17. max-inline-size</h2>
+
+    <div class="container maximum">
+        <div class="item">
+            Maximum
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         18. MIN + MAX
+         ================================================== -->
+
+    <h2>18. min-inline-size + max-inline-size</h2>
+
+    <div class="container min-max">
+        <div class="item">
+            Min + Max
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         19. CONTENT
+         ================================================== -->
+
+    <h2>19. Gerçek Proje → Content</h2>
+
+    <div class="container">
+        <div class="item content">
+            İçerik alanı maksimum 700px olur.
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         20. CARD
+         ================================================== -->
+
+    <h2>20. Gerçek Proje → Card</h2>
+
+    <div class="container">
+
+        <div class="item card">
+            Responsive Card
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         21. FORM
+         ================================================== -->
+
+    <h2>21. Gerçek Proje → Form Input</h2>
+
+    <div class="container">
+
+        <input class="form-input" placeholder="Adınızı girin">
+
+    </div>
+
+
+    <!-- ==================================================
+         22. SIDEBAR
+         ================================================== -->
+
+    <h2>22. Gerçek Proje → Sidebar</h2>
+
+    <div class="container">
+
+        <div class="item sidebar">
+            Sidebar
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         23. VERTICAL WRITING
+         ================================================== -->
+
+    <h2>23. writing-mode: vertical-rl</h2>
+
+    <div class="container vertical">
+
+        <div class="item">
+            Vertical
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         24. RTL
+         ================================================== -->
+
+    <h2>24. RTL</h2>
+
+    <div class="container rtl">
+
+        <div class="item">
+            RTL Content
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

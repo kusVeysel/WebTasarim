@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS image-* Tüm Özellikler</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+
+            min-height: 180px;
+
+            margin-bottom: 25px;
+            padding: 25px;
+
+            border: 3px solid black;
+        }
+
+        .item {
+            width: 160px;
+            height: 120px;
+
+            border-radius: 15px;
+
+            background-image:
+                url("https://picsum.photos/500/300");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+
+        /* ==================================================
+           1. image-rendering
+           ==================================================
+
+           Görsel yeniden boyutlandırılırken
+           tarayıcının görüntüyü nasıl işleyeceğini
+           belirler.
+
+           auto
+           → Tarayıcı uygun yöntemi seçer.
+
+           smooth
+           → Daha yumuşak görüntü.
+
+           crisp-edges
+           → Keskin kenarları korumaya çalışır.
+
+           pixelated
+           → Piksel görünümünü korumaya çalışır.
+
+           Özellikle pixel art / oyun grafiklerinde
+           kullanışlıdır.
+        */
+
+        .render-auto .item {
+            image-rendering: auto;
+        }
+
+
+        /* ==================================================
+           2. image-rendering: SMOOTH
+           ==================================================
+
+           Görüntünün daha yumuşak görünmesini ister.
+
+           Modern tarayıcı desteği bağlama göre
+           değişebilir.
+        */
+
+        .render-smooth .item {
+            image-rendering: smooth;
+        }
+
+
+        /* ==================================================
+           3. image-rendering: CRISP-EDGES
+           ==================================================
+
+           Kenarların mümkün olduğunca keskin
+           kalmasını ister.
+        */
+
+        .render-crisp .item {
+            image-rendering: crisp-edges;
+        }
+
+
+        /* ==================================================
+           4. image-rendering: PIXELATED
+           ==================================================
+
+           Küçük bir görsel büyütülürken
+           pikselli görünümü korumaya yarar.
+
+           Pixel-art için kullanışlıdır.
+        */
+
+        .render-pixelated .item {
+            image-rendering: pixelated;
+
+            width: 250px;
+            height: 250px;
+
+            background-image:
+                url("https://picsum.photos/50");
+        }
+
+
+        /* ==================================================
+           5. image-orientation
+           ==================================================
+
+           Görüntünün EXIF yön bilgisinin
+           nasıl değerlendirileceğini kontrol eder.
+
+           from-image
+           → Görselin kendi EXIF yönünü kullanır.
+
+           none
+           → EXIF yönlendirmesini dikkate almaz.
+
+           NOT:
+
+           Bu özellik günlük web tasarımında
+           çok sık kullanılmaz.
+        */
+
+        .orientation .item {
+            image-orientation: from-image;
+        }
+
+
+        /* ==================================================
+           6. image-orientation: NONE
+           ==================================================
+
+           Görselin metadata içindeki yön bilgisini
+           dikkate almamaya çalışır.
+        */
+
+        .orientation-none .item {
+            image-orientation: none;
+        }
+
+
+        /* ==================================================
+           7. image-resolution
+           ==================================================
+
+           Görselin çözünürlük değerini belirlemek için
+           kullanılan CSS özelliğidir.
+
+           Ancak modern web geliştirmede
+           kullanımı oldukça sınırlıdır.
+
+           1dppx
+           → 1 device pixel per CSS pixel
+
+           2dppx
+           → 2 device pixel per CSS pixel
+        */
+
+        .resolution .item {
+            image-resolution: 1dppx;
+        }
+
+
+        /* ==================================================
+           8. image-resolution: 2dppx
+           ==================================================
+
+           Görselin çözünürlük değerini
+           2dppx olarak belirtir.
+
+           Özellikle baskı / özel görüntü işleme
+           senaryolarında karşılaşılabilir.
+        */
+
+        .resolution-2x .item {
+            image-resolution: 2dppx;
+        }
+
+
+        /* ==================================================
+           9. image-resolution + FROM-IMAGE
+           ==================================================
+
+           Görselin kendi çözünürlük bilgisini
+           kullanmaya çalışır.
+
+           from-image
+           → Görselin metadata bilgisini kullan.
+        */
+
+        .resolution-image .item {
+            image-resolution: from-image;
+        }
+
+
+        /* ==================================================
+           10. image-resolution + SNAP
+           ==================================================
+
+           Çözünürlüğün cihaz piksel oranına
+           göre ayarlanmasını sağlar.
+
+           snap
+           → Çözünürlüğü uygun cihaz piksel
+             oranına yaklaştırır.
+
+           Kullanımı oldukça nadirdir.
+        */
+
+        .resolution-snap .item {
+            image-resolution:
+                1dppx snap;
+        }
+
+
+        /* ==================================================
+           11. image-resolution: FROM-IMAGE + SNAP
+           ==================================================
+
+           Görselin kendi çözünürlüğünü temel alır
+           ve cihaz piksel oranına göre ayarlar.
+        */
+
+        .resolution-combined .item {
+            image-resolution:
+                from-image snap;
+        }
+
+
+        /* ==================================================
+           12. GERÇEK PROJE:
+           PIXEL ART
+           ==================================================
+
+           image-rendering'in en mantıklı
+           kullanım alanlarından biridir.
+        */
+
+        .pixel-art .item {
+            width: 240px;
+            height: 240px;
+
+            image-rendering: pixelated;
+
+            background-image:
+                url("https://picsum.photos/60");
+        }
+
+
+        /* ==================================================
+           13. GERÇEK PROJE:
+           CANVAS / GAME
+           ==================================================
+
+           Pixel tabanlı oyunlarda
+           benzer kullanım görülebilir.
+        */
+
+        .game .item {
+            width: 250px;
+            height: 180px;
+
+            image-rendering: pixelated;
+
+            background-image:
+                url("https://picsum.photos/80/60");
+
+            background-size: cover;
+        }
+
+
+        /* ==================================================
+           14. GERÇEK PROJE:
+           NORMAL FOTOĞRAF
+           ==================================================
+
+           Fotoğraflarda genellikle
+           auto tercih edilir.
+        */
+
+        .photo .item {
+            image-rendering: auto;
+        }
+
+
+        /* ==================================================
+           15. IMAGE RENDERING + SCALE
+           ==================================================
+
+           Görsel büyütülürken pixelated kullanımı.
+        */
+
+        .scale .item {
+            width: 300px;
+            height: 300px;
+
+            image-rendering: pixelated;
+
+            background-size: 80px 80px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. IMAGE-RENDERING: AUTO
+         ================================================== -->
+
+    <h2>1. image-rendering: auto</h2>
+
+    <div class="container render-auto">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         2. IMAGE-RENDERING: SMOOTH
+         ================================================== -->
+
+    <h2>2. image-rendering: smooth</h2>
+
+    <div class="container render-smooth">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         3. IMAGE-RENDERING: CRISP-EDGES
+         ================================================== -->
+
+    <h2>3. image-rendering: crisp-edges</h2>
+
+    <div class="container render-crisp">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         4. IMAGE-RENDERING: PIXELATED
+         ================================================== -->
+
+    <h2>4. image-rendering: pixelated</h2>
+
+    <div class="container render-pixelated">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         5. IMAGE-ORIENTATION: FROM-IMAGE
+         ================================================== -->
+
+    <h2>5. image-orientation: from-image</h2>
+
+    <div class="container orientation">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         6. IMAGE-ORIENTATION: NONE
+         ================================================== -->
+
+    <h2>6. image-orientation: none</h2>
+
+    <div class="container orientation-none">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         7. IMAGE-RESOLUTION
+         ================================================== -->
+
+    <h2>7. image-resolution: 1dppx</h2>
+
+    <div class="container resolution">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         8. IMAGE-RESOLUTION: 2DPPX
+         ================================================== -->
+
+    <h2>8. image-resolution: 2dppx</h2>
+
+    <div class="container resolution-2x">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         9. IMAGE-RESOLUTION: FROM-IMAGE
+         ================================================== -->
+
+    <h2>9. image-resolution: from-image</h2>
+
+    <div class="container resolution-image">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         10. IMAGE-RESOLUTION: SNAP
+         ================================================== -->
+
+    <h2>10. image-resolution: 1dppx snap</h2>
+
+    <div class="container resolution-snap">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         11. FROM-IMAGE + SNAP
+         ================================================== -->
+
+    <h2>11. image-resolution: from-image snap</h2>
+
+    <div class="container resolution-combined">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         12. PIXEL ART
+         ================================================== -->
+
+    <h2>12. Gerçek Proje → Pixel Art</h2>
+
+    <div class="container pixel-art">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         13. GAME
+         ================================================== -->
+
+    <h2>13. Gerçek Proje → Game</h2>
+
+    <div class="container game">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         14. PHOTO
+         ================================================== -->
+
+    <h2>14. Gerçek Proje → Normal Fotoğraf</h2>
+
+    <div class="container photo">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         15. SCALE
+         ================================================== -->
+
+    <h2>15. Gerçek Proje → Image Scale</h2>
+
+    <div class="container scale">
+        <div class="item"></div>
+    </div>
+
+
+</body>
+
+</html>

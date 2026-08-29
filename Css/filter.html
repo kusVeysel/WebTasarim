@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Filter Tüm Değerler</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            min-height: 150px;
+
+            margin-bottom: 20px;
+            padding: 20px;
+
+            border: 3px solid black;
+        }
+
+        .item {
+            width: 100px;
+            height: 100px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: steelblue;
+            color: white;
+
+            border-radius: 15px;
+
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           1. filter: none
+           ==================================================
+
+           Herhangi bir filtre uygulanmaz.
+
+           Varsayılan değerdir.
+        */
+
+        .none .item {
+            filter: none;
+        }
+
+
+        /* ==================================================
+           2. filter: blur()
+           ==================================================
+
+           Öğeyi bulanıklaştırır.
+
+           0
+           → Bulanıklık yok
+
+           5px
+           → Hafif bulanıklık
+
+           15px
+           → Güçlü bulanıklık
+        */
+
+        .blur .item {
+            filter: blur(5px);
+        }
+
+
+        /* ==================================================
+           3. filter: brightness()
+           ==================================================
+
+           Parlaklığı değiştirir.
+
+           0
+           → Tamamen siyah
+
+           0.5
+           → Daha karanlık
+
+           1
+           → Normal
+
+           2
+           → 2 kat parlak
+        */
+
+        .brightness .item {
+            filter: brightness(1.5);
+        }
+
+
+        /* ==================================================
+           4. filter: contrast()
+           ==================================================
+
+           Kontrastı değiştirir.
+
+           0
+           → Gri
+
+           1
+           → Normal
+
+           2
+           → 2 kat kontrast
+        */
+
+        .contrast .item {
+            filter: contrast(2);
+        }
+
+
+        /* ==================================================
+           5. filter: grayscale()
+           ==================================================
+
+           Renkleri gri tonlarına dönüştürür.
+
+           0
+           → Normal renk
+
+           0.5
+           → %50 gri
+
+           1
+           → Tamamen gri
+        */
+
+        .grayscale .item {
+            filter: grayscale(1);
+        }
+
+
+        /* ==================================================
+           6. filter: sepia()
+           ==================================================
+
+           Eski fotoğraf görünümü verir.
+
+           0
+           → Normal
+
+           1
+           → Tam sepia
+        */
+
+        .sepia .item {
+            filter: sepia(1);
+        }
+
+
+        /* ==================================================
+           7. filter: saturate()
+           ==================================================
+
+           Renklerin yoğunluğunu değiştirir.
+
+           0
+           → Renksiz
+
+           1
+           → Normal
+
+           2
+           → 2 kat doygun
+        */
+
+        .saturate .item {
+            filter: saturate(2);
+        }
+
+
+        /* ==================================================
+           8. filter: hue-rotate()
+           ==================================================
+
+           Renk tonlarını döndürür.
+
+           0deg
+           → Normal
+
+           90deg
+           → Renk tonunu 90° döndür
+
+           180deg
+           → Karşı renkler
+        */
+
+        .hue .item {
+            filter: hue-rotate(180deg);
+        }
+
+
+        /* ==================================================
+           9. filter: invert()
+           ==================================================
+
+           Renkleri tersine çevirir.
+
+           0
+           → Normal
+
+           0.5
+           → %50 ters
+
+           1
+           → Tam ters renk
+        */
+
+        .invert .item {
+            filter: invert(1);
+        }
+
+
+        /* ==================================================
+           10. filter: opacity()
+           ==================================================
+
+           Saydamlık uygular.
+
+           0
+           → Tamamen şeffaf
+
+           0.5
+           → %50 görünür
+
+           1
+           → Tamamen görünür
+        */
+
+        .opacity .item {
+            filter: opacity(0.5);
+        }
+
+
+        /* ==================================================
+           11. filter: drop-shadow()
+           ==================================================
+
+           Öğenin şeklini takip eden gölge oluşturur.
+
+           Yapı:
+
+           drop-shadow(
+               x
+               y
+               blur
+               color
+           )
+        */
+
+        .drop-shadow .item {
+            filter:
+                drop-shadow(10px 10px 10px gray);
+        }
+
+
+        /* ==================================================
+           12. BİRDEN FAZLA FILTER
+           ==================================================
+
+           Birden fazla filtre
+           aynı anda kullanılabilir.
+
+           Filtreler soldan sağa uygulanır.
+        */
+
+        .multiple .item {
+            filter:
+                brightness(1.2) contrast(1.3) saturate(1.5);
+        }
+
+
+        /* ==================================================
+           13. FILTER + HOVER
+           ==================================================
+
+           Gerçek projelerde çok kullanılır.
+
+           Hover olduğunda renkli hale getirir.
+        */
+
+        .hover .item {
+            filter: grayscale(1);
+
+            transition: filter 0.3s ease;
+        }
+
+        .hover .item:hover {
+            filter: grayscale(0);
+        }
+
+
+        /* ==================================================
+           14. FILTER + HOVER PARLAKLIK
+           ================================================== */
+
+        .hover-bright .item {
+            filter: brightness(0.7);
+
+            transition: filter 0.3s ease;
+        }
+
+        .hover-bright .item:hover {
+            filter: brightness(1.2);
+        }
+
+
+        /* ==================================================
+           15. GERÇEK PROJE:
+           FOTOĞRAF SİYAH-BEYAZ
+           ================================================== */
+
+        .photo .item {
+            background: url("https://picsum.photos/200");
+
+            background-size: cover;
+            background-position: center;
+
+            filter: grayscale(1);
+
+            transition: filter 0.3s ease;
+        }
+
+        .photo .item:hover {
+            filter: grayscale(0);
+        }
+
+
+        /* ==================================================
+           16. GERÇEK PROJE:
+           DARKEN
+           ================================================== */
+
+        .darken .item {
+            filter: brightness(0.6);
+        }
+
+
+        /* ==================================================
+           17. GERÇEK PROJE:
+           GLOW
+           ================================================== */
+
+        .glow .item {
+            filter:
+                drop-shadow(0 0 10px steelblue);
+        }
+
+
+        /* ==================================================
+           18. GERÇEK PROJE:
+           IMAGE EFFECT
+           ================================================== */
+
+        .image-effect .item {
+            filter:
+                brightness(1.1) contrast(1.1) saturate(1.2);
+        }
+
+
+        /* ==================================================
+           19. GERÇEK PROJE:
+           DISABLED GÖRÜNÜMÜ
+           ================================================== */
+
+        .disabled .item {
+            filter:
+                grayscale(1) opacity(0.5);
+        }
+
+
+        /* ==================================================
+           20. GERÇEK PROJE:
+           BLUR OVERLAY
+           ================================================== */
+
+        .blur-effect .item {
+            filter: blur(2px);
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. NONE
+         ================================================== -->
+
+    <h2>1. filter: none</h2>
+
+    <div class="container none">
+        <div class="item">NONE</div>
+    </div>
+
+
+    <!-- ==================================================
+         2. BLUR
+         ================================================== -->
+
+    <h2>2. filter: blur()</h2>
+
+    <div class="container blur">
+        <div class="item">BLUR</div>
+    </div>
+
+
+    <!-- ==================================================
+         3. BRIGHTNESS
+         ================================================== -->
+
+    <h2>3. filter: brightness()</h2>
+
+    <div class="container brightness">
+        <div class="item">BRIGHT</div>
+    </div>
+
+
+    <!-- ==================================================
+         4. CONTRAST
+         ================================================== -->
+
+    <h2>4. filter: contrast()</h2>
+
+    <div class="container contrast">
+        <div class="item">CONTRAST</div>
+    </div>
+
+
+    <!-- ==================================================
+         5. GRAYSCALE
+         ================================================== -->
+
+    <h2>5. filter: grayscale()</h2>
+
+    <div class="container grayscale">
+        <div class="item">GRAY</div>
+    </div>
+
+
+    <!-- ==================================================
+         6. SEPIA
+         ================================================== -->
+
+    <h2>6. filter: sepia()</h2>
+
+    <div class="container sepia">
+        <div class="item">SEPIA</div>
+    </div>
+
+
+    <!-- ==================================================
+         7. SATURATE
+         ================================================== -->
+
+    <h2>7. filter: saturate()</h2>
+
+    <div class="container saturate">
+        <div class="item">COLOR</div>
+    </div>
+
+
+    <!-- ==================================================
+         8. HUE ROTATE
+         ================================================== -->
+
+    <h2>8. filter: hue-rotate()</h2>
+
+    <div class="container hue">
+        <div class="item">HUE</div>
+    </div>
+
+
+    <!-- ==================================================
+         9. INVERT
+         ================================================== -->
+
+    <h2>9. filter: invert()</h2>
+
+    <div class="container invert">
+        <div class="item">INVERT</div>
+    </div>
+
+
+    <!-- ==================================================
+         10. OPACITY
+         ================================================== -->
+
+    <h2>10. filter: opacity()</h2>
+
+    <div class="container opacity">
+        <div class="item">OPACITY</div>
+    </div>
+
+
+    <!-- ==================================================
+         11. DROP SHADOW
+         ================================================== -->
+
+    <h2>11. filter: drop-shadow()</h2>
+
+    <div class="container drop-shadow">
+        <div class="item">SHADOW</div>
+    </div>
+
+
+    <!-- ==================================================
+         12. MULTIPLE FILTER
+         ================================================== -->
+
+    <h2>12. Birden Fazla Filter</h2>
+
+    <div class="container multiple">
+        <div class="item">MULTIPLE</div>
+    </div>
+
+
+    <!-- ==================================================
+         13. HOVER
+         ================================================== -->
+
+    <h2>13. Filter + Hover</h2>
+
+    <div class="container hover">
+        <div class="item">HOVER</div>
+    </div>
+
+
+    <!-- ==================================================
+         14. HOVER BRIGHTNESS
+         ================================================== -->
+
+    <h2>14. Filter + Hover Brightness</h2>
+
+    <div class="container hover-bright">
+        <div class="item">HOVER</div>
+    </div>
+
+
+    <!-- ==================================================
+         15. PHOTO
+         ================================================== -->
+
+    <h2>15. Gerçek Proje → Siyah-Beyaz Fotoğraf</h2>
+
+    <div class="container photo">
+        <div class="item"></div>
+    </div>
+
+
+    <!-- ==================================================
+         16. DARKEN
+         ================================================== -->
+
+    <h2>16. Gerçek Proje → Darken</h2>
+
+    <div class="container darken">
+        <div class="item">DARK</div>
+    </div>
+
+
+    <!-- ==================================================
+         17. GLOW
+         ================================================== -->
+
+    <h2>17. Gerçek Proje → Glow</h2>
+
+    <div class="container glow">
+        <div class="item">GLOW</div>
+    </div>
+
+
+    <!-- ==================================================
+         18. IMAGE EFFECT
+         ================================================== -->
+
+    <h2>18. Gerçek Proje → Image Effect</h2>
+
+    <div class="container image-effect">
+        <div class="item">IMAGE</div>
+    </div>
+
+
+    <!-- ==================================================
+         19. DISABLED
+         ================================================== -->
+
+    <h2>19. Gerçek Proje → Disabled</h2>
+
+    <div class="container disabled">
+        <div class="item">DISABLED</div>
+    </div>
+
+
+    <!-- ==================================================
+         20. BLUR EFFECT
+         ================================================== -->
+
+    <h2>20. Gerçek Proje → Blur</h2>
+
+    <div class="container blur-effect">
+        <div class="item">BLUR</div>
+    </div>
+
+
+</body>
+
+</html>

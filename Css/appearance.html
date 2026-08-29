@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS appearance - Tüm Değerler</title>
+
+  <style>
+
+    /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      margin-bottom: 30px;
+      padding: 25px;
+
+      border: 3px solid black;
+    }
+
+
+    /* ==================================================
+       1. appearance: auto
+       ==================================================
+
+       Tarayıcının element için normal görünümünü kullanır.
+
+       Yani input, button, select gibi elementler
+       işletim sistemi/tarayıcı tarafından verilen
+       varsayılan görünüme sahip olur.
+    */
+
+    .auto {
+      appearance: auto;
+    }
+
+
+    /* ==================================================
+       2. appearance: none
+       ==================================================
+
+       Elementin varsayılan tarayıcı görünümünü kaldırır.
+
+       Böylece elementi CSS ile tamamen kendimiz
+       tasarlayabiliriz.
+
+       Özellikle:
+       - button
+       - input
+       - select
+       - checkbox
+       - radio
+       gibi elementlerde kullanışlıdır.
+    */
+
+    .none {
+      appearance: none;
+
+      width: 100px;
+      height: 40px;
+
+      background: steelblue;
+      border: 0;
+      border-radius: 10px;
+
+      cursor: pointer;
+    }
+
+
+    /* ==================================================
+       3. appearance: base-select
+       ==================================================
+
+       Select elementinin yeni temel select
+       görünümünü kullanmasını sağlar.
+
+       Modern CSS özelliğidir ve tarayıcı desteği
+       diğer değerlere göre daha sınırlı olabilir.
+    */
+
+    .base-select {
+      appearance: base-select;
+
+      padding: 10px;
+      border: 2px solid black;
+      border-radius: 8px;
+    }
+
+
+    /* ==================================================
+       ÖRNEK: appearance: auto
+       ================================================== */
+
+    .auto-button {
+      appearance: auto;
+
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+
+    /* ==================================================
+       ÖRNEK: appearance: none
+       ==================================================
+
+       Varsayılan checkbox görünümünü kaldırıp
+       kendi tasarımımızı oluşturuyoruz.
+    */
+
+    .custom-checkbox {
+      appearance: none;
+
+      width: 25px;
+      height: 25px;
+
+      border: 2px solid black;
+      border-radius: 5px;
+
+      cursor: pointer;
+    }
+
+    .custom-checkbox:checked {
+      background: steelblue;
+    }
+
+
+    /* ==================================================
+       ÖZEL ÖRNEK
+       ==================================================
+
+       appearance: none ile tamamen kendi
+       buton tasarımımızı oluşturabiliriz.
+    */
+
+    .custom-button {
+      appearance: none;
+
+      padding: 12px 25px;
+
+      border: 0;
+      border-radius: 10px;
+
+      background: steelblue;
+      color: white;
+
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .custom-button:hover {
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- ==================================================
+       1. appearance: auto
+       ================================================== -->
+
+  <h2>1. appearance: auto</h2>
+
+  <div class="container auto">
+
+    <button class="auto-button">
+      Normal Button
+    </button>
+
+    <input type="checkbox">
+
+    <select>
+      <option>Option 1</option>
+      <option>Option 2</option>
+    </select>
+
+  </div>
+
+
+  <!-- ==================================================
+       2. appearance: none
+       ================================================== -->
+
+  <h2>2. appearance: none</h2>
+
+  <div class="container none">
+
+    <button class="custom-button">
+      Custom Button
+    </button>
+
+  </div>
+
+
+  <!-- ==================================================
+       3. appearance: base-select
+       ================================================== -->
+
+  <h2>3. appearance: base-select</h2>
+
+  <div class="container">
+
+    <select class="base-select">
+      <option>Türkiye</option>
+      <option>Almanya</option>
+      <option>İngiltere</option>
+    </select>
+
+  </div>
+
+
+  <!-- ==================================================
+       ÖZEL CHECKBOX
+       ================================================== -->
+
+  <h2>appearance: none → Custom Checkbox</h2>
+
+  <div class="container">
+
+    <input
+      type="checkbox"
+      class="custom-checkbox"
+    >
+
+    <label>
+      Özel checkbox
+    </label>
+
+  </div>
+
+
+  <!-- ==================================================
+       ÖZEL BUTTON
+       ================================================== -->
+
+  <h2>appearance: none → Custom Button</h2>
+
+  <div class="container">
+
+    <button class="custom-button">
+      Tıkla
+    </button>
+
+  </div>
+
+
+</body>
+</html>

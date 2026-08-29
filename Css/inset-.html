@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS inset-* Tüm Özellikler</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            position: relative;
+
+            height: 150px;
+
+            margin-bottom: 25px;
+            padding: 20px;
+
+            border: 3px solid black;
+
+            overflow: hidden;
+        }
+
+        .item {
+            position: absolute;
+
+            width: 70px;
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: steelblue;
+            color: white;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           1. inset-inline
+           ==================================================
+
+           Elemanın inline yönündeki iki kenarını
+           aynı anda kontrol eder.
+
+           LTR yazı yönünde:
+
+           inset-inline-start → left
+           inset-inline-end   → right
+
+           Örneğin:
+
+           inset-inline: 20px;
+
+           → sol + sağ = 20px
+        */
+
+        .inline .item {
+            inset-inline: 20px;
+
+            width: auto;
+        }
+
+
+        /* ==================================================
+           2. inset-inline: 20px 40px
+           ==================================================
+
+           İlk değer:
+           → inline-start
+
+           İkinci değer:
+           → inline-end
+
+           LTR'de:
+
+           left  = 20px
+           right = 40px
+        */
+
+        .inline-two .item {
+            inset-inline: 20px 40px;
+
+            width: auto;
+        }
+
+
+        /* ==================================================
+           3. inset-inline-start
+           ==================================================
+
+           Inline başlangıç tarafını belirler.
+
+           LTR:
+           → left
+
+           RTL:
+           → right
+
+           Bu yüzden left yerine kullanılabilir.
+        */
+
+        .inline-start .item {
+            inset-inline-start: 20px;
+        }
+
+
+        /* ==================================================
+           4. inset-inline-end
+           ==================================================
+
+           Inline bitiş tarafını belirler.
+
+           LTR:
+           → right
+
+           RTL:
+           → left
+        */
+
+        .inline-end .item {
+            inset-inline-end: 20px;
+        }
+
+
+        /* ==================================================
+           5. inset-block
+           ==================================================
+
+           Elemanın block yönündeki iki kenarını
+           aynı anda kontrol eder.
+
+           Normal yatay yazı düzeninde:
+
+           inset-block-start → top
+           inset-block-end   → bottom
+
+           Örneğin:
+
+           inset-block: 20px;
+
+           → üst + alt = 20px
+        */
+
+        .block .item {
+            inset-block: 20px;
+
+            height: auto;
+        }
+
+
+        /* ==================================================
+           6. inset-block: 20px 40px
+           ==================================================
+
+           İlk değer:
+           → block-start
+
+           İkinci değer:
+           → block-end
+
+           Normal yazı yönünde:
+
+           top    = 20px
+           bottom = 40px
+        */
+
+        .block-two .item {
+            inset-block: 20px 40px;
+
+            height: auto;
+        }
+
+
+        /* ==================================================
+           7. inset-block-start
+           ==================================================
+
+           Block başlangıç tarafını belirler.
+
+           Normal yazı düzeninde:
+           → top
+        */
+
+        .block-start .item {
+            inset-block-start: 20px;
+        }
+
+
+        /* ==================================================
+           8. inset-block-end
+           ==================================================
+
+           Block bitiş tarafını belirler.
+
+           Normal yazı düzeninde:
+           → bottom
+        */
+
+        .block-end .item {
+            inset-block-end: 20px;
+        }
+
+
+        /* ==================================================
+           9. inset-inline + inset-block
+           ==================================================
+
+           Logical positioning özellikleri birlikte
+           kullanılabilir.
+
+           Böylece fiziksel:
+
+           top / right / bottom / left
+
+           yerine mantıksal yönler kullanılır.
+        */
+
+        .logical .item {
+            inset-inline: 20px;
+            inset-block: 20px;
+
+            width: auto;
+            height: auto;
+        }
+
+
+        /* ==================================================
+           10. GERÇEK PROJE:
+           RTL UYUMLU BADGE
+           ==================================================
+
+           inset-inline-end:
+
+           LTR → sağ
+           RTL → sol
+
+           Bu nedenle farklı dil yönlerinde
+           otomatik olarak uyum sağlar.
+        */
+
+        .rtl-badge .item {
+            inset-inline-end: 15px;
+            inset-block-start: 15px;
+        }
+
+
+        /* ==================================================
+           11. GERÇEK PROJE:
+           RESPONSIVE CARD
+           ==================================================
+
+           Logical inset kullanarak
+           kartın iki yönden boşluklarını ayarlamak.
+        */
+
+        .responsive .item {
+            inset-inline: clamp(10px, 5vw, 40px);
+            inset-block: 15px;
+
+            width: auto;
+            height: auto;
+        }
+
+
+        /* ==================================================
+           12. GERÇEK PROJE:
+           FULL OVERLAY
+           ==================================================
+
+           Logical değerlerle bir elementi
+           bulunduğu alanın tamamına yaymak.
+        */
+
+        .overlay .item {
+            inset-inline: 0;
+            inset-block: 0;
+
+            width: auto;
+            height: auto;
+
+            border-radius: 0;
+
+            opacity: .35;
+        }
+
+
+        /* ==================================================
+           13. WRITING-MODE
+           ==================================================
+
+           Logical inset özelliklerinin avantajını
+           göstermek için farklı writing-mode.
+
+           vertical-rl:
+
+           block ve inline yönleri değişir.
+        */
+
+        .vertical {
+            writing-mode: vertical-rl;
+        }
+
+        .vertical .item {
+            inset-inline-start: 20px;
+            inset-block-start: 20px;
+        }
+
+
+        /* ==================================================
+           14. RTL
+           ==================================================
+
+           direction: rtl;
+
+           Logical inset yönleri otomatik olarak
+           yazı yönüne uyum sağlar.
+        */
+
+        .rtl {
+            direction: rtl;
+        }
+
+        .rtl .item {
+            inset-inline-start: 20px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. inset-inline
+         ================================================== -->
+
+    <h2>1. inset-inline</h2>
+
+    <div class="container inline">
+        <div class="item">1</div>
+    </div>
+
+
+    <!-- ==================================================
+         2. inset-inline İKİ DEĞER
+         ================================================== -->
+
+    <h2>2. inset-inline: 20px 40px</h2>
+
+    <div class="container inline-two">
+        <div class="item">2</div>
+    </div>
+
+
+    <!-- ==================================================
+         3. inset-inline-start
+         ================================================== -->
+
+    <h2>3. inset-inline-start</h2>
+
+    <div class="container inline-start">
+        <div class="item">3</div>
+    </div>
+
+
+    <!-- ==================================================
+         4. inset-inline-end
+         ================================================== -->
+
+    <h2>4. inset-inline-end</h2>
+
+    <div class="container inline-end">
+        <div class="item">4</div>
+    </div>
+
+
+    <!-- ==================================================
+         5. inset-block
+         ================================================== -->
+
+    <h2>5. inset-block</h2>
+
+    <div class="container block">
+        <div class="item">5</div>
+    </div>
+
+
+    <!-- ==================================================
+         6. inset-block İKİ DEĞER
+         ================================================== -->
+
+    <h2>6. inset-block: 20px 40px</h2>
+
+    <div class="container block-two">
+        <div class="item">6</div>
+    </div>
+
+
+    <!-- ==================================================
+         7. inset-block-start
+         ================================================== -->
+
+    <h2>7. inset-block-start</h2>
+
+    <div class="container block-start">
+        <div class="item">7</div>
+    </div>
+
+
+    <!-- ==================================================
+         8. inset-block-end
+         ================================================== -->
+
+    <h2>8. inset-block-end</h2>
+
+    <div class="container block-end">
+        <div class="item">8</div>
+    </div>
+
+
+    <!-- ==================================================
+         9. LOGICAL
+         ================================================== -->
+
+    <h2>9. inset-inline + inset-block</h2>
+
+    <div class="container logical">
+        <div class="item">9</div>
+    </div>
+
+
+    <!-- ==================================================
+         10. RTL BADGE
+         ================================================== -->
+
+    <h2>10. Gerçek Proje → RTL Uyumlu Badge</h2>
+
+    <div class="container rtl-badge">
+        <div class="item">10</div>
+    </div>
+
+
+    <!-- ==================================================
+         11. RESPONSIVE
+         ================================================== -->
+
+    <h2>11. Gerçek Proje → Responsive</h2>
+
+    <div class="container responsive">
+        <div class="item">11</div>
+    </div>
+
+
+    <!-- ==================================================
+         12. OVERLAY
+         ================================================== -->
+
+    <h2>12. Gerçek Proje → Full Overlay</h2>
+
+    <div class="container overlay">
+        <div class="item">12</div>
+    </div>
+
+
+    <!-- ==================================================
+         13. VERTICAL WRITING
+         ================================================== -->
+
+    <h2>13. Gerçek Proje → Vertical Writing</h2>
+
+    <div class="container vertical">
+        <div class="item">13</div>
+    </div>
+
+
+    <!-- ==================================================
+         14. RTL
+         ================================================== -->
+
+    <h2>14. Gerçek Proje → RTL</h2>
+
+    <div class="container rtl">
+        <div class="item">14</div>
+    </div>
+
+
+</body>
+
+</html>

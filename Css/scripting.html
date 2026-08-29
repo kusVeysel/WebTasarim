@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS scripting - Full</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f4f4;
+        }
+
+        h2 {
+            margin-top: 50px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+
+            margin-bottom: 35px;
+            padding: 30px;
+
+            border: 3px solid black;
+            border-radius: 20px;
+
+            background: white;
+        }
+
+        .box {
+            padding: 25px;
+
+            border-radius: 15px;
+
+            background: steelblue;
+            color: white;
+
+            font-size: 20px;
+
+            text-align: center;
+        }
+
+
+        /* ==================================================
+           1. scripting: enabled
+           ==================================================
+
+           Kullanıcının ortamında scripting
+           etkinse bu CSS uygulanır.
+
+           Örneğin JavaScript'in çalışabildiği
+           normal bir tarayıcı ortamında.
+
+        */
+
+        @media (scripting: enabled) {
+
+            .enabled {
+                background: green;
+            }
+
+        }
+
+
+        /* ==================================================
+           2. scripting: none
+           ==================================================
+
+           Scripting mekanizması kullanılamıyorsa
+           bu CSS uygulanır.
+
+           Örneğin JavaScript'in bulunmadığı/
+           çalıştırılamadığı bir ortam.
+
+        */
+
+        @media (scripting: none) {
+
+            .no-script {
+                background: crimson;
+            }
+
+        }
+
+
+        /* ==================================================
+           3. scripting: initial-only
+           ==================================================
+
+           Scripting yalnızca dokümanın ilk
+           yüklenmesi sırasında çalıştırılabiliyorsa
+           bu değer eşleşir.
+
+           Bu değer özellikle bazı özel
+           tarayıcı/ortam davranışları için
+           önemlidir.
+
+        */
+
+        @media (scripting: initial-only) {
+
+            .initial-only {
+                background: orange;
+            }
+
+        }
+
+
+        /* ==================================================
+           4. JavaScript aktifse
+           ==================================================
+
+           JavaScript aktif olduğunda
+           normalde gizli olması gereken
+           JS kontrollü UI gösterilebilir.
+
+        */
+
+        .js-only {
+            display: none;
+        }
+
+        @media (scripting: enabled) {
+
+            .js-only {
+                display: block;
+            }
+
+        }
+
+
+        /* ==================================================
+           5. JavaScript yoksa
+           ==================================================
+
+           JS gerektiren UI yerine
+           fallback gösterilebilir.
+
+        */
+
+        .fallback {
+            display: block;
+        }
+
+        @media (scripting: enabled) {
+
+            .fallback {
+                display: none;
+            }
+
+        }
+
+
+        /* ==================================================
+           6. JS gerektiren buton
+           ================================================== */
+
+        .interactive-button {
+            display: none;
+
+            padding: 15px 25px;
+
+            border: 0;
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        @media (scripting: enabled) {
+
+            .interactive-button {
+                display: inline-block;
+            }
+
+        }
+
+
+        /* ==================================================
+           7. Noscript tarzı fallback
+           ================================================== */
+
+        .no-js-message {
+            padding: 20px;
+
+            border: 2px solid black;
+            border-radius: 10px;
+
+            background: #eee;
+        }
+
+        @media (scripting: enabled) {
+
+            .no-js-message {
+                display: none;
+            }
+
+        }
+
+
+        /* ==================================================
+           8. Progressive Enhancement
+           ==================================================
+
+           Temel içerik her durumda görünür.
+
+           JavaScript varsa gelişmiş UI aktifleşir.
+        */
+
+        .advanced-ui {
+            display: none;
+        }
+
+        @media (scripting: enabled) {
+
+            .advanced-ui {
+                display: flex;
+
+                gap: 15px;
+
+                justify-content: center;
+            }
+
+        }
+
+
+        /* ==================================================
+           9. CSS + JS birlikte çalışan navigation
+           ================================================== */
+
+        .menu {
+            padding: 20px;
+
+            border-radius: 15px;
+
+            background: #ddd;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        @media (scripting: enabled) {
+
+            .menu-toggle {
+                display: inline-block;
+            }
+
+        }
+
+
+        /* ==================================================
+           10. JS kontrollü modal
+           ================================================== */
+
+        .modal-trigger {
+            display: none;
+        }
+
+        @media (scripting: enabled) {
+
+            .modal-trigger {
+                display: inline-block;
+            }
+
+        }
+
+
+        /* ==================================================
+           11. JS kontrollü loading UI
+           ================================================== */
+
+        .js-loading {
+            display: none;
+
+            padding: 20px;
+
+            text-align: center;
+        }
+
+        @media (scripting: enabled) {
+
+            .js-loading {
+                display: block;
+            }
+
+        }
+
+
+        /* ==================================================
+           12. Form enhancement
+           ================================================== */
+
+        .enhanced-form {
+            display: none;
+        }
+
+        @media (scripting: enabled) {
+
+            .enhanced-form {
+                display: block;
+            }
+
+        }
+
+
+        /* ==================================================
+           13. no-JS form
+           ==================================================
+
+           JavaScript yoksa klasik form gösterilebilir.
+        */
+
+        .normal-form {
+            display: block;
+        }
+
+        @media (scripting: enabled) {
+
+            .normal-form {
+                display: none;
+            }
+
+        }
+
+
+        /* ==================================================
+           14. scripting + hover
+           ==================================================
+
+           JS aktifken farklı interaction
+           davranışları oluşturulabilir.
+        */
+
+        @media (scripting: enabled) {
+
+            .interactive-card {
+                transition:
+                    transform 0.3s ease;
+            }
+
+            .interactive-card:hover {
+                transform:
+                    translateY(-8px);
+            }
+
+        }
+
+
+        /* ==================================================
+           15. scripting + custom UI
+           ================================================== */
+
+        @media (scripting: enabled) {
+
+            .app-interface {
+                border:
+                    3px solid steelblue;
+
+                padding: 25px;
+
+                border-radius: 15px;
+            }
+
+        }
+
+
+        /* ==================================================
+           16. scripting + CSS variables
+           ================================================== */
+
+        :root {
+            --box-padding: 20px;
+        }
+
+        @media (scripting: enabled) {
+
+            .variable-box {
+                padding:
+                    var(--box-padding);
+
+                border:
+                    3px solid steelblue;
+            }
+
+        }
+
+
+        /* ==================================================
+           17. scripting ile feature detection
+           ==================================================
+
+           JavaScript aktifse bir özelliği
+           kullanacak UI hazırlanabilir.
+
+        */
+
+        .js-feature {
+            padding: 20px;
+
+            border-radius: 15px;
+
+            background: #ddd;
+        }
+
+        @media (scripting: enabled) {
+
+            .js-feature {
+                background: steelblue;
+                color: white;
+            }
+
+        }
+
+
+        /* ==================================================
+           18. scripting: enabled + print
+           ==================================================
+
+           @media'ler birbirleriyle birleştirilebilir.
+        */
+
+        @media print and (scripting: enabled) {
+
+            .print-js {
+                display: none;
+            }
+
+        }
+
+
+        /* ==================================================
+           19. NOT: prefers-reduced-motion ile
+           birlikte kullanım
+           ================================================== */
+
+        @media (scripting: enabled) {
+
+            .animated {
+                transition:
+                    transform 0.4s ease;
+            }
+
+        }
+
+        @media (scripting: enabled) and (prefers-reduced-motion: reduce) {
+
+            .animated {
+                transition: none;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. ENABLED
+         ================================================== -->
+
+    <h2>1. scripting: enabled</h2>
+
+    <div class="container">
+
+        <div class="box enabled">
+
+            Scripting etkinse bu stil uygulanır.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         2. NONE
+         ================================================== -->
+
+    <h2>2. scripting: none</h2>
+
+    <div class="container">
+
+        <div class="box no-script">
+
+            Scripting devre dışıysa bu stil uygulanır.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         3. INITIAL-ONLY
+         ================================================== -->
+
+    <h2>3. scripting: initial-only</h2>
+
+    <div class="container">
+
+        <div class="box initial-only">
+
+            Scripting yalnızca başlangıçta
+            çalıştırılıyorsa.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         4. JS ONLY
+         ================================================== -->
+
+    <h2>4. JavaScript varsa göster</h2>
+
+    <div class="container">
+
+        <div class="box js-only">
+
+            JavaScript kontrollü arayüz aktif.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         5. FALLBACK
+         ================================================== -->
+
+    <h2>5. JavaScript yoksa fallback</h2>
+
+    <div class="container">
+
+        <div class="box fallback">
+
+            Bu içerik scripting olmadığında
+            fallback olarak kullanılabilir.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         6. BUTTON
+         ================================================== -->
+
+    <h2>6. JS kontrollü buton</h2>
+
+    <div class="container">
+
+        <button class="interactive-button">
+            JavaScript İşlemi
+        </button>
+
+    </div>
+
+
+    <!-- ==================================================
+         7. NO SCRIPT MESSAGE
+         ================================================== -->
+
+    <h2>7. No-JS mesajı</h2>
+
+    <div class="container">
+
+        <div class="no-js-message">
+
+            JavaScript etkin değilse kullanıcıya
+            alternatif bir mesaj gösterilebilir.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         8. PROGRESSIVE ENHANCEMENT
+         ================================================== -->
+
+    <h2>8. Progressive Enhancement</h2>
+
+    <div class="container">
+
+        <div class="advanced-ui">
+
+            <button>Filtrele</button>
+
+            <button>Sırala</button>
+
+            <button>Arama</button>
+
+        </div>
+
+        <p>
+            Temel içerik JavaScript olmadan da
+            çalışabilecek şekilde hazırlanabilir.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         9. MENU
+         ================================================== -->
+
+    <h2>9. JavaScript kontrollü menü</h2>
+
+    <div class="container">
+
+        <div class="menu">
+
+            Menü içeriği
+
+            <br><br>
+
+            <button class="menu-toggle">
+                Menü Aç / Kapat
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         10. MODAL
+         ================================================== -->
+
+    <h2>10. JavaScript kontrollü modal</h2>
+
+    <div class="container">
+
+        <button class="modal-trigger">
+            Modal Aç
+        </button>
+
+    </div>
+
+
+    <!-- ==================================================
+         11. LOADING
+         ================================================== -->
+
+    <h2>11. JavaScript loading UI</h2>
+
+    <div class="container">
+
+        <div class="js-loading">
+
+            İşleniyor...
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         12. ENHANCED FORM
+         ================================================== -->
+
+    <h2>12. Form enhancement</h2>
+
+    <div class="container">
+
+        <form class="enhanced-form">
+
+            <input type="text" placeholder="Arama">
+
+            <button>
+                Dinamik Ara
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- ==================================================
+         13. NORMAL FORM
+         ================================================== -->
+
+    <h2>13. No-JS normal form</h2>
+
+    <div class="container">
+
+        <form class="normal-form">
+
+            <input type="text" placeholder="Arama">
+
+            <button>
+                Gönder
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- ==================================================
+         14. INTERACTIVE CARD
+         ================================================== -->
+
+    <h2>14. JS destekli interactive UI</h2>
+
+    <div class="container">
+
+        <div class="box interactive-card">
+
+            Interactive Card
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         15. APP INTERFACE
+         ================================================== -->
+
+    <h2>15. Uygulama arayüzü</h2>
+
+    <div class="container">
+
+        <div class="app-interface">
+
+            JavaScript aktif olduğunda
+            uygulama arayüzü olarak
+            geliştirilebilir.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         16. CSS VARIABLES
+         ================================================== -->
+
+    <h2>16. scripting + CSS variables</h2>
+
+    <div class="container">
+
+        <div class="variable-box">
+
+            CSS variable + scripting
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         17. FEATURE UI
+         ================================================== -->
+
+    <h2>17. Feature UI</h2>
+
+    <div class="container">
+
+        <div class="js-feature">
+
+            Gelişmiş özellikler için
+            farklı CSS kullanılabilir.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         18. PRINT
+         ================================================== -->
+
+    <h2>18. Print + scripting</h2>
+
+    <div class="container">
+
+        <div class="print-js">
+
+            Ekranda görünür,
+            yazdırmada gizlenebilir.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         19. REDUCED MOTION
+         ================================================== -->
+
+    <h2>19. scripting + prefers-reduced-motion</h2>
+
+    <div class="container">
+
+        <div class="box animated">
+
+            Hareket tercihi de kontrol edilebilir.
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

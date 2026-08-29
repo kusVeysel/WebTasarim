@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS Outline - Tüm Kullanımlar</title>
+
+    <style>
+
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            min-height: 140px;
+
+            margin-bottom: 35px;
+            padding: 30px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: white;
+        }
+
+        .box {
+            width: 180px;
+            min-height: 70px;
+
+            padding: 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 3px solid #333;
+            border-radius: 12px;
+
+            background: steelblue;
+            color: white;
+
+            box-sizing: border-box;
+        }
+
+
+        /* ==================================================
+           outline NEDİR?
+           ==================================================
+
+           outline, elementin dış çevresine çizgi ekler.
+
+           border'a benzer fakat önemli bir farkı vardır:
+
+           border
+           → Elementin kutu modelinin parçasıdır.
+
+           outline
+           → Elementin dış tarafında çizilir.
+           → Normalde elementin boyutunu değiştirmez.
+           → Layout'u etkilemez.
+
+           Örnek:
+
+           outline: 3px solid red;
+        */
+
+
+        /* ==================================================
+           1. outline-style
+           ==================================================
+
+           Outline çizgisinin stilini belirler.
+
+           none
+           hidden
+           dotted
+           dashed
+           solid
+           double
+           groove
+           ridge
+           inset
+           outset
+        */
+
+        .style-none .box {
+            outline-style: none;
+        }
+
+
+        .style-hidden .box {
+            outline-style: hidden;
+        }
+
+
+        .style-dotted .box {
+            outline-style: dotted;
+        }
+
+
+        .style-dashed .box {
+            outline-style: dashed;
+        }
+
+
+        .style-solid .box {
+            outline-style: solid;
+        }
+
+
+        .style-double .box {
+            outline-style: double;
+        }
+
+
+        .style-groove .box {
+            outline-style: groove;
+        }
+
+
+        .style-ridge .box {
+            outline-style: ridge;
+        }
+
+
+        .style-inset .box {
+            outline-style: inset;
+        }
+
+
+        .style-outset .box {
+            outline-style: outset;
+        }
+
+
+        /* ==================================================
+           2. outline-width
+           ==================================================
+
+           Outline çizgisinin kalınlığını belirler.
+
+           thin
+           medium
+           thick
+
+           veya:
+
+           px
+           rem
+           em
+           vb.
+        */
+
+        .width-thin .box {
+            outline-style: solid;
+            outline-width: thin;
+        }
+
+
+        .width-medium .box {
+            outline-style: solid;
+            outline-width: medium;
+        }
+
+
+        .width-thick .box {
+            outline-style: solid;
+            outline-width: thick;
+        }
+
+
+        .width-custom .box {
+            outline-style: solid;
+            outline-width: 6px;
+        }
+
+
+        /* ==================================================
+           3. outline-color
+           ==================================================
+
+           Outline rengini belirler.
+
+           named color
+           hex
+           rgb()
+           rgba()
+           hsl()
+           hsla()
+           oklch()
+           currentColor
+           transparent
+        */
+
+        .color-name .box {
+            outline: 4px solid red;
+        }
+
+
+        .color-hex .box {
+            outline: 4px solid #7c3aed;
+        }
+
+
+        .color-rgb .box {
+            outline: 4px solid rgb(37, 99, 235);
+        }
+
+
+        .color-rgba .box {
+            outline: 4px solid rgba(37, 99, 235, .5);
+        }
+
+
+        .color-hsl .box {
+            outline: 4px solid hsl(280 80% 50%);
+        }
+
+
+        .color-transparent .box {
+            outline: 4px solid transparent;
+        }
+
+
+        .color-current .box {
+            color: crimson;
+
+            outline:
+                4px solid currentColor;
+        }
+
+
+        /* ==================================================
+           4. outline-offset
+           ==================================================
+
+           Outline ile element arasındaki mesafeyi
+           belirler.
+
+           Pozitif değer:
+           → Outline dışarı doğru uzaklaşır.
+
+           Negatif değer:
+           → Outline elemente doğru yaklaşır.
+        */
+
+        .offset-positive .box {
+            outline:
+                4px solid red;
+
+            outline-offset: 10px;
+        }
+
+
+        .offset-small .box {
+            outline:
+                3px solid royalblue;
+
+            outline-offset: 4px;
+        }
+
+
+        .offset-negative .box {
+            outline:
+                4px solid red;
+
+            outline-offset: -8px;
+        }
+
+
+        /* ==================================================
+           5. outline shorthand
+           ==================================================
+
+           Şunları tek satırda belirleyebiliriz:
+
+           outline:
+               width
+               style
+               color;
+        */
+
+        .shorthand .box {
+            outline:
+                5px dashed crimson;
+        }
+
+
+        /* ==================================================
+           6. outline: none
+           ==================================================
+
+           Outline'ı kaldırır.
+
+           Özellikle focus stillerini kendimiz
+           oluştururken kullanılabilir.
+
+           Fakat erişilebilirlik açısından:
+
+           outline: none;
+
+           tek başına kullanılması önerilmez.
+
+           Yerine görünür bir focus göstergesi
+           oluşturulmalıdır.
+        */
+
+        .none .box {
+            outline: none;
+        }
+
+
+        /* ==================================================
+           7. outline: hidden
+           ================================================== */
+
+        .hidden .box {
+            outline:
+                5px hidden red;
+        }
+
+
+        /* ==================================================
+           8. outline + border
+           ==================================================
+
+           Border ve outline aynı anda kullanılabilir.
+
+           border:
+           → Kutunun kendisinin sınırı.
+
+           outline:
+           → Kutunun dışındaki ek çizgi.
+        */
+
+        .border-outline .box {
+            border:
+                4px solid #111827;
+
+            outline:
+                4px solid #ef4444;
+
+            outline-offset: 6px;
+        }
+
+
+        /* ==================================================
+           9. outline + border-radius
+           ==================================================
+
+           Outline çoğu durumda elementin
+           border-radius geometrisini takip eder.
+        */
+
+        .rounded .box {
+            border-radius: 30px;
+
+            outline:
+                5px solid #8b5cf6;
+
+            outline-offset: 6px;
+        }
+
+
+        /* ==================================================
+           10. outline + transparent
+           ==================================================
+
+           Görünür outline'ı sonradan ortaya çıkarmak
+           için kullanılabilir.
+        */
+
+        .transparent-focus .box {
+            outline:
+                3px solid transparent;
+        }
+
+        .transparent-focus .box:hover {
+            outline:
+                3px solid #2563eb;
+
+            outline-offset: 5px;
+        }
+
+
+        /* ==================================================
+           11. :hover + outline
+           ==================================================
+
+           Hover durumunda elementin çevresine
+           çizgi ekleyebiliriz.
+        */
+
+        .hover .box {
+            transition:
+                outline .2s ease,
+                outline-offset .2s ease;
+        }
+
+        .hover .box:hover {
+            outline:
+                4px solid #2563eb;
+
+            outline-offset: 5px;
+        }
+
+
+        /* ==================================================
+           12. :focus
+           ==================================================
+
+           Kullanıcı elemente klavye ile geldiğinde
+           outline göstermek için kullanılır.
+
+           Formlarda özellikle önemlidir.
+        */
+
+        .focus input {
+            padding: 15px;
+
+            border:
+                2px solid #999;
+
+            border-radius: 8px;
+        }
+
+        .focus input:focus {
+            outline:
+                3px solid #2563eb;
+
+            outline-offset: 4px;
+        }
+
+
+        /* ==================================================
+           13. :focus-visible
+           ==================================================
+
+           Modern ve erişilebilir focus kullanımı.
+
+           Özellikle klavye navigasyonunda
+           görünür focus göstergesi oluşturur.
+        */
+
+        .focus-visible button {
+            padding: 15px 25px;
+
+            border: 0;
+            border-radius: 8px;
+
+            background: steelblue;
+            color: white;
+        }
+
+        .focus-visible button:focus-visible {
+            outline:
+                4px solid #f59e0b;
+
+            outline-offset: 5px;
+        }
+
+
+        /* ==================================================
+           14. :focus-within
+           ==================================================
+
+           İçerideki bir element focus olduğunda
+           parent'a outline verebiliriz.
+        */
+
+        .focus-within {
+            display: flex;
+            flex-direction: column;
+
+            gap: 15px;
+        }
+
+        .focus-within:focus-within {
+            outline:
+                4px solid #8b5cf6;
+
+            outline-offset: 6px;
+        }
+
+        .focus-within input {
+            padding: 12px;
+        }
+
+
+        /* ==================================================
+           15. OUTLINE + BOX-SHADOW
+           ==================================================
+
+           İkisi birlikte kullanılarak
+           daha belirgin UI oluşturulabilir.
+        */
+
+        .shadow-outline .box {
+            outline:
+                3px solid #2563eb;
+
+            outline-offset: 5px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, .2);
+        }
+
+
+        /* ==================================================
+           16. OUTLINE + TRANSITION
+           ==================================================
+
+           Outline özelliklerini hover sırasında
+           animasyonlu değiştirebiliriz.
+        */
+
+        .transition .box {
+            outline:
+                2px solid transparent;
+
+            outline-offset: 0;
+
+            transition:
+                outline .3s ease,
+                outline-offset .3s ease;
+        }
+
+        .transition .box:hover {
+            outline:
+                4px solid #ec4899;
+
+            outline-offset: 8px;
+        }
+
+
+        /* ==================================================
+           17. OUTLINE + TRANSFORM
+           ================================================== */
+
+        .transform .box {
+            outline:
+                3px solid #2563eb;
+
+            outline-offset: 5px;
+
+            transition:
+                transform .3s ease,
+                outline-offset .3s ease;
+        }
+
+        .transform .box:hover {
+            transform: scale(1.08);
+
+            outline-offset: 10px;
+        }
+
+
+        /* ==================================================
+           18. OUTLINE + ANIMATION
+           ================================================== */
+
+        .animation .box {
+            animation:
+                outlinePulse
+                1.5s
+                infinite;
+        }
+
+        @keyframes outlinePulse {
+
+            0% {
+                outline:
+                    2px solid transparent;
+
+                outline-offset: 0;
+            }
+
+            50% {
+                outline:
+                    4px solid #2563eb;
+
+                outline-offset: 10px;
+            }
+
+            100% {
+                outline:
+                    2px solid transparent;
+
+                outline-offset: 0;
+            }
+
+        }
+
+
+        /* ==================================================
+           19. OUTLINE + CURRENTCOLOR
+           ================================================== */
+
+        .current-color .box {
+            color: #7c3aed;
+
+            outline:
+                4px solid currentColor;
+        }
+
+
+        /* ==================================================
+           20. OUTLINE + INHERITED COLOR
+           ================================================== */
+
+        .inherited {
+            color: #dc2626;
+        }
+
+        .inherited .box {
+            outline:
+                4px solid currentColor;
+        }
+
+
+        /* ==================================================
+           21. FORM ERROR
+           ==================================================
+
+           Gerçek projelerde form doğrulama sonucunda
+           hatalı input'u göstermek için kullanılabilir.
+        */
+
+        .error input {
+            padding: 14px;
+
+            border:
+                2px solid #dc2626;
+
+            outline:
+                3px solid rgba(220, 38, 38, .25);
+
+            outline-offset: 3px;
+        }
+
+
+        /* ==================================================
+           22. FORM SUCCESS
+           ================================================== */
+
+        .success input {
+            padding: 14px;
+
+            border:
+                2px solid #16a34a;
+
+            outline:
+                3px solid rgba(22, 163, 74, .25);
+
+            outline-offset: 3px;
+        }
+
+
+        /* ==================================================
+           23. CARD SELECTION
+           ==================================================
+
+           Seçili kartı belirginleştirmek için.
+        */
+
+        .selected .box {
+            outline:
+                4px solid #2563eb;
+
+            outline-offset: 6px;
+        }
+
+
+        /* ==================================================
+           24. CHECKBOX / RADIO FOCUS
+           ================================================== */
+
+        .radio input:focus-visible {
+            outline:
+                3px solid #2563eb;
+
+            outline-offset: 4px;
+        }
+
+
+        /* ==================================================
+           25. BUTTON ACCESSIBILITY
+           ================================================== */
+
+        .accessible-button button {
+            padding: 15px 25px;
+
+            border:
+                2px solid #333;
+
+            border-radius: 10px;
+
+            background: white;
+
+            cursor: pointer;
+        }
+
+        .accessible-button button:focus-visible {
+            outline:
+                4px solid #2563eb;
+
+            outline-offset: 5px;
+        }
+
+
+        /* ==================================================
+           26. MULTIPLE OUTLINE EFFECT
+           ==================================================
+
+           outline tek başına birden fazla renkli
+           çizgi oluşturmaz.
+
+           Ancak box-shadow ile benzer efekt
+           yapılabilir.
+        */
+
+        .multiple-effect .box {
+            outline:
+                3px solid #2563eb;
+
+            outline-offset: 5px;
+
+            box-shadow:
+                0 0 0 9px #f59e0b;
+        }
+
+
+        /* ==================================================
+           27. NEGATIVE OUTLINE OFFSET
+           ==================================================
+
+           Outline'ı elementin içine yaklaştırabiliriz.
+        */
+
+        .inside .box {
+            outline:
+                4px solid white;
+
+            outline-offset: -8px;
+        }
+
+
+        /* ==================================================
+           28. OUTLINE + IMAGE
+           ================================================== */
+
+        .image-outline img {
+            width: 250px;
+            height: 150px;
+
+            object-fit: cover;
+
+            border-radius: 15px;
+
+            outline:
+                4px solid #2563eb;
+
+            outline-offset: 6px;
+        }
+
+
+        /* ==================================================
+           29. OUTLINE + LINK
+           ================================================== */
+
+        .link-outline a {
+            color: #2563eb;
+
+            font-size: 20px;
+        }
+
+        .link-outline a:focus-visible {
+            outline:
+                3px dashed #2563eb;
+
+            outline-offset: 6px;
+        }
+
+
+        /* ==================================================
+           30. GERÇEK PROJE:
+           CUSTOM FOCUS SYSTEM
+           ================================================== */
+
+        .custom-focus input,
+        .custom-focus button {
+            padding: 14px;
+
+            border:
+                2px solid #aaa;
+
+            border-radius: 8px;
+        }
+
+        .custom-focus input:focus-visible,
+        .custom-focus button:focus-visible {
+            outline:
+                3px solid #7c3aed;
+
+            outline-offset: 4px;
+        }
+
+
+        /* ==================================================
+           31. GERÇEK PROJE:
+           SELECTED CARD
+           ================================================== */
+
+        .selected-card {
+            cursor: pointer;
+
+            transition:
+                outline .2s ease,
+                outline-offset .2s ease;
+        }
+
+        .selected-card:hover {
+            outline:
+                3px solid #2563eb;
+
+            outline-offset: 5px;
+        }
+
+
+        /* ==================================================
+           32. GERÇEK PROJE:
+           ACTIVE ELEMENT
+           ================================================== */
+
+        .active .box {
+            outline:
+                4px solid #16a34a;
+
+            outline-offset: 5px;
+        }
+
+
+        /* ==================================================
+           33. GERÇEK PROJE:
+           KEYBOARD NAVIGATION
+           ================================================== */
+
+        .keyboard button {
+            margin: 5px;
+
+            padding: 12px 20px;
+
+            border: 2px solid #333;
+            border-radius: 8px;
+
+            background: white;
+        }
+
+        .keyboard button:focus-visible {
+            outline:
+                4px solid #f59e0b;
+
+            outline-offset: 4px;
+        }
+
+
+        /* ==================================================
+           34. OUTLINE COLOR: currentColor
+           ================================================== */
+
+        .theme-blue {
+            color: #2563eb;
+        }
+
+        .theme-purple {
+            color: #7c3aed;
+        }
+
+        .theme-red {
+            color: #dc2626;
+        }
+
+        .theme-blue .box,
+        .theme-purple .box,
+        .theme-red .box {
+            outline:
+                4px solid currentColor;
+        }
+
+
+        /* ==================================================
+           35. outline-offset: 0
+           ==================================================
+
+           Outline elemente en yakın konumdadır.
+        */
+
+        .offset-zero .box {
+            outline:
+                4px solid #2563eb;
+
+            outline-offset: 0;
+        }
+
+
+        /* ==================================================
+           36. RESPONSIVE OUTLINE
+           ==================================================
+
+           outline-width için clamp() kullanılabilir.
+        */
+
+        .responsive .box {
+            outline:
+                clamp(
+                    2px,
+                    .5vw,
+                    6px
+                )
+                solid
+                #2563eb;
+
+            outline-offset:
+                clamp(
+                    2px,
+                    1vw,
+                    10px
+                );
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <h2>1. outline-style: none</h2>
+
+    <div class="container style-none">
+        <div class="box">
+            NONE
+        </div>
+    </div>
+
+
+    <h2>2. outline-style: hidden</h2>
+
+    <div class="container style-hidden">
+        <div class="box">
+            HIDDEN
+        </div>
+    </div>
+
+
+    <h2>3. outline-style: dotted</h2>
+
+    <div class="container style-dotted">
+        <div class="box">
+            DOTTED
+        </div>
+    </div>
+
+
+    <h2>4. outline-style: dashed</h2>
+
+    <div class="container style-dashed">
+        <div class="box">
+            DASHED
+        </div>
+    </div>
+
+
+    <h2>5. outline-style: solid</h2>
+
+    <div class="container style-solid">
+        <div class="box">
+            SOLID
+        </div>
+    </div>
+
+
+    <h2>6. outline-style: double</h2>
+
+    <div class="container style-double">
+        <div class="box">
+            DOUBLE
+        </div>
+    </div>
+
+
+    <h2>7. outline-style: groove</h2>
+
+    <div class="container style-groove">
+        <div class="box">
+            GROOVE
+        </div>
+    </div>
+
+
+    <h2>8. outline-style: ridge</h2>
+
+    <div class="container style-ridge">
+        <div class="box">
+            RIDGE
+        </div>
+    </div>
+
+
+    <h2>9. outline-style: inset</h2>
+
+    <div class="container style-inset">
+        <div class="box">
+            INSET
+        </div>
+    </div>
+
+
+    <h2>10. outline-style: outset</h2>
+
+    <div class="container style-outset">
+        <div class="box">
+            OUTSET
+        </div>
+    </div>
+
+
+    <h2>11. outline-width: thin</h2>
+
+    <div class="container width-thin">
+        <div class="box">
+            THIN
+        </div>
+    </div>
+
+
+    <h2>12. outline-width: medium</h2>
+
+    <div class="container width-medium">
+        <div class="box">
+            MEDIUM
+        </div>
+    </div>
+
+
+    <h2>13. outline-width: thick</h2>
+
+    <div class="container width-thick">
+        <div class="box">
+            THICK
+        </div>
+    </div>
+
+
+    <h2>14. outline-width: 6px</h2>
+
+    <div class="container width-custom">
+        <div class="box">
+            6px
+        </div>
+    </div>
+
+
+    <h2>15. outline-color: red</h2>
+
+    <div class="container color-name">
+        <div class="box">
+            RED
+        </div>
+    </div>
+
+
+    <h2>16. outline-color: HEX</h2>
+
+    <div class="container color-hex">
+        <div class="box">
+            HEX
+        </div>
+    </div>
+
+
+    <h2>17. outline-color: RGB</h2>
+
+    <div class="container color-rgb">
+        <div class="box">
+            RGB
+        </div>
+    </div>
+
+
+    <h2>18. outline-color: RGBA</h2>
+
+    <div class="container color-rgba">
+        <div class="box">
+            RGBA
+        </div>
+    </div>
+
+
+    <h2>19. outline-color: HSL</h2>
+
+    <div class="container color-hsl">
+        <div class="box">
+            HSL
+        </div>
+    </div>
+
+
+    <h2>20. outline-color: transparent</h2>
+
+    <div class="container color-transparent">
+        <div class="box">
+            TRANSPARENT
+        </div>
+    </div>
+
+
+    <h2>21. outline-color: currentColor</h2>
+
+    <div class="container color-current">
+        <div class="box">
+            CURRENT COLOR
+        </div>
+    </div>
+
+
+    <h2>22. outline-offset: 10px</h2>
+
+    <div class="container offset-positive">
+        <div class="box">
+            10px
+        </div>
+    </div>
+
+
+    <h2>23. outline-offset: 4px</h2>
+
+    <div class="container offset-small">
+        <div class="box">
+            4px
+        </div>
+    </div>
+
+
+    <h2>24. outline-offset: -8px</h2>
+
+    <div class="container offset-negative">
+        <div class="box">
+            -8px
+        </div>
+    </div>
+
+
+    <h2>25. outline shorthand</h2>
+
+    <div class="container shorthand">
+        <div class="box">
+            5px dashed crimson
+        </div>
+    </div>
+
+
+    <h2>26. outline: none</h2>
+
+    <div class="container none">
+        <div class="box">
+            NONE
+        </div>
+    </div>
+
+
+    <h2>27. outline: hidden</h2>
+
+    <div class="container hidden">
+        <div class="box">
+            HIDDEN
+        </div>
+    </div>
+
+
+    <h2>28. border + outline</h2>
+
+    <div class="container border-outline">
+        <div class="box">
+            BORDER + OUTLINE
+        </div>
+    </div>
+
+
+    <h2>29. border-radius + outline</h2>
+
+    <div class="container rounded">
+        <div class="box">
+            ROUNDED
+        </div>
+    </div>
+
+
+    <h2>30. transparent → hover</h2>
+
+    <div class="container transparent-focus">
+        <div class="box">
+            HOVER
+        </div>
+    </div>
+
+
+    <h2>31. hover</h2>
+
+    <div class="container hover">
+        <div class="box">
+            HOVER
+        </div>
+    </div>
+
+
+    <h2>32. focus</h2>
+
+    <div class="container focus">
+
+        <input
+            type="text"
+            placeholder="Buraya tıkla"
+        >
+
+    </div>
+
+
+    <h2>33. focus-visible</h2>
+
+    <div class="container focus-visible">
+
+        <button>
+            TAB ile odaklan
+        </button>
+
+    </div>
+
+
+    <h2>34. focus-within</h2>
+
+    <div class="container focus-within">
+
+        <label>
+            Kullanıcı adı
+        </label>
+
+        <input
+            type="text"
+            placeholder="Kullanıcı adın"
+        >
+
+    </div>
+
+
+    <h2>35. outline + box-shadow</h2>
+
+    <div class="container shadow-outline">
+
+        <div class="box">
+            SHADOW
+        </div>
+
+    </div>
+
+
+    <h2>36. outline + transition</h2>
+
+    <div class="container transition">
+
+        <div class="box">
+            HOVER
+        </div>
+
+    </div>
+
+
+    <h2>37. outline + transform</h2>
+
+    <div class="container transform">
+
+        <div class="box">
+            SCALE
+        </div>
+
+    </div>
+
+
+    <h2>38. outline + animation</h2>
+
+    <div class="container animation">
+
+        <div class="box">
+            PULSE
+        </div>
+
+    </div>
+
+
+    <h2>39. currentColor</h2>
+
+    <div class="container current-color">
+
+        <div class="box">
+            CURRENT COLOR
+        </div>
+
+    </div>
+
+
+    <h2>40. inherited currentColor</h2>
+
+    <div class="container inherited">
+
+        <div class="box">
+            INHERITED COLOR
+        </div>
+
+    </div>
+
+
+    <h2>41. Form Error</h2>
+
+    <div class="container error">
+
+        <input
+            type="text"
+            placeholder="Hatalı alan"
+        >
+
+    </div>
+
+
+    <h2>42. Form Success</h2>
+
+    <div class="container success">
+
+        <input
+            type="text"
+            placeholder="Başarılı alan"
+        >
+
+    </div>
+
+
+    <h2>43. Selected Card</h2>
+
+    <div class="container selected">
+
+        <div class="box">
+            SELECTED
+        </div>
+
+    </div>
+
+
+    <h2>44. Radio Focus</h2>
+
+    <div class="container radio">
+
+        <label>
+            <input type="radio" name="x">
+            Seçenek 1
+        </label>
+
+        <label>
+            <input type="radio" name="x">
+            Seçenek 2
+        </label>
+
+    </div>
+
+
+    <h2>45. Accessible Button</h2>
+
+    <div class="container accessible-button">
+
+        <button>
+            BUTTON
+        </button>
+
+    </div>
+
+
+    <h2>46. Multiple Effect</h2>
+
+    <div class="container multiple-effect">
+
+        <div class="box">
+            MULTIPLE
+        </div>
+
+    </div>
+
+
+    <h2>47. Negative Offset</h2>
+
+    <div class="container inside">
+
+        <div class="box">
+            INSIDE
+        </div>
+
+    </div>
+
+
+    <h2>48. Image Outline</h2>
+
+    <div class="container image-outline">
+
+        <img
+            src="https://images.unsplash.com/photo-1500534623283-312aade485b7"
+            alt="Örnek görsel"
+        >
+
+    </div>
+
+
+    <h2>49. Link Focus</h2>
+
+    <div class="container link-outline">
+
+        <a href="#">
+            Link'e TAB ile gel
+        </a>
+
+    </div>
+
+
+    <h2>50. Custom Focus System</h2>
+
+    <div class="container custom-focus">
+
+        <input
+            type="text"
+            placeholder="Kullanıcı adı"
+        >
+
+        <button>
+            Gönder
+        </button>
+
+    </div>
+
+
+    <h2>51. Selected Card</h2>
+
+    <div class="container">
+
+        <div class="box selected-card">
+            HOVER CARD
+        </div>
+
+    </div>
+
+
+    <h2>52. Active</h2>
+
+    <div class="container active">
+
+        <div class="box">
+            ACTIVE
+        </div>
+
+    </div>
+
+
+    <h2>53. Keyboard Navigation</h2>
+
+    <div class="container keyboard">
+
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+
+    </div>
+
+
+    <h2>54. currentColor Themes</h2>
+
+    <div class="container theme-blue">
+
+        <div class="box">
+            BLUE
+        </div>
+
+    </div>
+
+    <div class="container theme-purple">
+
+        <div class="box">
+            PURPLE
+        </div>
+
+    </div>
+
+    <div class="container theme-red">
+
+        <div class="box">
+            RED
+        </div>
+
+    </div>
+
+
+    <h2>55. outline-offset: 0</h2>
+
+    <div class="container offset-zero">
+
+        <div class="box">
+            OFFSET 0
+        </div>
+
+    </div>
+
+
+    <h2>56. Responsive Outline</h2>
+
+    <div class="container responsive">
+
+        <div class="box">
+            RESPONSIVE
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

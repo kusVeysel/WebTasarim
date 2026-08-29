@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Opacity - Tüm Kullanımlar</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        h2 {
+            margin-top: 45px;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            min-height: 140px;
+
+            padding: 20px;
+            margin-bottom: 30px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            background: white;
+        }
+
+        .item {
+            width: 90px;
+            height: 90px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background: steelblue;
+            color: white;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           OPACITY NEDİR?
+           ==================================================
+
+           Bir elementin ne kadar saydam /
+           görünür olacağını belirler.
+
+           1
+           → Tamamen görünür.
+
+           0
+           → Tamamen şeffaf.
+
+           0.5
+           → %50 görünür.
+
+           0.25
+           → %25 görünür.
+
+           Genel aralık:
+
+           0 → 1
+        */
+
+
+        /* ==================================================
+           1. opacity: 1
+           ==================================================
+
+           Varsayılan değerdir.
+
+           Element tamamen görünür.
+        */
+
+        .opacity-1 .item {
+            opacity: 1;
+        }
+
+
+        /* ==================================================
+           2. opacity: 0.75
+           ==================================================
+
+           Yaklaşık %75 görünür.
+        */
+
+        .opacity-75 .item {
+            opacity: 0.75;
+        }
+
+
+        /* ==================================================
+           3. opacity: 0.5
+           ==================================================
+
+           %50 görünür.
+        */
+
+        .opacity-50 .item {
+            opacity: 0.5;
+        }
+
+
+        /* ==================================================
+           4. opacity: 0.25
+           ==================================================
+
+           %25 görünür.
+        */
+
+        .opacity-25 .item {
+            opacity: 0.25;
+        }
+
+
+        /* ==================================================
+           5. opacity: 0
+           ==================================================
+
+           Element tamamen görünmez olur.
+
+           AMA:
+
+           Element hâlâ sayfada bulunur.
+
+           Yani:
+
+           - Yer kaplar.
+           - Tıklanabilir olabilir.
+           - Layout'tan kaldırılmaz.
+        */
+
+        .opacity-0 .item {
+            opacity: 0;
+        }
+
+
+        /* ==================================================
+           6. opacity: % KULLANIMI
+           ==================================================
+
+           Modern CSS'te yüzde de kullanılabilir.
+
+           50%
+           → %50 görünür.
+        */
+
+        .percentage .item {
+            opacity: 50%;
+        }
+
+
+        /* ==================================================
+           7. opacity: 20%
+           ================================================== */
+
+        .percentage-20 .item {
+            opacity: 20%;
+        }
+
+
+        /* ==================================================
+           8. opacity: 80%
+           ================================================== */
+
+        .percentage-80 .item {
+            opacity: 80%;
+        }
+
+
+        /* ==================================================
+           9. HOVER İLE OPACITY
+           ==================================================
+
+           Gerçek projelerde çok yaygın.
+
+           Mouse üzerine geldiğinde
+           element daha görünür / daha saydam olabilir.
+        */
+
+        .hover .item {
+            opacity: 0.6;
+
+            transition:
+                opacity 0.3s ease;
+        }
+
+        .hover .item:hover {
+            opacity: 1;
+        }
+
+
+        /* ==================================================
+           10. HOVER'DA AZALTMA
+           ==================================================
+
+           Başlangıçta tamamen görünür.
+
+           Hover'da saydamlaşır.
+        */
+
+        .hover-fade .item {
+            opacity: 1;
+
+            transition:
+                opacity 0.3s ease;
+        }
+
+        .hover-fade .item:hover {
+            opacity: 0.4;
+        }
+
+
+        /* ==================================================
+           11. BUTTON HOVER
+           ==================================================
+
+           Butonlarda yaygın kullanım.
+        */
+
+        .button {
+            padding: 15px 30px;
+
+            border: none;
+            border-radius: 10px;
+
+            background: steelblue;
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            opacity: 1;
+
+            transition:
+                opacity 0.2s ease;
+        }
+
+        .button:hover {
+            opacity: 0.75;
+        }
+
+
+        /* ==================================================
+           12. DISABLED GÖRÜNÜMÜ
+           ==================================================
+
+           Kullanılamayan bir öğeyi görsel olarak
+           belirtmek için kullanılabilir.
+        */
+
+        .disabled {
+            opacity: 0.45;
+
+            cursor: not-allowed;
+        }
+
+
+        /* ==================================================
+           13. IMAGE HOVER
+           ==================================================
+
+           Resim galerilerinde çok yaygın.
+        */
+
+        .image-box {
+            position: relative;
+
+            width: 220px;
+            height: 140px;
+
+            overflow: hidden;
+
+            border-radius: 15px;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            opacity: 0.7;
+
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        .image-box:hover img {
+            opacity: 1;
+
+            transform: scale(1.05);
+        }
+
+
+        /* ==================================================
+           14. CARD HOVER
+           ================================================== */
+
+        .cards {
+            display: flex;
+            gap: 20px;
+        }
+
+        .card {
+            width: 180px;
+            padding: 20px;
+
+            border-radius: 15px;
+
+            background: white;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.15);
+
+            transition:
+                opacity 0.3s ease;
+        }
+
+        .cards:hover .card {
+            opacity: 0.45;
+        }
+
+        .cards .card:hover {
+            opacity: 1;
+        }
+
+
+        /* ==================================================
+           15. OVERLAY
+           ==================================================
+
+           opacity + position kullanılarak
+           hover overlay yapılabilir.
+        */
+
+        .overlay-box {
+            position: relative;
+
+            width: 250px;
+            height: 150px;
+
+            overflow: hidden;
+
+            border-radius: 15px;
+
+            background: steelblue;
+        }
+
+        .overlay {
+            position: absolute;
+
+            inset: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: black;
+            color: white;
+
+            opacity: 0;
+
+            transition:
+                opacity 0.3s ease;
+        }
+
+        .overlay-box:hover .overlay {
+            opacity: 0.75;
+        }
+
+
+        /* ==================================================
+           16. FADE IN
+           ==================================================
+
+           Element görünmez başlar.
+
+           Daha sonra görünür hale gelir.
+        */
+
+        .fade-in .item {
+            opacity: 0;
+
+            animation:
+                fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+
+        }
+
+
+        /* ==================================================
+           17. FADE OUT
+           ==================================================
+
+           Görünür başlar.
+
+           Daha sonra kaybolur.
+        */
+
+        .fade-out .item {
+            opacity: 1;
+
+            animation:
+                fadeOut 2s forwards;
+        }
+
+        @keyframes fadeOut {
+
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+
+        }
+
+
+        /* ==================================================
+           18. PULSE OPACITY
+           ==================================================
+
+           Sürekli yanıp sönme benzeri
+           hafif bir efekt.
+        */
+
+        .pulse .item {
+            animation:
+                pulseOpacity 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseOpacity {
+
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.35;
+            }
+
+            100% {
+                opacity: 1;
+            }
+
+        }
+
+
+        /* ==================================================
+           19. TEXT OPACITY
+           ==================================================
+
+           Yazının tamamına uygulanabilir.
+
+           Örneğin yardımcı metinlerde kullanışlıdır.
+        */
+
+        .text {
+            font-size: 22px;
+
+            opacity: 0.6;
+        }
+
+
+        /* ==================================================
+           20. TEXT HOVER
+           ================================================== */
+
+        .text-hover {
+            font-size: 22px;
+
+            opacity: 0.5;
+
+            transition:
+                opacity 0.3s ease;
+        }
+
+        .text-hover:hover {
+            opacity: 1;
+        }
+
+
+        /* ==================================================
+           21. ICON OPACITY
+           ================================================== */
+
+        .icon {
+            font-size: 45px;
+
+            opacity: 0.5;
+
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .icon:hover {
+            opacity: 1;
+
+            transform: scale(1.1);
+        }
+
+
+        /* ==================================================
+           22. OPACITY + TRANSFORM
+           ==================================================
+
+           İki özellik birlikte kullanılarak
+           modern hover efekti yapılabilir.
+        */
+
+        .transform-opacity .item {
+            opacity: 0.5;
+
+            transform: scale(0.9);
+
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        .transform-opacity .item:hover {
+            opacity: 1;
+
+            transform: scale(1);
+        }
+
+
+        /* ==================================================
+           23. OPACITY + TRANSFORM + FILTER
+           ==================================================
+
+           Kart / resim hover efektlerinde
+           güzel bir kombinasyon.
+        */
+
+        .advanced .item {
+            opacity: 0.5;
+
+            filter: grayscale(100%);
+
+            transform: scale(0.95);
+
+            transition:
+                opacity 0.3s ease,
+                filter 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        .advanced .item:hover {
+            opacity: 1;
+
+            filter: grayscale(0%);
+
+            transform: scale(1);
+        }
+
+
+        /* ==================================================
+           24. GRUP OPACITY
+           ==================================================
+
+           Bir parent'ın opacity'si değişirse
+           çocukları da etkilenir.
+        */
+
+        .parent-opacity {
+            opacity: 0.5;
+        }
+
+
+        /* ==================================================
+           25. CHILD OPACITY
+           ==================================================
+
+           Parent tamamen görünür kalırken
+           yalnızca child saydamlaştırılabilir.
+
+           Bu çoğu durumda daha kontrollüdür.
+        */
+
+        .child-opacity .item:nth-child(2) {
+            opacity: 0.3;
+        }
+
+
+        /* ==================================================
+           26. MODAL BENZERİ
+           ================================================== */
+
+        .modal {
+            position: relative;
+
+            width: 300px;
+            padding: 30px;
+
+            border-radius: 15px;
+
+            background: white;
+
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-background {
+            position: absolute;
+
+            inset: 0;
+
+            background: black;
+
+            opacity: 0.5;
+        }
+
+        .modal-content {
+            position: relative;
+            z-index: 1;
+        }
+
+
+        /* ==================================================
+           27. OPACITY + POINTER-EVENTS
+           ==================================================
+
+           opacity: 0 element'i görünmez yapar.
+
+           Eğer tıklanmasını da istemiyorsan:
+
+           pointer-events: none;
+
+           kullanılabilir.
+        */
+
+        .hidden-overlay {
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+
+        /* ==================================================
+           28. CSS VARIABLE
+           ================================================== */
+
+        .variable .item {
+            --my-opacity: 0.35;
+
+            opacity: var(--my-opacity);
+        }
+
+
+        /* ==================================================
+           29. CALC
+           ==================================================
+
+           opacity içerisinde hesaplama yapılabilir.
+
+           Örneğin:
+
+           calc(1 - 0.25)
+        */
+
+        .calc .item {
+            opacity: calc(1 - 0.25);
+        }
+
+
+        /* ==================================================
+           30. FARKLI ELEMANLAR
+           ================================================== */
+
+        .mixed .item:nth-child(1) {
+            opacity: 1;
+        }
+
+        .mixed .item:nth-child(2) {
+            opacity: 0.75;
+        }
+
+        .mixed .item:nth-child(3) {
+            opacity: 0.5;
+        }
+
+        .mixed .item:nth-child(4) {
+            opacity: 0.25;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. opacity 1
+         ================================================== -->
+
+    <h2>1. opacity: 1</h2>
+
+    <div class="container opacity-1">
+
+        <div class="item">
+            100%
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         2. opacity 0.75
+         ================================================== -->
+
+    <h2>2. opacity: 0.75</h2>
+
+    <div class="container opacity-75">
+
+        <div class="item">
+            75%
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         3. opacity 0.5
+         ================================================== -->
+
+    <h2>3. opacity: 0.5</h2>
+
+    <div class="container opacity-50">
+
+        <div class="item">
+            50%
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         4. opacity 0.25
+         ================================================== -->
+
+    <h2>4. opacity: 0.25</h2>
+
+    <div class="container opacity-25">
+
+        <div class="item">
+            25%
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         5. opacity 0
+         ================================================== -->
+
+    <h2>5. opacity: 0</h2>
+
+    <div class="container opacity-0">
+
+        <div class="item">
+            GİZLİ
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         6. percentage
+         ================================================== -->
+
+    <h2>6. opacity: 50%</h2>
+
+    <div class="container percentage">
+
+        <div class="item">
+            50%
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         7. 20%
+         ================================================== -->
+
+    <h2>7. opacity: 20%</h2>
+
+    <div class="container percentage-20">
+
+        <div class="item">
+            20%
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         8. 80%
+         ================================================== -->
+
+    <h2>8. opacity: 80%</h2>
+
+    <div class="container percentage-80">
+
+        <div class="item">
+            80%
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         9. HOVER
+         ================================================== -->
+
+    <h2>9. Hover ile görünürleşme</h2>
+
+    <div class="container hover">
+
+        <div class="item">
+            Hover
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         10. HOVER FADE
+         ================================================== -->
+
+    <h2>10. Hover ile saydamlaşma</h2>
+
+    <div class="container hover-fade">
+
+        <div class="item">
+            Hover
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         11. BUTTON
+         ================================================== -->
+
+    <h2>11. Button Hover</h2>
+
+    <div class="container">
+
+        <button class="button">
+            Buton
+        </button>
+
+    </div>
+
+
+    <!-- ==================================================
+         12. DISABLED
+         ================================================== -->
+
+    <h2>12. Disabled görünümü</h2>
+
+    <div class="container">
+
+        <button class="button disabled" disabled>
+            Devre Dışı
+        </button>
+
+    </div>
+
+
+    <!-- ==================================================
+         13. IMAGE
+         ================================================== -->
+
+    <h2>13. Image Hover</h2>
+
+    <div class="container">
+
+        <div class="image-box">
+
+            <img src="https://picsum.photos/400/250" alt="Örnek resim">
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         14. CARD
+         ================================================== -->
+
+    <h2>14. Card Hover</h2>
+
+    <div class="container cards">
+
+        <div class="card">
+            Kart 1
+        </div>
+
+        <div class="card">
+            Kart 2
+        </div>
+
+        <div class="card">
+            Kart 3
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         15. OVERLAY
+         ================================================== -->
+
+    <h2>15. Overlay</h2>
+
+    <div class="container">
+
+        <div class="overlay-box">
+
+            <div class="overlay">
+                İçerik
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         16. FADE IN
+         ================================================== -->
+
+    <h2>16. Fade In</h2>
+
+    <div class="container fade-in">
+
+        <div class="item">
+            Fade In
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         17. FADE OUT
+         ================================================== -->
+
+    <h2>17. Fade Out</h2>
+
+    <div class="container fade-out">
+
+        <div class="item">
+            Fade Out
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         18. PULSE
+         ================================================== -->
+
+    <h2>18. Pulse Opacity</h2>
+
+    <div class="container pulse">
+
+        <div class="item">
+            Pulse
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         19. TEXT
+         ================================================== -->
+
+    <h2>19. Text Opacity</h2>
+
+    <div class="container">
+
+        <p class="text">
+            Bu yardımcı bir metindir.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         20. TEXT HOVER
+         ================================================== -->
+
+    <h2>20. Text Hover</h2>
+
+    <div class="container">
+
+        <p class="text-hover">
+            Üzerime gel
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         21. ICON
+         ================================================== -->
+
+    <h2>21. Icon Opacity</h2>
+
+    <div class="container">
+
+        <div class="icon">
+            ★
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         22. TRANSFORM
+         ================================================== -->
+
+    <h2>22. opacity + transform</h2>
+
+    <div class="container transform-opacity">
+
+        <div class="item">
+            Hover
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         23. ADVANCED
+         ================================================== -->
+
+    <h2>23. opacity + filter + transform</h2>
+
+    <div class="container advanced">
+
+        <div class="item">
+            Hover
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         24. PARENT
+         ================================================== -->
+
+    <h2>24. Parent opacity</h2>
+
+    <div class="container parent-opacity">
+
+        <div class="item">
+            Child
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         25. CHILD
+         ================================================== -->
+
+    <h2>25. Sadece Child opacity</h2>
+
+    <div class="container child-opacity">
+
+        <div class="item">
+            1
+        </div>
+
+        <div class="item">
+            2
+        </div>
+
+        <div class="item">
+            3
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         26. MODAL
+         ================================================== -->
+
+    <h2>26. Modal Overlay</h2>
+
+    <div class="container">
+
+        <div class="modal">
+
+            <div class="modal-background"></div>
+
+            <div class="modal-content">
+
+                <h3>Modal</h3>
+
+                <p>
+                    Modal içeriği.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         27. POINTER EVENTS
+         ================================================== -->
+
+    <h2>27. opacity: 0 + pointer-events: none</h2>
+
+    <div class="container">
+
+        <div class="item hidden-overlay">
+            Görünmez
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         28. VARIABLE
+         ================================================== -->
+
+    <h2>28. CSS Variable + opacity</h2>
+
+    <div class="container variable">
+
+        <div class="item">
+            Variable
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         29. CALC
+         ================================================== -->
+
+    <h2>29. calc() + opacity</h2>
+
+    <div class="container calc">
+
+        <div class="item">
+            calc()
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         30. MIXED
+         ================================================== -->
+
+    <h2>30. Farklı opacity değerleri</h2>
+
+    <div class="container mixed">
+
+        <div class="item">
+            1
+        </div>
+
+        <div class="item">
+            .75
+        </div>
+
+        <div class="item">
+            .5
+        </div>
+
+        <div class="item">
+            .25
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

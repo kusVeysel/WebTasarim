@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CSS content</title>
+
+  <style>
+    /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+
+      margin-bottom: 45px;
+      padding: 30px;
+
+      background: #f3f4f6;
+    }
+
+    .box {
+      width: 240px;
+      min-height: 80px;
+
+      padding: 20px;
+
+      box-sizing: border-box;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+
+      background: white;
+    }
+
+
+    /* ==================================================
+       1. content: normal
+       ==================================================
+
+       Normal/varsayılan davranışı belirtir.
+
+       Genellikle pseudo-elementlerde
+       kullanılır.
+    */
+
+    .normal::before {
+      content: normal;
+    }
+
+
+    /* ==================================================
+       2. content: none
+       ==================================================
+
+       Pseudo-elementin içeriğini kaldırır.
+    */
+
+    .none::before {
+      content: none;
+    }
+
+
+    /* ==================================================
+       3. content: "" 
+       ==================================================
+
+       Boş bir içerik oluşturur.
+
+       ::before / ::after ile şekil,
+       çizgi ve dekorasyon oluştururken
+       çok kullanılır.
+    */
+
+    .empty::before {
+      content: "";
+
+      display: block;
+
+      width: 40px;
+      height: 40px;
+
+      background: steelblue;
+    }
+
+
+    /* ==================================================
+       4. content: "metin"
+       ==================================================
+
+       Doğrudan metin ekler.
+
+       En yaygın kullanımlardan biridir.
+    */
+
+    .text::before {
+      content: "Yeni";
+    }
+
+
+    /* ==================================================
+       5. content + before
+       ==================================================
+
+       Metnin önüne içerik eklenebilir.
+    */
+
+    .before::before {
+      content: "✓ ";
+
+      color: green;
+      font-weight: bold;
+    }
+
+
+    /* ==================================================
+       6. content + after
+       ==================================================
+
+       Metnin sonuna içerik eklenebilir.
+    */
+
+    .after::after {
+      content: " →";
+
+      color: steelblue;
+      font-weight: bold;
+    }
+
+
+    /* ==================================================
+       7. content: attr()
+       ==================================================
+
+       HTML attribute değerini CSS'e getirir.
+
+       Örneğin:
+
+       data-label="Yeni"
+
+       content: attr(data-label);
+    */
+
+    .attr::before {
+      content: attr(data-label);
+
+      padding: 5px 10px;
+
+      margin-right: 10px;
+
+      border-radius: 5px;
+
+      background: steelblue;
+      color: white;
+    }
+
+
+    /* ==================================================
+       8. GERÇEK PROJE:
+          TOOLTIP
+       ==================================================
+
+       data-tooltip attribute'u CSS ile
+       content içerisine alınır.
+    */
+
+    .tooltip {
+      position: relative;
+
+      cursor: help;
+    }
+
+    .tooltip::after {
+      content: attr(data-tooltip);
+
+      position: absolute;
+
+      bottom: calc(100% + 10px);
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      padding: 8px 12px;
+
+      border-radius: 6px;
+
+      background: #111827;
+      color: white;
+
+      font-size: 14px;
+
+      white-space: nowrap;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition: opacity .2s;
+    }
+
+    .tooltip:hover::after {
+      opacity: 1;
+    }
+
+
+    /* ==================================================
+       9. GERÇEK PROJE:
+          QUOTE
+       ==================================================
+
+       content ile dekoratif tırnak işareti
+       oluşturulabilir.
+    */
+
+    .quote {
+      position: relative;
+
+      padding: 25px 40px;
+    }
+
+    .quote::before {
+      content: "“";
+
+      position: absolute;
+
+      top: 0;
+      left: 10px;
+
+      font-size: 60px;
+
+      color: #aaa;
+    }
+
+
+    /* ==================================================
+       10. GERÇEK PROJE:
+           CHECK LIST
+       ================================================== */
+
+    .check::before {
+      content: "✓";
+
+      margin-right: 10px;
+
+      color: green;
+
+      font-weight: bold;
+    }
+
+
+    /* ==================================================
+       11. GERÇEK PROJE:
+           DECORATIVE LINE
+       ==================================================
+
+       content: "" kullanılarak
+       dekoratif çizgi oluşturulur.
+    */
+
+    .line {
+      position: relative;
+
+      padding-bottom: 15px;
+    }
+
+    .line::after {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      bottom: 0;
+
+      width: 60px;
+      height: 4px;
+
+      border-radius: 10px;
+
+      background: steelblue;
+    }
+
+
+    /* ==================================================
+       12. GERÇEK PROJE:
+           BADGE
+       ================================================== */
+
+    .badge {
+      position: relative;
+
+      display: inline-block;
+
+      padding: 15px 25px;
+    }
+
+    .badge::after {
+      content: "NEW";
+
+      position: absolute;
+
+      top: -10px;
+      right: -15px;
+
+      padding: 4px 8px;
+
+      border-radius: 5px;
+
+      background: crimson;
+      color: white;
+
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+
+    /* ==================================================
+       13. content: open-quote
+       ==================================================
+
+       <q> gibi alıntı sistemlerinde
+       açılış tırnağı oluşturabilir.
+    */
+
+    .open-quote::before {
+      content: open-quote;
+    }
+
+
+    /* ==================================================
+       14. content: close-quote
+       ==================================================
+
+       Kapanış tırnağı oluşturabilir.
+    */
+
+    .close-quote::after {
+      content: close-quote;
+    }
+
+
+    /* ==================================================
+       15. content: counter()
+       ==================================================
+
+       CSS counter değerini içerik olarak
+       gösterebilir.
+
+       Liste / bölüm numaralandırmada kullanışlıdır.
+    */
+
+    .counter-list {
+      counter-reset: item;
+    }
+
+    .counter-item {
+      counter-increment: item;
+    }
+
+    .counter-item::before {
+      content: counter(item) ". ";
+
+      font-weight: bold;
+
+      color: steelblue;
+    }
+
+
+    /* ==================================================
+       16. content: counters()
+       ==================================================
+
+       İç içe counter'ları gösterebilir.
+
+       Örneğin:
+
+       1.1
+       1.2
+       2.1
+       2.2
+    */
+
+    .chapters {
+      counter-reset: chapter;
+    }
+
+    .chapter {
+      counter-increment: chapter;
+
+      counter-reset: section;
+    }
+
+    .chapter::before {
+      content: counter(chapter) ". ";
+    }
+
+    .section {
+      counter-increment: section;
+
+      margin-left: 20px;
+    }
+
+    .section::before {
+      content:
+        counter(chapter) "."
+        counter(section) " ";
+    }
+
+
+    /* ==================================================
+       17. GERÇEK PROJE:
+           EXTERNAL LINK
+       ==================================================
+
+       Linklerin sonuna ikon/sembol eklemek
+       için kullanılabilir.
+    */
+
+    .external::after {
+      content: " ↗";
+
+      font-size: 14px;
+    }
+
+
+    /* ==================================================
+       18. GERÇEK PROJE:
+           REQUIRED
+       ================================================== */
+
+    .required::after {
+      content: " *";
+
+      color: crimson;
+    }
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- ==================================================
+       1. normal
+       ================================================== -->
+
+  <h2>1. normal</h2>
+
+  <div class="container">
+
+    <div class="box normal">
+      Normal
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       2. none
+       ================================================== -->
+
+  <h2>2. none</h2>
+
+  <div class="container">
+
+    <div class="box none">
+      None
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       3. empty
+       ================================================== -->
+
+  <h2>3. Boş content</h2>
+
+  <div class="container">
+
+    <div class="box empty">
+      content: ""
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       4. TEXT
+       ================================================== -->
+
+  <h2>4. Metin</h2>
+
+  <div class="container">
+
+    <div class="box text">
+      içerik
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       5. BEFORE
+       ================================================== -->
+
+  <h2>5. ::before</h2>
+
+  <div class="container">
+
+    <div class="box before">
+      Başarılı
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       6. AFTER
+       ================================================== -->
+
+  <h2>6. ::after</h2>
+
+  <div class="container">
+
+    <div class="box after">
+      Devam et
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       7. ATTR
+       ================================================== -->
+
+  <h2>7. attr()</h2>
+
+  <div class="container">
+
+    <div class="box attr" data-label="NEW">
+      Ürün
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       8. TOOLTIP
+       ================================================== -->
+
+  <h2>8. Gerçek Proje → Tooltip</h2>
+
+  <div class="container">
+
+    <div class="box tooltip" data-tooltip="Bu bir tooltip mesajıdır.">
+      Üzerine gel
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       9. QUOTE
+       ================================================== -->
+
+  <h2>9. Gerçek Proje → Quote</h2>
+
+  <div class="container">
+
+    <div class="box quote">
+      Bu bir alıntı metnidir.
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       10. CHECK
+       ================================================== -->
+
+  <h2>10. Gerçek Proje → Check List</h2>
+
+  <div class="container">
+
+    <div class="box check">
+      Görev tamamlandı
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       11. LINE
+       ================================================== -->
+
+  <h2>11. Gerçek Proje → Decorative Line</h2>
+
+  <div class="container">
+
+    <div class="box line">
+      Başlık
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       12. BADGE
+       ================================================== -->
+
+  <h2>12. Gerçek Proje → Badge</h2>
+
+  <div class="container">
+
+    <div class="box badge">
+      Ürün
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       13-14. QUOTES
+       ================================================== -->
+
+  <h2>13-14. open-quote / close-quote</h2>
+
+  <div class="container">
+
+    <div class="box">
+
+      <q class="open-quote">
+        Örnek metin
+      </q>
+
+      <span class="close-quote"></span>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       15. COUNTER
+       ================================================== -->
+
+  <h2>15. counter()</h2>
+
+  <div class="container counter-list">
+
+    <div class="counter-item">
+      HTML
+    </div>
+
+    <div class="counter-item">
+      CSS
+    </div>
+
+    <div class="counter-item">
+      JavaScript
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       16. COUNTERS
+       ================================================== -->
+
+  <h2>16. counters()</h2>
+
+  <div class="container chapters">
+
+    <div class="chapter">
+
+      <div class="section">
+        Giriş
+      </div>
+
+      <div class="section">
+        Temeller
+      </div>
+
+    </div>
+
+
+    <div class="chapter">
+
+      <div class="section">
+        Flexbox
+      </div>
+
+      <div class="section">
+        Grid
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       17. EXTERNAL LINK
+       ================================================== -->
+
+  <h2>17. Gerçek Proje → External Link</h2>
+
+  <div class="container">
+
+    <a href="#" class="external">
+      Siteye git
+    </a>
+
+  </div>
+
+
+  <!-- ==================================================
+       18. REQUIRED
+       ================================================== -->
+
+  <h2>18. Gerçek Proje → Required</h2>
+
+  <div class="container">
+
+    <label class="required">
+      E-posta
+    </label>
+
+  </div>
+
+
+</body>
+
+</html>

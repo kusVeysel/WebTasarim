@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS Ruby - Full</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f4f4;
+
+            line-height: 2;
+        }
+
+        h2 {
+            margin-top: 45px;
+        }
+
+        .container {
+            margin-bottom: 30px;
+            padding: 30px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            background: white;
+
+            font-size: 30px;
+        }
+
+
+        /* ==================================================
+           RUBY NEDİR?
+           ==================================================
+
+           Ruby annotation:
+
+           Bir metnin üstüne veya yanına
+           küçük açıklama/telaffuz metni
+           yerleştirmek için kullanılır.
+
+           Özellikle:
+
+           Japonca
+           Çince
+           Doğu Asya yazı sistemlerinde
+
+           karakterlerin telaffuzunu
+           göstermek için kullanılır.
+
+           HTML tarafında:
+
+           <ruby>
+               漢字
+               <rt>かんじ</rt>
+           </ruby>
+
+           CSS tarafında ise:
+
+           ruby-align
+           ruby-position
+           ruby-overhang
+           ruby-merge
+
+           gibi özellikler bulunur.
+        */
+
+
+        /* ==================================================
+           1. display: ruby
+           ==================================================
+
+           Elementi ruby container olarak
+           davranacak şekilde ayarlar.
+
+           HTML <ruby> elementi zaten
+           varsayılan olarak ruby layout
+           oluşturur.
+
+           Bu nedenle gerçek projelerde
+           genellikle doğrudan:
+
+           <ruby>
+
+           kullanılır.
+        */
+
+        .ruby {
+            display: ruby;
+        }
+
+
+        /* ==================================================
+           2. display: ruby-text
+           ==================================================
+
+           Ruby annotation metnini
+           ruby text olarak davranacak
+           şekilde ayarlar.
+
+           HTML:
+
+           <rt>
+
+           elementi bunun doğal karşılığıdır.
+        */
+
+        .ruby-text {
+            display: ruby-text;
+
+            font-size: 16px;
+        }
+
+
+        /* ==================================================
+           3. ruby-align: start
+           ==================================================
+
+           Ruby annotation'ı
+           başlangıç tarafına hizalar.
+        */
+
+        .align-start {
+            ruby-align: start;
+        }
+
+
+        /* ==================================================
+           4. ruby-align: center
+           ==================================================
+
+           Ruby text'i merkeze hizalar.
+
+           Varsayılan davranışlardan biridir.
+        */
+
+        .align-center {
+            ruby-align: center;
+        }
+
+
+        /* ==================================================
+           5. ruby-align: space-between
+           ==================================================
+
+           Ruby text ile base text arasındaki
+           alanı dağıtır.
+        */
+
+        .align-between {
+            ruby-align: space-between;
+        }
+
+
+        /* ==================================================
+           6. ruby-align: space-around
+           ==================================================
+
+           Ruby parçalarının çevresinde
+           boşluk dağılımı sağlar.
+        */
+
+        .align-around {
+            ruby-align: space-around;
+        }
+
+
+        /* ==================================================
+           7. ruby-position: over
+           ==================================================
+
+           Ruby annotation'ı
+           ana metnin üstüne yerleştirir.
+
+           Doğu Asya metinlerinde
+           çok yaygın kullanım.
+        */
+
+        .position-over {
+            ruby-position: over;
+        }
+
+
+        /* ==================================================
+           8. ruby-position: under
+           ==================================================
+
+           Ruby annotation'ı
+           ana metnin altına yerleştirir.
+        */
+
+        .position-under {
+            ruby-position: under;
+        }
+
+
+        /* ==================================================
+           9. ruby-position: inter-character
+           ==================================================
+
+           Ruby text'i karakterlerin
+           arasına yerleştirmeye yönelik
+           dikey yazı düzenlerinde kullanılır.
+
+           Desteği tarayıcıya göre değişebilir.
+        */
+
+        .position-inter {
+            ruby-position: inter-character;
+        }
+
+
+        /* ==================================================
+           10. ruby-position: alternate
+           ==================================================
+
+           Ruby'nin yazı yönüne ve
+           yerleşim kurallarına göre
+           alternatif konum kullanmasına izin verir.
+
+           Modern tarayıcı desteği sınırlı olabilir.
+        */
+
+        .position-alternate {
+            ruby-position: alternate;
+        }
+
+
+        /* ==================================================
+           11. ruby-overhang: auto
+           ==================================================
+
+           Ruby text'in komşu ruby
+           alanlarının üzerine taşmasına
+           izin verilip verilmeyeceğini
+           tarayıcının belirlemesine bırakır.
+        */
+
+        .overhang-auto {
+            ruby-overhang: auto;
+        }
+
+
+        /* ==================================================
+           12. ruby-overhang: none
+           ==================================================
+
+           Ruby text'in komşu karakterlerin
+           üzerine taşmasını engeller.
+        */
+
+        .overhang-none {
+            ruby-overhang: none;
+        }
+
+
+        /* ==================================================
+           13. ruby-merge: separate
+           ==================================================
+
+           Ruby annotation'ları
+           ayrı olarak ele alır.
+        */
+
+        .merge-separate {
+            ruby-merge: separate;
+        }
+
+
+        /* ==================================================
+           14. ruby-merge: collapse
+           ==================================================
+
+           Ruby annotation'larının
+           birleştirilmesine izin verir.
+        */
+
+        .merge-collapse {
+            ruby-merge: collapse;
+        }
+
+
+        /* ==================================================
+           15. ruby-merge: auto
+           ==================================================
+
+           Birleştirme kararını
+           tarayıcıya bırakır.
+        */
+
+        .merge-auto {
+            ruby-merge: auto;
+        }
+
+
+        /* ==================================================
+           16. GERÇEK KULLANIM
+           ==================================================
+
+           Japonca karakter + okunuş.
+        */
+
+        .japanese {
+            ruby-align: center;
+            ruby-position: over;
+
+            font-size: 32px;
+        }
+
+        .japanese rt {
+            font-size: 14px;
+        }
+
+
+        /* ==================================================
+           17. ruby + font-size
+           ==================================================
+
+           Ruby text'i ana metinden
+           daha küçük yapmak genellikle
+           tercih edilir.
+        */
+
+        .small-annotation rt {
+            font-size: 0.45em;
+        }
+
+
+        /* ==================================================
+           18. ruby + color
+           ==================================================
+
+           Annotation'ın rengini
+           ana metinden ayırabiliriz.
+        */
+
+        .colored rt {
+            color: steelblue;
+        }
+
+
+        /* ==================================================
+           19. ruby + font-family
+           ================================================== */
+
+        .different-font rt {
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size: 0.4em;
+        }
+
+
+        /* ==================================================
+           20. ruby + writing-mode
+           ==================================================
+
+           Dikey yazı sistemlerinde
+           Ruby Layout daha anlamlı hale gelir.
+        */
+
+        .vertical-writing {
+            writing-mode:
+                vertical-rl;
+
+            height: 350px;
+
+            ruby-position:
+                over;
+        }
+
+
+        /* ==================================================
+           21. ruby + line-height
+           ================================================== */
+
+        .line-height rt {
+            line-height: 1;
+        }
+
+
+        /* ==================================================
+           22. ruby + font-weight
+           ================================================== */
+
+        .bold-ruby rt {
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           23. ruby + letter-spacing
+           ================================================== */
+
+        .spacing rt {
+            letter-spacing: 2px;
+        }
+
+
+        /* ==================================================
+           24. CSS ile ruby oluşturma
+           ==================================================
+
+           Normalde HTML <ruby> ve <rt>
+           kullanmak en doğru yöntemdir.
+
+           CSS:
+
+           display: ruby;
+           display: ruby-text;
+
+           ile benzer layout kurulabilir.
+        */
+
+        .custom-ruby {
+            display: ruby;
+        }
+
+        .custom-base {
+            display: ruby-base;
+        }
+
+        .custom-text {
+            display: ruby-text;
+
+            font-size: 14px;
+        }
+
+
+        /* ==================================================
+           25. GLOBAL VALUES
+           ================================================== */
+
+        .global-initial {
+            ruby-align:
+                initial;
+        }
+
+        .global-inherit {
+            ruby-align:
+                inherit;
+        }
+
+        .global-unset {
+            ruby-align:
+                unset;
+        }
+
+        .global-revert {
+            ruby-align:
+                revert;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         TEMEL RUBY
+         ================================================== -->
+
+    <h2>1. display: ruby</h2>
+
+    <div class="container">
+
+        <ruby class="ruby">
+
+            漢字
+
+            <rt>
+                かんじ
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>2. display: ruby-text</h2>
+
+    <div class="container">
+
+        <ruby>
+
+            日本
+
+            <rt class="ruby-text">
+                にほん
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <!-- ==================================================
+         RUBY ALIGN
+         ================================================== -->
+
+    <h2>3. ruby-align: start</h2>
+
+    <div class="container">
+
+        <ruby class="align-start">
+
+            漢字
+
+            <rt>
+                かんじ
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>4. ruby-align: center</h2>
+
+    <div class="container">
+
+        <ruby class="align-center">
+
+            日本語
+
+            <rt>
+                にほんご
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>5. ruby-align: space-between</h2>
+
+    <div class="container">
+
+        <ruby class="align-between">
+
+            東京
+
+            <rt>
+                とうきょう
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>6. ruby-align: space-around</h2>
+
+    <div class="container">
+
+        <ruby class="align-around">
+
+            学生
+
+            <rt>
+                がくせい
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <!-- ==================================================
+         RUBY POSITION
+         ================================================== -->
+
+    <h2>7. ruby-position: over</h2>
+
+    <div class="container">
+
+        <ruby class="position-over">
+
+            漢字
+
+            <rt>
+                かんじ
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>8. ruby-position: under</h2>
+
+    <div class="container">
+
+        <ruby class="position-under">
+
+            漢字
+
+            <rt>
+                かんじ
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>9. ruby-position: inter-character</h2>
+
+    <div class="container">
+
+        <ruby class="position-inter">
+
+            日本
+
+            <rt>
+                にほん
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>10. ruby-position: alternate</h2>
+
+    <div class="container">
+
+        <ruby class="position-alternate">
+
+            学校
+
+            <rt>
+                がっこう
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <!-- ==================================================
+         RUBY OVERHANG
+         ================================================== -->
+
+    <h2>11. ruby-overhang: auto</h2>
+
+    <div class="container">
+
+        <ruby class="overhang-auto">
+
+            日本語
+
+            <rt>
+                にほんご
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>12. ruby-overhang: none</h2>
+
+    <div class="container">
+
+        <ruby class="overhang-none">
+
+            日本語
+
+            <rt>
+                にほんご
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <!-- ==================================================
+         RUBY MERGE
+         ================================================== -->
+
+    <h2>13. ruby-merge: separate</h2>
+
+    <div class="container">
+
+        <ruby class="merge-separate">
+
+            日本語
+
+            <rt>
+                にほんご
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>14. ruby-merge: collapse</h2>
+
+    <div class="container">
+
+        <ruby class="merge-collapse">
+
+            日本語
+
+            <rt>
+                にほんご
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>15. ruby-merge: auto</h2>
+
+    <div class="container">
+
+        <ruby class="merge-auto">
+
+            日本語
+
+            <rt>
+                にほんご
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <!-- ==================================================
+         GERÇEK KULLANIM
+         ================================================== -->
+
+    <h2>16. Japonca okunuş</h2>
+
+    <div class="container">
+
+        <ruby class="japanese">
+
+            日本語
+
+            <rt>
+                にほんご
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>17. Küçük annotation</h2>
+
+    <div class="container">
+
+        <ruby class="small-annotation">
+
+            学生
+
+            <rt>
+                がくせい
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>18. Farklı annotation rengi</h2>
+
+    <div class="container">
+
+        <ruby class="colored">
+
+            漢字
+
+            <rt>
+                かんじ
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>19. Farklı font</h2>
+
+    <div class="container">
+
+        <ruby class="different-font">
+
+            日本
+
+            <rt>
+                にほん
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>20. Vertical writing</h2>
+
+    <div class="container">
+
+        <ruby class="vertical-writing">
+
+            日本語
+
+            <rt>
+                にほんご
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>21. line-height</h2>
+
+    <div class="container">
+
+        <ruby class="line-height">
+
+            漢字
+
+            <rt>
+                かんじ
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>22. font-weight</h2>
+
+    <div class="container">
+
+        <ruby class="bold-ruby">
+
+            日本
+
+            <rt>
+                にほん
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <h2>23. letter-spacing</h2>
+
+    <div class="container">
+
+        <ruby class="spacing">
+
+            学校
+
+            <rt>
+                がっこう
+            </rt>
+
+        </ruby>
+
+    </div>
+
+
+    <!-- ==================================================
+         CSS CUSTOM RUBY
+         ================================================== -->
+
+    <h2>24. display: ruby-base / ruby-text</h2>
+
+    <div class="container">
+
+        <span class="custom-ruby">
+
+            <span class="custom-base">
+                漢字
+            </span>
+
+            <span class="custom-text">
+                かんじ
+            </span>
+
+        </span>
+
+    </div>
+
+
+    <!-- ==================================================
+         GLOBAL
+         ================================================== -->
+
+    <h2>25. Global values</h2>
+
+    <div class="container">
+
+        <ruby class="global-initial">
+            漢字
+            <rt>かんじ</rt>
+        </ruby>
+
+        <br>
+
+        <ruby class="global-inherit">
+            日本
+            <rt>にほん</rt>
+        </ruby>
+
+        <br>
+
+        <ruby class="global-unset">
+            学校
+            <rt>がっこう</rt>
+        </ruby>
+
+        <br>
+
+        <ruby class="global-revert">
+            学生
+            <rt>がくせい</rt>
+        </ruby>
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS align-content - Tüm Değerler</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+
+            width: 500px;
+            height: 300px;
+
+            gap: 10px;
+            padding: 10px;
+
+            border: 3px solid black;
+            box-sizing: border-box;
+        }
+
+        .item {
+            width: 100px;
+            height: 50px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: steelblue;
+            color: white;
+
+            border-radius: 8px;
+        }
+
+
+        /* ==================================================
+       1. align-content: normal
+       ==================================================
+
+       Normal hizalama davranışını kullanır.
+
+       Flexbox'ta genellikle stretch davranışına
+       benzer şekilde çalışır.
+    */
+
+        .normal {
+            align-content: normal;
+        }
+
+
+        /* ==================================================
+       2. align-content: stretch
+       ==================================================
+
+       Satırları çapraz eksende container'a
+       yayarak mevcut alanı doldurmalarını sağlar.
+
+       DEFAULT DEĞERDİR.
+    */
+
+        .stretch {
+            align-content: stretch;
+        }
+
+
+        /* ==================================================
+       3. align-content: flex-start
+       ==================================================
+
+       Satırları çapraz eksenin başlangıç tarafına
+       toplar.
+    */
+
+        .flex-start {
+            align-content: flex-start;
+        }
+
+
+        /* ==================================================
+       4. align-content: flex-end
+       ==================================================
+
+       Satırları çapraz eksenin bitiş tarafına
+       toplar.
+    */
+
+        .flex-end {
+            align-content: flex-end;
+        }
+
+
+        /* ==================================================
+       5. align-content: center
+       ==================================================
+
+       Satırları çapraz eksenin ortasında toplar.
+    */
+
+        .center {
+            align-content: center;
+        }
+
+
+        /* ==================================================
+       6. align-content: space-between
+       ==================================================
+
+       İlk satırı başlangıca,
+       son satırı sona yerleştirir.
+
+       Aradaki boşlukları eşit dağıtır.
+    */
+
+        .space-between {
+            align-content: space-between;
+        }
+
+
+        /* ==================================================
+       7. align-content: space-around
+       ==================================================
+
+       Her satırın etrafına eşit miktarda
+       boşluk bırakır.
+
+       Kenarlardaki boşluklar,
+       satırlar arasındaki boşluğun yaklaşık yarısıdır.
+    */
+
+        .space-around {
+            align-content: space-around;
+        }
+
+
+        /* ==================================================
+       8. align-content: space-evenly
+       ==================================================
+
+       Satırlar arasındaki ve kenarlardaki
+       boşlukları tamamen eşit dağıtır.
+    */
+
+        .space-evenly {
+            align-content: space-evenly;
+        }
+
+
+        /* ==================================================
+       9. align-content: start
+       ==================================================
+
+       Satırları mantıksal başlangıç tarafına
+       hizalar.
+
+       flex-start'tan farklı olarak
+       modern mantıksal hizalama kurallarını kullanır.
+    */
+
+        .start {
+            align-content: start;
+        }
+
+
+        /* ==================================================
+       10. align-content: end
+       ==================================================
+
+       Satırları mantıksal bitiş tarafına
+       hizalar.
+    */
+
+        .end {
+            align-content: end;
+        }
+
+
+        /* ==================================================
+       11. align-content: safe center
+       ==================================================
+
+       Satırları ortaya hizalamaya çalışır.
+
+       Taşma durumunda içeriğin kaybolmasını
+       önleyecek daha güvenli hizalamayı tercih eder.
+    */
+
+        .safe-center {
+            align-content: safe center;
+        }
+
+
+        /* ==================================================
+       12. align-content: unsafe center
+       ==================================================
+
+       Satırları ortaya hizalar.
+
+       Taşma meydana gelse bile center hizalamasını
+       korumaya çalışır.
+    */
+
+        .unsafe-center {
+            align-content: unsafe center;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- ==================================================
+       1. normal
+       ================================================== -->
+
+    <h2>1. align-content: normal</h2>
+
+    <div class="container normal">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       2. stretch
+       ================================================== -->
+
+    <h2>2. align-content: stretch</h2>
+
+    <div class="container stretch">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       3. flex-start
+       ================================================== -->
+
+    <h2>3. align-content: flex-start</h2>
+
+    <div class="container flex-start">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       4. flex-end
+       ================================================== -->
+
+    <h2>4. align-content: flex-end</h2>
+
+    <div class="container flex-end">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       5. center
+       ================================================== -->
+
+    <h2>5. align-content: center</h2>
+
+    <div class="container center">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       6. space-between
+       ================================================== -->
+
+    <h2>6. align-content: space-between</h2>
+
+    <div class="container space-between">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       7. space-around
+       ================================================== -->
+
+    <h2>7. align-content: space-around</h2>
+
+    <div class="container space-around">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       8. space-evenly
+       ================================================== -->
+
+    <h2>8. align-content: space-evenly</h2>
+
+    <div class="container space-evenly">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       9. start
+       ================================================== -->
+
+    <h2>9. align-content: start</h2>
+
+    <div class="container start">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       10. end
+       ================================================== -->
+
+    <h2>10. align-content: end</h2>
+
+    <div class="container end">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       11. safe center
+       ================================================== -->
+
+    <h2>11. align-content: safe center</h2>
+
+    <div class="container safe-center">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+
+    <!-- ==================================================
+       12. unsafe center
+       ================================================== -->
+
+    <h2>12. align-content: unsafe center</h2>
+
+    <div class="container unsafe-center">
+
+        <div class="item">A</div>
+        <div class="item">B</div>
+        <div class="item">C</div>
+        <div class="item">D</div>
+        <div class="item">E</div>
+        <div class="item">F</div>
+
+    </div>
+
+</body>
+
+</html>

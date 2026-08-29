@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: arial;
+        /*yazı tipi*/
+        display: flex;
+        justify-content: center;
+        /*üstündekiyle kutuyu dikeyde ortalar*/
+        align-items: center;
+        /*diğer ikisiyle kutuyu yatayda ortalar*/
+        height: 100vh;
+        background: linear-gradient(120deg, pink, purple);
+        /* arka planın çok renkli olmasını sağlar*/
+    }
+
+    .başla {
+        background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT22H8mBHbfKY7YL_WWR1wMxO3pb7kCWZKEYw&s");
+        /*kutuya arka plan ekler*/
+        background-color: aqua;
+        /*arka plan rengi(kutunun iç rengi)*/
+        padding: 20px 50px;
+        /*aşşağı ve sağa yazı-kutu arası mesafe artar(iç boşluk)*/
+        margin: 20px 20px;
+        /*aşşağı ve sağa kutu-ekran arası mesafe artar(dış boşluk)*/
+        font-size: 30px;
+        /* yazı boyutu artar*/
+        text-align: center;
+        /*yazıyı dikeyde ortalar*/
+        display: flex;
+        align-items: center;
+        /*üstündekiyle beraber yazıyı yatayda ortalar*/
+        color: red;
+        /* yazının rengini ayarlar*/
+        width: 100px;
+        /*kutunun eni artar(yatay)*/
+        height: 200px;
+        /*kutunun boyu artar(dikey)*/
+        border: 3px solid pink;
+        /* kutuya kenarlık yapar*/
+        border-radius: 20px;
+        /*kutunun köşelerinin oval olmasını sağlar*/
+        box-shadow: 0px 0px 30px 20px black;
+        /*sağa-aşşağı-(bulanıklık)-yayılma-renk (gölge verir)*/
+        text-shadow: 4px 4px 3px yellow;
+        /* yazıya gölge verir*/
+        cursor: pointer;
+        /*parmak olur*/
+
+
+    }
+
+    .imleç {
+        caret-color: red;
+        /*imleç rengi*/
+    }
+</style>
+
+<body>
+    <input type="text" class="imleç">
+
+    <div class="başla">merhaba</div>
+
+
+
+</body>
+
+</html>
+<!--
+top:; üstten
+bottom:; alttan
+left:; soldan
+right:; sağdan
+position:; belirtilmeli
+position:static; harici çalışırlar
+
+margin- ile kullanmak daha iyi
+-->

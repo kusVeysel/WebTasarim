@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS resize - Full</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f4f4;
+        }
+
+        h2 {
+            margin-top: 45px;
+        }
+
+        .container {
+            margin-bottom: 30px;
+            padding: 25px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            background: white;
+        }
+
+        .box {
+            width: 300px;
+            height: 120px;
+
+            padding: 15px;
+
+            border: 2px solid steelblue;
+            border-radius: 10px;
+
+            background: #eef6ff;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           resize NEDİR?
+           ==================================================
+
+           Kullanıcının bir elementin boyutunu
+           mouse ile değiştirmesine izin verir.
+
+           resize tek başına çalışmaz.
+
+           Genellikle:
+
+           overflow: auto;
+
+           veya
+
+           overflow: hidden;
+
+           gibi bir overflow değeri gerekir.
+
+           En önemli kullanım alanı:
+
+           textarea
+           → Kullanıcının textarea boyutunu değiştirmesi
+        */
+
+
+        /* ==================================================
+           1. resize: none
+           ==================================================
+
+           Kullanıcı elementi yeniden boyutlandıramaz.
+
+           Varsayılan değer.
+        */
+
+        .none {
+            resize: none;
+        }
+
+
+        /* ==================================================
+           2. resize: both
+           ==================================================
+
+           Hem yatay hem dikey boyutlandırma.
+
+           En önemli ve en yaygın değerlerden biri.
+        */
+
+        .both {
+            resize: both;
+        }
+
+
+        /* ==================================================
+           3. resize: horizontal
+           ==================================================
+
+           Sadece yatay boyutlandırma.
+
+           width değişir.
+           height değişmez.
+        */
+
+        .horizontal {
+            resize: horizontal;
+        }
+
+
+        /* ==================================================
+           4. resize: vertical
+           ==================================================
+
+           Sadece dikey boyutlandırma.
+
+           height değişir.
+           width değişmez.
+        */
+
+        .vertical {
+            resize: vertical;
+        }
+
+
+        /* ==================================================
+           5. resize: block
+           ==================================================
+
+           Elementin block yönünde
+           yeniden boyutlandırılmasını sağlar.
+
+           Yazı yönüne göre davranır.
+
+           Normal horizontal writing-mode'da
+           vertical'e benzer.
+        */
+
+        .block {
+            resize: block;
+        }
+
+
+        /* ==================================================
+           6. resize: inline
+           ==================================================
+
+           Elementin inline yönünde
+           yeniden boyutlandırılmasını sağlar.
+
+           Normal horizontal writing-mode'da
+           horizontal'e benzer.
+        */
+
+        .inline {
+            resize: inline;
+        }
+
+
+        /* ==================================================
+           7. resize + min-width
+           ==================================================
+
+           Kullanıcının elementi
+           belirli bir genişliğin altına
+           küçültmesini engeller.
+        */
+
+        .min-width {
+            resize: horizontal;
+
+            min-width: 200px;
+        }
+
+
+        /* ==================================================
+           8. resize + max-width
+           ==================================================
+
+           Elementin belirli bir genişlikten
+           daha fazla büyümesini engeller.
+        */
+
+        .max-width {
+            resize: horizontal;
+
+            max-width: 500px;
+        }
+
+
+        /* ==================================================
+           9. resize + min-height
+           ================================================== */
+
+        .min-height {
+            resize: vertical;
+
+            min-height: 100px;
+        }
+
+
+        /* ==================================================
+           10. resize + max-height
+           ================================================== */
+
+        .max-height {
+            resize: vertical;
+
+            max-height: 300px;
+        }
+
+
+        /* ==================================================
+           11. resize + min/max width
+           ==================================================
+
+           Gerçek projelerde çok kullanışlıdır.
+
+           Kullanıcı resize yapabilir fakat
+           belirlenen sınırların dışına çıkamaz.
+        */
+
+        .bounded-width {
+            resize: horizontal;
+
+            min-width: 200px;
+            max-width: 600px;
+        }
+
+
+        /* ==================================================
+           12. resize + min/max height
+           ================================================== */
+
+        .bounded-height {
+            resize: vertical;
+
+            min-height: 100px;
+            max-height: 350px;
+        }
+
+
+        /* ==================================================
+           13. resize + min/max width/height
+           ================================================== */
+
+        .bounded {
+            resize: both;
+
+            min-width: 200px;
+            max-width: 600px;
+
+            min-height: 100px;
+            max-height: 350px;
+        }
+
+
+        /* ==================================================
+           14. resize + overflow: auto
+           ==================================================
+
+           En güvenli ve yaygın kombinasyonlardan biri.
+
+           İçerik taşarsa scrollbar oluşur.
+        */
+
+        .auto {
+            resize: both;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           15. resize + overflow: scroll
+           ==================================================
+
+           Scrollbar sürekli görünür.
+        */
+
+        .scroll {
+            resize: both;
+
+            overflow: scroll;
+        }
+
+
+        /* ==================================================
+           16. TEXTAREA
+           ==================================================
+
+           resize'ın en yaygın gerçek kullanım alanı.
+
+           Kullanıcı mesaj kutusunu büyütüp küçültebilir.
+        */
+
+        textarea {
+            display: block;
+
+            width: 100%;
+            min-height: 120px;
+
+            padding: 15px;
+
+            font: inherit;
+
+            border: 2px solid #bbb;
+            border-radius: 10px;
+
+            resize: vertical;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           17. TEXTAREA: BOTH
+           ================================================== */
+
+        .textarea-both {
+            resize: both;
+
+            width: 400px;
+            height: 150px;
+
+            max-width: 100%;
+        }
+
+
+        /* ==================================================
+           18. TEXTAREA: NONE
+           ==================================================
+
+           Tasarımın bozulmasını istemiyorsan.
+        */
+
+        .textarea-none {
+            resize: none;
+        }
+
+
+        /* ==================================================
+           19. CHAT MESSAGE BOX
+           ==================================================
+
+           Chat uygulamalarında
+           dikey resize mantıklıdır.
+
+           Kullanıcı mesajını uzatabilir
+           fakat layout'u yatay olarak bozmaz.
+        */
+
+        .chat-input {
+            width: 100%;
+
+            min-height: 60px;
+            max-height: 250px;
+
+            padding: 15px;
+
+            resize: vertical;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           20. CODE EDITOR
+           ==================================================
+
+           Kod alanlarında hem yatay
+           hem dikey resize kullanılabilir.
+        */
+
+        .code-editor {
+            width: 500px;
+            height: 200px;
+
+            max-width: 100%;
+
+            padding: 20px;
+
+            font-family:
+                Consolas,
+                monospace;
+
+            resize: both;
+
+            overflow: auto;
+
+            white-space: pre;
+        }
+
+
+        /* ==================================================
+           21. COMMENT BOX
+           ================================================== */
+
+        .comment {
+            width: 100%;
+
+            min-height: 100px;
+            max-height: 300px;
+
+            resize: vertical;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           22. PANEL
+           ==================================================
+
+           Dashboard / admin panel gibi
+           arayüzlerde kullanılabilir.
+        */
+
+        .panel {
+            width: 350px;
+            height: 200px;
+
+            min-width: 250px;
+            min-height: 150px;
+
+            max-width: 700px;
+            max-height: 500px;
+
+            resize: both;
+
+            overflow: auto;
+
+            padding: 20px;
+
+            background: white;
+
+            border: 2px solid #aaa;
+        }
+
+
+        /* ==================================================
+           23. CARD
+           ================================================== */
+
+        .card {
+            width: 300px;
+            height: 180px;
+
+            min-width: 220px;
+            min-height: 140px;
+
+            max-width: 500px;
+            max-height: 350px;
+
+            resize: both;
+
+            overflow: auto;
+
+            padding: 20px;
+
+            border-radius: 15px;
+
+            border: 2px solid #ccc;
+        }
+
+
+        /* ==================================================
+           24. RESIZE + BOX-SIZING
+           ==================================================
+
+           box-sizing: border-box kullanmak,
+           width/height hesaplarının
+           daha öngörülebilir olmasını sağlar.
+        */
+
+        .box-sizing {
+            box-sizing: border-box;
+
+            width: 300px;
+            height: 150px;
+
+            padding: 20px;
+
+            border: 5px solid steelblue;
+
+            resize: both;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           25. RESIZE + ASPECT-RATIO
+           ==================================================
+
+           aspect-ratio ile birlikte
+           belirli oranı korumaya yardımcı olabilir.
+
+           Ancak resize sırasında davranış
+           tarayıcıya göre farklı ayrıntılar içerebilir.
+        */
+
+        .aspect {
+            width: 300px;
+
+            aspect-ratio: 16 / 9;
+
+            resize: both;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           26. RTL / WRITING MODE
+           ==================================================
+
+           block ve inline değerleri
+           yazım yönünden etkilenebilir.
+        */
+
+        .rtl {
+            direction: rtl;
+
+            resize: inline;
+
+            width: 300px;
+            height: 120px;
+        }
+
+
+        /* ==================================================
+           27. writing-mode
+           ==================================================
+
+           logical resize değerlerinin farkını
+           görmek için.
+        */
+
+        .vertical-writing {
+            writing-mode:
+                vertical-rl;
+
+            resize:
+                inline;
+
+            width: 150px;
+            height: 250px;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           28. GLOBAL VALUE: inherit
+           ================================================== */
+
+        .inherit-parent {
+            resize: both;
+        }
+
+        .inherit-child {
+            resize: inherit;
+
+            width: 250px;
+            height: 120px;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           29. GLOBAL VALUE: initial
+           ==================================================
+
+           resize property'sinin başlangıç değerine döner.
+
+           none
+        */
+
+        .initial {
+            resize: initial;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           30. GLOBAL VALUE: unset
+           ================================================== */
+
+        .unset {
+            resize: unset;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           31. GLOBAL VALUE: revert
+           ================================================== */
+
+        .revert {
+            resize: revert;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           32. RESPONSIVE RESIZE
+           ================================================== */
+
+        .responsive {
+            width: 400px;
+            height: 180px;
+
+            max-width: 100%;
+
+            min-width: 200px;
+            max-height: 400px;
+
+            resize: both;
+
+            overflow: auto;
+        }
+
+
+        /* ==================================================
+           33. MOBILE
+           ==================================================
+
+           Küçük ekranlarda kullanıcıyı
+           yatay resize ile layout'u bozmasını
+           engellemek için vertical tercih edilebilir.
+        */
+
+        @media (max-width: 600px) {
+
+            .responsive {
+                width: 100%;
+
+                resize: vertical;
+
+                min-width: 0;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         TEMEL DEĞERLER
+         ================================================== -->
+
+    <h2>1. resize: none</h2>
+
+    <div class="container">
+
+        <div class="box none">
+            Resize kapalı.
+        </div>
+
+    </div>
+
+
+    <h2>2. resize: both</h2>
+
+    <div class="container">
+
+        <div class="box both">
+            Yatay + dikey resize.
+        </div>
+
+    </div>
+
+
+    <h2>3. resize: horizontal</h2>
+
+    <div class="container">
+
+        <div class="box horizontal">
+            Sadece yatay resize.
+        </div>
+
+    </div>
+
+
+    <h2>4. resize: vertical</h2>
+
+    <div class="container">
+
+        <div class="box vertical">
+            Sadece dikey resize.
+        </div>
+
+    </div>
+
+
+    <h2>5. resize: block</h2>
+
+    <div class="container">
+
+        <div class="box block">
+            Block yönünde resize.
+        </div>
+
+    </div>
+
+
+    <h2>6. resize: inline</h2>
+
+    <div class="container">
+
+        <div class="box inline">
+            Inline yönünde resize.
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         SINIRLAR
+         ================================================== -->
+
+    <h2>7. resize + min-width</h2>
+
+    <div class="container">
+
+        <div class="box min-width">
+            Minimum genişlik: 200px
+        </div>
+
+    </div>
+
+
+    <h2>8. resize + max-width</h2>
+
+    <div class="container">
+
+        <div class="box max-width">
+            Maximum genişlik: 500px
+        </div>
+
+    </div>
+
+
+    <h2>9. resize + min-height</h2>
+
+    <div class="container">
+
+        <div class="box min-height">
+            Minimum yükseklik: 100px
+        </div>
+
+    </div>
+
+
+    <h2>10. resize + max-height</h2>
+
+    <div class="container">
+
+        <div class="box max-height">
+            Maximum yükseklik: 300px
+        </div>
+
+    </div>
+
+
+    <h2>11. Width sınırları</h2>
+
+    <div class="container">
+
+        <div class="box bounded-width">
+            200px → 600px
+        </div>
+
+    </div>
+
+
+    <h2>12. Height sınırları</h2>
+
+    <div class="container">
+
+        <div class="box bounded-height">
+            100px → 350px
+        </div>
+
+    </div>
+
+
+    <h2>13. Tüm sınırlar</h2>
+
+    <div class="container">
+
+        <div class="box bounded">
+            Width + Height sınırları
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         OVERFLOW
+         ================================================== -->
+
+    <h2>14. resize + overflow: auto</h2>
+
+    <div class="container">
+
+        <div class="box auto">
+
+            İçerik büyüdüğünde
+            scrollbar otomatik oluşur.
+
+            Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit.
+
+        </div>
+
+    </div>
+
+
+    <h2>15. resize + overflow: scroll</h2>
+
+    <div class="container">
+
+        <div class="box scroll">
+
+            Scrollbar sürekli görünür.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         TEXTAREA
+         ================================================== -->
+
+    <h2>16. Textarea - vertical</h2>
+
+    <div class="container">
+
+        <textarea placeholder="Mesajınızı yazın...">
+        </textarea>
+
+    </div>
+
+
+    <h2>17. Textarea - both</h2>
+
+    <div class="container">
+
+        <textarea class="textarea-both" placeholder="Yatay + dikey resize...">
+        </textarea>
+
+    </div>
+
+
+    <h2>18. Textarea - none</h2>
+
+    <div class="container">
+
+        <textarea class="textarea-none" placeholder="Resize kapalı...">
+        </textarea>
+
+    </div>
+
+
+    <!-- ==================================================
+         GERÇEK PROJE ÖRNEKLERİ
+         ================================================== -->
+
+    <h2>19. Chat Input</h2>
+
+    <div class="container">
+
+        <textarea class="chat-input" placeholder="Mesaj yaz...">
+        </textarea>
+
+    </div>
+
+
+    <h2>20. Code Editor</h2>
+
+    <div class="container">
+
+        <textarea class="code-editor" spellcheck="false">
+
+const hello = "Hello World";
+
+console.log(hello);
+
+        </textarea>
+
+    </div>
+
+
+    <h2>21. Comment Box</h2>
+
+    <div class="container">
+
+        <textarea class="comment" placeholder="Yorumunuzu yazın...">
+        </textarea>
+
+    </div>
+
+
+    <h2>22. Resizable Panel</h2>
+
+    <div class="container">
+
+        <div class="panel">
+
+            Dashboard Panel
+
+            <br><br>
+
+            Bu panel kullanıcı tarafından
+            büyütülüp küçültülebilir.
+
+        </div>
+
+    </div>
+
+
+    <h2>23. Resizable Card</h2>
+
+    <div class="container">
+
+        <div class="card">
+
+            Resizable Card
+
+            <br><br>
+
+            Minimum ve maximum
+            boyut sınırları vardır.
+
+        </div>
+
+    </div>
+
+
+    <h2>24. resize + box-sizing</h2>
+
+    <div class="container">
+
+        <div class="box-sizing">
+
+            box-sizing: border-box
+
+        </div>
+
+    </div>
+
+
+    <h2>25. resize + aspect-ratio</h2>
+
+    <div class="container">
+
+        <div class="aspect">
+
+            16 / 9
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         LOGICAL RESIZE
+         ================================================== -->
+
+    <h2>26. direction: rtl + resize: inline</h2>
+
+    <div class="container">
+
+        <div class="box rtl">
+
+            RTL
+
+        </div>
+
+    </div>
+
+
+    <h2>27. writing-mode + resize: inline</h2>
+
+    <div class="container">
+
+        <div class="box vertical-writing">
+
+            Vertical writing mode
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         GLOBAL VALUES
+         ================================================== -->
+
+    <h2>28. resize: inherit</h2>
+
+    <div class="container inherit-parent">
+
+        <div class="box inherit-child">
+
+            inherit
+
+        </div>
+
+    </div>
+
+
+    <h2>29. resize: initial</h2>
+
+    <div class="container">
+
+        <div class="box initial">
+
+            initial
+
+        </div>
+
+    </div>
+
+
+    <h2>30. resize: unset</h2>
+
+    <div class="container">
+
+        <div class="box unset">
+
+            unset
+
+        </div>
+
+    </div>
+
+
+    <h2>31. resize: revert</h2>
+
+    <div class="container">
+
+        <div class="box revert">
+
+            revert
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         RESPONSIVE
+         ================================================== -->
+
+    <h2>32. Responsive Resize</h2>
+
+    <div class="container">
+
+        <div class="box responsive">
+
+            Responsive resizable element.
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

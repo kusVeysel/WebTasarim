@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>CSS Stroke - Full</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f4f4;
+        }
+
+        h2 {
+            margin-top: 50px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+
+            min-height: 180px;
+
+            margin-bottom: 30px;
+            padding: 35px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+
+            border: 3px solid black;
+            border-radius: 20px;
+
+            background: white;
+        }
+
+        svg {
+            width: 180px;
+            height: 130px;
+
+            overflow: visible;
+        }
+
+
+        /* ==================================================
+           1. stroke
+           ==================================================
+
+           SVG çizgisinin rengini belirler.
+
+           CSS:
+           stroke: red;
+
+           SVG:
+           <path stroke="red">
+        */
+
+        .stroke-color {
+            stroke: crimson;
+        }
+
+
+        /* ==================================================
+           2. stroke: currentColor
+           ==================================================
+
+           Elementin color değerini kullanır.
+
+           Böylece SVG rengi text rengiyle
+           otomatik olarak aynı olabilir.
+        */
+
+        .current-color {
+            color: steelblue;
+
+            stroke: currentColor;
+        }
+
+
+        /* ==================================================
+           3. stroke: none
+           ==================================================
+
+           Çizgiyi kaldırır.
+        */
+
+        .stroke-none {
+            stroke: none;
+        }
+
+
+        /* ==================================================
+           4. stroke-width
+           ==================================================
+
+           Çizginin kalınlığını belirler.
+        */
+
+        .width-small {
+            stroke-width: 2;
+        }
+
+        .width-medium {
+            stroke-width: 6;
+        }
+
+        .width-large {
+            stroke-width: 12;
+        }
+
+
+        /* ==================================================
+           5. stroke-width + farklı birimler
+           ================================================== */
+
+        .width-px {
+            stroke-width: 8px;
+        }
+
+        .width-percent {
+            stroke-width: 5%;
+        }
+
+
+        /* ==================================================
+           6. stroke-linecap
+           ==================================================
+
+           Çizginin uçlarının şeklini belirler.
+
+           butt
+           → Düz kesilir.
+
+           round
+           → Yuvarlak uç.
+
+           square
+           → Kare şeklinde uzatılmış uç.
+        */
+
+        .linecap-butt {
+            stroke-linecap: butt;
+        }
+
+        .linecap-round {
+            stroke-linecap: round;
+        }
+
+        .linecap-square {
+            stroke-linecap: square;
+        }
+
+
+        /* ==================================================
+           7. stroke-linejoin
+           ==================================================
+
+           Çizgilerin birleşim noktalarını belirler.
+
+           miter
+           → Keskin köşe.
+
+           round
+           → Yuvarlak köşe.
+
+           bevel
+           → Köşeyi keser.
+        */
+
+        .join-miter {
+            stroke-linejoin: miter;
+        }
+
+        .join-round {
+            stroke-linejoin: round;
+        }
+
+        .join-bevel {
+            stroke-linejoin: bevel;
+        }
+
+
+        /* ==================================================
+           8. stroke-miterlimit
+           ==================================================
+
+           miter birleşimlerinin ne kadar
+           uzayabileceğini sınırlar.
+
+           Özellikle keskin SVG köşelerinde önemlidir.
+        */
+
+        .miter-low {
+            stroke-linejoin: miter;
+
+            stroke-miterlimit: 2;
+        }
+
+        .miter-high {
+            stroke-linejoin: miter;
+
+            stroke-miterlimit: 10;
+        }
+
+
+        /* ==================================================
+           9. stroke-dasharray
+           ==================================================
+
+           Çizgiyi kesikli hale getirir.
+
+           Örnek:
+
+           10 5
+
+           → 10 birim çiz
+           → 5 birim boşluk
+        */
+
+        .dasharray {
+            stroke-dasharray: 12 6;
+        }
+
+
+        /* ==================================================
+           10. stroke-dasharray çoklu değer
+           ================================================== */
+
+        .dasharray-multiple {
+            stroke-dasharray:
+                20 5 5 5;
+        }
+
+
+        /* ==================================================
+           11. stroke-dasharray tek değer
+           ================================================== */
+
+        .dasharray-single {
+            stroke-dasharray: 10;
+        }
+
+
+        /* ==================================================
+           12. stroke-dashoffset
+           ==================================================
+
+           Kesikli çizginin başlangıç konumunu
+           kaydırır.
+        */
+
+        .dashoffset {
+            stroke-dasharray: 15 8;
+
+            stroke-dashoffset: 10;
+        }
+
+
+        /* ==================================================
+           13. stroke-dashoffset NEGATİF
+           ================================================== */
+
+        .dashoffset-negative {
+            stroke-dasharray: 15 8;
+
+            stroke-dashoffset: -10;
+        }
+
+
+        /* ==================================================
+           14. stroke + CSS variable
+           ================================================== */
+
+        .variable-stroke {
+            --stroke-color: steelblue;
+
+            stroke:
+                var(--stroke-color);
+
+            stroke-width: 7;
+        }
+
+
+        /* ==================================================
+           15. stroke + inherit
+           ================================================== */
+
+        .parent {
+            color: crimson;
+        }
+
+        .inherit-stroke {
+            stroke: currentColor;
+        }
+
+
+        /* ==================================================
+           16. stroke-opacity
+           ==================================================
+
+           Stroke'un saydamlığını belirler.
+
+           1   → tamamen görünür
+           0.5 → %50
+           0   → görünmez
+        */
+
+        .opacity-full {
+            stroke-opacity: 1;
+        }
+
+        .opacity-half {
+            stroke-opacity: 0.5;
+        }
+
+        .opacity-low {
+            stroke-opacity: 0.2;
+        }
+
+
+        /* ==================================================
+           17. stroke-opacity + stroke
+           ================================================== */
+
+        .transparent-stroke {
+            stroke: crimson;
+
+            stroke-opacity: 0.35;
+
+            stroke-width: 12;
+        }
+
+
+        /* ==================================================
+           18. stroke + fill
+           ==================================================
+
+           SVG'nin iç rengi fill,
+           dış çizgisi stroke'tur.
+        */
+
+        .fill-and-stroke {
+            fill: lightblue;
+
+            stroke: steelblue;
+
+            stroke-width: 8;
+        }
+
+
+        /* ==================================================
+           19. fill: none + stroke
+           ==================================================
+
+           Sadece dış çizgi.
+        */
+
+        .outline-only {
+            fill: none;
+
+            stroke: steelblue;
+
+            stroke-width: 8;
+        }
+
+
+        /* ==================================================
+           20. stroke-linecap: round
+           + dasharray
+
+           Loading / progress efekti için.
+        */
+
+        .rounded-dash {
+            fill: none;
+
+            stroke: steelblue;
+
+            stroke-width: 8;
+
+            stroke-linecap: round;
+
+            stroke-dasharray: 30 10;
+        }
+
+
+        /* ==================================================
+           21. Çizgi çizilme animasyonu
+           ==================================================
+
+           Gerçek projelerde SVG logo,
+           icon ve illustration animasyonlarında
+           çok kullanılır.
+        */
+
+        .draw-animation {
+            fill: none;
+
+            stroke: steelblue;
+
+            stroke-width: 6;
+
+            stroke-linecap: round;
+
+            stroke-dasharray: 500;
+
+            stroke-dashoffset: 500;
+
+            animation:
+                draw 2s ease forwards;
+        }
+
+        @keyframes draw {
+
+            to {
+                stroke-dashoffset: 0;
+            }
+
+        }
+
+
+        /* ==================================================
+           22. Sonsuz çizim animasyonu
+           ================================================== */
+
+        .draw-infinite {
+            fill: none;
+
+            stroke: steelblue;
+
+            stroke-width: 6;
+
+            stroke-linecap: round;
+
+            stroke-dasharray: 100 20;
+
+            animation:
+                dash-move 2s linear infinite;
+        }
+
+        @keyframes dash-move {
+
+            to {
+                stroke-dashoffset: -240;
+            }
+
+        }
+
+
+        /* ==================================================
+           23. Hover stroke
+           ================================================== */
+
+        .hover-stroke {
+            fill: white;
+
+            stroke: steelblue;
+
+            stroke-width: 4;
+
+            transition:
+                stroke 0.3s ease,
+                stroke-width 0.3s ease,
+                fill 0.3s ease;
+        }
+
+        .hover-stroke:hover {
+            fill: steelblue;
+
+            stroke: crimson;
+
+            stroke-width: 8;
+        }
+
+
+        /* ==================================================
+           24. Hover ile dash
+           ================================================== */
+
+        .hover-dash {
+            fill: none;
+
+            stroke: steelblue;
+
+            stroke-width: 7;
+
+            stroke-linecap: round;
+
+            stroke-dasharray: 4 0;
+
+            transition:
+                stroke-dasharray 0.5s ease;
+        }
+
+        .hover-dash:hover {
+            stroke-dasharray: 12 8;
+        }
+
+
+        /* ==================================================
+           25. CSS @property ile animasyon
+           ==================================================
+
+           stroke-dashoffset gibi değerleri
+           daha kontrollü animasyonlarda
+           kullanabiliriz.
+        */
+
+        @property --dash {
+            syntax: "<number>";
+
+            inherits: false;
+
+            initial-value: 0;
+        }
+
+        .property-animation {
+            fill: none;
+
+            stroke: steelblue;
+
+            stroke-width: 7;
+
+            stroke-dasharray: 100 100;
+
+            stroke-dashoffset: var(--dash);
+
+            animation:
+                property-dash 2s linear infinite;
+        }
+
+        @keyframes property-dash {
+
+            from {
+                --dash: 0;
+            }
+
+            to {
+                --dash: 200;
+            }
+
+        }
+
+
+        /* ==================================================
+           26. Icon sistemi
+           ================================================== */
+
+        .icon {
+            width: 70px;
+            height: 70px;
+
+            color: steelblue;
+
+            transition:
+                scale 0.2s ease;
+        }
+
+        .icon:hover {
+            scale: 1.15;
+        }
+
+        .icon path,
+        .icon circle,
+        .icon rect {
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 2;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+        }
+
+
+        /* ==================================================
+           27. currentColor icon
+           ================================================== */
+
+        .icon-red {
+            color: crimson;
+        }
+
+        .icon-blue {
+            color: steelblue;
+        }
+
+        .icon-green {
+            color: seagreen;
+        }
+
+
+        /* ==================================================
+           28. Global değerler
+           ================================================== */
+
+        .stroke-initial {
+            stroke: initial;
+        }
+
+        .stroke-inherit {
+            stroke: inherit;
+        }
+
+        .stroke-unset {
+            stroke: unset;
+        }
+
+        .stroke-revert {
+            stroke: revert;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. stroke
+         ================================================== -->
+
+    <h2>1. stroke</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 200 120">
+
+            <circle cx="100" cy="60" r="40" class="stroke-color" fill="none" stroke-width="8" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         2. currentColor
+         ================================================== -->
+
+    <h2>2. stroke: currentColor</h2>
+
+    <div class="container">
+
+        <svg class="current-color" viewBox="0 0 200 120">
+
+            <circle cx="100" cy="60" r="40" fill="none" stroke-width="8" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         3. stroke-width
+         ================================================== -->
+
+    <h2>3. stroke-width</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 200 120">
+
+            <line x1="20" y1="30" x2="180" y2="30" class="width-small" stroke="steelblue" />
+
+            <line x1="20" y1="60" x2="180" y2="60" class="width-medium" stroke="steelblue" />
+
+            <line x1="20" y1="100" x2="180" y2="100" class="width-large" stroke="steelblue" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         4. stroke-linecap
+         ================================================== -->
+
+    <h2>4. stroke-linecap</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 240 160">
+
+            <line x1="30" y1="30" x2="210" y2="30" stroke="steelblue" stroke-width="14" class="linecap-butt" />
+
+            <line x1="30" y1="80" x2="210" y2="80" stroke="steelblue" stroke-width="14" class="linecap-round" />
+
+            <line x1="30" y1="130" x2="210" y2="130" stroke="steelblue" stroke-width="14" class="linecap-square" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         5. stroke-linejoin
+         ================================================== -->
+
+    <h2>5. stroke-linejoin</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 300 130">
+
+            <polyline points="20,100 80,20 140,100" fill="none" stroke="steelblue" stroke-width="15"
+                class="join-miter" />
+
+            <polyline points="100,100 160,20 220,100" fill="none" stroke="steelblue" stroke-width="15"
+                class="join-round" />
+
+            <polyline points="180,100 240,20 300,100" fill="none" stroke="steelblue" stroke-width="15"
+                class="join-bevel" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         6. stroke-miterlimit
+         ================================================== -->
+
+    <h2>6. stroke-miterlimit</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 300 140">
+
+            <polyline points="20,120 80,10 140,120" fill="none" stroke="steelblue" stroke-width="12"
+                class="miter-low" />
+
+            <polyline points="160,120 220,10 280,120" fill="none" stroke="crimson" stroke-width="12"
+                class="miter-high" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         7. stroke-dasharray
+         ================================================== -->
+
+    <h2>7. stroke-dasharray</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 220 120">
+
+            <circle cx="110" cy="60" r="45" fill="none" stroke="steelblue" stroke-width="8" class="dasharray" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         8. stroke-dashoffset
+         ================================================== -->
+
+    <h2>8. stroke-dashoffset</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 220 120">
+
+            <circle cx="110" cy="60" r="45" fill="none" stroke="steelblue" stroke-width="8" class="dashoffset" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         9. stroke-opacity
+         ================================================== -->
+
+    <h2>9. stroke-opacity</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 240 150">
+
+            <circle cx="50" cy="75" r="30" fill="none" stroke="steelblue" stroke-width="12" class="opacity-full" />
+
+            <circle cx="120" cy="75" r="30" fill="none" stroke="steelblue" stroke-width="12" class="opacity-half" />
+
+            <circle cx="190" cy="75" r="30" fill="none" stroke="steelblue" stroke-width="12" class="opacity-low" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         10. fill + stroke
+         ================================================== -->
+
+    <h2>10. fill + stroke</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 220 150">
+
+            <rect x="30" y="25" width="160" height="100" rx="20" class="fill-and-stroke" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         11. Sadece outline
+         ================================================== -->
+
+    <h2>11. fill: none + stroke</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 220 150">
+
+            <rect x="30" y="25" width="160" height="100" rx="20" class="outline-only" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         12. Çizim animasyonu
+         ================================================== -->
+
+    <h2>12. stroke-dashoffset çizim animasyonu</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 220 150">
+
+            <path d="M30 110 L80 40 L120 90 L190 25" class="draw-animation" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         13. Sonsuz dash animasyonu
+         ================================================== -->
+
+    <h2>13. Hareketli dashed stroke</h2>
+
+    <div class="container">
+
+        <svg viewBox="0 0 220 150">
+
+            <path d="M30 110 L80 40 L120 90 L190 25" class="draw-infinite" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         14. Hover stroke
+         ================================================== -->
+
+    <h2>14. Hover ile stroke değiştirme</h2>
+
+    <div class="container">
+
+        <svg class="hover-stroke" viewBox="0 0 220 150">
+
+            <circle cx="110" cy="75" r="50" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         15. Hover dash
+         ================================================== -->
+
+    <h2>15. Hover ile dasharray</h2>
+
+    <div class="container">
+
+        <svg class="hover-dash" viewBox="0 0 220 150">
+
+            <circle cx="110" cy="75" r="50" />
+
+        </svg>
+
+    </div>
+
+
+    <!-- ==================================================
+         16. SVG ICON
+         ================================================== -->
+
+    <h2>16. Gerçek proje: SVG Icon</h2>
+
+    <div class="container">
+
+        <svg class="icon icon-blue" viewBox="0 0 24 24">
+
+            <circle cx="12" cy="12" r="9" />
+
+            <path d="M8 12 L11 15 L16 9" />
+
+        </svg>
+
+        <svg class="icon icon-red" viewBox="0 0 24 24">
+
+            <circle cx="12" cy="12" r="9" />
+
+            <path d="M8 8 L16 16 M16 8 L8 16" />
+
+        </svg>
+
+    </div>
+
+
+</body>
+
+</html>

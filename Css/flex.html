@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CSS flex</title>
+
+  <style>
+    /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+
+    .container {
+      display: flex;
+
+      gap: 15px;
+
+      margin-bottom: 45px;
+      padding: 25px;
+
+      background: #f3f4f6;
+
+      border-radius: 12px;
+    }
+
+    .box {
+      min-width: 80px;
+
+      padding: 20px;
+
+      background: white;
+
+      border: 2px solid #ccc;
+
+      border-radius: 8px;
+
+      text-align: center;
+    }
+
+
+    /* ==================================================
+       1. flex: none
+       ==================================================
+
+       Flex item'ın büyümesini ve küçülmesini
+       engeller.
+
+       Şuna denktir:
+
+       flex-grow: 0;
+       flex-shrink: 0;
+       flex-basis: auto;
+
+       Item kendi width / content boyutunu
+       korur.
+    */
+
+    .none {
+      flex: none;
+
+      width: 150px;
+    }
+
+
+    /* ==================================================
+       2. flex: auto
+       ==================================================
+
+       Şuna denktir:
+
+       flex-grow: 1;
+       flex-shrink: 1;
+       flex-basis: auto;
+
+       Item:
+
+       - büyüyebilir
+       - küçülebilir
+       - başlangıç boyutu width /
+         content üzerinden hesaplanır.
+    */
+
+    .auto {
+      flex: auto;
+
+      width: 150px;
+    }
+
+
+    /* ==================================================
+       3. flex: initial
+       ==================================================
+
+       Başlangıç değerlerine döner.
+
+       Şuna denktir:
+
+       flex-grow: 0;
+       flex-shrink: 1;
+       flex-basis: auto;
+
+       Item büyümez,
+       gerektiğinde küçülebilir.
+    */
+
+    .initial {
+      flex: initial;
+
+      width: 150px;
+    }
+
+
+    /* ==================================================
+       4. flex: 1
+       ==================================================
+
+       En yaygın kullanımlardan biridir.
+
+       Kullanılabilir boş alanı
+       flex item'lar arasında paylaşır.
+
+       Genellikle:
+
+       flex: 1;
+
+       şeklinde kullanılır.
+
+       Pratikte eşit genişlikte kolonlar
+       oluşturmak için çok kullanışlıdır.
+    */
+
+    .one {
+      flex: 1;
+    }
+
+
+    /* ==================================================
+       5. flex: 2
+       ==================================================
+
+       flex: 1 olan bir item'a göre
+       iki kat daha fazla boş alan
+       almaya çalışır.
+
+       Örneğin:
+
+       flex: 1;
+       flex: 2;
+
+       → Alan yaklaşık 1:2 oranında paylaşılır.
+    */
+
+    .two {
+      flex: 2;
+    }
+
+
+    /* ==================================================
+       6. flex: 3
+       ==================================================
+
+       Boş alan paylaşım oranını
+       daha da artırır.
+
+       Örneğin:
+
+       1 : 2 : 3
+
+       oranında dağılım oluşturulabilir.
+    */
+
+    .three {
+      flex: 3;
+    }
+
+
+    /* ==================================================
+       7. flex: 0 1 auto
+       ==================================================
+
+       Varsayılan flex davranışıdır.
+
+       grow  = 0
+       shrink = 1
+       basis = auto
+    */
+
+    .zero-one-auto {
+      flex: 0 1 auto;
+
+      width: 180px;
+    }
+
+
+    /* ==================================================
+       8. flex: 1 1 auto
+       ==================================================
+
+       Item:
+
+       - büyüyebilir
+       - küçülebilir
+       - başlangıç boyutu auto'dur.
+    */
+
+    .one-one-auto {
+      flex: 1 1 auto;
+
+      width: 150px;
+    }
+
+
+    /* ==================================================
+       9. flex: 0 0 auto
+       ==================================================
+
+       Item:
+
+       - büyümez
+       - küçülmez
+       - kendi başlangıç boyutunu kullanır.
+
+       Sabit genişlikte item gerektiğinde
+       kullanışlıdır.
+    */
+
+    .zero-zero-auto {
+      flex: 0 0 auto;
+
+      width: 150px;
+    }
+
+
+    /* ==================================================
+       10. flex: 1 1 0
+       ==================================================
+
+       Item'ların başlangıç boyutunu
+       0 kabul ederek boş alanı
+       paylaşmasını sağlar.
+
+       Eşit kolonlar için çok kullanışlıdır.
+
+       flex: 1;
+
+       ile pratikte benzer kullanım
+       sağlar.
+    */
+
+    .one-one-zero {
+      flex: 1 1 0;
+    }
+
+
+    /* ==================================================
+       11. GERÇEK PROJE:
+           EŞİT KOLONLAR
+       ================================================== */
+
+    .equal-columns {
+      display: flex;
+
+      gap: 20px;
+    }
+
+    .equal-columns .box {
+      flex: 1;
+    }
+
+
+    /* ==================================================
+       12. GERÇEK PROJE:
+           SIDEBAR + CONTENT
+       ================================================== */
+
+    .layout {
+      display: flex;
+
+      gap: 20px;
+
+      min-height: 200px;
+    }
+
+    .sidebar {
+      flex: 0 0 220px;
+    }
+
+    .main {
+      flex: 1;
+    }
+
+
+    /* ==================================================
+       13. GERÇEK PROJE:
+           HEADER
+       ================================================== */
+
+    .header {
+      display: flex;
+
+      align-items: center;
+
+      gap: 20px;
+    }
+
+    .logo {
+      flex: 0 0 auto;
+    }
+
+    .search {
+      flex: 1;
+    }
+
+    .button {
+      flex: 0 0 auto;
+    }
+
+
+    /* ==================================================
+       14. GERÇEK PROJE:
+           RESPONSIVE KARTLAR
+       ================================================== */
+
+    .cards {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 20px;
+    }
+
+    .card {
+      flex: 1 1 250px;
+    }
+
+
+    /* ==================================================
+       15. GERÇEK PROJE:
+           ALTTA KALAN FOOTER
+       ================================================== */
+
+    .page {
+      display: flex;
+
+      flex-direction: column;
+
+      min-height: 400px;
+    }
+
+    .page-content {
+      flex: 1;
+    }
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- ==================================================
+       1. NONE
+       ================================================== -->
+
+  <h2>1. flex: none</h2>
+
+  <div class="container">
+
+    <div class="box none">
+      Sabit
+    </div>
+
+    <div class="box">
+      Normal
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       2. AUTO
+       ================================================== -->
+
+  <h2>2. flex: auto</h2>
+
+  <div class="container">
+
+    <div class="box auto">
+      Auto
+    </div>
+
+    <div class="box auto">
+      Auto
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       3. INITIAL
+       ================================================== -->
+
+  <h2>3. flex: initial</h2>
+
+  <div class="container">
+
+    <div class="box initial">
+      Initial
+    </div>
+
+    <div class="box initial">
+      Initial
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       4. FLEX: 1
+       ================================================== -->
+
+  <h2>4. flex: 1</h2>
+
+  <div class="container">
+
+    <div class="box one">
+      1
+    </div>
+
+    <div class="box one">
+      1
+    </div>
+
+    <div class="box one">
+      1
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       5. FLEX: 2
+       ================================================== -->
+
+  <h2>5. flex: 1 + 2</h2>
+
+  <div class="container">
+
+    <div class="box one">
+      flex: 1
+    </div>
+
+    <div class="box two">
+      flex: 2
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       6. FLEX: 3
+       ================================================== -->
+
+  <h2>6. flex: 1 + 2 + 3</h2>
+
+  <div class="container">
+
+    <div class="box one">
+      1
+    </div>
+
+    <div class="box two">
+      2
+    </div>
+
+    <div class="box three">
+      3
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       7. 0 1 AUTO
+       ================================================== -->
+
+  <h2>7. flex: 0 1 auto</h2>
+
+  <div class="container">
+
+    <div class="box zero-one-auto">
+      Default
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       8. 1 1 AUTO
+       ================================================== -->
+
+  <h2>8. flex: 1 1 auto</h2>
+
+  <div class="container">
+
+    <div class="box one-one-auto">
+      Auto
+    </div>
+
+    <div class="box one-one-auto">
+      Auto
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       9. 0 0 AUTO
+       ================================================== -->
+
+  <h2>9. flex: 0 0 auto</h2>
+
+  <div class="container">
+
+    <div class="box zero-zero-auto">
+      Sabit
+    </div>
+
+    <div class="box">
+      Diğer
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       10. 1 1 0
+       ================================================== -->
+
+  <h2>10. flex: 1 1 0</h2>
+
+  <div class="container">
+
+    <div class="box one-one-zero">
+      A
+    </div>
+
+    <div class="box one-one-zero">
+      B
+    </div>
+
+    <div class="box one-one-zero">
+      C
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       11. EŞİT KOLONLAR
+       ================================================== -->
+
+  <h2>11. Gerçek Proje → Eşit Kolonlar</h2>
+
+  <div class="container equal-columns">
+
+    <div class="box">
+      Sol
+    </div>
+
+    <div class="box">
+      Orta
+    </div>
+
+    <div class="box">
+      Sağ
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       12. SIDEBAR + CONTENT
+       ================================================== -->
+
+  <h2>12. Gerçek Proje → Sidebar + Content</h2>
+
+  <div class="container layout">
+
+    <aside class="box sidebar">
+      Sidebar
+    </aside>
+
+    <main class="box main">
+      Ana İçerik
+    </main>
+
+  </div>
+
+
+  <!-- ==================================================
+       13. HEADER
+       ================================================== -->
+
+  <h2>13. Gerçek Proje → Header</h2>
+
+  <header class="container header">
+
+    <div class="box logo">
+      Logo
+    </div>
+
+    <input class="box search" type="text" placeholder="Ara...">
+
+    <button class="box button">
+      Giriş
+    </button>
+
+  </header>
+
+
+  <!-- ==================================================
+       14. RESPONSIVE CARDS
+       ================================================== -->
+
+  <h2>14. Gerçek Proje → Responsive Cards</h2>
+
+  <div class="container cards">
+
+    <div class="box card">
+      Kart 1
+    </div>
+
+    <div class="box card">
+      Kart 2
+    </div>
+
+    <div class="box card">
+      Kart 3
+    </div>
+
+  </div>
+
+
+  <!-- ==================================================
+       15. FOOTER
+       ================================================== -->
+
+  <h2>15. Gerçek Proje → Footer</h2>
+
+  <div class="container page">
+
+    <div class="box page-content">
+      Ana İçerik
+    </div>
+
+    <div class="box">
+      Footer
+    </div>
+
+  </div>
+
+
+</body>
+
+</html>

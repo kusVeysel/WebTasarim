@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,35 +19,42 @@
         .hover-yazi {
             font-size: 5rem;
             font-weight: 800;
-            text-transform: uppercase; /* Büyük harfe çevirir */
+            text-transform: uppercase;
+            /* Büyük harfe çevirir */
             cursor: pointer;
-            
+
             /* Gradyan Arka Plan: Yarısı mavi, yarısı siyah */
-            background: linear-gradient(to right, #007bff 50% , #333 50%);
-            
+            background: linear-gradient(to right, #007bff 50%, #333 50%);
+
             /* Arka planı yazının içine hapsediyoruz */
-            background-size: 200% 100%;  /*Arka plan boyutunu x 2katına y 1 katına çıkar*/
-            background-position: 100% 0; /*arka plan konumu x 100% sağa gelir y 0% gelir*/
+            background-size: 200% 100%;
+            /*Arka plan boyutunu x 2 katına , y 1 katına çıkar*/
+            background-position: 100% 0;
+            /*Arka plan konumu x 100% sağa gelir y 0% gelir*/
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            
+
             /* Geçiş efekti */
-           transition: background-position 0.5s ease-in-out;
+            transition: background-position 0.5s ease-in-out;
 
         }
-@keyframes gradient {
-    0% {
-        background-position: 100% 0;
-    }
-    50% {
-        background-position: 0 0;
-    }
-}
-    .hover-yazi:hover {
+
+        @keyframes gradient {
+            0% {
+                background-position: 100% 0;
+            }
+
+            50% {
+                background-position: 0 0;
+            }
+        }
+
+        .hover-yazi:hover {
             background-position: 0 0;
-    }
+        }
     </style>
 </head>
+
 <body>
 
     <div class="hover-yazi">
@@ -54,4 +62,5 @@
     </div>
 
 </body>
+
 </html>

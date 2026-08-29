@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS content-* Özellikleri</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+
+            margin-bottom: 45px;
+            padding: 30px;
+
+            background: #f3f4f6;
+        }
+
+        .box {
+            width: 250px;
+            min-height: 100px;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            background: white;
+        }
+
+
+        /* ==================================================
+       1. content-visibility
+       ==================================================
+
+       Tarayıcının elementin içeriğini
+       ne zaman render edeceğini kontrol eder.
+
+       visible
+       → Normal şekilde render edilir.
+
+       hidden
+       → İçerik render edilmez.
+          Elementin kendisi görünmez.
+
+       auto
+       → Element ekranda görünmüyorsa
+          tarayıcı render işlemini erteleyebilir.
+
+       Büyük sayfalarda performans için
+       çok kullanışlıdır.
+    */
+
+        .cv-visible {
+            content-visibility: visible;
+        }
+
+        .cv-hidden {
+            content-visibility: hidden;
+        }
+
+        .cv-auto {
+            content-visibility: auto;
+        }
+
+
+        /* ==================================================
+       2. content-visibility: auto
+       GERÇEK PROJE
+       ==================================================
+
+       Uzun sayfalarda özellikle kullanışlıdır.
+
+       Örneğin:
+
+       - Ürün listeleri
+       - Haber listeleri
+       - Uzun dashboard'lar
+       - Çok sayıda kart
+       - Uzun dokümanlar
+    */
+
+        .large-section {
+            content-visibility: auto;
+
+            min-height: 300px;
+
+            padding: 30px;
+
+            margin-bottom: 20px;
+
+            background: white;
+
+            border: 1px solid #ddd;
+        }
+
+
+        /* ==================================================
+       3. contain-intrinsic-size
+       ==================================================
+
+       content-visibility: auto ile birlikte
+       element henüz render edilmeden önce
+       yaklaşık bir boyut verilmesini sağlar.
+
+       Böylece sayfanın scroll davranışının
+       daha stabil kalmasına yardımcı olabilir.
+
+       Örnek:
+
+       contain-intrinsic-size: 300px;
+    */
+
+        .intrinsic {
+            content-visibility: auto;
+
+            contain-intrinsic-size: 300px;
+
+            min-height: 300px;
+
+            padding: 30px;
+
+            background: white;
+        }
+
+
+        /* ==================================================
+       4. GERÇEK PROJE:
+          UZUN LİSTE
+       ================================================== */
+
+        .list {
+            content-visibility: auto;
+
+            contain-intrinsic-size: 200px;
+
+            min-height: 200px;
+
+            margin-bottom: 20px;
+
+            padding: 25px;
+
+            background: white;
+
+            border-radius: 12px;
+
+            border: 1px solid #ddd;
+        }
+
+
+        /* ==================================================
+       5. GERÇEK PROJE:
+          HABER KARTLARI
+       ================================================== */
+
+        .article {
+            content-visibility: auto;
+
+            contain-intrinsic-size: 400px;
+
+            min-height: 400px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            background: white;
+
+            border-radius: 15px;
+
+            border: 1px solid #ddd;
+        }
+
+
+        /* ==================================================
+       6. GERÇEK PROJE:
+          DASHBOARD
+       ================================================== */
+
+        .dashboard-card {
+            content-visibility: auto;
+
+            contain-intrinsic-size: 250px;
+
+            min-height: 250px;
+
+            padding: 25px;
+
+            background: white;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, .08);
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+       1. visible
+       ================================================== -->
+
+    <h2>1. content-visibility: visible</h2>
+
+    <div class="container">
+
+        <div class="box cv-visible">
+
+            İçerik normal şekilde render edilir.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       2. hidden
+       ================================================== -->
+
+    <h2>2. content-visibility: hidden</h2>
+
+    <div class="container">
+
+        <div class="box cv-hidden">
+
+            Bu içerik render edilmez.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       3. auto
+       ================================================== -->
+
+    <h2>3. content-visibility: auto</h2>
+
+    <div class="container">
+
+        <div class="box cv-auto">
+
+            Görünür olduğunda render edilir.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       4. UZUN SAYFA
+       ================================================== -->
+
+    <h2>4. Gerçek Proje → Uzun Sayfa</h2>
+
+    <div class="container">
+
+        <section class="large-section">
+
+            <h3>Bölüm 1</h3>
+
+            <p>
+                Uzun sayfalarda tarayıcının
+                gereksiz render işlemlerini azaltmasına
+                yardımcı olur.
+            </p>
+
+        </section>
+
+
+        <section class="large-section">
+
+            <h3>Bölüm 2</h3>
+
+            <p>
+                İçerik ekrandan uzaktaysa render işlemi
+                ertelenebilir.
+            </p>
+
+        </section>
+
+
+        <section class="large-section">
+
+            <h3>Bölüm 3</h3>
+
+            <p>
+                Özellikle çok fazla içerik olduğunda
+                performans avantajı sağlayabilir.
+            </p>
+
+        </section>
+
+    </div>
+
+
+    <!-- ==================================================
+       5. contain-intrinsic-size
+       ================================================== -->
+
+    <h2>5. contain-intrinsic-size</h2>
+
+    <div class="container">
+
+        <div class="intrinsic">
+
+            <h3>Intrinsic Size</h3>
+
+            <p>
+                content-visibility: auto ile
+                birlikte kullanılabilir.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       6. UZUN LİSTE
+       ================================================== -->
+
+    <h2>6. Gerçek Proje → Uzun Liste</h2>
+
+    <div class="container">
+
+        <div class="list">
+            Ürün 1
+        </div>
+
+        <div class="list">
+            Ürün 2
+        </div>
+
+        <div class="list">
+            Ürün 3
+        </div>
+
+        <div class="list">
+            Ürün 4
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       7. HABER KARTLARI
+       ================================================== -->
+
+    <h2>7. Gerçek Proje → Haber Kartları</h2>
+
+    <div class="container">
+
+        <article class="article">
+
+            <h3>Haber Başlığı</h3>
+
+            <p>
+                Uzun içeriklerin bulunduğu sayfalarda
+                content-visibility kullanılabilir.
+            </p>
+
+        </article>
+
+
+        <article class="article">
+
+            <h3>Başka Bir Haber</h3>
+
+            <p>
+                Görünmeyen içeriklerin render edilmesi
+                ertelenebilir.
+            </p>
+
+        </article>
+
+    </div>
+
+
+    <!-- ==================================================
+       8. DASHBOARD
+       ================================================== -->
+
+    <h2>8. Gerçek Proje → Dashboard</h2>
+
+    <div class="container">
+
+        <div class="dashboard-card">
+
+            <h3>İstatistikler</h3>
+
+            <p>
+                Dashboard kartları.
+            </p>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

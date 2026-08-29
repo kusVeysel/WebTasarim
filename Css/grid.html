@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Grid Tüm Değerler</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            display: grid;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+            padding: 20px;
+
+            border: 3px solid black;
+        }
+
+        .item {
+            min-height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: steelblue;
+            color: white;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           1. grid: none
+           ==================================================
+
+           Grid özel bir yerleşim oluşturmaz.
+
+           Varsayılan değerdir.
+        */
+
+        .none {
+            grid: none;
+        }
+
+
+        /* ==================================================
+           2. grid: 1fr 1fr
+           ==================================================
+
+           İki eşit kolon oluşturur.
+
+           1fr → Alanın 1 payı
+           1fr → Alanın 1 payı
+
+           Sonuç:
+
+           | 1 | 1 |
+        */
+
+        .equal {
+            grid: 1fr 1fr;
+        }
+
+
+        /* ==================================================
+           3. grid: 1fr 2fr
+           ==================================================
+
+           İki kolon oluşturur.
+
+           İlk kolon → 1 pay
+           İkinci kolon → 2 pay
+
+           Sonuç:
+
+           | 1 |    2    |
+        */
+
+        .ratio {
+            grid: 1fr 2fr;
+        }
+
+
+        /* ==================================================
+           4. grid: auto auto auto
+           ==================================================
+
+           Üç kolon oluşturur.
+
+           auto → İçeriğin boyutuna göre
+        */
+
+        .auto {
+            grid: auto auto auto;
+        }
+
+
+        /* ==================================================
+           5. grid: repeat()
+           ==================================================
+
+           Tekrarlayan kolonları
+           daha kısa yazmamızı sağlar.
+
+           repeat(3, 1fr)
+
+           →
+           1fr 1fr 1fr
+        */
+
+        .repeat {
+            grid: repeat(3, 1fr);
+        }
+
+
+        /* ==================================================
+           6. grid: repeat() + minmax()
+           ==================================================
+
+           Responsive Grid.
+
+           Kolonlar en az 150px olur.
+
+           Alan varsa büyür.
+        */
+
+        .minmax {
+            grid: repeat(3,
+                    minmax(150px, 1fr));
+        }
+
+
+        /* ==================================================
+           7. grid: auto-flow
+           ==================================================
+
+           Grid item'larının otomatik
+           yerleştirilme yönünü belirler.
+
+           row
+           → Satır yönünde
+
+           column
+           → Sütun yönünde
+        */
+
+        .auto-flow {
+            grid: auto-flow / repeat(3, 1fr);
+        }
+
+
+        /* ==================================================
+           8. grid: auto-flow dense
+           ==================================================
+
+           Boş kalan alanları daha verimli
+           doldurmaya çalışır.
+        */
+
+        .dense {
+            grid: auto-flow dense / repeat(3, 1fr);
+        }
+
+
+        /* ==================================================
+           9. GERÇEK PROJE:
+           RESPONSIVE CARD
+           ================================================== */
+
+        .cards {
+            grid-template-columns:
+                repeat(auto-fit,
+                    minmax(200px, 1fr));
+
+            gap: 20px;
+        }
+
+
+        /* ==================================================
+           10. GERÇEK PROJE:
+           DASHBOARD
+           ================================================== */
+
+        .dashboard {
+            grid-template-columns:
+                250px 1fr;
+
+            grid-template-rows:
+                70px 1fr;
+
+            min-height: 300px;
+        }
+
+
+        /* ==================================================
+           11. GERÇEK PROJE:
+           SIDEBAR
+           ================================================== */
+
+        .sidebar {
+            grid:
+                "sidebar content"
+                / 220px 1fr;
+
+            min-height: 200px;
+        }
+
+
+        /* ==================================================
+           12. GERÇEK PROJE:
+           HEADER / MAIN / FOOTER
+           ================================================== */
+
+        .page {
+            grid:
+                "header"
+                "main"
+                "footer"
+                / 1fr;
+
+            grid-template-rows:
+                auto 1fr auto;
+
+            min-height: 350px;
+        }
+
+
+        /* ==================================================
+           13. RESPONSIVE
+           ================================================== */
+
+        @media (max-width: 700px) {
+
+            .cards {
+                grid-template-columns:
+                    1fr;
+            }
+
+            .dashboard {
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. NONE
+         ================================================== -->
+
+    <h2>1. grid: none</h2>
+
+    <div class="container none">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         2. EQUAL
+         ================================================== -->
+
+    <h2>2. grid: 1fr 1fr</h2>
+
+    <div class="container equal">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         3. RATIO
+         ================================================== -->
+
+    <h2>3. grid: 1fr 2fr</h2>
+
+    <div class="container ratio">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         4. AUTO
+         ================================================== -->
+
+    <h2>4. grid: auto auto auto</h2>
+
+    <div class="container auto">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         5. REPEAT
+         ================================================== -->
+
+    <h2>5. grid: repeat(3, 1fr)</h2>
+
+    <div class="container repeat">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         6. MINMAX
+         ================================================== -->
+
+    <h2>6. grid: repeat(3, minmax())</h2>
+
+    <div class="container minmax">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         7. AUTO-FLOW
+         ================================================== -->
+
+    <h2>7. grid: auto-flow</h2>
+
+    <div class="container auto-flow">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         8. DENSE
+         ================================================== -->
+
+    <h2>8. grid: auto-flow dense</h2>
+
+    <div class="container dense">
+
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         9. RESPONSIVE CARDS
+         ================================================== -->
+
+    <h2>9. Gerçek Proje → Responsive Cards</h2>
+
+    <div class="container cards">
+
+        <div class="item">Kart 1</div>
+        <div class="item">Kart 2</div>
+        <div class="item">Kart 3</div>
+        <div class="item">Kart 4</div>
+        <div class="item">Kart 5</div>
+        <div class="item">Kart 6</div>
+
+    </div>
+
+
+    <!-- ==================================================
+         10. DASHBOARD
+         ================================================== -->
+
+    <h2>10. Gerçek Proje → Dashboard</h2>
+
+    <div class="container dashboard">
+
+        <div class="item">
+            Sidebar
+        </div>
+
+        <div class="item">
+            Header
+        </div>
+
+        <div class="item">
+            Main
+        </div>
+
+        <div class="item">
+            Content
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         11. SIDEBAR
+         ================================================== -->
+
+    <h2>11. Gerçek Proje → Sidebar + Content</h2>
+
+    <div class="container sidebar">
+
+        <div class="item">
+            Sidebar
+        </div>
+
+        <div class="item">
+            Content
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         12. PAGE
+         ================================================== -->
+
+    <h2>12. Gerçek Proje → Header / Main / Footer</h2>
+
+    <div class="container page">
+
+        <div class="item">
+            Header
+        </div>
+
+        <div class="item">
+            Main
+        </div>
+
+        <div class="item">
+            Footer
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

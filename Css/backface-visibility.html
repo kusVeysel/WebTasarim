@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS backface-visibility</title>
+
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+
+            margin-bottom: 50px;
+            padding: 30px;
+
+            perspective: 800px;
+        }
+
+        .box {
+            width: 180px;
+            height: 120px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+
+            border-radius: 15px;
+
+            background: steelblue;
+
+            transform-style: preserve-3d;
+        }
+
+
+        /* ==================================================
+       1. backface-visibility: visible
+       ==================================================
+
+       Element döndüğünde arka yüzü görünür.
+
+       Varsayılan değerdir.
+
+       180deg döndürülse bile elementin
+       arka yüzünü görebilirsin.
+    */
+
+        .visible {
+            backface-visibility: visible;
+
+            transform:
+                rotateY(180deg);
+        }
+
+
+        /* ==================================================
+       2. backface-visibility: hidden
+       ==================================================
+
+       Element döndüğünde arka yüzünü gizler.
+
+       3D kart çevirme efektlerinde
+       en çok kullanılan değerdir.
+    */
+
+        .hidden {
+            backface-visibility: hidden;
+
+            transform:
+                rotateY(180deg);
+        }
+
+
+        /* ==================================================
+       3. GERÇEK PROJE:
+          FLIP CARD
+       ==================================================
+
+       Ön yüz ve arka yüz oluşturulur.
+
+       Kart 180 derece döndüğünde
+       ön yüz gizlenir,
+       arka yüz görünür.
+    */
+
+        .card {
+            width: 220px;
+            height: 140px;
+
+            position: relative;
+
+            transform-style: preserve-3d;
+
+            transition: transform .6s;
+        }
+
+        .card:hover {
+            transform: rotateY(180deg);
+        }
+
+        .front,
+        .back {
+            position: absolute;
+
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            color: white;
+            font-weight: bold;
+
+            backface-visibility: hidden;
+        }
+
+        .front {
+            background: steelblue;
+        }
+
+        .back {
+            background: purple;
+
+            transform: rotateY(180deg);
+        }
+
+
+        /* ==================================================
+       4. GERÇEK PROJE:
+          VERTICAL FLIP
+       ==================================================
+
+       rotateX() ile kart dikey eksende döndürülür.
+    */
+
+        .vertical-card {
+            width: 220px;
+            height: 140px;
+
+            position: relative;
+
+            transform-style: preserve-3d;
+
+            transition: transform .6s;
+        }
+
+        .vertical-card:hover {
+            transform: rotateX(180deg);
+        }
+
+        .vertical-front,
+        .vertical-back {
+            position: absolute;
+
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            color: white;
+            font-weight: bold;
+
+            backface-visibility: hidden;
+        }
+
+        .vertical-front {
+            background: seagreen;
+        }
+
+        .vertical-back {
+            background: crimson;
+
+            transform: rotateX(180deg);
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+       1. visible
+       ================================================== -->
+
+    <h2>1. backface-visibility: visible</h2>
+
+    <div class="container">
+
+        <div class="box visible">
+            VISIBLE
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       2. hidden
+       ================================================== -->
+
+    <h2>2. backface-visibility: hidden</h2>
+
+    <div class="container">
+
+        <div class="box hidden">
+            HIDDEN
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       3. FLIP CARD
+       ================================================== -->
+
+    <h2>3. Gerçek Proje → Flip Card</h2>
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="front">
+                ÖN YÜZ
+            </div>
+
+            <div class="back">
+                ARKA YÜZ
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       4. VERTICAL FLIP
+       ================================================== -->
+
+    <h2>4. Gerçek Proje → Vertical Flip</h2>
+
+    <div class="container">
+
+        <div class="vertical-card">
+
+            <div class="vertical-front">
+                ÖN
+            </div>
+
+            <div class="vertical-back">
+                ARKA
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

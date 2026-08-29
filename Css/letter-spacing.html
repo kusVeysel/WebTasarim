@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS letter-spacing</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            margin-bottom: 30px;
+            padding: 25px;
+
+            border: 3px solid black;
+
+            max-inline-size: 900px;
+        }
+
+        .text {
+            font-size: 24px;
+        }
+
+
+        /* ==================================================
+           1. letter-spacing: normal
+           ==================================================
+
+           Tarayıcının normal harf aralığını kullanır.
+
+           Varsayılan değerdir.
+        */
+
+        .normal .text {
+            letter-spacing: normal;
+        }
+
+
+        /* ==================================================
+           2. letter-spacing: 0
+           ==================================================
+
+           Harfler arasına ekstra boşluk eklemez.
+
+           Normal davranışa yakın bir kullanım.
+        */
+
+        .zero .text {
+            letter-spacing: 0;
+        }
+
+
+        /* ==================================================
+           3. POZİTİF DEĞER
+           ==================================================
+
+           Pozitif değer harflerin arasını açar.
+
+           1px
+           → Harfler biraz açılır.
+
+           3px
+           → Daha belirgin aralık.
+
+           8px
+           → Çok geniş harf aralığı.
+        */
+
+        .positive .text {
+            letter-spacing: 3px;
+        }
+
+
+        /* ==================================================
+           4. NEGATİF DEĞER
+           ==================================================
+
+           Negatif değer harfleri birbirine yaklaştırır.
+
+           -1px
+           → Hafif sıkıştırır.
+
+           -2px
+           → Daha sıkı görünüm.
+
+           Özellikle büyük başlıklarda kullanılabilir.
+        */
+
+        .negative .text {
+            letter-spacing: -1px;
+        }
+
+
+        /* ==================================================
+           5. ÇOK POZİTİF DEĞER
+           ==================================================
+
+           Harfler oldukça fazla açılır.
+
+           Tasarım amaçlı kullanılabilir.
+
+           Normal paragraf metinlerinde
+           genellikle tercih edilmez.
+        */
+
+        .wide .text {
+            letter-spacing: 8px;
+        }
+
+
+        /* ==================================================
+           6. ÇOK NEGATİF DEĞER
+           ==================================================
+
+           Harfleri çok fazla sıkıştırır.
+
+           Tasarım açısından dikkatli kullanılmalıdır.
+        */
+
+        .tight .text {
+            letter-spacing: -3px;
+        }
+
+
+        /* ==================================================
+           7. REM
+           ==================================================
+
+           letter-spacing için rem kullanılabilir.
+
+           Root font-size'a göre hesaplanır.
+        */
+
+        .rem .text {
+            letter-spacing: 0.1rem;
+        }
+
+
+        /* ==================================================
+           8. EM
+           ==================================================
+
+           Font boyutuna göre orantılıdır.
+
+           Responsive tipografide kullanışlı olabilir.
+        */
+
+        .em .text {
+            letter-spacing: 0.08em;
+        }
+
+
+        /* ==================================================
+           9. INHERIT
+           ==================================================
+
+           Parent'ın letter-spacing değerini
+           miras alır.
+        */
+
+        .inherit {
+            letter-spacing: 4px;
+        }
+
+        .inherit .text {
+            letter-spacing: inherit;
+        }
+
+
+        /* ==================================================
+           10. INITIAL
+           ==================================================
+
+           Özelliği başlangıç değerine döndürür.
+        */
+
+        .initial .text {
+            letter-spacing: initial;
+        }
+
+
+        /* ==================================================
+           11. UNSET
+           ==================================================
+
+           Miras alınabiliyorsa inherit,
+           değilse initial davranışı gösterir.
+        */
+
+        .unset .text {
+            letter-spacing: unset;
+        }
+
+
+        /* ==================================================
+           12. GERÇEK PROJE:
+           BÜYÜK BAŞLIK
+           ==================================================
+
+           Negatif letter-spacing,
+           büyük başlıklarda sık kullanılan
+           modern tipografi tekniğidir.
+        */
+
+        .hero-title {
+            font-size: 64px;
+
+            font-weight: 800;
+
+            letter-spacing: -2px;
+
+            margin: 0;
+        }
+
+
+        /* ==================================================
+           13. GERÇEK PROJE:
+           KÜÇÜK BAŞLIK / LABEL
+           ==================================================
+
+           Pozitif letter-spacing,
+           küçük uppercase metinlerde
+           sık kullanılır.
+        */
+
+        .label {
+            font-size: 14px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+        }
+
+
+        /* ==================================================
+           14. GERÇEK PROJE:
+           NAVBAR
+           ================================================== */
+
+        .navbar {
+            display: flex;
+
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+
+            font-weight: 600;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        /* ==================================================
+           15. GERÇEK PROJE:
+           BUTTON
+           ================================================== */
+
+        .button {
+            padding: 14px 25px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* ==================================================
+           16. GERÇEK PROJE:
+           LOGO
+           ================================================== */
+
+        .logo {
+            font-size: 32px;
+
+            font-weight: 900;
+
+            letter-spacing: -1.5px;
+        }
+
+
+        /* ==================================================
+           17. GERÇEK PROJE:
+           ARTICLE
+           ==================================================
+
+           Uzun gövde metinlerinde genellikle
+           çok küçük değişiklikler tercih edilir.
+
+           Örneğin:
+
+           0
+           0.01em
+           0.02em
+        */
+
+        .article {
+            font-size: 18px;
+
+            line-height: 1.7;
+
+            letter-spacing: 0.01em;
+        }
+
+
+        /* ==================================================
+           18. UPPERCASE TEXT
+           ==================================================
+
+           Büyük harfli metinlerde harf aralığını
+           biraz artırmak okunabilirliği iyileştirebilir.
+        */
+
+        .uppercase {
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+        }
+
+
+        /* ==================================================
+           19. RESPONSIVE
+           ==================================================
+
+           clamp() ile ekran boyutuna göre
+           letter-spacing kontrol edilebilir.
+        */
+
+        .responsive {
+            font-size:
+                clamp(30px, 6vw, 70px);
+
+            letter-spacing:
+                clamp(-2px, -0.03em, -1px);
+        }
+
+
+        /* ==================================================
+           20. HOVER EFFECT
+           ==================================================
+
+           Hover sırasında harf aralığını
+           değiştirebiliriz.
+
+           Transition ile yumuşatılır.
+        */
+
+        .hover {
+            display: inline-block;
+
+            letter-spacing: 0;
+
+            transition:
+                letter-spacing 0.3s ease;
+        }
+
+        .hover:hover {
+            letter-spacing: 3px;
+        }
+
+
+        /* ==================================================
+           21. ANIMATION
+           ==================================================
+
+           letter-spacing animasyon içerisinde
+           değiştirilebilir.
+        */
+
+        @keyframes spacing {
+
+            from {
+                letter-spacing: 0;
+            }
+
+            to {
+                letter-spacing: 8px;
+            }
+
+        }
+
+        .animated {
+            animation:
+                spacing 2s ease-in-out infinite alternate;
+        }
+
+
+        /* ==================================================
+           22. TEXT LOGO
+           ================================================== */
+
+        .text-logo {
+            font-size: 40px;
+
+            font-weight: 900;
+
+            letter-spacing:
+                -0.04em;
+        }
+
+
+        /* ==================================================
+           23. BADGE
+           ================================================== */
+
+        .badge {
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.5px;
+
+            border: 2px solid black;
+        }
+
+
+        /* ==================================================
+           24. FORM LABEL
+           ================================================== */
+
+        .form-label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         TEMEL DEĞERLER
+         ================================================== -->
+
+    <h2>1. letter-spacing: normal</h2>
+
+    <div class="container normal">
+
+        <p class="text">
+            Normal harf aralığı
+        </p>
+
+    </div>
+
+
+    <h2>2. letter-spacing: 0</h2>
+
+    <div class="container zero">
+
+        <p class="text">
+            Sıfır ekstra boşluk
+        </p>
+
+    </div>
+
+
+    <h2>3. Pozitif değer → 3px</h2>
+
+    <div class="container positive">
+
+        <p class="text">
+            Harfler açılır
+        </p>
+
+    </div>
+
+
+    <h2>4. Negatif değer → -1px</h2>
+
+    <div class="container negative">
+
+        <p class="text">
+            Harfler yaklaşır
+        </p>
+
+    </div>
+
+
+    <h2>5. Çok geniş → 8px</h2>
+
+    <div class="container wide">
+
+        <p class="text">
+            ÇOK GENİŞ HARF ARALIĞI
+        </p>
+
+    </div>
+
+
+    <h2>6. Çok sıkı → -3px</h2>
+
+    <div class="container tight">
+
+        <p class="text">
+            Çok sıkı harf aralığı
+        </p>
+
+    </div>
+
+
+    <h2>7. rem → 0.1rem</h2>
+
+    <div class="container rem">
+
+        <p class="text">
+            REM ile harf aralığı
+        </p>
+
+    </div>
+
+
+    <h2>8. em → 0.08em</h2>
+
+    <div class="container em">
+
+        <p class="text">
+            EM ile harf aralığı
+        </p>
+
+    </div>
+
+
+    <h2>9. inherit</h2>
+
+    <div class="container inherit">
+
+        <p class="text">
+            Parent'ın değerini miras alır
+        </p>
+
+    </div>
+
+
+    <h2>10. initial</h2>
+
+    <div class="container initial">
+
+        <p class="text">
+            Initial değer
+        </p>
+
+    </div>
+
+
+    <h2>11. unset</h2>
+
+    <div class="container unset">
+
+        <p class="text">
+            Unset değer
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         GERÇEK PROJE
+         ================================================== -->
+
+    <h2>12. Gerçek Proje → Hero Başlığı</h2>
+
+    <div class="container">
+
+        <h1 class="hero-title">
+            Modern Web Tasarımı
+        </h1>
+
+    </div>
+
+
+    <h2>13. Gerçek Proje → Label</h2>
+
+    <div class="container">
+
+        <span class="label">
+            Yeni Proje
+        </span>
+
+    </div>
+
+
+    <h2>14. Gerçek Proje → Navbar</h2>
+
+    <div class="container">
+
+        <nav class="navbar">
+
+            <a href="#">Home</a>
+            <a href="#">Projects</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+
+        </nav>
+
+    </div>
+
+
+    <h2>15. Gerçek Proje → Button</h2>
+
+    <div class="container">
+
+        <button class="button">
+            Başla
+        </button>
+
+    </div>
+
+
+    <h2>16. Gerçek Proje → Logo</h2>
+
+    <div class="container">
+
+        <div class="logo">
+            VISION
+        </div>
+
+    </div>
+
+
+    <h2>17. Gerçek Proje → Article</h2>
+
+    <div class="container">
+
+        <p class="article">
+            Uzun metinlerde letter-spacing değerinin
+            çok fazla değiştirilmesi genellikle iyi
+            bir fikir değildir. Küçük değerler daha
+            doğal bir tipografi oluşturur.
+        </p>
+
+    </div>
+
+
+    <h2>18. Uppercase</h2>
+
+    <div class="container">
+
+        <p class="uppercase">
+            Modern Design System
+        </p>
+
+    </div>
+
+
+    <h2>19. Responsive letter-spacing</h2>
+
+    <div class="container">
+
+        <h1 class="responsive">
+            RESPONSIVE
+        </h1>
+
+    </div>
+
+
+    <h2>20. Hover → Harfleri Aç</h2>
+
+    <div class="container">
+
+        <h2 class="hover">
+            ÜZERİNE GEL
+        </h2>
+
+    </div>
+
+
+    <h2>21. Animation → Harf Aralığı</h2>
+
+    <div class="container">
+
+        <h2 class="animated">
+            ANİMASYON
+        </h2>
+
+    </div>
+
+
+    <h2>22. Text Logo</h2>
+
+    <div class="container">
+
+        <div class="text-logo">
+            CREATIVE
+        </div>
+
+    </div>
+
+
+    <h2>23. Badge</h2>
+
+    <div class="container">
+
+        <span class="badge">
+            Premium
+        </span>
+
+    </div>
+
+
+    <h2>24. Form Label</h2>
+
+    <div class="container">
+
+        <label class="form-label">
+            E-POSTA ADRESİ
+        </label>
+
+        <input type="email">
+
+    </div>
+
+
+</body>
+
+</html>

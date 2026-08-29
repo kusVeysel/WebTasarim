@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../CDN/Toastr/toastr.min.css">
+</head>
+
+<body>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            toastr.success("Giriş Başarılı", "Hoşgeldin");
+            toastr.warning("Uyarı", "Hesabınız Pasif Yöneticiyle İletişime Geçin");
+            toastr.error("Giriş Başarısız", "Kullanıcı Adı Veya Şifre Yanlış");
+        });
+    </script>
+
+    <script src="../CDN/JqueryCDN.JS"></script>
+    <script src="../CDN/Toastr/toastr.min.js"></script>
+</body>
+
+</html>
+<!--  
+
+! toastrCDN , JQuery ile beraber çalışır dolayısıyla JQuery'i de eklemek lazım
+
+-->

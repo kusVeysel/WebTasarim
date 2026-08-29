@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS Scroll - Full</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        h2 {
+            margin-top: 50px;
+        }
+
+        .container {
+            margin: 20px 0 40px;
+            padding: 25px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            background: white;
+        }
+
+        .box {
+            padding: 30px;
+
+            border-radius: 12px;
+
+            background: steelblue;
+            color: white;
+
+            font-weight: bold;
+            text-align: center;
+        }
+
+
+        /* ==================================================
+           1. scroll-behavior
+           ==================================================
+
+           Sayfanın / scroll container'ın
+           kaydırma davranışını belirler.
+
+           auto
+           → Normal davranış.
+
+           smooth
+           → Yumuşak kaydırma.
+        */
+
+        .behavior-auto {
+            scroll-behavior: auto;
+        }
+
+        .behavior-smooth {
+            scroll-behavior: smooth;
+        }
+
+
+        /* ==================================================
+           2. scroll-snap-type
+           ==================================================
+
+           Scroll'un belirli noktalara
+           "oturmasını" sağlar.
+
+           x mandatory
+           → Yatay ve zorunlu snap.
+
+           y mandatory
+           → Dikey ve zorunlu snap.
+
+           both mandatory
+           → İki eksende.
+
+           proximity
+           → Yaklaşınca snap yapar.
+        */
+
+        .snap-x {
+            display: flex;
+
+            overflow-x: auto;
+
+            scroll-snap-type: x mandatory;
+
+            gap: 20px;
+        }
+
+        .snap-y {
+            height: 250px;
+
+            overflow-y: auto;
+
+            scroll-snap-type: y mandatory;
+        }
+
+        .snap-both {
+            overflow: auto;
+
+            scroll-snap-type: both mandatory;
+        }
+
+        .snap-proximity {
+            display: flex;
+
+            overflow-x: auto;
+
+            scroll-snap-type: x proximity;
+
+            gap: 20px;
+        }
+
+
+        /* ==================================================
+           3. scroll-snap-align
+           ==================================================
+
+           Elementin snap noktasını belirler.
+
+           start
+           → Başlangıç.
+
+           center
+           → Merkez.
+
+           end
+           → Son.
+        */
+
+        .snap-item {
+            flex: 0 0 250px;
+
+            min-height: 150px;
+
+            display: grid;
+            place-items: center;
+
+            scroll-snap-align: start;
+
+            border-radius: 15px;
+
+            background: steelblue;
+            color: white;
+
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .snap-center {
+            scroll-snap-align: center;
+        }
+
+        .snap-end {
+            scroll-snap-align: end;
+        }
+
+
+        /* ==================================================
+           4. scroll-snap-stop
+           ==================================================
+
+           Kullanıcının hızlı scroll yaparken
+           snap noktalarını atlayıp atlayamayacağını
+           kontrol eder.
+
+           normal
+           → Atlayabilir.
+
+           always
+           → Her snap noktasında durmaya zorlar.
+        */
+
+        .snap-normal {
+            scroll-snap-stop: normal;
+        }
+
+        .snap-always {
+            scroll-snap-stop: always;
+        }
+
+
+        /* ==================================================
+           5. scroll-margin
+           ==================================================
+
+           Scroll edilen elementin çevresinde
+           sanal boşluk bırakır.
+
+           Özellikle:
+
+           sticky header
+           anchor navigation
+           scrollIntoView()
+
+           ile çok kullanışlıdır.
+        */
+
+        .margin-item {
+            scroll-margin: 100px;
+        }
+
+
+        /* ==================================================
+           6. scroll-margin-top
+           ==================================================
+
+           Üst tarafta scroll boşluğu.
+        */
+
+        .margin-top {
+            scroll-margin-top: 100px;
+        }
+
+
+        /* ==================================================
+           7. scroll-margin-right
+           ================================================== */
+
+        .margin-right {
+            scroll-margin-right: 100px;
+        }
+
+
+        /* ==================================================
+           8. scroll-margin-bottom
+           ================================================== */
+
+        .margin-bottom {
+            scroll-margin-bottom: 100px;
+        }
+
+
+        /* ==================================================
+           9. scroll-margin-left
+           ================================================== */
+
+        .margin-left {
+            scroll-margin-left: 100px;
+        }
+
+
+        /* ==================================================
+           10. scroll-margin-inline
+           ==================================================
+
+           Yazı yönüne göre yatay eksende
+           scroll margin.
+        */
+
+        .margin-inline {
+            scroll-margin-inline: 50px;
+        }
+
+
+        /* ==================================================
+           11. scroll-margin-block
+           ==================================================
+
+           Yazı yönüne göre dikey eksende
+           scroll margin.
+        */
+
+        .margin-block {
+            scroll-margin-block: 50px;
+        }
+
+
+        /* ==================================================
+           12. scroll-margin-inline-start
+           ================================================== */
+
+        .margin-inline-start {
+            scroll-margin-inline-start: 50px;
+        }
+
+
+        /* ==================================================
+           13. scroll-margin-inline-end
+           ================================================== */
+
+        .margin-inline-end {
+            scroll-margin-inline-end: 50px;
+        }
+
+
+        /* ==================================================
+           14. scroll-margin-block-start
+           ================================================== */
+
+        .margin-block-start {
+            scroll-margin-block-start: 50px;
+        }
+
+
+        /* ==================================================
+           15. scroll-margin-block-end
+           ================================================== */
+
+        .margin-block-end {
+            scroll-margin-block-end: 50px;
+        }
+
+
+        /* ==================================================
+           16. scroll-padding
+           ==================================================
+
+           Scroll container'ın iç tarafında
+           sanal padding oluşturur.
+
+           Sticky header ile birlikte
+           çok kullanışlıdır.
+        */
+
+        .padding {
+            scroll-padding: 80px;
+        }
+
+
+        /* ==================================================
+           17. scroll-padding-top
+           ================================================== */
+
+        .padding-top {
+            scroll-padding-top: 100px;
+        }
+
+
+        /* ==================================================
+           18. scroll-padding-right
+           ================================================== */
+
+        .padding-right {
+            scroll-padding-right: 50px;
+        }
+
+
+        /* ==================================================
+           19. scroll-padding-bottom
+           ================================================== */
+
+        .padding-bottom {
+            scroll-padding-bottom: 50px;
+        }
+
+
+        /* ==================================================
+           20. scroll-padding-left
+           ================================================== */
+
+        .padding-left {
+            scroll-padding-left: 50px;
+        }
+
+
+        /* ==================================================
+           21. scroll-padding-inline
+           ================================================== */
+
+        .padding-inline {
+            scroll-padding-inline: 50px;
+        }
+
+
+        /* ==================================================
+           22. scroll-padding-block
+           ================================================== */
+
+        .padding-block {
+            scroll-padding-block: 50px;
+        }
+
+
+        /* ==================================================
+           23. scroll-padding-inline-start
+           ================================================== */
+
+        .padding-inline-start {
+            scroll-padding-inline-start: 50px;
+        }
+
+
+        /* ==================================================
+           24. scroll-padding-inline-end
+           ================================================== */
+
+        .padding-inline-end {
+            scroll-padding-inline-end: 50px;
+        }
+
+
+        /* ==================================================
+           25. scroll-padding-block-start
+           ================================================== */
+
+        .padding-block-start {
+            scroll-padding-block-start: 50px;
+        }
+
+
+        /* ==================================================
+           26. scroll-padding-block-end
+           ================================================== */
+
+        .padding-block-end {
+            scroll-padding-block-end: 50px;
+        }
+
+
+        /* ==================================================
+           27. scrollbar-width
+           ==================================================
+
+           Firefox'ta scrollbar genişliği.
+
+           auto
+           thin
+           none
+        */
+
+        .thin-scrollbar {
+            height: 180px;
+
+            overflow-y: auto;
+
+            scrollbar-width: thin;
+        }
+
+        .no-scrollbar-firefox {
+            height: 180px;
+
+            overflow-y: auto;
+
+            scrollbar-width: none;
+        }
+
+
+        /* ==================================================
+           28. scrollbar-color
+           ==================================================
+
+           Scrollbar'ın renklerini belirler.
+
+           Firefox ağırlıklı kullanımdır.
+        */
+
+        .colored-scrollbar {
+            height: 180px;
+
+            overflow-y: auto;
+
+            scrollbar-color:
+                steelblue #ddd;
+        }
+
+
+        /* ==================================================
+           29. ::-webkit-scrollbar
+           ==================================================
+
+           Chromium / Safari tarafında
+           scrollbar özelleştirmesi.
+
+           Bu bir pseudo-element'tir,
+           CSS property değildir.
+        */
+
+        .custom-scrollbar {
+            height: 180px;
+
+            overflow-y: auto;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 12px;
+        }
+
+
+        /* ==================================================
+           30. ::-webkit-scrollbar-thumb
+           ================================================== */
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: steelblue;
+
+            border-radius: 20px;
+        }
+
+
+        /* ==================================================
+           31. ::-webkit-scrollbar-track
+           ================================================== */
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #ddd;
+
+            border-radius: 20px;
+        }
+
+
+        /* ==================================================
+           32. overscroll-behavior
+           ==================================================
+
+           Scroll sınırına gelindiğinde
+           scroll'un parent'a aktarılmasını
+           kontrol eder.
+
+           auto
+           → Normal.
+
+           contain
+           → Scroll chaining'i engeller.
+
+           none
+           → Chaining + bazı overscroll
+             efektlerini engeller.
+        */
+
+        .overscroll-auto {
+            overscroll-behavior: auto;
+        }
+
+        .overscroll-contain {
+            overscroll-behavior: contain;
+        }
+
+        .overscroll-none {
+            overscroll-behavior: none;
+        }
+
+
+        /* ==================================================
+           33. overscroll-behavior-x
+           ================================================== */
+
+        .overscroll-x {
+            overscroll-behavior-x: contain;
+        }
+
+
+        /* ==================================================
+           34. overscroll-behavior-y
+           ================================================== */
+
+        .overscroll-y {
+            overscroll-behavior-y: contain;
+        }
+
+
+        /* ==================================================
+           35. overscroll-behavior-inline
+           ================================================== */
+
+        .overscroll-inline {
+            overscroll-behavior-inline: contain;
+        }
+
+
+        /* ==================================================
+           36. overscroll-behavior-block
+           ================================================== */
+
+        .overscroll-block {
+            overscroll-behavior-block: contain;
+        }
+
+
+        /* ==================================================
+           37. scroll-timeline-name
+           ==================================================
+
+           Scroll-driven animation için
+           scroll timeline oluşturur.
+
+           Modern CSS'tir.
+
+           Örnek:
+
+           scroll-timeline-name:
+               --page-scroll;
+        */
+
+        .timeline-container {
+            height: 250px;
+
+            overflow-y: auto;
+
+            scroll-timeline-name:
+                --page-scroll;
+
+            scroll-timeline-axis:
+                block;
+        }
+
+
+        /* ==================================================
+           38. scroll-timeline-axis
+           ==================================================
+
+           Scroll timeline'ın hangi eksende
+           çalışacağını belirler.
+
+           block
+           inline
+           x
+           y
+        */
+
+        .timeline-x {
+            display: flex;
+
+            overflow-x: auto;
+
+            scroll-timeline-name:
+                --horizontal-scroll;
+
+            scroll-timeline-axis:
+                x;
+
+            gap: 30px;
+        }
+
+
+        /* ==================================================
+           39. scroll-timeline shorthand
+           ==================================================
+
+           name + axis
+        */
+
+        .timeline-short {
+            height: 250px;
+
+            overflow-y: auto;
+
+            scroll-timeline:
+                --my-scroll block;
+        }
+
+
+        /* ==================================================
+           40. view-timeline-name
+           ==================================================
+
+           Elementin viewport içindeki
+           görünürlüğünden timeline oluşturur.
+        */
+
+        .view-item {
+            view-timeline-name:
+                --item-view;
+
+            view-timeline-axis:
+                block;
+        }
+
+
+        /* ==================================================
+           41. view-timeline-axis
+           ================================================== */
+
+        .view-axis {
+            view-timeline-axis:
+                block;
+        }
+
+
+        /* ==================================================
+           42. view-timeline-inset
+           ==================================================
+
+           View timeline'ın başlangıç/bitiş
+           alanını ayarlar.
+        */
+
+        .view-inset {
+            view-timeline-name:
+                --view;
+
+            view-timeline-axis:
+                block;
+
+            view-timeline-inset:
+                20% 20%;
+        }
+
+
+        /* ==================================================
+           43. scroll-linked animation
+           ================================================== */
+
+        .scroll-animation-container {
+            height: 300px;
+
+            overflow-y: auto;
+
+            scroll-timeline-name:
+                --scroll;
+        }
+
+        .scroll-animation-box {
+            width: 80px;
+            height: 80px;
+
+            background: steelblue;
+
+            animation:
+                moveWithScroll linear;
+
+            animation-timeline:
+                --scroll;
+        }
+
+        @keyframes moveWithScroll {
+
+            from {
+                transform:
+                    translateX(0);
+            }
+
+            to {
+                transform:
+                    translateX(250px);
+            }
+
+        }
+
+
+        /* ==================================================
+           44. view timeline animation
+           ================================================== */
+
+        .view-animation-container {
+            height: 300px;
+
+            overflow-y: auto;
+        }
+
+        .view-animation-item {
+            margin-top: 350px;
+
+            view-timeline-name:
+                --item;
+
+            view-timeline-axis:
+                block;
+
+            animation:
+                reveal linear both;
+
+            animation-timeline:
+                --item;
+        }
+
+        @keyframes reveal {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(100px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+
+        /* ==================================================
+           45. scroll-snap + yatay kartlar
+           ==================================================
+
+           Gerçek projelerde:
+
+           mobil carousel
+           ürün listesi
+           fotoğraf galerisi
+           onboarding
+
+           gibi alanlarda kullanılabilir.
+        */
+
+        .carousel {
+            display: flex;
+
+            overflow-x: auto;
+
+            gap: 20px;
+
+            scroll-snap-type:
+                x mandatory;
+
+            scroll-behavior:
+                smooth;
+
+            scrollbar-width:
+                none;
+        }
+
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel .card {
+            flex: 0 0 80%;
+
+            scroll-snap-align:
+                center;
+
+            padding: 60px 20px;
+
+            border-radius: 20px;
+
+            background: steelblue;
+            color: white;
+
+            text-align: center;
+
+            font-size: 25px;
+        }
+
+
+        /* ==================================================
+           46. Global values
+           ================================================== */
+
+        .global-auto {
+            scroll-behavior: auto;
+        }
+
+        .global-initial {
+            scroll-behavior: initial;
+        }
+
+        .global-inherit {
+            scroll-behavior: inherit;
+        }
+
+        .global-unset {
+            scroll-behavior: unset;
+        }
+
+        .global-revert {
+            scroll-behavior: revert;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. SCROLL BEHAVIOR
+         ================================================== -->
+
+    <h2>1. scroll-behavior: auto</h2>
+
+    <div class="container behavior-auto">
+        <div class="box">
+            Normal Scroll
+        </div>
+    </div>
+
+
+    <h2>2. scroll-behavior: smooth</h2>
+
+    <div class="container behavior-smooth">
+        <div class="box">
+            Smooth Scroll
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         3-6. SCROLL SNAP
+         ================================================== -->
+
+    <h2>3. scroll-snap-type: x mandatory</h2>
+
+    <div class="container">
+
+        <div class="snap-x">
+
+            <div class="snap-item">
+                1
+            </div>
+
+            <div class="snap-item">
+                2
+            </div>
+
+            <div class="snap-item">
+                3
+            </div>
+
+            <div class="snap-item">
+                4
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <h2>4. scroll-snap-type: y mandatory</h2>
+
+    <div class="container">
+
+        <div class="snap-y">
+
+            <div class="snap-item">
+                1
+            </div>
+
+            <div class="snap-item">
+                2
+            </div>
+
+            <div class="snap-item">
+                3
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <h2>5. scroll-snap-align: center</h2>
+
+    <div class="container">
+
+        <div class="snap-x">
+
+            <div class="snap-item snap-center">
+                CENTER
+            </div>
+
+            <div class="snap-item snap-center">
+                CENTER
+            </div>
+
+            <div class="snap-item snap-center">
+                CENTER
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <h2>6. scroll-snap-align: end</h2>
+
+    <div class="container">
+
+        <div class="snap-x">
+
+            <div class="snap-item snap-end">
+                END
+            </div>
+
+            <div class="snap-item snap-end">
+                END
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         7. SNAP PROXIMITY
+         ================================================== -->
+
+    <h2>7. scroll-snap-type: proximity</h2>
+
+    <div class="container">
+
+        <div class="snap-proximity">
+
+            <div class="snap-item">
+                1
+            </div>
+
+            <div class="snap-item">
+                2
+            </div>
+
+            <div class="snap-item">
+                3
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         8-17. SCROLL MARGIN
+         ================================================== -->
+
+    <h2>8. scroll-margin</h2>
+
+    <div class="container">
+
+        <div class="box margin-item">
+            scroll-margin
+        </div>
+
+    </div>
+
+
+    <h2>9. scroll-margin-top</h2>
+
+    <div class="container">
+
+        <div class="box margin-top">
+            top
+        </div>
+
+    </div>
+
+
+    <h2>10. scroll-margin-right</h2>
+
+    <div class="container">
+
+        <div class="box margin-right">
+            right
+        </div>
+
+    </div>
+
+
+    <h2>11. scroll-margin-bottom</h2>
+
+    <div class="container">
+
+        <div class="box margin-bottom">
+            bottom
+        </div>
+
+    </div>
+
+
+    <h2>12. scroll-margin-left</h2>
+
+    <div class="container">
+
+        <div class="box margin-left">
+            left
+        </div>
+
+    </div>
+
+
+    <h2>13. scroll-margin-inline</h2>
+
+    <div class="container">
+
+        <div class="box margin-inline">
+            inline
+        </div>
+
+    </div>
+
+
+    <h2>14. scroll-margin-block</h2>
+
+    <div class="container">
+
+        <div class="box margin-block">
+            block
+        </div>
+
+    </div>
+
+
+    <h2>15. scroll-margin-inline-start</h2>
+
+    <div class="container">
+
+        <div class="box margin-inline-start">
+            inline-start
+        </div>
+
+    </div>
+
+
+    <h2>16. scroll-margin-inline-end</h2>
+
+    <div class="container">
+
+        <div class="box margin-inline-end">
+            inline-end
+        </div>
+
+    </div>
+
+
+    <h2>17. scroll-margin-block-start / end</h2>
+
+    <div class="container">
+
+        <div class="box margin-block-start">
+            block-start
+        </div>
+
+        <div class="box margin-block-end">
+            block-end
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         18-27. SCROLL PADDING
+         ================================================== -->
+
+    <h2>18. scroll-padding</h2>
+
+    <div class="container padding">
+
+        <div class="box">
+            scroll-padding
+        </div>
+
+    </div>
+
+
+    <h2>19. scroll-padding-top</h2>
+
+    <div class="container padding-top">
+
+        <div class="box">
+            top
+        </div>
+
+    </div>
+
+
+    <h2>20. scroll-padding-right</h2>
+
+    <div class="container padding-right">
+
+        <div class="box">
+            right
+        </div>
+
+    </div>
+
+
+    <h2>21. scroll-padding-bottom</h2>
+
+    <div class="container padding-bottom">
+
+        <div class="box">
+            bottom
+        </div>
+
+    </div>
+
+
+    <h2>22. scroll-padding-left</h2>
+
+    <div class="container padding-left">
+
+        <div class="box">
+            left
+        </div>
+
+    </div>
+
+
+    <h2>23. scroll-padding-inline</h2>
+
+    <div class="container padding-inline">
+
+        <div class="box">
+            inline
+        </div>
+
+    </div>
+
+
+    <h2>24. scroll-padding-block</h2>
+
+    <div class="container padding-block">
+
+        <div class="box">
+            block
+        </div>
+
+    </div>
+
+
+    <h2>25. scroll-padding-inline-start</h2>
+
+    <div class="container padding-inline-start">
+
+        <div class="box">
+            start
+        </div>
+
+    </div>
+
+
+    <h2>26. scroll-padding-inline-end</h2>
+
+    <div class="container padding-inline-end">
+
+        <div class="box">
+            end
+        </div>
+
+    </div>
+
+
+    <h2>27. scroll-padding-block-start / end</h2>
+
+    <div class="container padding-block-start">
+
+        <div class="box">
+            block start
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         SCROLLBAR
+         ================================================== -->
+
+    <h2>28. scrollbar-width: thin</h2>
+
+    <div class="container thin-scrollbar">
+
+        <p>Scroll içeriği</p>
+        <p>Scroll içeriği</p>
+        <p>Scroll içeriği</p>
+        <p>Scroll içeriği</p>
+        <p>Scroll içeriği</p>
+        <p>Scroll içeriği</p>
+        <p>Scroll içeriği</p>
+
+    </div>
+
+
+    <h2>29. scrollbar-width: none</h2>
+
+    <div class="container no-scrollbar-firefox">
+
+        <p>Scrollbar görünmez.</p>
+        <p>İçerik scroll edilebilir.</p>
+        <p>İçerik scroll edilebilir.</p>
+        <p>İçerik scroll edilebilir.</p>
+
+    </div>
+
+
+    <h2>30. scrollbar-color</h2>
+
+    <div class="container colored-scrollbar">
+
+        <p>Özel scrollbar.</p>
+        <p>Özel scrollbar.</p>
+        <p>Özel scrollbar.</p>
+        <p>Özel scrollbar.</p>
+        <p>Özel scrollbar.</p>
+        <p>Özel scrollbar.</p>
+
+    </div>
+
+
+    <h2>31. Custom WebKit Scrollbar</h2>
+
+    <div class="container custom-scrollbar">
+
+        <p>Custom scrollbar</p>
+        <p>Custom scrollbar</p>
+        <p>Custom scrollbar</p>
+        <p>Custom scrollbar</p>
+        <p>Custom scrollbar</p>
+        <p>Custom scrollbar</p>
+        <p>Custom scrollbar</p>
+
+    </div>
+
+
+    <!-- ==================================================
+         OVERSCROLL
+         ================================================== -->
+
+    <h2>32. overscroll-behavior: auto</h2>
+
+    <div class="container overscroll-auto">
+
+        <div class="box">
+            auto
+        </div>
+
+    </div>
+
+
+    <h2>33. overscroll-behavior: contain</h2>
+
+    <div class="container overscroll-contain">
+
+        <div class="box">
+            contain
+        </div>
+
+    </div>
+
+
+    <h2>34. overscroll-behavior: none</h2>
+
+    <div class="container overscroll-none">
+
+        <div class="box">
+            none
+        </div>
+
+    </div>
+
+
+    <h2>35. overscroll-behavior-x</h2>
+
+    <div class="container overscroll-x">
+
+        <div class="box">
+            X
+        </div>
+
+    </div>
+
+
+    <h2>36. overscroll-behavior-y</h2>
+
+    <div class="container overscroll-y">
+
+        <div class="box">
+            Y
+        </div>
+
+    </div>
+
+
+    <h2>37. overscroll-behavior-inline</h2>
+
+    <div class="container overscroll-inline">
+
+        <div class="box">
+            inline
+        </div>
+
+    </div>
+
+
+    <h2>38. overscroll-behavior-block</h2>
+
+    <div class="container overscroll-block">
+
+        <div class="box">
+            block
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         SCROLL TIMELINE
+         ================================================== -->
+
+    <h2>39. scroll-timeline-name</h2>
+
+    <div class="container timeline-container">
+
+        <div style="height: 600px;">
+
+            <div class="box">
+                Scroll
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <h2>40. scroll-timeline-axis</h2>
+
+    <div class="container timeline-x">
+
+        <div class="snap-item">
+            1
+        </div>
+
+        <div class="snap-item">
+            2
+        </div>
+
+        <div class="snap-item">
+            3
+        </div>
+
+    </div>
+
+
+    <h2>41. scroll-timeline shorthand</h2>
+
+    <div class="container timeline-short">
+
+        <div style="height: 600px;">
+
+            <div class="box">
+                Timeline
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         VIEW TIMELINE
+         ================================================== -->
+
+    <h2>42. view-timeline-name</h2>
+
+    <div class="container view-animation-container">
+
+        <div class="box view-item" style="margin-top: 350px;">
+            View Timeline
+        </div>
+
+    </div>
+
+
+    <h2>43. view-timeline-axis</h2>
+
+    <div class="container view-animation-container">
+
+        <div class="box view-axis" style="margin-top: 350px;">
+            Axis
+        </div>
+
+    </div>
+
+
+    <h2>44. view-timeline-inset</h2>
+
+    <div class="container view-animation-container">
+
+        <div class="box view-inset" style="margin-top: 350px;">
+            Inset
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         SCROLL-DRIVEN ANIMATION
+         ================================================== -->
+
+    <h2>45. Scroll-driven animation</h2>
+
+    <div class="container scroll-animation-container">
+
+        <div style="height: 700px;">
+
+            <div class="scroll-animation-box"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         CAROUSEL
+         ================================================== -->
+
+    <h2>46. Gerçek proje: Scroll Carousel</h2>
+
+    <div class="container">
+
+        <div class="carousel">
+
+            <div class="card">
+                Ürün 1
+            </div>
+
+            <div class="card">
+                Ürün 2
+            </div>
+
+            <div class="card">
+                Ürün 3
+            </div>
+
+            <div class="card">
+                Ürün 4
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         GLOBAL VALUES
+         ================================================== -->
+
+    <h2>47. Global values</h2>
+
+    <div class="container">
+
+        <div class="box global-auto">
+            auto
+        </div>
+
+        <div class="box global-initial">
+            initial
+        </div>
+
+        <div class="box global-inherit">
+            inherit
+        </div>
+
+        <div class="box global-unset">
+            unset
+        </div>
+
+        <div class="box global-revert">
+            revert
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS container</title>
+
+    <style>
+        /* ==================================================
+       1. container
+       ==================================================
+
+       Container Query için bir elementi
+       query container haline getirir.
+
+       Syntax:
+
+       container: <name> / <type>;
+
+       Örnek:
+
+       container: card / inline-size;
+
+       card
+       → Container'ın adı.
+
+       inline-size
+       → Container'ın genişliğini
+         query etmek için kullanılır.
+    */
+
+        .card-container {
+            container: card / inline-size;
+
+            width: 100%;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            background: #f3f4f6;
+        }
+
+
+        /* ==================================================
+       2. container-name
+       ==================================================
+
+       Query container'a isim verir.
+
+       Bu isim daha sonra:
+
+       @container card (...)
+
+       şeklinde kullanılabilir.
+    */
+
+        .named-container {
+            container-name: card;
+
+            width: 100%;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            background: #e5e7eb;
+        }
+
+
+        /* ==================================================
+       3. container-type
+       ==================================================
+
+       Container Query'nin hangi boyut üzerinden
+       çalışacağını belirler.
+
+       normal
+       → Container query kullanılmaz.
+
+       size
+       → Hem width hem height query edilebilir.
+
+       inline-size
+       → Sadece inline-size
+         (genellikle width) query edilir.
+
+       scroll-state
+       → Scroll durumuyla ilgili
+         container query'leri için kullanılır.
+    */
+
+        .size-container {
+            container-type: size;
+
+            width: 400px;
+            height: 250px;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            background: #ddd6fe;
+        }
+
+
+        .inline-container {
+            container-type: inline-size;
+
+            width: 100%;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            background: #dbeafe;
+        }
+
+
+        /* ==================================================
+       4. container shorthand
+       ==================================================
+
+       container-name + container-type
+       tek satırda yazılabilir.
+
+       Örnek:
+
+       container: card / inline-size;
+    */
+
+        .shorthand-container {
+            container: product / inline-size;
+
+            width: 100%;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            background: #dcfce7;
+        }
+
+
+        /* ==================================================
+       5. @container
+       ==================================================
+
+       Bu bir CSS property değil,
+       Container Query at-rule'udur.
+
+       Container'ın boyutuna göre
+       içerisindeki elementleri değiştirmeye yarar.
+    */
+
+        .product {
+            padding: 20px;
+
+            background: white;
+
+            border-radius: 12px;
+        }
+
+
+        /* ==================================================
+       6. İSİMSİZ CONTAINER QUERY
+       ==================================================
+
+       Container genişliği 500px veya daha fazlaysa
+       stil uygulanır.
+    */
+
+        @container (min-width: 500px) {
+
+            .product {
+                display: flex;
+                gap: 20px;
+            }
+
+        }
+
+
+        /* ==================================================
+       7. İSİMLİ CONTAINER QUERY
+       ==================================================
+
+       Sadece "product" isimli container
+       sorgulanır.
+    */
+
+        @container product (min-width: 600px) {
+
+            .product {
+                padding: 30px;
+
+                font-size: 20px;
+            }
+
+        }
+
+
+        /* ==================================================
+       8. max-width
+       ==================================================
+
+       Container belirli bir genişlikten
+       küçük olduğunda uygulanır.
+    */
+
+        @container (max-width: 400px) {
+
+            .responsive-card {
+                font-size: 14px;
+            }
+
+        }
+
+
+        /* ==================================================
+       9. GERÇEK PROJE:
+          RESPONSIVE CARD
+       ================================================== */
+
+        .cards-container {
+            container: cards / inline-size;
+
+            width: 100%;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            background: #f3f4f6;
+        }
+
+        .responsive-card {
+            padding: 20px;
+
+            border-radius: 15px;
+
+            background: white;
+
+            transition: .3s;
+        }
+
+
+        @container cards (min-width: 600px) {
+
+            .responsive-card {
+                display: grid;
+
+                grid-template-columns: 150px 1fr;
+
+                gap: 20px;
+            }
+
+        }
+
+
+        /* ==================================================
+       10. GERÇEK PROJE:
+           SIDEBAR
+       ================================================== */
+
+        .sidebar-container {
+            container: sidebar / inline-size;
+
+            width: 350px;
+
+            padding: 20px;
+
+            background: #111827;
+        }
+
+        .sidebar-item {
+            padding: 15px;
+
+            color: white;
+
+            background: #1f2937;
+
+            border-radius: 10px;
+        }
+
+
+        @container sidebar (max-width: 250px) {
+
+            .sidebar-item {
+                text-align: center;
+
+                font-size: 14px;
+            }
+
+        }
+
+
+        /* ==================================================
+       11. GERÇEK PROJE:
+           DASHBOARD
+       ================================================== */
+
+        .dashboard {
+            container: dashboard / inline-size;
+
+            width: 100%;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+
+            background: #f9fafb;
+        }
+
+        .stat {
+            padding: 20px;
+
+            background: white;
+
+            border-radius: 12px;
+        }
+
+
+        @container dashboard (min-width: 700px) {
+
+            .dashboard {
+                display: grid;
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+
+                gap: 20px;
+            }
+
+        }
+
+
+        /* ==================================================
+       12. GERÇEK PROJE:
+           COMPONENT RESPONSIVE
+       ==================================================
+
+       En önemli avantaj:
+
+       Component kendi bulunduğu alanın
+       boyutuna göre responsive olabilir.
+
+       Sayfanın viewport genişliğine
+       bağlı olmak zorunda değildir.
+    */
+
+        .component-container {
+            container: component / inline-size;
+
+            width: 100%;
+
+            padding: 20px;
+
+            box-sizing: border-box;
+        }
+
+        .component {
+            padding: 20px;
+
+            background: white;
+
+            border: 1px solid #ddd;
+
+            border-radius: 12px;
+        }
+
+
+        @container component (min-width: 450px) {
+
+            .component {
+                display: flex;
+
+                align-items: center;
+
+                gap: 20px;
+            }
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+       1. container
+       ================================================== -->
+
+    <h2>1. container</h2>
+
+    <div class="card-container">
+
+        <div class="product">
+
+            <h3>Ürün</h3>
+
+            <p>
+                Container Query container.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       2. container-name
+       ================================================== -->
+
+    <h2>2. container-name</h2>
+
+    <div class="named-container">
+
+        <div class="product">
+
+            <h3>Named Container</h3>
+
+            <p>
+                Container adı: card
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       3. container-type: size
+       ================================================== -->
+
+    <h2>3. container-type: size</h2>
+
+    <div class="size-container">
+
+        <div class="product">
+
+            Hem genişlik hem yükseklik
+            sorgulanabilir.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       4. container-type: inline-size
+       ================================================== -->
+
+    <h2>4. container-type: inline-size</h2>
+
+    <div class="inline-container">
+
+        <div class="product">
+
+            Genişlik üzerinden
+            Container Query.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       5. container shorthand
+       ================================================== -->
+
+    <h2>5. container shorthand</h2>
+
+    <div class="shorthand-container">
+
+        <div class="product">
+
+            container: product / inline-size;
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       6. RESPONSIVE CARD
+       ================================================== -->
+
+    <h2>6. Gerçek Proje → Responsive Card</h2>
+
+    <div class="cards-container">
+
+        <div class="responsive-card">
+
+            <div>
+                📦
+            </div>
+
+            <div>
+
+                <h3>Ürün Kartı</h3>
+
+                <p>
+                    Container'ın genişliğine göre
+                    otomatik olarak düzenlenir.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       7. SIDEBAR
+       ================================================== -->
+
+    <h2>7. Gerçek Proje → Sidebar</h2>
+
+    <div class="sidebar-container">
+
+        <div class="sidebar-item">
+            Menü
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       8. DASHBOARD
+       ================================================== -->
+
+    <h2>8. Gerçek Proje → Dashboard</h2>
+
+    <div class="dashboard">
+
+        <div class="stat">
+            Satışlar
+        </div>
+
+        <div class="stat">
+            Kullanıcılar
+        </div>
+
+        <div class="stat">
+            Siparişler
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+       9. COMPONENT
+       ================================================== -->
+
+    <h2>9. Gerçek Proje → Component Responsive</h2>
+
+    <div class="component-container">
+
+        <div class="component">
+
+            <div>
+                🖥️
+            </div>
+
+            <div>
+
+                <h3>Responsive Component</h3>
+
+                <p>
+                    Kendi bulunduğu container'a
+                    göre responsive olur.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

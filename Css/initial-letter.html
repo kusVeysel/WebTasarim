@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS initial-letter Tüm Değerler</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Georgia, serif;
+            padding: 30px;
+
+            line-height: 1.7;
+        }
+
+        .container {
+            margin-bottom: 35px;
+            padding: 25px;
+
+            border: 3px solid black;
+
+            max-inline-size: 800px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+
+        /* ==================================================
+           1. initial-letter: normal
+           ==================================================
+
+           Varsayılan davranıştır.
+
+           İlk harfe özel büyük harf efekti uygulanmaz.
+        */
+
+        .normal p {
+            initial-letter: normal;
+        }
+
+
+        /* ==================================================
+           2. initial-letter: 2
+           ==================================================
+
+           İlk harfin yaklaşık 2 satır yüksekliğinde
+           olmasını sağlar.
+
+           Örneğin:
+
+           Büyük ilk harf
+           ↓
+           2 satırlık alan kaplar.
+        */
+
+        .two p {
+            initial-letter: 2;
+        }
+
+
+        /* ==================================================
+           3. initial-letter: 3
+           ==================================================
+
+           İlk harf yaklaşık 3 satır yüksekliğinde olur.
+
+           Dergi / editorial tasarımlarda kullanılabilir.
+        */
+
+        .three p {
+            initial-letter: 3;
+        }
+
+
+        /* ==================================================
+           4. initial-letter: 4
+           ==================================================
+
+           İlk harf yaklaşık 4 satır yüksekliğinde olur.
+        */
+
+        .four p {
+            initial-letter: 4;
+        }
+
+
+        /* ==================================================
+           5. initial-letter: 3 2
+           ==================================================
+
+           İKİ DEĞERLİ KULLANIM
+
+           İlk değer:
+           → Harfin kaç satır yüksekliğinde olacağı
+
+           İkinci değer:
+           → Harfin kaç satır aşağı
+             oturacağı
+
+           Örneğin:
+
+           initial-letter: 3 2;
+        */
+
+        .three-two p {
+            initial-letter: 3 2;
+        }
+
+
+        /* ==================================================
+           6. initial-letter: 4 2
+           ==================================================
+
+           4 satır yüksekliği
+           + 2 satırlık aşağı offset.
+        */
+
+        .four-two p {
+            initial-letter: 4 2;
+        }
+
+
+        /* ==================================================
+           7. ::first-letter
+           ==================================================
+
+           initial-letter çoğunlukla
+           ::first-letter ile birlikte kullanılır.
+
+           Böylece büyük harfin:
+
+           color
+           font-family
+           font-weight
+           vb.
+
+           özellikleri ayrıca ayarlanabilir.
+        */
+
+        .styled p::first-letter {
+            initial-letter: 3;
+
+            color: steelblue;
+
+            font-family:
+                Georgia,
+                serif;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           8. RENKLİ DROP CAP
+           ================================================== */
+
+        .color p::first-letter {
+            initial-letter: 4;
+
+            color: crimson;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           9. BACKGROUND DROP CAP
+           ==================================================
+
+           Büyük ilk harfe arka plan verilebilir.
+        */
+
+        .background p::first-letter {
+            initial-letter: 3;
+
+            color: white;
+
+            background: steelblue;
+
+            padding: 8px;
+
+            margin-inline-end: 8px;
+        }
+
+
+        /* ==================================================
+           10. BORDER DROP CAP
+           ================================================== */
+
+        .border p::first-letter {
+            initial-letter: 3;
+
+            border: 3px solid black;
+
+            padding: 5px;
+
+            margin-inline-end: 8px;
+        }
+
+
+        /* ==================================================
+           11. GERÇEK PROJE:
+           MAGAZINE
+           ================================================== */
+
+        .magazine {
+            background: #f5f5f5;
+
+            border-radius: 15px;
+        }
+
+        .magazine p::first-letter {
+            initial-letter: 4;
+
+            color: steelblue;
+
+            font-weight: bold;
+
+            margin-inline-end: 10px;
+        }
+
+
+        /* ==================================================
+           12. GERÇEK PROJE:
+           BLOG
+           ================================================== */
+
+        .blog p::first-letter {
+            initial-letter: 3;
+
+            color: darkslategray;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           13. GERÇEK PROJE:
+           NEWS ARTICLE
+           ================================================== */
+
+        .news {
+            border-left: 8px solid steelblue;
+        }
+
+        .news p::first-letter {
+            initial-letter: 3;
+
+            color: steelblue;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           14. GERÇEK PROJE:
+           QUOTE / EDITORIAL
+           ================================================== */
+
+        .editorial p::first-letter {
+            initial-letter: 3 1;
+
+            color: steelblue;
+
+            font-weight: bold;
+
+            font-style: italic;
+        }
+
+
+        /* ==================================================
+           15. MULTI-LANGUAGE / RTL
+           ==================================================
+
+           initial-letter logical yazı düzenleriyle
+           birlikte kullanılabilir.
+        */
+
+        .rtl {
+            direction: rtl;
+        }
+
+        .rtl p::first-letter {
+            initial-letter: 3;
+
+            color: steelblue;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           16. DARK DESIGN
+           ================================================== */
+
+        .dark {
+            background: #222;
+
+            color: white;
+
+            border-color: white;
+        }
+
+        .dark p::first-letter {
+            initial-letter: 3;
+
+            color: orange;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           17. DAHA BÜYÜK EDITORIAL DROP CAP
+           ================================================== */
+
+        .large p::first-letter {
+            initial-letter: 5 2;
+
+            color: steelblue;
+
+            font-weight: bold;
+
+            margin-inline-end: 12px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. NORMAL
+         ================================================== -->
+
+    <h2>1. initial-letter: normal</h2>
+
+    <div class="container normal">
+
+        <p>
+            CSS ile yazıların başlangıç harflerini
+            özel şekilde tasarlamak mümkündür.
+            Bu örnekte herhangi bir drop cap
+            uygulanmamıştır.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         2. 2
+         ================================================== -->
+
+    <h2>2. initial-letter: 2</h2>
+
+    <div class="container two">
+
+        <p>
+            CSS ile büyük başlangıç harfi oluşturabiliriz.
+            İlk harf yaklaşık iki satırlık alan kaplar.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         3. 3
+         ================================================== -->
+
+    <h2>3. initial-letter: 3</h2>
+
+    <div class="container three">
+
+        <p>
+            Büyük başlangıç harfi özellikle makale,
+            blog ve dergi tasarımlarında kullanılabilir.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         4. 4
+         ================================================== -->
+
+    <h2>4. initial-letter: 4</h2>
+
+    <div class="container four">
+
+        <p>
+            Daha büyük bir drop cap oluşturmak için
+            initial-letter değerini artırabiliriz.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         5. 3 2
+         ================================================== -->
+
+    <h2>5. initial-letter: 3 2</h2>
+
+    <div class="container three-two">
+
+        <p>
+            İki değerli kullanımda ilk değer harfin
+            yüksekliğini, ikinci değer ise hizalanma
+            konumunu kontrol eder.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         6. 4 2
+         ================================================== -->
+
+    <h2>6. initial-letter: 4 2</h2>
+
+    <div class="container four-two">
+
+        <p>
+            Bu kullanım daha büyük bir ilk harf ve
+            farklı bir dikey hizalama oluşturur.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         7. STYLED
+         ================================================== -->
+
+    <h2>7. Styled Drop Cap</h2>
+
+    <div class="container styled">
+
+        <p>
+            İlk harfin boyutunu belirledikten sonra
+            renk, font, ağırlık gibi özelliklerini
+            ayrıca değiştirebiliriz.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         8. COLOR
+         ================================================== -->
+
+    <h2>8. Renkli Drop Cap</h2>
+
+    <div class="container color">
+
+        <p>
+            Renkli başlangıç harfi modern editorial
+            tasarımlarda dikkat çekici bir görünüm sağlar.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         9. BACKGROUND
+         ================================================== -->
+
+    <h2>9. Background Drop Cap</h2>
+
+    <div class="container background">
+
+        <p>
+            Büyük harfin arka planını değiştirerek
+            daha güçlü bir görsel vurgu oluşturabiliriz.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         10. BORDER
+         ================================================== -->
+
+    <h2>10. Border Drop Cap</h2>
+
+    <div class="container border">
+
+        <p>
+            İlk harfe border ekleyerek klasik dergi
+            tarzında bir tasarım oluşturabiliriz.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         11. MAGAZINE
+         ================================================== -->
+
+    <h2>11. Gerçek Proje → Magazine</h2>
+
+    <div class="container magazine">
+
+        <p>
+            Dergi ve editorial tasarımlarda drop cap
+            kullanımı metnin başlangıç noktasını
+            görsel olarak vurgulamak için tercih edilir.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         12. BLOG
+         ================================================== -->
+
+    <h2>12. Gerçek Proje → Blog</h2>
+
+    <div class="container blog">
+
+        <p>
+            Blog yazılarında ilk harfi büyütmek,
+            yazının başlangıcına güçlü bir görsel
+            hiyerarşi kazandırabilir.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         13. NEWS
+         ================================================== -->
+
+    <h2>13. Gerçek Proje → News Article</h2>
+
+    <div class="container news">
+
+        <p>
+            Haber ve makale tasarımlarında büyük
+            başlangıç harfi editorial bir görünüm sağlar.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         14. EDITORIAL
+         ================================================== -->
+
+    <h2>14. Gerçek Proje → Editorial</h2>
+
+    <div class="container editorial">
+
+        <p>
+            Editorial tasarımda farklı hizalama
+            değerleriyle daha karakteristik bir
+            başlangıç oluşturulabilir.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         15. RTL
+         ================================================== -->
+
+    <h2>15. RTL</h2>
+
+    <div class="container rtl">
+
+        <p>
+            Bu örnek sağdan sola yazı yönünde
+            logical yazı düzenini gösterir.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         16. DARK
+         ================================================== -->
+
+    <h2>16. Dark Design</h2>
+
+    <div class="container dark">
+
+        <p>
+            Koyu temalarda ilk harfi farklı bir renkle
+            vurgulamak modern bir görünüm oluşturabilir.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         17. LARGE
+         ================================================== -->
+
+    <h2>17. Large Editorial Drop Cap</h2>
+
+    <div class="container large">
+
+        <p>
+            Çok büyük drop cap değerleri özellikle
+            magazine, editorial ve özel landing page
+            tasarımlarında kullanılabilir.
+        </p>
+
+    </div>
+
+
+</body>
+
+</html>
