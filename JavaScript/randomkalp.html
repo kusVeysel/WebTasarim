@@ -36,7 +36,6 @@
     <script>
         setInterval(() => {
             const kalp = document.createElement("div");
-            document.body.appendChild(kalp);
             kalp.id = "kutu";
             kalp.innerText = "❤";
             const renk = ['blue', 'yellow', 'red', 'pink', 'green', "darkgreen", "skyblue", "blueviolet", "orange", "purple"];
@@ -44,6 +43,7 @@
             kalp.style.fontSize = Math.trunc(Math.random() * 20 + 10) + "px";
             kalp.style.top = 0 + "px";
             kalp.style.left = Math.random() * 100 + "vw";
+            document.body.appendChild(kalp);
             setTimeout(() => {
                 kalp.remove()
             }, 3000);

@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS touch-action - Tüm Değerler</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            margin-bottom: 30px;
+            padding: 20px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            background: white;
+        }
+
+        .box {
+            width: 250px;
+            height: 120px;
+
+            display: grid;
+            place-items: center;
+
+            background: steelblue;
+            color: white;
+
+            border-radius: 15px;
+
+            user-select: none;
+        }
+
+
+        /* ==================================================
+           touch-action
+           ==================================================
+
+           Dokunmatik ekranda tarayıcının hangi
+           varsayılan dokunma hareketlerini yapmasına
+           izin verileceğini belirler.
+
+           Özellikle:
+
+           • mobil arayüzlerde
+           • swipe alanlarında
+           • sürükleme işlemlerinde
+           • özel gesture sistemlerinde
+           • canvas uygulamalarında
+           kullanılır.
+
+
+           ÖNEMLİ:
+
+           touch-action, JavaScript ile oluşturduğun
+           özel dokunma hareketinin kendisini oluşturmaz.
+
+           Tarayıcının varsayılan touch davranışını
+           kontrol eder.
+        */
+
+
+        /* ==================================================
+           1. touch-action: auto
+           ==================================================
+
+           Varsayılan davranıştır.
+
+           Tarayıcı dokunma hareketlerini normal şekilde
+           yönetir.
+        */
+
+        .auto .box {
+            touch-action:
+                auto;
+        }
+
+
+        /* ==================================================
+           2. touch-action: none
+           ==================================================
+
+           Tarayıcının varsayılan touch davranışlarını
+           devre dışı bırakır.
+
+           Örneğin:
+
+           • scroll
+           • zoom
+           • pan
+
+           gibi tarayıcı davranışlarını engelleyebilir.
+
+           Özel gesture / drag sistemlerinde kullanılır.
+        */
+
+        .none .box {
+            touch-action:
+                none;
+        }
+
+
+        /* ==================================================
+           3. touch-action: pan-x
+           ==================================================
+
+           Yatay kaydırmaya izin verir.
+
+           X ekseninde pan yapılabilir.
+
+           Dikey pan tarayıcı tarafından
+           engellenir.
+        */
+
+        .pan-x .box {
+            touch-action:
+                pan-x;
+        }
+
+
+        /* ==================================================
+           4. touch-action: pan-y
+           ==================================================
+
+           Dikey kaydırmaya izin verir.
+
+           Y ekseninde pan yapılabilir.
+
+           Yatay pan engellenir.
+        */
+
+        .pan-y .box {
+            touch-action:
+                pan-y;
+        }
+
+
+        /* ==================================================
+           5. touch-action: pan-left
+           ==================================================
+
+           Dokunmatik hareketin sola doğru
+           pan davranışına izin verir.
+
+           Daha özel gesture kontrollerinde kullanılır.
+        */
+
+        .pan-left .box {
+            touch-action:
+                pan-left;
+        }
+
+
+        /* ==================================================
+           6. touch-action: pan-right
+           ==================================================
+
+           Sağa doğru pan davranışına izin verir.
+        */
+
+        .pan-right .box {
+            touch-action:
+                pan-right;
+        }
+
+
+        /* ==================================================
+           7. touch-action: pan-up
+           ==================================================
+
+           Yukarı doğru pan davranışına izin verir.
+        */
+
+        .pan-up .box {
+            touch-action:
+                pan-up;
+        }
+
+
+        /* ==================================================
+           8. touch-action: pan-down
+           ==================================================
+
+           Aşağı doğru pan davranışına izin verir.
+        */
+
+        .pan-down .box {
+            touch-action:
+                pan-down;
+        }
+
+
+        /* ==================================================
+           9. touch-action: pinch-zoom
+           ==================================================
+
+           İki parmakla zoom yapılmasına izin verir.
+
+           Özellikle:
+
+           • harita
+           • görsel
+           • grafik
+           • belge görüntüleyici
+
+           gibi alanlarda kullanılabilir.
+        */
+
+        .pinch-zoom .box {
+            touch-action:
+                pinch-zoom;
+        }
+
+
+        /* ==================================================
+           10. touch-action: manipulation
+           ==================================================
+
+           Kullanıcı etkileşimlerinde temel pan ve
+           pinch-zoom davranışlarına izin verirken
+           bazı ek tarayıcı gesture davranışlarını
+           sınırlamaya yardımcı olur.
+
+           Mobil buton ve etkileşim alanlarında
+           kullanılabilir.
+        */
+
+        .manipulation .box {
+            touch-action:
+                manipulation;
+        }
+
+
+        /* ==================================================
+           11. pan-x + pinch-zoom
+           ==================================================
+
+           Yatay pan + zoom.
+
+           Örneğin yatay çalışan bir görsel
+           galerisi için düşünülebilir.
+        */
+
+        .pan-x-zoom .box {
+            touch-action:
+                pan-x pinch-zoom;
+        }
+
+
+        /* ==================================================
+           12. pan-y + pinch-zoom
+           ==================================================
+
+           Dikey pan + zoom.
+        */
+
+        .pan-y-zoom .box {
+            touch-action:
+                pan-y pinch-zoom;
+        }
+
+
+        /* ==================================================
+           13. pan-left + pan-right
+           ==================================================
+
+           Yatay pan davranışının iki yönünü
+           açıkça belirtebiliriz.
+        */
+
+        .pan-horizontal .box {
+            touch-action:
+                pan-left pan-right;
+        }
+
+
+        /* ==================================================
+           14. pan-up + pan-down
+           ==================================================
+
+           Dikey pan davranışının iki yönünü
+           açıkça belirtebiliriz.
+        */
+
+        .pan-vertical .box {
+            touch-action:
+                pan-up pan-down;
+        }
+
+
+        /* ==================================================
+           15. manipulation + pinch-zoom
+           ==================================================
+
+           Birden fazla değerin birlikte kullanılması.
+        */
+
+        .combined .box {
+            touch-action:
+                manipulation pinch-zoom;
+        }
+
+
+        /* ==================================================
+           16. GERÇEK PROJE:
+               YATAY SLIDER
+           ==================================================
+
+           Mobil carousel / slider gibi alanlarda
+           yatay gesture için kullanılabilir.
+        */
+
+        .slider {
+            overflow:
+                hidden;
+        }
+
+        .slider-track {
+            display:
+                flex;
+
+            gap:
+                15px;
+
+            width:
+                max-content;
+
+            touch-action:
+                pan-x;
+        }
+
+        .slide {
+            width:
+                150px;
+
+            height:
+                100px;
+
+            flex:
+                0 0 150px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            background:
+                steelblue;
+
+            color:
+                white;
+
+            border-radius:
+                15px;
+        }
+
+
+        /* ==================================================
+           17. GERÇEK PROJE:
+               ÖZEL DRAG ALANI
+           ==================================================
+
+           JavaScript ile kendi drag sistemini
+           oluştururken varsayılan touch davranışını
+           kapatmak için kullanılabilir.
+        */
+
+        .drag-area {
+            touch-action:
+                none;
+        }
+
+
+        /* ==================================================
+           18. GERÇEK PROJE:
+               CANVAS
+           ==================================================
+
+           Çizim uygulamalarında tarayıcının
+           scroll / zoom davranışını engellemek
+           gerekebilir.
+        */
+
+        .canvas-area {
+            width:
+                300px;
+
+            height:
+                150px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            background:
+                #ddd;
+
+            border:
+                2px dashed black;
+
+            touch-action:
+                none;
+        }
+
+
+        /* ==================================================
+           19. GERÇEK PROJE:
+               MAP
+           ==================================================
+
+           Harita gibi alanlarda pinch zoom ve
+           pan davranışlarını kontrol etmek için
+           kullanılabilir.
+        */
+
+        .map {
+            width:
+                300px;
+
+            height:
+                150px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            background:
+                lightgray;
+
+            border-radius:
+                15px;
+
+            touch-action:
+                pan-x pan-y pinch-zoom;
+        }
+
+
+        /* ==================================================
+           20. GERÇEK PROJE:
+               SWIPE CARD
+           ==================================================
+
+           Yatay swipe alanlarında kullanışlıdır.
+        */
+
+        .swipe {
+            touch-action:
+                pan-y;
+        }
+
+        .swipe .box {
+            width:
+                100%;
+
+            max-width:
+                350px;
+        }
+
+
+        /* ==================================================
+           21. GERÇEK PROJE:
+               MOBİL BUTON
+           ==================================================
+
+           manipulation, dokunmatik arayüzlerde
+           pratik bir seçenektir.
+        */
+
+        .mobile-button button {
+            padding:
+                15px 25px;
+
+            border:
+                none;
+
+            border-radius:
+                10px;
+
+            background:
+                steelblue;
+
+            color:
+                white;
+
+            font-size:
+                16px;
+
+            touch-action:
+                manipulation;
+        }
+
+
+        /* ==================================================
+           22. touch-action + POINTER EVENTS
+           ==================================================
+
+           Özel pointer/gesture sistemlerinde
+           touch-action özellikle önemlidir.
+
+           JavaScript tarafında:
+
+           pointerdown
+           pointermove
+           pointerup
+
+           gibi olaylarla birlikte kullanılabilir.
+        */
+
+        .pointer-area {
+            touch-action:
+                none;
+
+            cursor:
+                grab;
+        }
+
+
+        /* ==================================================
+           23. SIFIRLAMA
+           ==================================================
+
+           touch-action:
+               auto;
+
+           ile tekrar varsayılan davranışa
+           döndürülebilir.
+        */
+
+        .reset .box {
+            touch-action:
+                auto;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <h2>1. touch-action: auto</h2>
+
+    <div class="container auto">
+        <div class="box">
+            AUTO
+        </div>
+    </div>
+
+
+    <h2>2. touch-action: none</h2>
+
+    <div class="container none">
+        <div class="box">
+            NONE
+        </div>
+    </div>
+
+
+    <h2>3. touch-action: pan-x</h2>
+
+    <div class="container pan-x">
+        <div class="box">
+            PAN X
+        </div>
+    </div>
+
+
+    <h2>4. touch-action: pan-y</h2>
+
+    <div class="container pan-y">
+        <div class="box">
+            PAN Y
+        </div>
+    </div>
+
+
+    <h2>5. touch-action: pan-left</h2>
+
+    <div class="container pan-left">
+        <div class="box">
+            LEFT
+        </div>
+    </div>
+
+
+    <h2>6. touch-action: pan-right</h2>
+
+    <div class="container pan-right">
+        <div class="box">
+            RIGHT
+        </div>
+    </div>
+
+
+    <h2>7. touch-action: pan-up</h2>
+
+    <div class="container pan-up">
+        <div class="box">
+            UP
+        </div>
+    </div>
+
+
+    <h2>8. touch-action: pan-down</h2>
+
+    <div class="container pan-down">
+        <div class="box">
+            DOWN
+        </div>
+    </div>
+
+
+    <h2>9. touch-action: pinch-zoom</h2>
+
+    <div class="container pinch-zoom">
+        <div class="box">
+            ZOOM
+        </div>
+    </div>
+
+
+    <h2>10. touch-action: manipulation</h2>
+
+    <div class="container manipulation">
+        <div class="box">
+            MANIPULATION
+        </div>
+    </div>
+
+
+    <h2>11. pan-x + pinch-zoom</h2>
+
+    <div class="container pan-x-zoom">
+        <div class="box">
+            PAN + ZOOM
+        </div>
+    </div>
+
+
+    <h2>12. pan-y + pinch-zoom</h2>
+
+    <div class="container pan-y-zoom">
+        <div class="box">
+            PAN + ZOOM
+        </div>
+    </div>
+
+
+    <h2>13. pan-left + pan-right</h2>
+
+    <div class="container pan-horizontal">
+        <div class="box">
+            HORIZONTAL
+        </div>
+    </div>
+
+
+    <h2>14. pan-up + pan-down</h2>
+
+    <div class="container pan-vertical">
+        <div class="box">
+            VERTICAL
+        </div>
+    </div>
+
+
+    <h2>15. manipulation + pinch-zoom</h2>
+
+    <div class="container combined">
+        <div class="box">
+            COMBINED
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         GERÇEK PROJE ÖRNEKLERİ
+         ================================================== -->
+
+
+    <h2>16. Yatay Slider</h2>
+
+    <div class="container slider">
+
+        <div class="slider-track">
+
+            <div class="slide">1</div>
+            <div class="slide">2</div>
+            <div class="slide">3</div>
+            <div class="slide">4</div>
+            <div class="slide">5</div>
+
+        </div>
+
+    </div>
+
+
+    <h2>17. Özel Drag Alanı</h2>
+
+    <div class="container">
+
+        <div class="box drag-area">
+            DRAG AREA
+        </div>
+
+    </div>
+
+
+    <h2>18. Canvas Alanı</h2>
+
+    <div class="container">
+
+        <div class="canvas-area">
+            CANVAS
+        </div>
+
+    </div>
+
+
+    <h2>19. Harita</h2>
+
+    <div class="container">
+
+        <div class="map">
+            MAP
+        </div>
+
+    </div>
+
+
+    <h2>20. Swipe Card</h2>
+
+    <div class="container swipe">
+
+        <div class="box">
+            SWIPE
+        </div>
+
+    </div>
+
+
+    <h2>21. Mobil Button</h2>
+
+    <div class="container mobile-button">
+
+        <button>
+            Dokun
+        </button>
+
+    </div>
+
+
+    <h2>22. Pointer / Gesture Area</h2>
+
+    <div class="container">
+
+        <div class="box pointer-area">
+            POINTER
+        </div>
+
+    </div>
+
+
+    <h2>23. Varsayılan Davranış</h2>
+
+    <div class="container reset">
+
+        <div class="box">
+            RESET
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,55 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
-body{
-    font-family: sans-serif;
-    padding: 20px;
-}
-li{
-    list-style: none;
-    background-color: #eee;
-    margin-top: 5px;
-    padding: 10px;
-}
-button{
-    margin-left: 5px;
-}
+    body {
+        font-family: sans-serif;
+        padding: 20px;
+    }
+
+    li {
+        list-style: none;
+        background-color: #eee;
+        margin-top: 5px;
+        padding: 10px;
+    }
+
+    button {
+        margin-left: 5px;
+    }
 </style>
+
 <body>
     <h2>Yapılacaklar listesi</h2>
-<input type="text" id="görevinput" placeholder="görev yazınız">
-<button onclick="görevekle()">Ekle</button>
-<ul id="liste"></ul>
+    <input type="text" id="görevinput" placeholder="görev yazınız">
+    <button onclick="görevekle()">Ekle</button>
+    <ul id="liste"></ul>
 
-<script>
-function görevekle(){
-    let input=document.getElementById("görevinput");
-    let yazi=input.value;
-    if(yazi=="")
-{
-    alert("geçerli görev giriniz");
-    return;
-}
-let li=document.createElement("li");
-li.innerText=yazi;
-let silBtn=document.createElement("button");
-silBtn.innerText="sil";
+    <script>
+        function görevekle() {
+            let input = document.getElementById("görevinput");
+            let yazi = input.value;
+            if (yazi == "") {
+                alert("geçerli görev giriniz");
+                return;
+            }
+            let li = document.createElement("li");
+            li.innerText = yazi;
+            let silBtn = document.createElement("button");
+            silBtn.innerText = "sil";
 
-silBtn.onclick=function(){
-    li.remove();
-}
-li.appendChild(silBtn);
-document.getElementById("liste").appendChild(li);
-input.value="";
-}
+            silBtn.onclick = function () {
+                li.remove();
+            }
+            li.appendChild(silBtn);
+            document.getElementById("liste").appendChild(li);
+            input.value = "";
+        }
 
 
-</script>
+    </script>
 
 </body>
+
 </html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: black;
+    }
+
+    .kutu {
+      position: absolute;
+      height: 14px;
+      width: 14px;
+      background-color: green;
+      border-radius: 50%;
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+        transform: translate(var(--tx), var(--ty)) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(0.1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="kutu" id="anaKutu"></div>
+
+  <script>
+    const kutu = document.getElementById("anaKutu");
+    let aci = 0;
+    let kirmizi = 0;
+
+    function anim() {
+      aci += 0.02;
+      kirmizi += 1;
+
+      // Tam merkezde bitişen 4 yaprak için mutlak değer (Math.abs) kullanımı
+      let r = 100 * Math.abs(Math.sin(2000 * aci));
+      let x = r * Math.cos(aci);
+      let y = r * Math.sin(aci);
+
+      kutu.style.transform = `translate(${x}px, ${y}px)`;
+
+      let trail = document.createElement("div");
+      trail.className = "kutu";
+      trail.style.setProperty('--tx', `${x}px`);
+      trail.style.setProperty('--ty', `${y}px`);
+      trail.style.animation = "fadeOut 1.5s linear forwards";
+      document.body.appendChild(trail);
+      if (kirmizi % 400 == 0) {
+        trail.style.background = "red";
+      }
+      setTimeout(() => trail.remove(), 1500);
+
+      requestAnimationFrame(anim);
+    }
+
+    anim();
+  </script>
+</body>
+
+</html>

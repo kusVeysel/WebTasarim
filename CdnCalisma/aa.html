@@ -1,0 +1,74 @@
+alt + 0178: ²
+alt + 0179: ³
+alt + 12: ♀
+alt + 11 || alt +523: ♂
+alt + 123: {}
+alt + 1453 || alt + 1456: ♫
+alt + 21: §
+alt + 1: ☺
+alt + 2: ☻
+alt + 3: ♥
+alt + 21: ♦
+alt + 21: ♣
+alt + 21: ♠
+alt + 21: •
+alt + 21: ◘
+alt + 21: ○
+alt + 10: ◙
+alt + 13: ♪
+alt + 14: ♫
+alt + 15: ☼ 
+alt + 21: ►
+alt + 21: ↕
+alt + 21: ‼
+alt + 20: ¶
+alt + 22: ▬
+alt + 21: ↨
+alt + 21: ↨
+alt + 21: 
+alt + 21: ↨
+alt + 21: ↨
+alt + 21: ↨
+alt + 21: ↨
+alt + 21: ↨
+ª
+alt ş+ 21: ↨◘
+
+
+
+→⌂
+|♀|☻↑☻
+
+image-rendering: pixelated;
+            user-select: all;
+
+        .hover {
+            display: inline-block;
+
+            letter-spacing: 0;
+
+            transition:
+                letter-spacing 0.3s ease;
+        }
+
+        .hover:hover {
+            letter-spacing: 3px;
+        }
+
+          /* ==================================================
+           8. ::marker + CONTENT
+           ==================================================
+
+           Marker içeriği değiştirilebilir.
+
+           Bu yöntem gerçek projelerde
+           özel listelerde kullanışlıdır.
+        */
+
+        .arrow-marker {
+            list-style-type: none;
+        }
+
+        .arrow-marker li::marker {
+            content: "→ ";
+        }

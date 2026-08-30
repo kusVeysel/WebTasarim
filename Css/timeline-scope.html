@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS timeline-scope - Tüm Değerler</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            margin-bottom: 40px;
+            padding: 25px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            background: white;
+        }
+
+        .box {
+            width: 80px;
+            height: 80px;
+
+            display: grid;
+            place-items: center;
+
+            background: steelblue;
+            color: white;
+
+            border-radius: 15px;
+
+            font-weight: bold;
+        }
+
+
+        /* ==================================================
+           timeline-scope
+           ==================================================
+
+           Bir scroll timeline veya view timeline'ın
+           hangi elementlerde isimlendirilip
+           kullanılabileceğini belirler.
+
+           Özellikle:
+
+           animation-timeline
+           scroll()
+           view()
+           scroll timeline
+           view timeline
+
+           gibi modern scroll-driven animation
+           özellikleriyle birlikte kullanılır.
+
+
+           Sözdizimi:
+
+           timeline-scope: none;
+
+           veya
+
+           timeline-scope: --isim;
+        */
+
+
+        /* ==================================================
+           1. timeline-scope: none
+           ==================================================
+
+           Varsayılan değerdir.
+
+           Herhangi bir timeline ismi
+           scope içine alınmaz.
+        */
+
+        .none {
+            timeline-scope:
+                none;
+        }
+
+
+        /* ==================================================
+           2. timeline-scope: --page
+           ==================================================
+
+           --page isimli timeline'ın
+           scope içine alınmasını sağlar.
+
+           --page
+           → Özel bir timeline ismidir.
+
+           İsimler genellikle
+           -- ile başlayan custom identifier'lardır.
+        */
+
+        .page {
+            timeline-scope:
+                --page;
+        }
+
+
+        /* ==================================================
+           3. timeline-scope: --scroll
+           ==================================================
+
+           --scroll isimli timeline'ı
+           scope içine alır.
+        */
+
+        .scroll {
+            timeline-scope:
+                --scroll;
+        }
+
+
+        /* ==================================================
+           4. BİRDEN FAZLA TIMELINE
+           ==================================================
+
+           Birden fazla timeline ismi
+           aynı anda belirtilebilir.
+
+           Örnek:
+
+           timeline-scope:
+               --page
+               --section;
+        */
+
+        .multiple {
+            timeline-scope:
+                --page --section;
+        }
+
+
+        /* ==================================================
+           5. SCROLL TIMELINE İLE
+           ==================================================
+
+           timeline-scope tek başına animasyon
+           oluşturmaz.
+
+           Önce bir scroll timeline oluşturulur.
+
+           Örneğin:
+
+           scroll-timeline-name:
+               --page;
+
+           Daha sonra:
+
+           animation-timeline:
+               --page;
+
+           kullanılabilir.
+        */
+
+        .scroll-example {
+            height:
+                200px;
+
+            overflow-y:
+                auto;
+
+            scroll-timeline-name:
+                --page;
+
+            timeline-scope:
+                --page;
+        }
+
+        .scroll-content {
+            height:
+                700px;
+        }
+
+
+        /* ==================================================
+           6. VIEW TIMELINE İLE
+           ==================================================
+
+           Bir elementin viewport içindeki hareketi
+           timeline olarak kullanılabilir.
+
+           view-timeline-name:
+               --reveal;
+
+           ile isimlendirilir.
+
+           timeline-scope:
+               --reveal;
+
+           ile scope'a dahil edilir.
+        */
+
+        .view-example {
+            timeline-scope:
+                --reveal;
+        }
+
+        .view-box {
+            view-timeline-name:
+                --reveal;
+        }
+
+
+        /* ==================================================
+           7. ANIMATION-TIMELINE İLE
+           ==================================================
+
+           Scope edilen timeline,
+           animation-timeline ile kullanılabilir.
+        */
+
+        .animation-example {
+            timeline-scope:
+                --progress;
+
+            scroll-timeline-name:
+                --progress;
+        }
+
+        .animation-example .box {
+            animation-name:
+                move;
+
+            animation-timeline:
+                --progress;
+
+            animation-duration:
+                auto;
+
+            animation-fill-mode:
+                both;
+        }
+
+        @keyframes move {
+
+            from {
+                transform:
+                    translateX(0);
+            }
+
+            to {
+                transform:
+                    translateX(400px);
+            }
+
+        }
+
+
+        /* ==================================================
+           8. BİRDEN FAZLA ANİMASYON TIMELINE'I
+           ==================================================
+
+           Bir container birden fazla timeline
+           ismini scope içine alabilir.
+        */
+
+        .multi-timeline {
+            timeline-scope:
+                --horizontal --vertical;
+        }
+
+
+        /* ==================================================
+           9. GERÇEK PROJE:
+              SCROLL PROGRESS
+           ==================================================
+
+           Sayfanın scroll ilerlemesini
+           animasyona bağlamak için kullanılabilir.
+        */
+
+        .progress-area {
+            timeline-scope:
+                --page-scroll;
+
+            scroll-timeline-name:
+                --page-scroll;
+        }
+
+        .progress-bar {
+            animation:
+                progress linear;
+
+            animation-timeline:
+                --page-scroll;
+
+            animation-duration:
+                auto;
+        }
+
+        @keyframes progress {
+
+            from {
+                transform:
+                    scaleX(0);
+            }
+
+            to {
+                transform:
+                    scaleX(1);
+            }
+
+        }
+
+
+        /* ==================================================
+           10. GERÇEK PROJE:
+               VIEW REVEAL
+           ==================================================
+
+           Element viewport'a girerken
+           animasyon başlatmak için kullanılabilir.
+        */
+
+        .reveal {
+            timeline-scope:
+                --reveal;
+        }
+
+        .reveal .box {
+            view-timeline-name:
+                --reveal;
+
+            animation:
+                reveal-animation linear both;
+
+            animation-timeline:
+                --reveal;
+        }
+
+        @keyframes reveal-animation {
+
+            from {
+                opacity:
+                    0;
+
+                transform:
+                    translateY(50px);
+            }
+
+            to {
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+
+        /* ==================================================
+           11. timeline-scope + SCROLL CONTAINER
+           ==================================================
+
+           Timeline'ı belirli bir scroll container
+           ile ilişkilendirmek mümkündür.
+        */
+
+        .scroll-container {
+            height:
+                180px;
+
+            overflow-y:
+                scroll;
+
+            timeline-scope:
+                --my-scroll;
+
+            scroll-timeline-name:
+                --my-scroll;
+        }
+
+        .scroll-container-content {
+            height:
+                600px;
+
+            padding:
+                20px;
+        }
+
+
+        /* ==================================================
+           12. timeline-scope + MULTIPLE NAMES
+           ==================================================
+
+           Gerçek uygulamalarda farklı scroll
+           animasyonlarını ayrı isimlerle yönetmek
+           mümkün olabilir.
+        */
+
+        .advanced {
+            timeline-scope:
+                --main-scroll --section-view;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         1. none
+         ================================================== -->
+
+    <h2>1. timeline-scope: none</h2>
+
+    <div class="container none">
+
+        <div class="box">
+            NONE
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         2. --page
+         ================================================== -->
+
+    <h2>2. timeline-scope: --page</h2>
+
+    <div class="container page">
+
+        <div class="box">
+            PAGE
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         3. --scroll
+         ================================================== -->
+
+    <h2>3. timeline-scope: --scroll</h2>
+
+    <div class="container scroll">
+
+        <div class="box">
+            SCROLL
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         4. Multiple
+         ================================================== -->
+
+    <h2>4. Multiple Timeline Names</h2>
+
+    <div class="container multiple">
+
+        <div class="box">
+            MULTI
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         5. Scroll Timeline
+         ================================================== -->
+
+    <h2>5. Scroll Timeline</h2>
+
+    <div class="container scroll-example">
+
+        <div class="scroll-content">
+
+            Scroll Timeline
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         6. View Timeline
+         ================================================== -->
+
+    <h2>6. View Timeline</h2>
+
+    <div class="container view-example">
+
+        <div class="view-box box">
+
+            VIEW
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         7. Animation Timeline
+         ================================================== -->
+
+    <h2>7. Animation Timeline</h2>
+
+    <div class="container animation-example">
+
+        <div class="box">
+
+            MOVE
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         8. Multiple Timelines
+         ================================================== -->
+
+    <h2>8. Multiple Animation Timelines</h2>
+
+    <div class="container multi-timeline">
+
+        <div class="box">
+
+            MULTI
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         9. Scroll Progress
+         ================================================== -->
+
+    <h2>9. Scroll Progress</h2>
+
+    <div class="container progress-area">
+
+        <div class="progress-bar">
+
+            <div class="box">
+                PROGRESS
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         10. View Reveal
+         ================================================== -->
+
+    <h2>10. View Reveal</h2>
+
+    <div class="container reveal">
+
+        <div class="box">
+
+            REVEAL
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         11. Scroll Container
+         ================================================== -->
+
+    <h2>11. Scroll Container + Timeline</h2>
+
+    <div class="container scroll-container">
+
+        <div class="scroll-container-content">
+
+            Scroll down inside this box.
+
+            <br><br><br><br><br><br>
+
+            More content...
+
+            <br><br><br><br><br><br>
+
+            End.
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         12. Advanced
+         ================================================== -->
+
+    <h2>12. Multiple Named Timelines</h2>
+
+    <div class="container advanced">
+
+        <div class="box">
+
+            ADVANCED
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

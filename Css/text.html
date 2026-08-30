@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS Text - Tüm Kullanımlar</title>
+
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            min-height: 100px;
+
+            margin-bottom: 35px;
+            padding: 25px;
+
+            border: 3px solid black;
+            border-radius: 15px;
+
+            background: white;
+        }
+
+        .box {
+            padding: 20px;
+
+            border-radius: 10px;
+
+            background: steelblue;
+            color: white;
+        }
+
+
+        /* ==================================================
+           1. text-align
+           ==================================================
+
+           Metnin yatay hizalamasını belirler.
+
+           left
+           → Sola hizalar.
+
+           right
+           → Sağa hizalar.
+
+           center
+           → Ortalar.
+
+           justify
+           → Satırları iki yana yayar.
+
+           start
+           → Yazı yönünün başlangıcına.
+
+           end
+           → Yazı yönünün sonuna.
+
+           match-parent
+           → Parent'ın yönüne göre hizalar.
+        */
+
+        .align-left .box {
+            text-align: left;
+        }
+
+        .align-right .box {
+            text-align: right;
+        }
+
+        .align-center .box {
+            text-align: center;
+        }
+
+        .align-justify .box {
+            text-align: justify;
+        }
+
+        .align-start .box {
+            text-align: start;
+        }
+
+        .align-end .box {
+            text-align: end;
+        }
+
+
+        /* ==================================================
+           2. text-align-last
+           ==================================================
+
+           Bir paragrafın son satırının hizalamasını
+           ayrıca belirler.
+
+           auto
+           start
+           end
+           left
+           right
+           center
+           justify
+        */
+
+        .align-last .box {
+            text-align: justify;
+            text-align-last: center;
+        }
+
+
+        /* ==================================================
+           3. text-indent
+           ==================================================
+
+           Paragrafın ilk satırını içeri/dışarı kaydırır.
+
+           px
+           rem
+           em
+           %
+           vb.
+        */
+
+        .indent-px .box {
+            text-indent: 40px;
+        }
+
+        .indent-em .box {
+            text-indent: 3em;
+        }
+
+        .indent-negative .box {
+            text-indent: -20px;
+        }
+
+        .indent-percent .box {
+            text-indent: 10%;
+        }
+
+
+        /* ==================================================
+           4. text-transform
+           ==================================================
+
+           Metnin büyük/küçük harf görünümünü değiştirir.
+
+           none
+           → Değişiklik yapmaz.
+
+           uppercase
+           → TAMAMINI BÜYÜK HARF.
+
+           lowercase
+           → tamamını küçük harf.
+
+           capitalize
+           → Her kelimenin ilk harfini büyütür.
+
+           full-width
+           → Karakterleri full-width gösterir.
+
+           full-size-kana
+           → Kana karakterlerini uygun full-size
+             forma dönüştürür.
+        */
+
+        .transform-none .box {
+            text-transform: none;
+        }
+
+        .transform-uppercase .box {
+            text-transform: uppercase;
+        }
+
+        .transform-lowercase .box {
+            text-transform: lowercase;
+        }
+
+        .transform-capitalize .box {
+            text-transform: capitalize;
+        }
+
+        .transform-full-width .box {
+            text-transform: full-width;
+        }
+
+        .transform-kana .box {
+            text-transform: full-size-kana;
+        }
+
+
+        /* ==================================================
+           5. text-decoration
+           ==================================================
+
+           Metne dekorasyon çizgisi ekler.
+
+           underline
+           → Alt çizgi.
+
+           overline
+           → Üst çizgi.
+
+           line-through
+           → Üzeri çizili.
+
+           none
+           → Çizgiyi kaldırır.
+        */
+
+        .decoration-underline .box {
+            text-decoration: underline;
+        }
+
+        .decoration-overline .box {
+            text-decoration: overline;
+        }
+
+        .decoration-through .box {
+            text-decoration: line-through;
+        }
+
+        .decoration-none .box {
+            text-decoration: none;
+        }
+
+
+        /* ==================================================
+           6. text-decoration-line
+           ==================================================
+
+           Hangi çizginin kullanılacağını belirler.
+
+           none
+           underline
+           overline
+           line-through
+
+           Birden fazla kullanılabilir.
+        */
+
+        .decoration-line .box {
+            text-decoration-line:
+                underline overline line-through;
+        }
+
+
+        /* ==================================================
+           7. text-decoration-color
+           ==================================================
+
+           Dekorasyon çizgisinin rengini belirler.
+        */
+
+        .decoration-color .box {
+            text-decoration-line: underline;
+            text-decoration-color: gold;
+        }
+
+
+        /* ==================================================
+           8. text-decoration-style
+           ==================================================
+
+           Dekorasyon çizgisinin stilini belirler.
+
+           solid
+           double
+           dotted
+           dashed
+           wavy
+        */
+
+        .decoration-solid .box {
+            text-decoration:
+                underline solid;
+        }
+
+        .decoration-double .box {
+            text-decoration:
+                underline double;
+        }
+
+        .decoration-dotted .box {
+            text-decoration:
+                underline dotted;
+        }
+
+        .decoration-dashed .box {
+            text-decoration:
+                underline dashed;
+        }
+
+        .decoration-wavy .box {
+            text-decoration:
+                underline wavy;
+        }
+
+
+        /* ==================================================
+           9. text-decoration-thickness
+           ==================================================
+
+           Dekorasyon çizgisinin kalınlığını belirler.
+
+           auto
+           from-font
+           px
+           rem
+           em
+           %
+        */
+
+        .decoration-thickness .box {
+            text-decoration-line: underline;
+
+            text-decoration-thickness: 4px;
+        }
+
+        .decoration-thick-percent .box {
+            text-decoration-line: underline;
+
+            text-decoration-thickness: 15%;
+        }
+
+
+        /* ==================================================
+           10. text-underline-offset
+           ==================================================
+
+           Alt çizgi ile metin arasındaki mesafeyi belirler.
+        */
+
+        .underline-offset .box {
+            text-decoration: underline;
+
+            text-underline-offset: 8px;
+        }
+
+
+        /* ==================================================
+           11. text-underline-position
+           ==================================================
+
+           Alt çizginin konumunu belirler.
+
+           auto
+           under
+           left
+           right
+           under left
+           under right
+        */
+
+        .underline-position .box {
+            text-decoration: underline;
+
+            text-underline-position: under;
+        }
+
+
+        /* ==================================================
+           12. text-shadow
+           ==================================================
+
+           Metne gölge verir.
+
+           Sıralama:
+
+           X
+           Y
+           blur
+           color
+        */
+
+        .shadow-basic .box {
+            text-shadow:
+                3px 3px 5px black;
+        }
+
+        .shadow-no-blur .box {
+            text-shadow:
+                3px 3px 0 black;
+        }
+
+        .shadow-multiple .box {
+            text-shadow:
+                2px 2px 0 black,
+                4px 4px 8px rgba(0, 0, 0, .4);
+        }
+
+        .shadow-glow .box {
+            text-shadow:
+                0 0 10px white,
+                0 0 20px white;
+        }
+
+
+        /* ==================================================
+           13. text-overflow
+           ==================================================
+
+           Taşan metnin nasıl gösterileceğini belirler.
+
+           clip
+           → Metni keser.
+
+           ellipsis
+           → ... gösterir.
+
+           <string>
+           → Özel metin kullanılabilir.
+
+           Genellikle şunlarla birlikte kullanılır:
+
+           overflow: hidden;
+           white-space: nowrap;
+        */
+
+        .overflow-clip .box {
+            width: 250px;
+
+            white-space: nowrap;
+            overflow: hidden;
+
+            text-overflow: clip;
+        }
+
+        .overflow-ellipsis .box {
+            width: 250px;
+
+            white-space: nowrap;
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* ==================================================
+           14. text-wrap
+           ==================================================
+
+           Metnin satırlara nasıl bölüneceğini belirler.
+
+           wrap
+           → Normal şekilde satır kırar.
+
+           nowrap
+           → Satır kırmaz.
+
+           balance
+           → Başlık gibi kısa metinleri dengeli
+             satırlara böler.
+
+           pretty
+           → Daha iyi satır sonları oluşturmaya çalışır.
+
+           stable
+           → Daha stabil wrapping davranışı.
+        */
+
+        .wrap-normal .box {
+            text-wrap: wrap;
+        }
+
+        .wrap-nowrap .box {
+            text-wrap: nowrap;
+        }
+
+        .wrap-balance .box {
+            text-wrap: balance;
+
+            max-width: 500px;
+        }
+
+        .wrap-pretty .box {
+            text-wrap: pretty;
+
+            max-width: 500px;
+        }
+
+
+        /* ==================================================
+           15. text-wrap-mode
+           ==================================================
+
+           Metnin satır kırmasına izin verilip
+           verilmeyeceğini belirler.
+
+           wrap
+           nowrap
+        */
+
+        .wrap-mode .box {
+            text-wrap-mode: wrap;
+        }
+
+
+        /* ==================================================
+           16. text-wrap-style
+           ==================================================
+
+           Satır kırmanın stilini belirler.
+
+           auto
+           pretty
+        */
+
+        .wrap-style .box {
+            text-wrap-style: pretty;
+        }
+
+
+        /* ==================================================
+           17. text-justify
+           ==================================================
+
+           text-align: justify kullanıldığında
+           boşlukların nasıl dağıtılacağını belirler.
+
+           auto
+           inter-word
+           inter-character
+        */
+
+        .justify-auto .box {
+            text-align: justify;
+
+            text-justify: auto;
+        }
+
+        .justify-word .box {
+            text-align: justify;
+
+            text-justify: inter-word;
+        }
+
+        .justify-character .box {
+            text-align: justify;
+
+            text-justify: inter-character;
+        }
+
+
+        /* ==================================================
+           18. text-orientation
+           ==================================================
+
+           Dikey yazılarda karakterlerin yönünü belirler.
+
+           mixed
+           upright
+           sideways
+        */
+
+        .orientation .box {
+            writing-mode: vertical-rl;
+
+            text-orientation: mixed;
+
+            height: 180px;
+            width: 100px;
+        }
+
+
+        /* ==================================================
+           19. text-combine-upright
+           ==================================================
+
+           Dikey yazıda karakterleri aynı yatay alan
+           içerisinde birleştirebilir.
+
+           none
+           all
+           digits
+           digits 2
+           digits 3
+           vb.
+        */
+
+        .combine-upright .box {
+            writing-mode: vertical-rl;
+
+            text-combine-upright: all;
+
+            width: 100px;
+            height: 180px;
+        }
+
+
+        /* ==================================================
+           20. text-emphasis
+           ==================================================
+
+           Metnin üzerine vurgu işareti koyar.
+
+           Japonca/Doğu Asya tipografisinde
+           özellikle kullanışlıdır.
+
+           Örnek:
+
+           text-emphasis: filled circle;
+        */
+
+        .emphasis .box {
+            text-emphasis:
+                filled circle;
+        }
+
+
+        /* ==================================================
+           21. text-emphasis-style
+           ==================================================
+
+           Vurgu işaretinin şeklini belirler.
+
+           none
+           filled
+           open
+           dot
+           circle
+           double-circle
+           triangle
+           sesame
+        */
+
+        .emphasis-style .box {
+            text-emphasis-style:
+                filled circle;
+        }
+
+
+        /* ==================================================
+           22. text-emphasis-color
+           ================================================== */
+
+        .emphasis-color .box {
+            text-emphasis:
+                filled circle;
+
+            text-emphasis-color: gold;
+        }
+
+
+        /* ==================================================
+           23. text-emphasis-position
+           ==================================================
+
+           Vurgu işaretinin konumunu belirler.
+
+           over
+           under
+           right
+           left
+        */
+
+        .emphasis-position .box {
+            text-emphasis:
+                filled circle;
+
+            text-emphasis-position: over;
+        }
+
+
+        /* ==================================================
+           24. text-rendering
+           ==================================================
+
+           Tarayıcının metni nasıl render etmeye
+           öncelik vereceğini belirtir.
+
+           auto
+           optimizeSpeed
+           optimizeLegibility
+           geometricPrecision
+
+           Not:
+           Tarayıcı desteği ve davranışı değişebilir.
+        */
+
+        .rendering .box {
+            text-rendering:
+                optimizeLegibility;
+        }
+
+
+        /* ==================================================
+           25. text-size-adjust
+           ==================================================
+
+           Mobil tarayıcılarda metin boyutunun
+           otomatik büyütülmesini kontrol eder.
+
+           auto
+           none
+           percentage
+        */
+
+        .size-adjust .box {
+            text-size-adjust: none;
+        }
+
+
+        /* ==================================================
+           26. text-box
+           ==================================================
+
+           Modern CSS'te metnin em kutusunun
+           block ölçülerini kontrol etmek için kullanılır.
+
+           text-box:
+               trim
+               cap alphabetic;
+
+           Yeni/modern özelliktir.
+        */
+
+        .text-box-example .box {
+            text-box:
+                trim cap alphabetic;
+        }
+
+
+        /* ==================================================
+           27. text-box-trim
+           ==================================================
+
+           Metnin başındaki/sonundaki font
+           boşluklarını kırpmayı kontrol eder.
+
+           none
+           trim-start
+           trim-end
+           trim-both
+        */
+
+        .text-box-trim .box {
+            text-box-trim:
+                trim-both;
+        }
+
+
+        /* ==================================================
+           28. text-box-edge
+           ==================================================
+
+           Metin kutusunun hangi font ölçüsüne
+           göre hesaplanacağını belirler.
+
+           cap
+           ex
+           text
+           leading
+           vb.
+        */
+
+        .text-box-edge .box {
+            text-box-edge:
+                cap alphabetic;
+        }
+
+
+        /* ==================================================
+           29. text-spacing-trim
+           ==================================================
+
+           Özellikle Doğu Asya tipografisinde
+           karakter aralıklarını düzenlemek için kullanılır.
+
+           normal
+           space-all
+           space-first
+           trim-start
+           trim-end
+           trim-both
+        */
+
+        .spacing-trim .box {
+            text-spacing-trim:
+                normal;
+        }
+
+
+        /* ==================================================
+           30. text-autospace
+           ==================================================
+
+           Farklı yazı sistemleri arasında otomatik
+           boşluk oluşturmayı kontrol eder.
+
+           normal
+           no-autospace
+        */
+
+        .autospace .box {
+            text-autospace:
+                normal;
+        }
+
+
+        /* ==================================================
+           31. text-group-align
+           ==================================================
+
+           CSS ruby / metin gruplarında hizalama
+           davranışını kontrol eder.
+
+           Modern ve özel kullanım alanlıdır.
+        */
+
+        .group-align .box {
+            text-group-align: none;
+        }
+
+
+        /* ==================================================
+           32. text-edge
+           ==================================================
+
+           Modern text metrics özelliğidir.
+
+           Metnin kutu ölçümünü font metriklerine
+           göre kontrol etmek için kullanılır.
+        */
+
+        .text-edge .box {
+            text-edge:
+                cap alphabetic;
+        }
+
+
+        /* ==================================================
+           33. text-spacing
+           ==================================================
+
+           Bazı tarayıcı/standart sürümlerinde
+           Doğu Asya metinlerinin boşluklandırılması
+           için kullanılan modern özellik.
+        */
+
+        .text-spacing {
+            text-spacing-trim:
+                normal;
+        }
+
+
+        /* ==================================================
+           34. text-wrap + balance
+           GERÇEK PROJE BAŞLIK ÖRNEĞİ
+           ================================================== */
+
+        .title-example .box {
+            text-wrap: balance;
+
+            font-size: 32px;
+            font-weight: 700;
+
+            max-width: 650px;
+        }
+
+
+        /* ==================================================
+           35. LINK TASARIMI
+           ================================================== */
+
+        .link-example a {
+            color: white;
+
+            text-decoration:
+                underline wavy gold;
+
+            text-decoration-thickness: 2px;
+
+            text-underline-offset: 5px;
+        }
+
+
+        /* ==================================================
+           36. MODERN BUTTON TEXT
+           ================================================== */
+
+        .button-example button {
+            padding: 15px 25px;
+
+            border: 0;
+            border-radius: 10px;
+
+            background: #2563eb;
+            color: white;
+
+            text-transform: uppercase;
+
+            letter-spacing: .08em;
+
+            text-shadow:
+                0 1px 2px rgba(0, 0, 0, .3);
+        }
+
+
+        /* ==================================================
+           37. BADGE
+           ================================================== */
+
+        .badge {
+            display: inline-block;
+
+            padding: 8px 15px;
+
+            border-radius: 999px;
+
+            background: #7c3aed;
+            color: white;
+
+            text-transform: uppercase;
+
+            letter-spacing: .1em;
+
+            text-align: center;
+
+            white-space: nowrap;
+        }
+
+
+        /* ==================================================
+           38. ELLIPSIS CARD
+           ================================================== */
+
+        .ellipsis-card {
+            width: 250px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* ==================================================
+           39. MULTI-LINE TEXT CLAMP
+           ==================================================
+
+           text-overflow: ellipsis tek başına çok satırlı
+           metin kesme yapmaz.
+
+           Modern projelerde line-clamp kullanılabilir.
+        */
+
+        .clamp {
+            display: -webkit-box;
+
+            -webkit-box-orient: vertical;
+
+            -webkit-line-clamp: 3;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* ==================================================
+           40. TYPOGRAPHY COMBINATION
+           ================================================== */
+
+        .typography .box {
+            text-align: center;
+
+            text-transform: uppercase;
+
+            letter-spacing: .08em;
+
+            text-wrap: balance;
+
+            text-shadow:
+                2px 2px 5px rgba(0, 0, 0, .4);
+
+            text-decoration:
+                underline wavy gold;
+
+            text-decoration-thickness: 2px;
+
+            text-underline-offset: 6px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         text-align
+         ================================================== -->
+
+    <h2>1. text-align: left</h2>
+
+    <div class="container align-left">
+        <div class="box">
+            Sola hizalanmış metin
+        </div>
+    </div>
+
+
+    <h2>2. text-align: right</h2>
+
+    <div class="container align-right">
+        <div class="box">
+            Sağa hizalanmış metin
+        </div>
+    </div>
+
+
+    <h2>3. text-align: center</h2>
+
+    <div class="container align-center">
+        <div class="box">
+            Ortalanmış metin
+        </div>
+    </div>
+
+
+    <h2>4. text-align: justify</h2>
+
+    <div class="container align-justify">
+        <div class="box">
+            Bu uzun bir metindir. Justify kullanıldığında
+            satırlar iki yana hizalanır ve kelimeler
+            arasındaki boşluklar satırı dolduracak şekilde
+            dağıtılır.
+        </div>
+    </div>
+
+
+    <h2>5. text-align: start</h2>
+
+    <div class="container align-start">
+        <div class="box">
+            Start
+        </div>
+    </div>
+
+
+    <h2>6. text-align: end</h2>
+
+    <div class="container align-end">
+        <div class="box">
+            End
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         text-align-last
+         ================================================== -->
+
+    <h2>7. text-align-last</h2>
+
+    <div class="container align-last">
+        <div class="box">
+            Bu paragraf justify ile hizalanır ancak son
+            satır ayrıca center kullanılarak ortalanır.
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         text-indent
+         ================================================== -->
+
+    <h2>8. text-indent: 40px</h2>
+
+    <div class="container indent-px">
+        <div class="box">
+            İlk satır 40 piksel içeriden başlar.
+        </div>
+    </div>
+
+
+    <h2>9. text-indent: 3em</h2>
+
+    <div class="container indent-em">
+        <div class="box">
+            İlk satır em birimiyle içeri alınır.
+        </div>
+    </div>
+
+
+    <h2>10. text-indent: -20px</h2>
+
+    <div class="container indent-negative">
+        <div class="box">
+            Negatif indent ile ilk satır dışarı taşınabilir.
+        </div>
+    </div>
+
+
+    <h2>11. text-indent: 10%</h2>
+
+    <div class="container indent-percent">
+        <div class="box">
+            Yüzde bazlı girinti.
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         text-transform
+         ================================================== -->
+
+    <h2>12. text-transform: none</h2>
+
+    <div class="container transform-none">
+        <div class="box">
+            MerHaBa DüNyA
+        </div>
+    </div>
+
+
+    <h2>13. text-transform: uppercase</h2>
+
+    <div class="container transform-uppercase">
+        <div class="box">
+            Merhaba dünya
+        </div>
+    </div>
+
+
+    <h2>14. text-transform: lowercase</h2>
+
+    <div class="container transform-lowercase">
+        <div class="box">
+            MERHABA DÜNYA
+        </div>
+    </div>
+
+
+    <h2>15. text-transform: capitalize</h2>
+
+    <div class="container transform-capitalize">
+        <div class="box">
+            merhaba dünya
+        </div>
+    </div>
+
+
+    <h2>16. text-transform: full-width</h2>
+
+    <div class="container transform-full-width">
+        <div class="box">
+            ABC 123
+        </div>
+    </div>
+
+
+    <h2>17. text-transform: full-size-kana</h2>
+
+    <div class="container transform-kana">
+        <div class="box">
+            ｯ
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         text-decoration
+         ================================================== -->
+
+    <h2>18. text-decoration: underline</h2>
+
+    <div class="container decoration-underline">
+        <div class="box">
+            Altı çizili
+        </div>
+    </div>
+
+
+    <h2>19. text-decoration: overline</h2>
+
+    <div class="container decoration-overline">
+        <div class="box">
+            Üstü çizili
+        </div>
+    </div>
+
+
+    <h2>20. text-decoration: line-through</h2>
+
+    <div class="container decoration-through">
+        <div class="box">
+            Üzeri çizili
+        </div>
+    </div>
+
+
+    <h2>21. text-decoration: none</h2>
+
+    <div class="container decoration-none">
+        <div class="box">
+            Çizgisiz
+        </div>
+    </div>
+
+
+    <h2>22. text-decoration-line</h2>
+
+    <div class="container decoration-line">
+        <div class="box">
+            Birden fazla çizgi
+        </div>
+    </div>
+
+
+    <h2>23. text-decoration-color</h2>
+
+    <div class="container decoration-color">
+        <div class="box">
+            Renkli underline
+        </div>
+    </div>
+
+
+    <h2>24. text-decoration-style: solid</h2>
+
+    <div class="container decoration-solid">
+        <div class="box">
+            Solid
+        </div>
+    </div>
+
+
+    <h2>25. text-decoration-style: double</h2>
+
+    <div class="container decoration-double">
+        <div class="box">
+            Double
+        </div>
+    </div>
+
+
+    <h2>26. text-decoration-style: dotted</h2>
+
+    <div class="container decoration-dotted">
+        <div class="box">
+            Dotted
+        </div>
+    </div>
+
+
+    <h2>27. text-decoration-style: dashed</h2>
+
+    <div class="container decoration-dashed">
+        <div class="box">
+            Dashed
+        </div>
+    </div>
+
+
+    <h2>28. text-decoration-style: wavy</h2>
+
+    <div class="container decoration-wavy">
+        <div class="box">
+            Wavy
+        </div>
+    </div>
+
+
+    <h2>29. text-decoration-thickness</h2>
+
+    <div class="container decoration-thickness">
+        <div class="box">
+            Kalın underline
+        </div>
+    </div>
+
+
+    <h2>30. text-underline-offset</h2>
+
+    <div class="container underline-offset">
+        <div class="box">
+            Uzak underline
+        </div>
+    </div>
+
+
+    <h2>31. text-underline-position</h2>
+
+    <div class="container underline-position">
+        <div class="box">
+            Under
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         text-shadow
+         ================================================== -->
+
+    <h2>32. text-shadow</h2>
+
+    <div class="container shadow-basic">
+        <div class="box">
+            TEXT SHADOW
+        </div>
+    </div>
+
+
+    <h2>33. text-shadow: no blur</h2>
+
+    <div class="container shadow-no-blur">
+        <div class="box">
+            NO BLUR
+        </div>
+    </div>
+
+
+    <h2>34. text-shadow: multiple</h2>
+
+    <div class="container shadow-multiple">
+        <div class="box">
+            MULTIPLE SHADOW
+        </div>
+    </div>
+
+
+    <h2>35. text-shadow: glow</h2>
+
+    <div class="container shadow-glow">
+        <div class="box">
+            GLOW
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         text-overflow
+         ================================================== -->
+
+    <h2>36. text-overflow: clip</h2>
+
+    <div class="container">
+        <div class="box overflow-clip">
+            Bu metin kutunun dışına taşacak ve kesilecektir.
+        </div>
+    </div>
+
+
+    <h2>37. text-overflow: ellipsis</h2>
+
+    <div class="container">
+        <div class="box overflow-ellipsis">
+            Bu metin kutunun dışına taşacak ve sonunda üç nokta gösterilecektir.
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         text-wrap
+         ================================================== -->
+
+    <h2>38. text-wrap: wrap</h2>
+
+    <div class="container wrap-normal">
+        <div class="box">
+            Bu metin normal şekilde satırlara ayrılır.
+        </div>
+    </div>
+
+
+    <h2>39. text-wrap: nowrap</h2>
+
+    <div class="container wrap-nowrap">
+        <div class="box">
+            Bu metin satır değiştirmeden devam eder.
+        </div>
+    </div>
+
+
+    <h2>40. text-wrap: balance</h2>
+
+    <div class="container wrap-balance">
+        <div class="box">
+            Modern ve dengeli başlık satırları oluşturmak
+            için balance kullanılabilir.
+        </div>
+    </div>
+
+
+    <h2>41. text-wrap: pretty</h2>
+
+    <div class="container wrap-pretty">
+        <div class="box">
+            Pretty değeri satır sonlarını daha estetik
+            hale getirmeye çalışır.
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         text-justify
+         ================================================== -->
+
+    <h2>42. text-justify: auto</h2>
+
+    <div class="container justify-auto">
+        <div class="box">
+            Justify kullanılan uzun bir metin örneğidir.
+            Satırlar iki yana hizalanır.
+        </div>
+    </div>
+
+
+    <h2>43. text-justify: inter-word</h2>
+
+    <div class="container justify-word">
+        <div class="box">
+            Kelimeler arasındaki boşluklar dağıtılır.
+        </div>
+    </div>
+
+
+    <h2>44. text-justify: inter-character</h2>
+
+    <div class="container justify-character">
+        <div class="box">
+            Karakterler arasındaki boşlukların dağıtılması
+            özellikle bazı yazı sistemlerinde kullanışlıdır.
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         VERTICAL TEXT
+         ================================================== -->
+
+    <h2>45. text-orientation</h2>
+
+    <div class="container orientation">
+        <div class="box">
+            Vertical Text
+        </div>
+    </div>
+
+
+    <h2>46. text-combine-upright</h2>
+
+    <div class="container combine-upright">
+        <div class="box">
+            2026
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         TEXT EMPHASIS
+         ================================================== -->
+
+    <h2>47. text-emphasis</h2>
+
+    <div class="container emphasis">
+        <div class="box">
+            Vurgulu metin
+        </div>
+    </div>
+
+
+    <h2>48. text-emphasis-style</h2>
+
+    <div class="container emphasis-style">
+        <div class="box">
+            Emphasis Style
+        </div>
+    </div>
+
+
+    <h2>49. text-emphasis-color</h2>
+
+    <div class="container emphasis-color">
+        <div class="box">
+            Renkli emphasis
+        </div>
+    </div>
+
+
+    <h2>50. text-emphasis-position</h2>
+
+    <div class="container emphasis-position">
+        <div class="box">
+            Position
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         MODERN TEXT
+         ================================================== -->
+
+    <h2>51. text-rendering</h2>
+
+    <div class="container rendering">
+        <div class="box">
+            Optimize Legibility
+        </div>
+    </div>
+
+
+    <h2>52. text-size-adjust</h2>
+
+    <div class="container size-adjust">
+        <div class="box">
+            Mobile Text
+        </div>
+    </div>
+
+
+    <h2>53. text-box</h2>
+
+    <div class="container text-box-example">
+        <div class="box">
+            Text Box
+        </div>
+    </div>
+
+
+    <h2>54. text-box-trim</h2>
+
+    <div class="container text-box-trim">
+        <div class="box">
+            Trim
+        </div>
+    </div>
+
+
+    <h2>55. text-box-edge</h2>
+
+    <div class="container text-box-edge">
+        <div class="box">
+            Text Edge
+        </div>
+    </div>
+
+
+    <h2>56. text-spacing-trim</h2>
+
+    <div class="container spacing-trim">
+        <div class="box">
+            Text Spacing
+        </div>
+    </div>
+
+
+    <h2>57. text-autospace</h2>
+
+    <div class="container autospace">
+        <div class="box">
+            Auto Space
+        </div>
+    </div>
+
+
+    <!-- ==================================================
+         GERÇEK PROJE ÖRNEKLERİ
+         ================================================== -->
+
+    <h2>58. Modern Heading</h2>
+
+    <div class="container title-example">
+        <div class="box">
+            Modern Web Tasarımında Dengeli Başlık Kullanımı
+        </div>
+    </div>
+
+
+    <h2>59. Link</h2>
+
+    <div class="container link-example">
+        <div class="box">
+            <a href="#">
+                Modern Link
+            </a>
+        </div>
+    </div>
+
+
+    <h2>60. Button</h2>
+
+    <div class="container button-example">
+        <div class="box">
+
+            <button>
+                SATIN AL
+            </button>
+
+        </div>
+    </div>
+
+
+    <h2>61. Badge</h2>
+
+    <div class="container">
+
+        <span class="badge">
+            Yeni
+        </span>
+
+    </div>
+
+
+    <h2>62. Multi-line Clamp</h2>
+
+    <div class="container">
+
+        <div class="box clamp">
+
+            Bu uzun açıklama üç satırla sınırlandırılabilir.
+            Fazla metin olduğunda görünmeyen bölüm kesilir
+            ve kullanıcı arayüzü daha düzenli kalır. Bu
+            yöntem özellikle kart tasarımlarında kullanılır.
+
+        </div>
+
+    </div>
+
+
+    <h2>63. Typography Combination</h2>
+
+    <div class="container typography">
+
+        <div class="box">
+
+            MODERN TYPOGRAPHY
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

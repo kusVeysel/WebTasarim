@@ -46,6 +46,7 @@
        Öğeleri çapraz eksenin ortasına hizalar. */
         .center {
             align-items: center;
+            
         }
 
         /* 5. baseline
@@ -101,6 +102,32 @@
         Taşma olsa bile hizalamayı değiştirmez. */
         .unsafe-center {
             align-items: unsafe center;
+        }
+
+        /* ==================================================
+       ÖZEL ÖRNEK
+       ==================================================
+
+       align-items parent'taki bütün öğeleri etkiler.
+
+       align-self ise yalnızca uygulandığı
+       öğeyi değiştirir.
+    */
+
+        .special {
+            align-items: center;
+        }
+
+        .special .item:nth-child(1) {
+            align-self: flex-start;
+        }
+
+        .special .item:nth-child(2) {
+            align-self: center;
+        }
+
+        .special .item:nth-child(3) {
+            align-self: flex-end;
         }
     </style>
 </head>
@@ -191,6 +218,32 @@
         <div class="item">C</div>
     </div>
 
+    <!-- ÖZEL ÖRNEK -->
+
+    <h2>align-items + align-self birlikte</h2>
+
+    <div class="container special">
+
+        <div class="item">
+            flex-start
+        </div>
+
+        <div class="item">
+            center
+        </div>
+
+        <div class="item">
+            flex-end
+        </div>
+
+    </div>
 </body>
 
 </html>
+<!-- 
+
+! align-items: tüm elemanı sıralamak için kullanılır
+! align-self: tek bir elemanı sıralamak için kullanılır
+! elemanların tüm hepsini sıralarken spefisik bir durum için align-self verilir
+
+-->
