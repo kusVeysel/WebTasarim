@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../CDN/JqueryCDN.js"></script>
 </head>
 <style>
-#list li{
-    padding: 6px;
-    border-bottom: 1px solid #ddd;
-}
-
-
-
+    #list li {
+        padding: 6px;
+        border-bottom: 1px solid #ddd;
+    }
 </style>
+
 <body>
     <input type="text" id="search" placeholder="İsim arayınız...">
     <button id="btnGetir">Kullanıcı ara</button>
     <div id="loading" style="display: none;">Yükleniyor...</div>
     <p id="noResult" style="display: none;color: red;">
         Kullanıcı Bulunamadı
-    </p>    
-<ul id="list"></ul>
+    </p>
+    <ul id="list"></ul>
 
-<!-- 
+    <!-- 
     <script>
         var allUsers=[];
         $("#btnGetir").click(function(){
@@ -58,46 +57,47 @@
     </script>
  -->
 
-     <script>
-         var allUsers=[];
-         $("#btnGetir").click(function(){
-             $("#loading").show();
-             $("#noResult").hide();
-             $.get("https://jsonplaceholder.typicode.com/users",function(users){    
-              
-                allUsers=users;
+    <script>
+        var allUsers = [];
+        $("#btnGetir").click(function () {
+            $("#loading").show();
+            $("#noResult").hide();
+            $.get("https://jsonplaceholder.typicode.com/users", function (users) {
+
+                allUsers = users;
                 listeyiBas(users);
                 $("#loading").hide();
-             });
-          
-         });
-         $("#search").on("keyup",function(){
-           
-            var kelime =$(this).val().toLowerCase(); //nancy
-            var filtre=[];
-            allUsers.forEach(function(u){  /// tek tek baktı 
-              
-                if(u.name.toLowerCase().indexOf(kelime)>-1){ //sonuc var ise yani -1 den buyukse 
+            });
+
+        });
+        $("#search").on("keyup", function () {
+
+            var kelime = $(this).val().toLowerCase(); //nancy
+            var filtre = [];
+            allUsers.forEach(function (u) {  /// tek tek baktı 
+
+                if (u.name.toLowerCase().indexOf(kelime) > -1) { //sonuc var ise yani -1 den buyukse 
                     filtre.push(u); // filtrenin içerisine attı 
                 }
-            
-                });
-                 if(filtre.length>0){ //filtre >0  
-                    $("#noResult").hide(); // ggizlicem
-                    listeyiBas(filtre); // gelen datayıda buraya basacam 
-                 }
-                 else{
-                    $("#list").empty();
-                    $("#noResult").show();
-                 }
+
             });
- 
-         function listeyiBas(users){
+            if (filtre.length > 0) { //filtre >0  
+                $("#noResult").hide(); // ggizlicem
+                listeyiBas(filtre); // gelen datayıda buraya basacam 
+            }
+            else {
+                $("#list").empty();
+                $("#noResult").show();
+            }
+        });
+
+        function listeyiBas(users) {
             $("#list").empty();
-            users.forEach(function(u){
-                  $("#list").append("<li>"+u.name+" - "+u.email+  "</li>");
-            }); 
-            };
-     </script>
+            users.forEach(function (u) {
+                $("#list").append("<li>" + u.name + " - " + u.email + "</li>");
+            });
+        };
+    </script>
 </body>
+
 </html>

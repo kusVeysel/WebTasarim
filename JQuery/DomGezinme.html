@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery - 2. DOM Traversing</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+        }
+
+        .container {
+            padding: 15px;
+            border: 3px solid #888;
+        }
+
+        .card {
+            margin: 10px 0;
+            padding: 15px;
+            background: #eee;
+            border-radius: 8px;
+        }
+
+        .inner {
+            padding: 10px;
+            border: 2px dashed #999;
+        }
+
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================================================
+         TEMEL DOM YAPISI
+         ================================================== -->
+
+    <section>
+        <div class="container">
+            <h2>Ürünler</h2>
+            <div class="card">
+                <h3>Ürün 1</h3>
+                <p>Ürün açıklaması</p>
+                <button>Satın Al</button>
+            </div>
+
+            <div class="card active">
+                <h3>Ürün 2</h3>
+                <p>Ürün açıklaması</p>
+                <button>Satın Al</button>
+            </div>
+
+            <div class="card">
+                <h3>Ürün 3</h3>
+                <p>Ürün açıklaması</p>
+                <button>Satın Al</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================================================
+         FIND
+         ================================================== -->
+
+    <section>
+        <h2>find()</h2>
+        <div class="find-container">
+            <div class="box">
+                <span>İçerideki yazı</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================================================
+         CHILDREN
+         ================================================== -->
+
+    <section>
+        <h2>children()</h2>
+        <div class="children-container">
+            <p>Çocuk 1</p>
+            <p>Çocuk 2</p>
+            <div>
+                <p>Torun element</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================================================
+         PARENT
+         ================================================== -->
+
+    <section>
+        <h2>parent()</h2>
+        <div class="parent-container">
+            <div class="box">
+                <button class="parent-button">
+                    Parent Bul
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================================================
+         CLOSEST
+         ================================================== -->
+
+    <section>
+        <h2>closest()</h2>
+        <div class="outer">
+            <div class="middle">
+                <div class="inner">
+                    <button class="closest-button">
+                        Closest Bul
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+        /* ==================================================
+           1. find()
+           ==================================================
+
+           Seçilen elementin İÇERİSİNDEKİ eşleşen elementleri bulur.
+
+           Örnek: $(".container").find(".card") → container içerisindeki bütün card'ları bulur. */
+
+        $(".container").find(".card").css("border", "2px solid blue");
+
+
+        // Daha spesifik: container → card → h3
+
+
+        $(".container").find(".card").find("h3").css("text-decoration", "underline");
+
+        /* ==================================================
+           find() ile zincirleme
+           ================================================== */
+
+        $(".container").find(".active").find("h3").css("font-size", "28px");
+
+        /* ==================================================
+           2. children()
+           ==================================================
+
+           Sadece DOĞRUDAN ÇOCUKLARI bulur.Torunları bulmaz.
+        */
+
+
+        $(".children-container").children().css("color", "blue");
+
+        /*
+           HTML:
+
+           .children-container
+               │
+               ├── p       ← children()
+               ├── p       ← children()
+               └── div     ← children()
+                    │
+                    └── p  ← children() BULMAZ
+        */
+
+
+
+        /* ==================================================
+           children(selector)
+           ==================================================
+
+           Sadece belirli child'ları seçebilirsin. */
+
+        $(".children-container").children("p").css("font-weight", "bold");
+
+
+        /* ==================================================
+           3. parent()
+           ==================================================
+
+           Seçilen elementin DOĞRUDAN PARENT'ını bulur. */
+
+        $(".parent-button").on("click", function () {
+            $(this).parent().css("background", "lightblue");
+        });
+
+        /*
+           button
+              ↑
+           parent()
+              ↑
+           .box
+        */
+
+
+        /* ==================================================
+           4. parents()
+           ==================================================
+
+           Bütün üst elementleri bulur.
+
+           parent() → sadece bir üst
+           parents() → bütün üstler
+        */
+
+
+        $(".parent-button").parents().css("outline", "1px solid #ddd");
+
+        /* ==================================================
+           parents(selector)
+           ==================================================
+
+           Belirli parent'ı bulabiliriz. */
+
+        $(".parent-button").parents(".parent-container").css("border", "3px solid green");
+
+        /* ==================================================
+           5. closest()
+           ==================================================
+
+           Kendisine EN YAKIN eşleşen parent/ancestor elementini bulur. Çok kullanışlıdır. */
+
+        $(".closest-button").on("click", function () {
+            $(this).closest(".outer").css("background", "lightyellow");
+        });
+
+        /*
+           Yapı:.outer → .middle → .inner → button
+
+           button.closest(".outer") → .outer */
+
+        /* ==================================================
+           closest() neden parent() yerine
+           kullanılır?
+           ==================================================
+
+           parent() sadece bir seviye yukarı çıkar.
+
+           closest() ise yukarı doğru gider ve aradığı selector'a ilk rastladığı elementi bulur. */
+
+        /* ==================================================
+           6. siblings()
+           ==================================================
+
+           Elementin kardeşlerini bulur.
+
+           Aynı parent içerisindeki diğer elementler. */
+
+        $(".card.active").siblings().css("opacity", "0.5");
+
+        /*
+           Örneğin:
+
+           card 1
+           card 2 ← aktif
+           card 3
+
+           siblings()
+
+           → card 1
+           → card 3 */
+
+
+        /* ==================================================
+           siblings(selector)
+           ================================================== */
+
+        $(".card.active").siblings(".card").css("transform", "scale(0.95)");
+
+        /* ==================================================
+           7. next()
+           ==================================================
+
+           Hemen SONRA gelen kardeş elementi bulur. */
+
+        $(".card:first").next().css("background", "lightgreen");
+
+        // card 1 → next() → card 2 
+
+        /* ==================================================
+           8. nextAll()
+           ==================================================
+
+           Sonraki TÜM kardeşleri bulur. */
+
+
+        $(".card:first").nextAll().css("border-left", "5px solid orange");
+
+        /* ==================================================
+           9. nextUntil()
+           ==================================================
+
+           Belirli bir elemente kadar sonraki kardeşleri seçer. */
+
+
+        //  Örnek: $(".card:first").nextUntil(".some-class")
+
+
+
+        /* ==================================================
+           10. prev()
+           ==================================================
+
+           Hemen ÖNCE gelen kardeş elementi bulur. */
+
+        $(".card:eq(2)").prev().css("background", "pink");
+
+        // card 2 → prev() → card 3
+
+        /* ==================================================
+           11. prevAll()
+           ==================================================
+
+           Önceki TÜM kardeşleri bulur. */
+
+        $(".card:last").prevAll().css("border-right", "5px solid purple");
+
+        /* ==================================================
+           12. prevUntil()
+           ==================================================
+
+           Belirli bir elemente kadar önceki kardeşleri seçer. */
+
+
+        /* ==================================================
+           13. first()
+           ==================================================
+
+           Seçilen grubun ilk elementini jQuery metodu olarak alır. */
+
+        $(".card").first().css("font-style", "italic");
+
+        /* ==================================================
+           14. last()
+           ================================================== */
+
+        $(".card").last().css("text-decoration", "underline");
+
+        /* ==================================================
+           15. eq()
+           ==================================================
+
+           Belirli indexteki elementi seçer.
+
+           Index 0'dan başlar. */
+
+
+        $(".card").eq(1).css("padding", "30px");
+
+        /*
+           0 → card 1
+           1 → card 2
+           2 → card 3
+        */
+
+        /* ==================================================
+           16. filter()
+           ==================================================
+
+           Seçilen grubu filtreler. */
+
+
+        $(".card").filter(".active").css("box-shadow", "0 0 10px gray");
+
+        /* ==================================================
+           17. not()
+           ==================================================
+
+           Belirli elementleri çıkarır. */
+
+        $(".card").not(".active").css("opacity", "0.7");
+
+        /* ==================================================
+           18. has()
+           ==================================================
+
+           İçerisinde belirli element bulunanları seçer. */
+
+        $(".card").has("button").css("cursor", "pointer");
+
+        /* ==================================================
+           19. hasClass()
+           ==================================================
+
+           Belirli class var mı? */
+
+        $(".card").each(function () {
+            if ($(this).hasClass("active")) {
+                console.log("Aktif kart:", $(this).text());
+            }
+        });
+
+        /* ==================================================
+           20. is()
+           ==================================================
+
+           Element belirli selector'a uyuyor mu? */
+
+        $(".card").each(function () {
+            if ($(this).is(".active")) {
+                console.log("Bu kart aktif.");
+            }
+        });
+
+        /* ==================================================
+           21. GERÇEK PROJE ÖRNEĞİ
+           ==================================================
+
+           Bir kartın button'una tıklıyoruz.
+
+           button
+              ↓
+           closest(".card")
+              ↓
+           o kart
+              ↓
+           find("h3")
+              ↓
+           başlık
+        */
+
+
+        $(".card button").on("click", function () {
+            const card = $(this).closest(".card");
+            const title = card.find("h3").text();
+            console.log("Seçilen ürün:", title);
+
+            //  Sadece tıklanan kartı aktif yap.
+            $(".card").removeClass("active");
+            card.addClass("active");
+        });
+
+        /* ==================================================
+           EN ÖNEMLİLER
+           ==================================================
+
+           find() → İçeride ara.
+
+           children() → Doğrudan çocukları bul.
+
+           parent() → Bir üst parent.
+
+           parents() → Bütün üst parent'lar.
+
+           closest() → En yakın eşleşen üst element.
+
+           siblings() → Kardeşler.
+
+           next() → Sonraki kardeş.
+
+           nextAll() → Sonraki tüm kardeşler.
+
+           prev() → Önceki kardeş.
+
+           prevAll() → Önceki tüm kardeşler.
+
+           first() → İlk.
+
+           last() → Son.
+
+           eq() → Belirli index.
+
+           filter() → Filtrele.
+
+           not() → Hariç tut.
+
+           has() → İçerisinde element var mı?
+
+           is() → Selector'a uyuyor mu?
+        */
+    </script>
+</body>
+
+</html>

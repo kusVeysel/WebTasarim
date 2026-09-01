@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../CDN/JqueryCDN.js"></script>
+</head>
+
+<body>
+    <div id="kutu1"></div>
+    <input type="text" id="input1" placeholder="Bir şeyler yazın">
+    <button id="buton1">Tıkla</button>
+
+    <script>
+        const kutu1 = $("#kutu1"); // id'si kutu1 olan elementi seçer
+        const input1 = $("#input1"); // id'si input1 olan elementi seçer
+        const buton1 = $("#buton1"); // id'si buton1 olan elementi seçer
+
+        $(document).ready(function () { // Sayfa yüklendiğinde bu fonksiyon çalışır
+            kutu1.text("Merhaba jQuery"); // kutu1'in içeriğini değiştirir
+        });
+
+        buton1.click(function () { // buton1'e tıklandığında bu fonksiyon çalışır
+            const inputValue = input1.val(); // input1'in değerini alır
+            kutu1.text(inputValue); // kutu1'in içeriğini input1'in değeri ile değiştirir
+        });
+
+        kutu1.hover(function () { // kutu1 üzerine gelindiğinde bu fonksiyon çalışır
+            kutu1.html("<b>Fare kutu1'in üzerine geldi!</b>"); // kutu1'in içeriğini değiştirir
+        }, function () { // kutu1'den fare ayrıldığında bu fonksiyon çalışır
+            kutu1.html("Fare kutu1'in üzerinden ayrıldı!"); // kutu1'in içeriğini değiştirir
+        });
+
+
+        </script>
+</body>
+
+</html> 
+<!-- 
+! $("selector").action(); // jQuery'nin temel yapısı
+
+
+-->

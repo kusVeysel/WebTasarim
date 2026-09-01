@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript create-</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+        }
+
+        .box {
+            margin: 10px 0;
+            padding: 15px;
+            background: #eee;
+            border-radius: 8px;
+        }
+
+        .card {
+            width: 250px;
+            padding: 20px;
+            background: steelblue;
+            color: white;
+            border-radius: 15px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- ==================================================
+         DEMO ALANLARI
+         ================================================== -->
+
+    <section>
+        <h2>1. createElement()</h2>
+        <div id="elementArea"></div>
+    </section>
+
+    <section>
+        <h2>2. createTextNode()</h2>
+        <div id="textArea"></div>
+    </section>
+
+    <section>
+        <h2>3. createDocumentFragment()</h2>
+        <ul id="fragmentArea"></ul>
+    </section>
+
+    <section>
+        <h2>4. createComment()</h2>
+        <div id="commentArea"></div>
+    </section>
+
+    <section>
+        <h2>5. createAttribute()</h2>
+        <div id="attributeArea"></div>
+    </section>
+
+    <section>
+        <h2>Sayfaya Element Ekleme Komutları</h2>
+        <div id="Ekleme"></div>
+    </section>
+
+    <script>
+
+
+        /* ==================================================
+           1. document.createElement()
+           ==================================================
+
+           EN ÖNEMLİ create yapısıdır.
+           Yeni bir HTML ELEMENTİ oluşturur.
+
+           Örnek:
+           document.createElement("div")
+           document.createElement("button")
+           document.createElement("input")
+           document.createElement("img")
+           document.createElement("li")
+
+           ÖNEMLİ:
+           createElement() sadece elementi oluşturur.
+           Otomatik olarak sayfaya eklemez.
+
+           DOM'a(sayfaya) eklemek için:
+           append()
+           appendChild()
+           prepend()
+           before()
+           after()
+           gibi yöntemlerden biri gerekir.
+        */
+
+        const div = document.createElement("div");
+        //  Şu anda elimizde <div></div> var. Fakat henüz body içerisinde değil.
+
+        div.textContent = "createElement() ile oluşturuldu.";
+
+        //  Elementi DOM'a ekliyoruz.
+        document.querySelector("#elementArea").append(div);
+
+        /* ==================================================
+           createElement() + class
+           ================================================== */
+
+        const card = document.createElement("div");
+
+        //  Oluşturduğumuz div'e class veriyoruz.
+        card.classList.add("card");
+        //   İçeriğini oluşturuyoruz.
+        card.textContent = "Dinamik Card";
+        //  DOM'a ekliyoruz.
+        document.querySelector("#elementArea").append(card);
+
+        /* ==================================================
+           createElement() + id
+           ================================================== */
+
+        const title = document.createElement("h2");
+        title.id = "dynamicTitle";
+        title.textContent = "Dinamik Başlık";
+        document.querySelector("#elementArea").append(title);
+
+        /* ==================================================
+           createElement() + setAttribute()
+           ================================================== */
+
+        const link = document.createElement("a");
+        //  href attribute'u oluşturuyoruz.
+        link.setAttribute("href", "https://example.com"); // setAttribute ,Attribute günceller. !.parametre attribute ,2. parametre attribute değeri
+        link.textContent = "Link";
+        document.querySelector("#elementArea").append(link);
+
+        /* ==================================================
+           createElement() + dataset
+           ================================================== */
+
+        const dataBox = document.createElement("div");
+        // data-id="123"
+        dataBox.dataset.id = "123";
+        // data-category="product"
+        dataBox.dataset.category = "product";
+        dataBox.textContent = "Dataset oluşturuldu.";
+        document.querySelector("#elementArea").append(dataBox);
+
+        /* ==================================================
+           createElement() + EVENT
+           ==================================================
+
+           Dinamik oluşturulan elementlere
+           event de bağlayabiliriz.
+        */
+
+        const button = document.createElement("button");
+        button.textContent = "Tıkla";
+        button.addEventListener("click", () => {
+            alert("Dinamik button'a tıklandı!");
+        });
+        document.querySelector("#elementArea").append(button);
+
+        /* ==================================================
+           2. document.createTextNode()
+           ==================================================
+
+           Yeni bir TEXT NODE oluşturur.
+           Örneğin:
+           createTextNode("Merhaba")
+
+           → "Merhaba" yazısını temsil eden
+             bir text node oluşturur.
+
+           HTML elementi oluşturmaz.
+        */
+
+        const paragraph = document.createElement("p");
+        const text = document.createTextNode("Bu yazı createTextNode() ile oluşturuldu.");
+
+        /* Text node'u p içerisine ekliyoruz. */
+        paragraph.appendChild(text);
+        document.querySelector("#textArea").append(paragraph);
+
+        /* ==================================================
+           createTextNode() + birden fazla text
+           ================================================== */
+
+        const info = document.createElement("p");
+        const text1 = document.createTextNode("JavaScript ");
+        const text2 = document.createTextNode("DOM ");
+        const text3 = document.createTextNode("öğreniyorum.");
+
+        info.append(text1, text2, text3);
+        document.querySelector("#textArea").append(info);
+
+        /* ==================================================
+           3. document.createDocumentFragment()
+           ==================================================
+
+           Çok sayıda DOM elementi oluştururken
+           kullanışlıdır.
+
+           Fragment'i geçici bir container
+           gibi düşünebilirsin.
+
+           Önce:
+           fragment içine elementleri koyarız.
+
+           Sonra:
+           fragment'i DOM'a ekleriz.
+        */
+
+        const fragment = document.createDocumentFragment();
+
+        // 10 adet li oluşturuyoruz. 
+        for (let i = 1; i <= 10; i++) {
+            const li = document.createElement("li");
+            li.textContent = `Ürün ${i}`;
+            // li'yi fragment'e ekliyoruz.
+            fragment.append(li);
+        }
+        /* Hazırlanan fragment'i gerçek DOM'a ekliyoruz. */
+        document.querySelector("#fragmentArea").append(fragment);
+
+        /* ==================================================
+           DocumentFragment + gerçek proje örneği
+           ================================================== */
+
+        const products = ["Laptop", "Mouse", "Klavye", "Kulaklık", "Monitör"];
+        const productFragment = document.createDocumentFragment();
+        products.forEach(product => {
+            const li = document.createElement("li");
+            li.textContent = product;
+            productFragment.append(li);
+        });
+
+        document.querySelector("#fragmentArea").append(productFragment);
+
+        /* ==================================================
+           4. document.createComment()
+           ==================================================
+
+           HTML comment node oluşturur.
+
+           Örneğin:
+            JavaScript tarafından oluşturuldu şeklinde bir comment oluşturabiliriz.
+
+           Günlük modern projelerde: createElement() kadar önemli değildir. Daha çok DOM üzerinde comment node oluşturmak gerektiğinde kullanılır.
+        */
+
+        const comment = document.createComment("Bu yorum JavaScript ile oluşturuldu.");
+        document.querySelector("#commentArea").append(comment);
+
+        /*
+           Tarayıcıda görünür bir yazı oluşturmaz.
+           DOM'u incelersen: Bu yorum JavaScript ile oluşturuldu şeklinde görebilirsin.
+        */
+
+        /* ==================================================
+           5. document.createAttribute()
+           ==================================================
+
+           Attribute NODE oluşturur.
+
+           Örneğin:
+           class
+           id
+           title
+           data-id
+           gibi attribute'lar oluşturulabilir.
+
+           Fakat modern projelerde çoğu durumda:
+           setAttribute()
+           kullanmak daha pratiktir.
+        */
+
+        const attributeBox = document.createElement("div");
+
+        /* Yeni bir attribute oluşturuyoruz. */
+        const attribute = document.createAttribute("data-type");
+
+        /* Attribute'un değerini belirliyoruz. */
+        attribute.value = "card";
+
+        /* Attribute'u elemente bağlıyoruz. */
+        attributeBox.setAttributeNode(attribute);
+        attributeBox.textContent = "createAttribute() kullanıldı.";
+        document.querySelector("#attributeArea").append(attributeBox);
+
+        /* ==================================================
+           createAttribute() yerine setAttribute()
+           ==================================================
+
+           Modern kullanım:
+           attribute oluştur:
+           element.setAttribute("data-type","card");
+
+           Bu genellikle daha temizdir.
+        */
+
+        const modernBox = document.createElement("div");
+        modernBox.setAttribute("data-type", "card");
+        modernBox.textContent = "Modern yöntem: setAttribute()";
+        document.querySelector("#attributeArea").append(modernBox);
+
+        /* ==================================================
+           6. createEvent()
+           ==================================================
+
+           Eski DOM event oluşturma yöntemidir.
+
+           Günümüzde normal kullanım için
+           önerilen yöntem:
+           addEventListener()
+
+           Örneğin:
+           button.addEventListener(
+               "click",
+               ...
+           );
+
+           Bu nedenle createEvent()
+           modern projelerde öğrenilmesi gereken
+           temel bir create yapısı değildir.
+        */
+
+        /*
+           Eski kullanım örneği:
+
+           const event =
+               document.createEvent("Event");
+
+           event.initEvent(
+               "click",
+               true,
+               true
+           );
+
+           button.dispatchEvent(event);
+
+           Modern projelerde bunun yerine
+           Event() / CustomEvent() + dispatchEvent()
+           veya doğrudan addEventListener()
+           tercih edilir.
+        */
+
+
+        /* ==================================================
+           7. EN ÖNEMLİ KOMBİNASYON
+           ==================================================
+
+           Gerçek projelerde genellikle
+           createElement() tek başına kullanılmaz.
+
+           Şu zincir çok önemlidir:
+
+           createElement()
+                ↓
+           classList
+                ↓
+           attributes
+                ↓
+           textContent
+                ↓
+           event
+                ↓
+           append()
+        */
+
+        function createUserCard(name, age) {
+            /*  Ana element */
+            const card = document.createElement("article");
+
+            /* CSS class */
+            card.classList.add("card");
+
+            /* Başlık */
+            const title = document.createElement("h3");
+            title.textContent = name;
+
+            /* Yaş */
+            const ageText = document.createElement("p");
+            ageText.textContent = `Yaş: ${age}`;
+
+            /* Button */
+            const button = document.createElement("button");
+            button.textContent = "Profil";
+
+            // Event
+            button.addEventListener("click", () => {
+                console.log(`${name} profili açıldı.`);
+            });
+            // Elementleri card içine koyuyoruz
+            card.append(title, ageText, button);
+            // Hazırlanan card'ı fonksiyon dışına gönderiyoruz
+            return card;
+        }
+        document.body.append(createUserCard("Ahmet", 20));
+    </script>
+
+    <script>
+        const add = document.getElementById("Ekleme");
+
+        const li1 = document.createElement("li");
+        li1.innerText = "append";
+        add.append(li1);
+
+        const li2 = document.createElement("li");
+        li2.innerText = "appendChild";
+        add.appendChild(li2);
+
+        const li3 = document.createElement("li");
+        li3.innerText = "prepend";
+        add.prepend(li3);
+
+        const li4 = document.createElement("li");
+        li4.innerText = "after";
+        add.after(li4);
+
+        const li5 = document.createElement("li");
+        li5.innerText = "before";
+        add.before(li5);
+
+        // append()
+        // ↓
+        // Parent'ın EN SONUNA ekler.
+
+        // appendChild()
+        // ↓
+        // Parent'ın SONUNA TEK BİR NODE ekler.
+        
+        // prepend()
+        // ↓
+        // Parent'ın EN BAŞINA ekler.
+
+        // before()
+        // ↓
+        // Hedef elementin ÖNÜNE ekler.(Hedef elementin DIŞINA HEMEN ÖNÜNE ekler)
+
+        // after()
+        // ↓
+        // Hedef elementin ARKASINA ekler.(Hedef elementin DIŞINA HEMEN ARKASINA ekler)
+
+    </script>
+</body>
+</html>

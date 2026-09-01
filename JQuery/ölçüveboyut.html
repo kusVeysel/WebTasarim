@@ -1,0 +1,1031 @@
+```html
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>jQuery - 8. Width & Height</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+        }
+
+        .box {
+            width: 250px;
+            height: 120px;
+
+            padding: 20px;
+
+            border: 5px solid steelblue;
+
+            margin: 20px;
+
+            background: #ddd;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        #result {
+            padding: 15px;
+            margin-top: 15px;
+            background: #eee;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .resizeBox {
+            width: 200px;
+            height: 100px;
+
+            background: steelblue;
+
+            margin: 20px 0;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .parent {
+            width: 600px;
+            padding: 20px;
+            background: #ddd;
+        }
+
+        .child {
+            width: 50%;
+            height: 80px;
+            background: steelblue;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <h1>jQuery Width & Height</h1>
+
+
+    <!-- ==================================================
+         1. WIDTH
+         ================================================== -->
+
+    <section>
+
+        <h2>1. width()</h2>
+
+        <div id="box1" class="box">
+
+            Box
+
+        </div>
+
+        <button id="getWidth">
+            width Oku
+        </button>
+
+        <button id="setWidth">
+            width = 400px
+        </button>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         2. HEIGHT
+         ================================================== -->
+
+    <section>
+
+        <h2>2. height()</h2>
+
+        <div id="box2" class="box">
+
+            Box
+
+        </div>
+
+        <button id="getHeight">
+            height Oku
+        </button>
+
+        <button id="setHeight">
+            height = 200px
+        </button>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         3. INNER WIDTH / HEIGHT
+         ================================================== -->
+
+    <section>
+
+        <h2>3. innerWidth() / innerHeight()</h2>
+
+        <div id="box3" class="box">
+
+            Content + Padding
+
+        </div>
+
+        <button id="getInner">
+            inner Ölçüleri Oku
+        </button>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         4. OUTER WIDTH / HEIGHT
+         ================================================== -->
+
+    <section>
+
+        <h2>4. outerWidth() / outerHeight()</h2>
+
+        <div id="box4" class="box">
+
+            Border Dahil
+
+        </div>
+
+        <button id="getOuter">
+            outer Ölçüleri Oku
+        </button>
+
+        <button id="getOuterMargin">
+            Margin Dahil Oku
+        </button>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         5. TÜM ÖLÇÜLERİ GÖSTER
+         ================================================== -->
+
+    <section>
+
+        <h2>5. Karşılaştırma</h2>
+
+        <div id="box5" class="box">
+
+            Tüm ölçüleri karşılaştır
+
+        </div>
+
+        <button id="compare">
+            Ölçüleri Göster
+        </button>
+
+        <div id="result"></div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         6. DİNAMİK BOYUT
+         ================================================== -->
+
+    <section>
+
+        <h2>6. Dinamik Boyut Değiştirme</h2>
+
+        <div id="resizeBox" class="resizeBox">
+
+            Resize
+
+        </div>
+
+        <button id="increase">
+            +50px
+        </button>
+
+        <button id="decrease">
+            -50px
+        </button>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         7. PARENT WIDTH
+         ================================================== -->
+
+    <section>
+
+        <h2>7. Parent Boyutunu Okuma</h2>
+
+        <div class="parent">
+
+            Parent
+
+            <div class="child">
+
+                Child %50
+
+            </div>
+
+        </div>
+
+        <button id="parentWidth">
+            Parent Width
+        </button>
+
+        <button id="childWidth">
+            Child Width
+        </button>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         8. WINDOW
+         ================================================== -->
+
+    <section>
+
+        <h2>8. Window Boyutu</h2>
+
+        <button id="windowSize">
+            Ekran Boyutunu Göster
+        </button>
+
+        <p id="windowResult"></p>
+
+    </section>
+
+
+
+    <script>
+
+
+        /* ==================================================
+           1. width()
+           ==================================================
+
+           Parametresiz:
+
+           → width değerini OKUR.
+
+
+           Parametreli:
+
+           → width DEĞİŞTİRİR.
+
+
+           ÖNEMLİ:
+
+           width()
+           normalde content alanının
+           genişliğiyle ilgilidir.
+        */
+
+
+        $("#getWidth").on(
+            "click",
+            function () {
+
+                const width =
+                    $("#box1").width();
+
+
+                alert(
+                    "Width: " +
+                    width +
+                    "px"
+                );
+
+            }
+        );
+
+
+        $("#setWidth").on(
+            "click",
+            function () {
+
+                $("#box1")
+                    .width(400);
+
+            }
+        );
+
+
+
+        /* ==================================================
+           2. height()
+           ==================================================
+
+           width() ile aynı mantık.
+
+           height()
+           → oku
+
+           height(value)
+           → değiştir
+        */
+
+
+        $("#getHeight").on(
+            "click",
+            function () {
+
+                const height =
+                    $("#box2").height();
+
+
+                alert(
+                    "Height: " +
+                    height +
+                    "px"
+                );
+
+            }
+        );
+
+
+        $("#setHeight").on(
+            "click",
+            function () {
+
+                $("#box2")
+                    .height(200);
+
+            }
+        );
+
+
+
+        /* ==================================================
+           3. innerWidth()
+           ==================================================
+
+           Şunu kapsar:
+
+           content
+              +
+           padding
+
+
+           Border dahil DEĞİLDİR.
+
+
+           innerHeight()
+           de aynı mantıktadır.
+        */
+
+
+        $("#getInner").on(
+            "click",
+            function () {
+
+                const width =
+                    $("#box3")
+                        .innerWidth();
+
+
+                const height =
+                    $("#box3")
+                        .innerHeight();
+
+
+                alert(
+
+                    "innerWidth: " +
+                    width +
+                    "px\n" +
+
+                    "innerHeight: " +
+                    height +
+                    "px"
+
+                );
+
+            }
+        );
+
+
+
+        /* ==================================================
+           4. outerWidth()
+           ==================================================
+
+           Şunları kapsar:
+
+           content
+           +
+           padding
+           +
+           border
+
+
+           Margin dahil DEĞİLDİR.
+        */
+
+
+        $("#getOuter").on(
+            "click",
+            function () {
+
+                const width =
+                    $("#box4")
+                        .outerWidth();
+
+
+                const height =
+                    $("#box4")
+                        .outerHeight();
+
+
+                alert(
+
+                    "outerWidth: " +
+                    width +
+                    "px\n" +
+
+                    "outerHeight: " +
+                    height +
+                    "px"
+
+                );
+
+            }
+        );
+
+
+
+        /* ==================================================
+           5. outerWidth(true)
+           ==================================================
+
+           true verirsek:
+
+           content
+           +
+           padding
+           +
+           border
+           +
+           margin
+
+
+           dahil edilir.
+        */
+
+
+        $("#getOuterMargin").on(
+            "click",
+            function () {
+
+                const width =
+                    $("#box4")
+                        .outerWidth(true);
+
+
+                const height =
+                    $("#box4")
+                        .outerHeight(true);
+
+
+                alert(
+
+                    "Margin Dahil Width: " +
+                    width +
+                    "px\n" +
+
+                    "Margin Dahil Height: " +
+                    height +
+                    "px"
+
+                );
+
+            }
+        );
+
+
+
+        /* ==================================================
+           6. TÜM ÖLÇÜLERİ KARŞILAŞTIR
+           ================================================== */
+
+
+        $("#compare").on(
+            "click",
+            function () {
+
+                const element =
+                    $("#box5");
+
+
+                const width =
+                    element.width();
+
+
+                const innerWidth =
+                    element.innerWidth();
+
+
+                const outerWidth =
+                    element.outerWidth();
+
+
+                const outerWidthMargin =
+                    element.outerWidth(true);
+
+
+                const height =
+                    element.height();
+
+
+                const innerHeight =
+                    element.innerHeight();
+
+
+                const outerHeight =
+                    element.outerHeight();
+
+
+                const outerHeightMargin =
+                    element.outerHeight(true);
+
+
+                $("#result").text(
+
+                    "width(): " +
+                    width +
+                    "px\n\n" +
+
+                    "innerWidth(): " +
+                    innerWidth +
+                    "px\n\n" +
+
+                    "outerWidth(): " +
+                    outerWidth +
+                    "px\n\n" +
+
+                    "outerWidth(true): " +
+                    outerWidthMargin +
+                    "px\n\n" +
+
+                    "height(): " +
+                    height +
+                    "px\n\n" +
+
+                    "innerHeight(): " +
+                    innerHeight +
+                    "px\n\n" +
+
+                    "outerHeight(): " +
+                    outerHeight +
+                    "px\n\n" +
+
+                    "outerHeight(true): " +
+                    outerHeightMargin +
+                    "px"
+
+                );
+
+            }
+        );
+
+
+
+        /* ==================================================
+           7. DİNAMİK WIDTH HESAPLAMA
+           ==================================================
+
+           Mevcut width'i oku.
+
+           Sonra +50 yap.
+        */
+
+
+        $("#increase").on(
+            "click",
+            function () {
+
+                const currentWidth =
+                    $("#resizeBox")
+                        .width();
+
+
+                $("#resizeBox")
+                    .width(
+                        currentWidth + 50
+                    );
+
+            }
+        );
+
+
+
+        /* ==================================================
+           8. WIDTH AZALTMA
+           ================================================== */
+
+
+        $("#decrease").on(
+            "click",
+            function () {
+
+                const currentWidth =
+                    $("#resizeBox")
+                        .width();
+
+
+                /*
+                   Çok küçülmesini engellemek
+                   için minimum değer koyuyoruz.
+                */
+
+                if (
+                    currentWidth > 50
+                ) {
+
+                    $("#resizeBox")
+                        .width(
+                            currentWidth - 50
+                        );
+
+                }
+
+            }
+        );
+
+
+
+        /* ==================================================
+           9. PARENT WIDTH
+           ================================================== */
+
+
+        $("#parentWidth").on(
+            "click",
+            function () {
+
+                const width =
+                    $(".parent").width();
+
+
+                alert(
+                    "Parent width: " +
+                    width +
+                    "px"
+                );
+
+            }
+        );
+
+
+
+        /* ==================================================
+           10. CHILD WIDTH
+           ================================================== */
+
+
+        $("#childWidth").on(
+            "click",
+            function () {
+
+                const width =
+                    $(".child").width();
+
+
+                alert(
+                    "Child width: " +
+                    width +
+                    "px"
+                );
+
+            }
+        );
+
+
+
+        /* ==================================================
+           11. WINDOW WIDTH / HEIGHT
+           ==================================================
+
+           $(window).width()
+
+           → viewport genişliği
+
+
+           $(window).height()
+
+           → viewport yüksekliği
+        */
+
+
+        $("#windowSize").on(
+            "click",
+            function () {
+
+                const width =
+                    $(window).width();
+
+
+                const height =
+                    $(window).height();
+
+
+                $("#windowResult").text(
+
+                    "Viewport Width: " +
+                    width +
+                    "px\n" +
+
+                    "Viewport Height: " +
+                    height +
+                    "px"
+
+                );
+
+            }
+        );
+
+
+
+        /* ==================================================
+           12. RESIZE EVENT
+           ==================================================
+
+           Tarayıcı penceresi yeniden boyutlandırılırken
+           çalışır.
+        */
+
+
+        $(window).on(
+            "resize",
+            function () {
+
+                console.log(
+                    "Width:",
+                    $(window).width()
+                );
+
+            }
+        );
+
+
+
+        /* ==================================================
+           13. RESPONSIVE KONTROL
+           ==================================================
+
+           Gerçek projelerde kullanılabilir.
+
+           Örneğin:
+
+           ekran 768px'den küçükse
+           mobil kabul et.
+        */
+
+
+        function checkScreen() {
+
+            const width =
+                $(window).width();
+
+
+            if (width < 768) {
+
+                console.log(
+                    "Mobil görünüm"
+                );
+
+            } else {
+
+                console.log(
+                    "Desktop görünüm"
+                );
+
+            }
+
+        }
+
+
+        $(window).on(
+            "resize",
+            checkScreen
+        );
+
+
+        checkScreen();
+
+
+
+        /* ==================================================
+           14. FONKSİYONLA WIDTH DEĞİŞTİRME
+           ==================================================
+
+           width() içine function verebilirsin.
+        */
+
+
+        $("#resizeBox").width(
+            function (
+                index,
+                currentWidth
+            ) {
+
+                /*
+                   currentWidth
+                   string olarak gelebilir.
+
+                   Number'a çevirmek için
+                   parseFloat kullanılabilir.
+                */
+
+                return currentWidth;
+
+            }
+        );
+
+
+
+        /* ==================================================
+           15. ÖNEMLİ FARK
+           ==================================================
+
+           width():
+
+           content
+
+
+           innerWidth():
+
+           content + padding
+
+
+           outerWidth():
+
+           content + padding + border
+
+
+           outerWidth(true):
+
+           content + padding + border + margin
+
+
+           HEIGHT İÇİN DE AYNI:
+
+           height()
+
+           innerHeight()
+
+           outerHeight()
+
+           outerHeight(true)
+        */
+
+
+
+        /* ==================================================
+           16. GÖRSEL MANTIK
+           ==================================================
+
+           ┌────────────── MARGIN ──────────────┐
+           │                                    │
+           │   ┌──────── BORDER ────────────┐   │
+           │   │                             │   │
+           │   │   ┌──── PADDING ───────┐   │   │
+           │   │   │                    │   │   │
+           │   │   │      CONTENT       │   │   │
+           │   │   │                    │   │   │
+           │   │   └────────────────────┘   │   │
+           │   │                             │   │
+           │   └─────────────────────────────┘   │
+           │                                    │
+           └────────────────────────────────────┘
+
+
+           width()
+           → CONTENT
+
+
+           innerWidth()
+           → CONTENT + PADDING
+
+
+           outerWidth()
+           → CONTENT + PADDING + BORDER
+
+
+           outerWidth(true)
+           → CONTENT + PADDING + BORDER + MARGIN
+        */
+
+
+
+        /* ==================================================
+           ÖZET
+           ==================================================
+
+           OKUMA:
+
+           $("#box").width();
+
+           $("#box").height();
+
+
+           DEĞİŞTİRME:
+
+           $("#box").width(500);
+
+           $("#box").height(300);
+
+
+           PADDING DAHİL:
+
+           $("#box").innerWidth();
+
+           $("#box").innerHeight();
+
+
+           BORDER DAHİL:
+
+           $("#box").outerWidth();
+
+           $("#box").outerHeight();
+
+
+           MARGIN DAHİL:
+
+           $("#box").outerWidth(true);
+
+           $("#box").outerHeight(true);
+
+
+           EKRAN:
+
+           $(window).width();
+
+           $(window).height();
+
+
+           RESPONSIVE:
+
+           $(window).on(
+               "resize",
+               function () {
+
+                   // ekran değişti
+
+               }
+           );
+        */
+
+
+    </script>
+
+</body>
+
+</html>
+```

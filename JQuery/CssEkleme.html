@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery - 5. css()</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+        }
+
+        .box {
+            width: 200px;
+            height: 100px;
+            margin: 15px 0;
+            padding: 20px;
+            background: steelblue;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        input {
+            padding: 10px;
+        }
+
+        #result {
+            padding: 15px;
+            background: #eee;
+            white-space: pre-line;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <h1>jQuery .css()</h1>
+
+    <!-- ==================================================
+         ANA ELEMENT
+         ================================================== -->
+
+    <section>
+        <h2>Temel Örnek</h2>
+        <div id="box" class="box">
+            CSS Box
+        </div>
+
+        <button id="changeColor">
+            Rengi Değiştir
+        </button>
+
+        <button id="changeSize">
+            Boyutu Değiştir
+        </button>
+
+        <button id="reset">
+            Sıfırla
+        </button>
+    </section>
+
+
+
+    <!-- ==================================================
+         CSS OKUMA
+         ================================================== -->
+
+    <section>
+        <h2>CSS Değerlerini Okuma</h2>
+        <button id="readCSS">
+            CSS Oku
+        </button>
+
+        <div id="result"></div>
+    </section>
+
+    <!-- ==================================================
+         BİRDEN FAZLA CSS
+         ================================================== -->
+
+    <section>
+        <h2>Birden Fazla CSS</h2>
+        <div id="multiBox" class="box">
+            Multiple CSS
+        </div>
+
+        <button id="multiCSS">
+            CSS'leri Değiştir
+        </button>
+    </section>
+
+    <!-- ==================================================
+         DİNAMİK DEĞER
+         ================================================== -->
+
+    <section>
+        <h2>Dinamik CSS</h2>
+        <input id="widthInput" type="number" value="300">
+        <button id="setWidth">
+            Width Ayarla
+        </button>
+
+        <div id="dynamicBox" class="box">
+            Dinamik Box
+        </div>
+    </section>
+
+    <!-- ==================================================
+         THIS
+         ================================================== -->
+
+    <section>
+        <h2>$(this) + css()</h2>
+        <button class="colorButton">
+            Buton 1
+        </button>
+
+        <button class="colorButton">
+            Buton 2
+        </button>
+
+        <button class="colorButton">
+            Buton 3
+        </button>
+    </section>
+
+    <!-- ==================================================
+         HESAPLAMA
+         ================================================== -->
+
+    <section>
+        <h2>CSS Değerinden Hesaplama</h2>
+        <div id="calcBox" class="box">
+            Hesaplama
+        </div>
+
+        <button id="increaseWidth">
+            +50px
+        </button>
+    </section>
+
+    <script>
+
+        /* ==================================================
+           1. css() — DEĞER DEĞİŞTİRME
+           ==================================================
+
+           Kullanım: .css("property","value")
+
+           Örnek: $("#box").css("color","red"); */
+
+        $("#changeColor").on("click", function () {
+            $("#box").css("background-color", "crimson");
+        });
+
+        /* ==================================================
+           2. FARKLI CSS PROPERTY'LERİ
+           ==================================================
+
+           CSS'de kullandığın property'lerin
+           büyük bölümünü burada kullanabilirsin. */
+
+        $("#changeSize").on("click", function () {
+            $("#box").css("width", "300px");
+            $("#box").css("height", "150px");
+            $("#box").css("border-radius", "30px");
+        });
+
+        /* ==================================================
+           3. reset
+           ================================================== */
+
+        $("#reset").on("click", function () {
+            $("#box").css({ width: "200px", height: "100px", "background-color": "steelblue", "border-radius": "10px" });
+        });
+
+        /* ==================================================
+           4. CSS OKUMA
+           ==================================================
+
+           .css("property") → O an hesaplanan CSS değerini verir. */
+
+        $("#readCSS").on("click", function () {
+            const color = $("#box").css("background-color");
+            const width = $("#box").css("width");
+            const height = $("#box").css("height");
+            const padding = $("#box").css("padding");
+            $("#result").text("Background: " + color + "\nWidth: " + width + "\nHeight: " + height + "\nPadding: " + padding);
+        });
+
+        /* ==================================================
+           5. BİRDEN FAZLA CSS
+           ==================================================
+
+           Object kullanılır. 
+           Property isimlerinde: background-color gibi CSS yazımı kullanabiliriz.
+           */
+
+        $("#multiCSS").on("click", function () {
+            $("#multiBox").css({ width: "300px", height: "150px", "background-color": "darkslateblue", color: "white", "font-size": "22px", "font-weight": "bold", "border-radius": "25px", transform: "rotate(3deg)" });
+        });
+
+        /* ==================================================
+        6. camelCase KULLANIMI
+        ==================================================
+        
+        CSS: background-color
+        JavaScript: backgroundColor
+        
+        İkisi de kullanılabilir. */
+
+
+        $("#multiBox").css({ backgroundColor: "steelblue", borderRadius: "10px" });
+
+        /* ==================================================
+        7. DİNAMİK CSS
+        ==================================================
+        
+        Kullanıcıdan değer alıp
+        CSS'e gönderebiliriz. */
+
+        $("#setWidth").on("click", function () {
+            const width = $("#widthInput").val();
+            $("#dynamicBox").css("width", width + "px");
+        });
+
+        /* ==================================================
+           8. $(this) + css()
+           ==================================================
+
+           Tıklanan elementin kendisini değiştirebiliriz. */
+
+        $(".colorButton").on("click", function () {
+            $(this).css("background-color", "black");
+            $(this).css("color", "white");
+        });
+
+        /* ==================================================
+           9. CSS PROPERTY'SİNDEN DEĞER ALIP
+              HESAPLAMA
+           ==================================================
+
+           .css("width")
+
+           örneğin: "200px" döndürebilir.
+           parseFloat() ile sayıya çevirebiliriz. */
+
+        $("#increaseWidth").on("click", function () {
+            const currentWidth = parseFloat($("#calcBox").css("width"));
+            $("#calcBox").css("width", (currentWidth + 50) + "px");
+        });
+
+        /* ==================================================
+           10. BİR DEĞERE "IMPORTANT" EKLEME
+           ==================================================
+
+           Bazı durumlarda: !important kullanılabilir. jQuery'de string olarak yazılır. */
+
+
+        //  $("#box").css("color","red !important");
+
+
+
+        /* ==================================================
+           11. CSS CUSTOM PROPERTY
+              (CSS VARIABLE)
+           ==================================================
+
+           CSS: --main-color
+           JavaScript: .css("--main-color") */
+
+        $("#box").css("--main-color", "orange");
+        const mainColor = $("#box").css("--main-color");
+        console.log("CSS Variable:", mainColor);
+
+        /* ==================================================
+           12. CSS VARIABLE KULLANMA
+           ================================================== */
+
+        //   CSS'te: color: var(--main-color); şeklinde kullanılabilir.
+
+        $("#box").css("color", "var(--main-color)");
+
+        /* ==================================================
+           13. CALLBACK İLE CSS
+           ==================================================
+
+           Bazı jQuery metotlarında callback kullanılabilir.
+           css() ile dinamik değer üretmek için function kullanabiliriz. */
+
+        $("#multiBox").css("width", function (index, currentValue) {
+            const current = parseFloat(currentValue);
+            return (current + 20) + "px";
+        });
+
+        /* ==================================================
+           14. BİRDEN FAZLA ELEMENTTE
+              FARKLI DEĞER
+           ==================================================
+
+           Her element için farklı hesaplama yapabiliriz. */
+
+
+        $(".colorButton").css("font-size", function (index) {
+            return (14 + index * 2) + "px";
+        });
+        /* Sonuç:
+           1. button → 14px
+           2. button → 16px
+           3. button → 18px */
+
+        /* ==================================================
+           15. CSS + EVENT
+           ==================================================
+
+           Gerçek projelerde sık kullanılan yapı:
+
+           event
+              ↓
+           $(this)
+              ↓
+           css() */
+
+        $(".colorButton").on("mouseenter", function () {
+            $(this).css({ transform: "scale(1.1)", "box-shadow": "0 5px 15px rgba(0,0,0,.2)" });
+        });
+
+        $(".colorButton").on("mouseleave", function () {
+            $(this).css({ transform: "scale(1)", "box-shadow": "none" });
+        });
+
+        /* ==================================================
+           16. ÖNEMLİ: css() CLASS YERİNE
+              HER ZAMAN EN İYİ ÇÖZÜM DEĞİLDİR
+           ==================================================
+
+           Çok fazla stil değiştiriyorsan: .css() yerine class değiştirmek daha temiz olabilir.
+
+           Örneğin: addClass() ,removeClass() ,toggleClass() kullanmak.
+
+           css(): $("#box").css("background","red");
+
+           class: $("#box").addClass("active"); */
+
+
+        /* ==================================================
+           ÖZET
+           ==================================================
+
+           DEĞİŞTİR: $("#box").css("color","red");
+           
+           OKU: $("#box").css("color");
+
+           BİRDEN FAZLA: $("#box").css({color: "white",background: "black",padding: "20px"});
+
+           DİNAMİK: $("#box").css("width",width + "px");
+
+           FUNCTION: $("#box").css("width",function(index, value) {return "300px";});
+
+           CSS VARIABLE:
+           $("#box").css("--main-color","red");
+
+           $(this): $(this).css("color","red"); */
+
+    </script>
+
+</body>
+
+</html>

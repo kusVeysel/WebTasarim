@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../CDN/JqueryCDN.js"></script>
+    <style>
+        .kutustyle {
+            width: 200px;
+            height: 200px;
+            background: red;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="kutu1">Kutu1</div>
+    <div id="kutu1">Kutu1</div>
+
+    <div class="kutu2">Kutu2</div>
+    <div class="kutu2">Kutu2</div>
+
+    <div class="kutu3">Kutu3</div>
+    <div class="kutu3">Kutu3</div>
+
+    <div id="kutu4">Kutu4</div>
+    <div id="kutu4">Kutu4</div>
+
+    <div class="kutu5">Kutu5</div>
+</body>
+<script>
+    $(document).ready(function () {
+        // id'si kutu1 olanların hepsini seçer
+        $("#kutu1").addClass("kutustyle");
+
+        // class'ı kutu2 olanların ilkini seçer
+        $(".kutu2").first().addClass("kutustyle");
+
+        // class'ı kutu3 olan ilk elementi seçer
+        $(".kutu3").first().addClass("kutustyle");
+
+        // id'si kutu4 olan ilk elementi seçer
+        $("#kutu4").first().addClass("kutustyle");
+
+        // class'ı kutu5 olan elementi seçer
+        $(".kutu5").addClass("kutustyle");
+
+        // div etiketine sahip tüm elemanları seçer
+        const degisken5 = $("div");
+        console.log(degisken5);
+
+        //*
+        //  2. indexteki div'in rengini beyaz yapar
+        degisken5.eq(1).css("color", "white");
+    });
+</script>
+
+</html>
+<!-- 
+
+* JavaSciptteki gibi uzun uzun seçiciler yerine jQuery'de kısa ve öz bir şekilde seçiciler kullanılabilir: $()
+* $(): querySelectorAll() gibi işlev görür
+
+-->

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery DOM Oluşturma Yöntemleri</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+        }
+
+        .card {
+            width: 250px;
+            padding: 20px;
+            background: steelblue;
+            color: white;
+            border-radius: 15px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="../CDN/JqueryCDN.js"></script>
+</head>
+
+<body>
+    <!-- ==================================================
+         DEMO ALANLARI
+         ================================================== -->
+
+    <section>
+        <h2>1. jQuery ile Element Oluşturma</h2>
+        <div id="elementArea"></div>
+    </section>
+
+    <section>
+        <h2>2. Metin Düğümü (Text Node) Alternatifleri</h2>
+        <div id="textArea"></div>
+    </section>
+
+    <section>
+        <h2>3. Performanslı Çoklu Ekleme (Array / Fragment)</h2>
+        <ul id="fragmentArea"></ul>
+    </section>
+
+    <section>
+        <h2>4. Yorum (Comment) Ekleme</h2>
+        <div id="commentArea"></div>
+    </section>
+
+    <section>
+        <h2>5. Öznitelik (Attribute) İşlemleri</h2>
+        <div id="attributeArea"></div>
+    </section>
+
+    <section>
+        <h2>Sayfaya Element Ekleme Komutları</h2>
+        <div id="Ekleme"></div>
+    </section>
+
+    <script>
+        $(document).ready(function () {
+
+            /* ==================================================
+               1. jQuery $() ile Element Oluşturma
+               ==================================================
+               Vanilla JS: document.createElement("div")
+               jQuery: $("<div></div>") veya $("<div>")
+            */
+
+            const div = $("<div></div>").text("jQuery ile oluşturuldu.");
+            $("#elementArea").append(div);
+
+            /* ==================================================
+               Element + Class
+               ================================================== */
+
+            const card = $("<div></div>").addClass("card").text("Dinamik Card");
+
+            $("#elementArea").append(card);
+
+            /* ==================================================
+               Element + ID
+               ================================================== */
+
+            const title = $("<h2></h2>").attr("id", "dynamicTitle").text("Dinamik Başlık");
+
+            $("#elementArea").append(title);
+
+            /* ==================================================
+               Element + attr()
+               ================================================== */
+
+            const link = $("<a></a>").attr("href", "https://example.com").text("Link");
+
+            $("#elementArea").append(link);
+
+            /* ==================================================
+               Element + data()
+               ================================================== */
+
+            const dataBox = $("<div></div>").data("id", "123").data("category", "product").attr("data-id", "123").text("Dataset oluşturuldu.");
+            // DOM tarafında da görünmesi için attr kullanılabilir
+
+            $("#elementArea").append(dataBox);
+
+            /* ==================================================
+               Element + Event
+               ================================================== */
+
+            const button = $("<button></button>").text("Tıkla").on("click", function () {
+                alert("Dinamik button'a tıklandı!");
+            });
+
+            $("#elementArea").append(button);
+
+            /* ==================================================
+               2. Text Ekleme (.text() / .html())
+               ================================================== */
+
+            const paragraph = $("<p></p>").text("Bu yazı jQuery .text() ile oluşturuldu.");
+            $("#textArea").append(paragraph);
+
+            const info = $("<p></p>").append("JavaScript ", "DOM ", "öğreniyorum.");
+            $("#textArea").append(info);
+
+            /* ==================================================
+               3. Performanslı Çoklu Ekleme
+               ==================================================
+               jQuery'de DocumentFragment yerine diziye biriktirip 
+               tek hamlede append etmek yaygın bir yöntemdir.
+            */
+
+            const listItems = [];
+            for (let i = 1; i <= 10; i++) {
+                const $li = $("<li></li>").text(`Ürün ${i}`);
+                listItems.push($li);
+            }
+            $("#fragmentArea").append(listItems);
+
+            const products = ["Laptop", "Mouse", "Klavye", "Kulaklık", "Monitör"];
+            const productItems = products.map(product => $("<li></li>").text(product));
+            $("#fragmentArea").append(productItems);
+
+            /* ==================================================
+               4. Yorum (Comment) Node Oluşturma
+               ================================================== */
+
+            const commentNode = $.parseHTML("<!-- Bu yorum jQuery ile oluşturuldu. -->");
+            $("#commentArea").append(commentNode);
+
+            /* ==================================================
+               5. attr() Kullanımı
+               ================================================== */
+
+            const attributeBox = $("<div></div>").attr("data-type", "card").text("attr() kullanıldı.");
+
+            $("#attributeArea").append(attributeBox);
+
+            /* ==================================================
+               6. Event Tetikleme (trigger)
+               ==================================================
+               Modern jQuery'de trigger() kullanılır:
+               $button.trigger("click");
+            */
+
+            /* ==================================================
+               7. EN ÖNEMLİ KOMBİNASYON (Fonksiyon Örneği)
+               ================================================== */
+
+            function createUserCard(name, age) {
+                const $card = $("<article></article>").addClass("card");
+                const $title = $("<h3></h3>").text(name);
+                const $ageText = $("<p></p>").text(`Yaş: ${age}`);
+                const $button = $("<button></button>").text("Profil").on("click", function () {
+                    console.log(`${name} profili açıldı.`);
+                });
+
+                $card.append($title, $ageText, $button);
+                return $card;
+            }
+
+            $("body").append(createUserCard("Ahmet", 20));
+
+            /* ==================================================
+               Sayfaya Element Ekleme Metotları
+               ================================================== */
+
+            const add = $("#Ekleme");
+
+            const li1 = $("<li></li>").text("append");
+            $add.append(li1); // Parent'ın içine, en SONA ekler.
+
+            const li2 = $("<li></li>").text("appendTo");
+            li2.appendTo($add); // append ile aynıdır, zincirleme yönü terstir.
+
+            const li3 = $("<li></li>").text("prepend");
+            $add.prepend(li3); // Parent'ın içine, en BAŞA ekler.
+
+            const li4 = $("<li></li>").text("after");
+            $add.after(li4); // Hedef elementin DIŞINA, arkasına ekler.
+
+            const li5 = $("<li></li>").text("before");
+            $add.before(li5); // Hedef elementin DIŞINA, önüne ekler.
+
+        });
+    </script>
+</body>
+
+</html>

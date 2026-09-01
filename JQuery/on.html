@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../CDN/JqueryCDN.js"></script>
+    <style>
+        #kutu {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            cursor: grab;
+        }
+
+        #kutu:active {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="sehir">
+        <option value="" disabled selected>şehir seçiniz</option>
+        <option value="istanbul">istanbul</option>
+        <option value="ankara">ankara</option>
+        <option value="izmir">izmir</option>
+        <option value="bursa">bursa</option>
+        <option value="kocaeli">kocaeli</option>
+    </select>
+    <p id="result"></p>
+
+    <input type="text" id="inp">
+    <p id="text"></p>
+
+    <button type="button" id="buton">Tıkla</button>
+
+    <div id="kutu"></div>
+
+    <script>
+        const sehir = $("#sehir")
+        sehir.on("change", function () { //* sehir id'li etiketin change'ni dinler
+            $("#result").text(this.value); //* bu değeri(dinlediği değeri) result id'li etiketin text'ine atar
+        })
+
+        const kutu = $("#kutu");
+        let deger = false;
+        let x, y;
+
+        kutu.on("mousedown", (e) => { //* kutu id'li etiketin mousedown'u(fare basılı olduğunda) dinler
+            deger = true;
+            x = e.clientX - kutu.offsetLeft;
+            y = e.clientY - kutu.offsetTop;
+        });
+        $(window).on("mousemove", (e) => { //* window'un faresini dinler
+            if (deger) {
+                kutu.css("left", (e.clientX - x) + "px");
+                kutu.css("top", (e.clientY - y) + "px");
+            };
+        })
+        kutu.on("mouseup", () => { //* kutu id'li etiketin mouseup'u(fare bırakıldığında) dinler
+            deger = false;
+        });
+        kutu.on("mouseover", function () { //* sehir id'li etiketin mouseover olup olmadığını dinler
+            kutu.css("background", "blue") //* mouseover olduğunda(fare üzerine geldiğinde) ,ana arka plan kırmızı olur
+        })
+        kutu.on("mouseout", function () { //* sehir id'li etiketin mouseout olup olmadığını dinler
+            kutu.css("background", "red") //* mouseout olduğunda(fare üzerinden ayrıldığında) ,ana arka plan beyaz olur
+        })
+        //* Mouse Eventleri
+        // mouseup
+        // mousedown
+        //* İkisi birlikte click eventi yaratır
+        // mousemove fareyi izler(takip eder)
+        // mouseover
+        // mouseout
+        // İkisi birlikte hover efekti yaratır
+
+
+        $("#inp").on("input", function () { //* inp id'li etiketin inputunu dinler
+            $("#text").text(this.value); //* bu değeri(dinlediği değeri) text id'li etiket'in text'ine atar
+        })
+
+        $("#buton").on("click", function () { //* buton id'li etiketin click olup olmadığı dinler
+            alert("Tıklandı") //* click olduğunda Tıklandı alertini verir
+        })
+
+        $(window).on("load", function () {
+            alert("sayfa Yüklendi")
+        }) //* Sayfa yüklendiğinde çalışır
+
+
+        //! eventler asenkron çalıştığı için dinlediği an yapar ,yani aynı anda 2 ya da daha fazla kod çalışır . Bu ileri düzey bi konudur
+    </script>
+</body>
+
+</html>
+<!-- 
+Genel Mantık
+1- Elemanı seç ($("selector"))
+2- Elemanı dinle (on("event",function(){...}))
+3- Elemanın neyini dinleyeceksin (input,change,mousemove...)
+4- bu dinleme esnasında ne olacak (on içine yazılır)
+
+const a = $("#a")
+a.on("click",function(){
+    a.css("color","red")
+});
+
+-->
+
+<!-- 
+
+on(event, handler) // jQuery'de event handler eklemek için kullanılır
+
+on(): addEventListener() gibi çalışır. Bir elemente birden fazla event eklemek için kullanılır
+
+on kullanılmadan direk eventler yazılabilir ama on kullanmak daha mantıklıdır çünkü bir elemente birden fazla event eklenebilir
+
+-->

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery - 10. attr() & prop()</title>
+    <script src="../CDN/JqueryCDN.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+        }
+
+        img {
+            width: 200px;
+            display: block;
+            margin: 15px 0;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        input,
+        select {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        a {
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #eee;
+            white-space: pre-line;
+            line-height: 1.7;
+        }
+
+        .card {
+            padding: 20px;
+            background: #ddd;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================================================
+         1. ATTR OKUMA
+         ================================================== -->
+
+    <section>
+        <h2>1. attr() — Attribute Okuma</h2>
+        <a id="myLink" href="https://example.com" target="_blank" title="Örnek bağlantı">
+            Örnek Link
+        </a>
+
+        <button id="readAttr">
+            Attribute Oku
+        </button>
+
+        <div id="result1" class="result"></div>
+    </section>
+
+    <!-- ==================================================
+         2. ATTR DEĞİŞTİRME
+         ================================================== -->
+
+    <section>
+        <h2>2. attr() — Attribute Değiştirme</h2>
+        <a id="changeLink" href="https://example.com" target="_blank">
+            Link
+        </a>
+
+        <br>
+
+        <button id="changeHref">
+            href Değiştir
+        </button>
+
+        <button id="changeTarget">
+            target Değiştir
+        </button>
+    </section>
+
+    <!-- ==================================================
+         3. BİRDEN FAZLA ATTRIBUTE
+         ================================================== -->
+
+    <section>
+        <h2>3. Birden Fazla Attribute</h2>
+        <a id="multiLink" href="#">
+            Link
+        </a>
+
+        <button id="setMultiple">
+            Attribute'ları Ayarla
+        </button>
+    </section>
+
+    <!-- ==================================================
+         4. ATTR EKLEME
+         ================================================== -->
+
+    <section>
+        <h2>4. Attribute Ekleme</h2>
+        <div id="box" class="card">
+            Kart
+        </div>
+
+        <button id="addTitle">
+            title Ekle
+        </button>
+
+        <button id="addData">
+            data-id Ekle
+        </button>
+    </section>
+
+    <!-- ==================================================
+         5. REMOVE ATTR
+         ================================================== -->
+
+    <section>
+        <h2>5. removeAttr()</h2>
+        <a id="removeLink" href="https://example.com" target="_blank" title="Silinecek">
+            Link
+        </a>
+
+        <br>
+
+        <button id="removeTarget">
+            target Sil
+        </button>
+
+        <button id="removeTitle">
+            title Sil
+        </button>
+    </section>
+
+    <!-- ==================================================
+         6. SRC DEĞİŞTİRME
+         ================================================== -->
+
+    <section>
+        <h2>6. img src Değiştirme</h2>
+        <img id="photo" src="https://picsum.photos/200/120" alt="Örnek görsel">
+
+        <button id="changeImage">
+            Görseli Değiştir
+        </button>
+
+        <button id="readImage">
+            src Oku
+        </button>
+    </section>
+
+    <!-- ==================================================
+         7. DATA ATTRIBUTE
+         ================================================== -->
+
+    <section>
+        <h2>7. data-* Attribute</h2>
+        <div id="product" class="card" data-id="125" data-category="computer">
+            Ürün
+        </div>
+
+        <button id="readData">
+            data-* Oku
+        </button>
+
+        <button id="changeData">
+            data-id Değiştir
+        </button>
+
+        <div id="result7" class="result"></div>
+    </section>
+
+    <!-- ==================================================
+         8. PROP CHECKED
+         ================================================== -->
+
+    <section>
+        <h2>8. prop() — checked</h2>
+        <label>
+            <input id="checkBox" type="checkbox">
+            Onay kutusu
+        </label>
+
+        <br>
+
+        <button id="checkStatus">
+            Durumu Kontrol Et
+        </button>
+
+        <button id="checkOn">
+            İşaretle
+        </button>
+
+        <button id="checkOff">
+            İşareti Kaldır
+        </button>
+
+        <div id="result8" class="result"></div>
+    </section>
+
+    <!-- ==================================================
+         9. PROP DISABLED
+         ================================================== -->
+
+    <section>
+        <h2>9. prop() — disabled</h2>
+        <button id="actionButton">
+            İşlem Yap
+        </button>
+
+        <br>
+
+        <button id="disableButton">
+            Devre Dışı Bırak
+        </button>
+
+        <button id="enableButton">
+            Aktif Et
+        </button>
+    </section>
+
+    <!-- ==================================================
+         10. PROP SELECTED
+         ================================================== -->
+
+    <section>
+        <h2>10. prop() — selected</h2>
+        <select id="city">
+            <option value="istanbul">
+                İstanbul
+            </option>
+            <option value="ankara">
+                Ankara
+            </option>
+            <option value="izmir">
+                İzmir
+            </option>
+        </select>
+
+        <button id="selectIzmir">
+            İzmir'i Seç
+        </button>
+    </section>
+
+    <!-- ==================================================
+         11. PROP REQUIRED
+         ================================================== -->
+
+    <section>
+        <h2>11. prop() — required</h2>
+        <input id="username" type="text" placeholder="Kullanıcı adı">
+        <button id="makeRequired">
+            required Yap
+        </button>
+
+        <button id="removeRequired">
+            required Kaldır
+        </button>
+    </section>
+
+    <!-- ==================================================
+         12. ATTR vs PROP
+         ================================================== -->
+
+    <section>
+        <h2>12. attr() vs prop()</h2>
+        <input id="compareCheck" type="checkbox" checked>
+
+        <button id="compare">
+            Karşılaştır
+        </button>
+
+        <div id="compareResult" class="result"></div>
+    </section>
+
+    <script>
+        /* ==================================================
+           1. attr() — OKUMA
+           ==================================================
+
+           Kullanım: .attr("attribute")
+
+           Örnek: $("#link").attr("href");
+           → href'in değerini verir. GetAttribute gibi  */
+
+        $("#readAttr").on("click", function () {
+            const href = $("#myLink").attr("href");
+            const target = $("#myLink").attr("target");
+            const title = $("#myLink").attr("title");
+            $("#result1").text("href: " + href + "\n" + "target: " + target + "\n" + "title: " + title);
+        });
+
+        /* ==================================================
+           2. attr() — DEĞİŞTİRME
+           ==================================================
+
+           .attr("attribute","value"), SetAttribute gibi  */
+
+        $("#changeHref").on("click", function () {
+            $("#changeLink").attr("href", "https://google.com");
+        });
+
+        $("#changeTarget").on("click", function () {
+            $("#changeLink").attr("target", "_self");
+        });
+
+        /* ==================================================
+           3. BİRDEN FAZLA ATTRIBUTE
+           ==================================================
+
+           Object kullanılır.  */
+
+        $("#setMultiple").on("click", function () {
+            $("#multiLink").attr({ href: "https://google.com", target: "_blank", title: "Google'a git", rel: "noopener" });
+        });
+
+        /* ==================================================
+           4. ATTRIBUTE EKLEME
+           ==================================================
+
+           attr() ile olmayan attribute'u da oluşturabilirsin.  */
+
+        $("#addTitle").on("click", function () {
+            $("#box").attr("title", "Bu bir karttır");
+        });
+
+        $("#addData").on("click", function () {
+            $("#box").attr("data-id", "500");
+        });
+
+        /* ==================================================
+           5. removeAttr()
+           ==================================================
+
+           Attribute'u tamamen kaldırır.  */
+
+        $("#removeTarget").on("click", function () {
+            $("#removeLink").removeAttr("target");
+        });
+
+        $("#removeTitle").on("click", function () {
+            $("#removeLink").removeAttr("title");
+        });
+
+        /* ==================================================
+           6. IMG SRC
+           ==================================================
+
+           src de normal bir attribute'dur.  */
+
+        $("#changeImage").on("click", function () {
+            $("#photo").attr("src", "https://picsum.photos/300/180");
+            $("#photo").attr("alt", "Yeni görsel");
+        });
+
+        $("#readImage").on("click", function () {
+            const src = $("#photo").attr("src");
+            alert(src);
+        });
+
+        /* ==================================================
+           7. data-* ATTRIBUTE
+           ==================================================
+
+           HTML: data-id="125"  data-category="computer"  */
+
+        $("#readData").on("click", function () {
+            const id = $("#product").attr("data-id");
+            const category = $("#product").attr("data-category");
+            $("#result7").text("ID: " + id + "\n" + "Category: " + category);
+        });
+
+        $("#changeData").on("click", function () {
+            $("#product").attr("data-id", "999");
+        });
+
+        /* ==================================================
+           8. prop() — CHECKED
+           ==================================================
+
+           checkbox/radio gibi boolean özelliklerde prop() kullanmak daha doğrudur.
+
+           Sonuç: true ya da false  */
+
+        $("#checkStatus").on("click", function () {
+            const checked = $("#checkBox").prop("checked");
+            $("#result8").text(checked ? "İşaretli." : "İşaretli değil.");
+        });
+
+        $("#checkOn").on("click", function () {
+            $("#checkBox").prop("checked", true);
+        });
+
+        $("#checkOff").on("click", function () {
+            $("#checkBox").prop("checked", false);
+        });
+
+        /* ==================================================
+           11. DISABLED
+           ================================================== */
+
+        $("#disableButton").on("click", function () {
+            $("#actionButton").prop("disabled", true);
+        });
+
+        $("#enableButton").on("click", function () {
+            $("#actionButton").prop("disabled", false);
+        });
+
+        /* ==================================================
+           12. SELECTED
+           ==================================================
+
+           Belirli option'ı seçebiliriz. */
+
+        $("#selectIzmir").on("click", function () {
+            $("#city option[value='izmir']").prop("selected", true);
+        });
+
+        /* ==================================================
+           13. REQUIRED
+           ================================================== */
+
+        $("#makeRequired").on("click", function () {
+            $("#username").prop("required", true);
+        });
+
+        $("#removeRequired").on("click", function () {
+            $("#username").prop("required", false);
+        });
+
+        /* ==================================================
+           14. ATTR vs PROP
+           ==================================================
+
+           HTML: <input checked> Burada: attr("checked") → HTML attribute'unu okur.
+
+           prop("checked") → elementin GÜNCEL durumunu okur. Kullanıcı checkbox'a tıklarsa property değişebilir. */
+
+        $("#compare").on("click", function () {
+            const attrValue = $("#compareCheck").attr("checked");
+            const propValue = $("#compareCheck").prop("checked");
+            $("#compareResult").text("attr('checked'): " + attrValue + "\n\n" + "prop('checked'): " + propValue);
+        });
+
+        /* ==================================================
+           15. BOOLEAN ATTRIBUTE'LAR
+           ==================================================
+
+           Özellikle: checked,disabled,selected,required,readonly,multiple,autofocus gibi durumlarda prop() tercih edilir. */
+         
+        /* ==================================================
+           16. attr() FUNCTION
+           ==================================================
+
+           Attribute değerini mevcut değere göre
+           dinamik olarak değiştirebiliriz. */
+
+        $("#changeLink").attr("title", function (index, currentValue) {
+            if (currentValue) {
+                return currentValue + " - Güncellendi";
+            }
+            return "Yeni başlık";
+        });
+
+        /* ==================================================
+           17. attr() BİRDEN FAZLA ELEMENT
+           ================================================== */
+
+        $("a").attr("rel", "noopener");
+
+        /* ==================================================
+           18. removeAttr() BİRDEN FAZLA
+           ================================================== 
+        
+        $("#link").removeAttr("target title rel"); 
+
+           ==================================================
+           19. data() İLE data-* OKUMA
+           ==================================================
+
+           jQuery'de: .data() da vardır.
+           Örneğin: data-id="125" için: .data("id") */
+
+        const productId = $("#product").data("id");
+        console.log("Product ID:", productId);
+
+        /* ==================================================
+           20. attr() vs data()
+           ==================================================
+
+           attr(): HTML attribute üzerinde çalışır.
+           data(): jQuery'nin data sistemini kullanır.
+
+           HTML: data-id="125"
+           attr: .attr("data-id")
+           data: .data("id")
+
+
+           ==================================================
+           ÖZET
+           ==================================================
+
+           ATTR OKU: $("#link").attr("href");
+
+           ATTR DEĞİŞTİR: $("#link").attr("href","https://google.com");
+
+           BİRDEN FAZLA:
+           $("#link").attr({href: "...",target: "_blank",title: "..."});
+
+           ATTRIBUTE SİL: $("#link").removeAttr("target");
+
+           PROPERTY OKU: $("#check").prop("checked");
+
+           PROPERTY DEĞİŞTİR: $("#check").prop("checked",true);
+
+           DISABLED: $("#button").prop("disabled",true);
+
+           SELECTED: $("#option").prop("selected",true);
+
+           EN ÖNEMLİ KURAL: 
+           
+           href,src,alt,title,id,data-* → attr()
+
+           checked,disabled,selected,required,readonly → prop()  */
+    </script>
+
+</body>
+
+</html>

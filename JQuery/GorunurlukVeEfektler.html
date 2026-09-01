@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery - 7. Görünürlük ve Efektler</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+        }
+
+        .box {
+            width: 250px;
+            padding: 30px;
+            margin: 15px 0;
+            background: steelblue;
+            color: white;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+        }
+
+        .menu {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 400px;
+        }
+
+        .menu-title {
+            padding: 15px;
+            background: #eee;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .menu-content {
+            padding: 20px;
+        }
+
+        .card {
+            padding: 20px;
+            margin: 10px 0;
+            background: #eee;
+            border-radius: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================================================
+         1. SHOW / HIDE
+         ================================================== -->
+
+    <section>
+        <h2>1. show() / hide()</h2>
+        <div id="box1" class="box">
+            Box 1
+        </div>
+
+        <button id="hideBox">
+            Gizle
+        </button>
+
+        <button id="showBox">
+            Göster
+        </button>
+
+        <button id="toggleBox">
+            Toggle
+        </button>
+    </section>
+
+    <!-- ==================================================
+         2. HIZLI / YAVAŞ
+         ================================================== -->
+
+    <section>
+        <h2>2. Süre Belirleme</h2>
+        <div id="box2" class="box">
+            Box 2
+        </div>
+
+        <button id="slowHide">
+            2 Saniyede Gizle
+        </button>
+
+        <button id="fastShow">
+            Hızlı Göster
+        </button>
+    </section>
+
+    <!-- ==================================================
+         3. FADE
+         ================================================== -->
+
+    <section>
+        <h2>3. fadeIn / fadeOut / fadeToggle</h2>
+        <div id="box3" class="box">
+            Fade Box
+        </div>
+
+        <button id="fadeIn">
+            fadeIn
+        </button>
+
+        <button id="fadeOut">
+            fadeOut
+        </button>
+
+        <button id="fadeToggle">
+            fadeToggle
+        </button>
+    </section>
+
+    <!-- ==================================================
+         4. FADETO
+         ================================================== -->
+
+    <section>
+        <h2>4. fadeTo()</h2>
+        <div id="box4" class="box">
+            Opaklığımı Değiştir
+        </div>
+
+        <button id="opacity50">
+            %50 Opaklık
+        </button>
+
+        <button id="opacity20">
+            %20 Opaklık
+        </button>
+
+        <button id="opacity100">
+            %100 Opaklık
+        </button>
+    </section>
+
+    <!-- ==================================================
+         5. SLIDE
+         ================================================== -->
+
+    <section>
+        <h2>5. slideDown / slideUp / slideToggle</h2>
+        <div id="box5" class="box">
+            Slide Box
+        </div>
+
+        <button id="slideDown">
+            slideDown
+        </button>
+
+        <button id="slideUp">
+            slideUp
+        </button>
+
+        <button id="slideToggle">
+            slideToggle
+        </button>
+    </section>
+
+    <!-- ==================================================
+         6. AKORDİYON
+         ================================================== -->
+
+    <section>
+        <h2>6. Gerçek Proje — Accordion</h2>
+        <div class="menu">
+            <div class="menu-title">
+                JavaScript Nedir?
+            </div>
+
+            <div class="menu-content">
+                JavaScript web sayfalarına
+                etkileşim kazandırır.
+            </div>
+
+            <div class="menu-title">
+                jQuery Nedir?
+            </div>
+
+            <div class="menu-content">
+                JavaScript ile DOM işlemlerini
+                kolaylaştıran bir kütüphanedir.
+            </div>
+
+            <div class="menu-title">
+                CSS Nedir?
+            </div>
+
+            <div class="menu-content">
+                Web sayfalarının görünümünü
+                düzenlemek için kullanılır.
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================================================
+         7. CALLBACK
+         ================================================== -->
+
+    <section>
+        <h2>7. Callback</h2>
+        <div id="box7" class="box">
+            Önce kaybolacağım, sonra mesaj gelecek.
+        </div>
+
+        <button id="callbackButton">
+            Başlat
+        </button>
+
+        <p id="callbackMessage"></p>
+    </section>
+
+    <!-- ==================================================
+         8. METHOD ZİNCİRLEME
+         ================================================== -->
+
+    <section>
+        <h2>8. Zincirleme</h2>
+        <div id="box8" class="box">
+            Chain
+        </div>
+
+        <button id="chain">
+            Efekt Başlat
+        </button>
+    </section>
+
+    <script>
+
+        /* ==================================================
+           1. hide()
+           ==================================================
+
+           Elementi gizler.
+
+           Örnek: $("#box").hide();
+
+           CSS tarafında kabaca: display: none; durumuna getirir. */
+
+        $("#hideBox").on("click", function () {
+            $("#box1").hide();
+        });
+
+        /* ==================================================
+           2. show()
+           ==================================================
+
+           Gizlenmiş elementi tekrar gösterir. */
+
+        $("#showBox").on("click", function () {
+            $("#box1").show();
+        });
+
+        /* ==================================================
+           3. toggle()
+           ==================================================
+
+           Görünüyorsa: → gizle
+           Gizliyse: → göster */
+
+        $("#toggleBox").on("click", function () {
+            $("#box1").toggle();
+        });
+
+        /* ==================================================
+           4. SÜRE VERME
+           ==================================================
+
+           Metotlara süre verebilirsin: slow, fast veya milisaniye.
+           2000 = 2 saniye */
+
+        $("#slowHide").on("click", function () {
+            $("#box2").hide(2000);
+        });
+
+        $("#fastShow").on("click", function () {
+            $("#box2").show("fast");
+        });
+
+        /* ==================================================
+           5. fadeIn()
+           ==================================================
+
+           Opaklığı artırarak elementi gösterir.
+
+           Gizli element: opacity 0 → opacity 1 */
+
+        $("#fadeIn").on("click", function () {
+            $("#box3").fadeIn(1000);
+        });
+
+        /* ==================================================
+           6. fadeOut()
+           ==================================================
+
+           Opaklığı azaltarak elementi gizler.
+        */
+
+        $("#fadeOut").on("click", function () {
+            $("#box3").fadeOut(1000);
+        });
+
+        /* ==================================================
+           7. fadeToggle()
+           ==================================================
+
+           Görünür: → fadeOut
+           Gizli: → fadeIn */
+
+        $("#fadeToggle").on("click", function () {
+            $("#box3").fadeToggle(500);
+        });
+
+        /* ==================================================
+           8. fadeTo()
+           ==================================================
+
+           Elementi belirli bir opacity değerine götürür.
+           ÖNEMLİ: fadeTo() elementi tamamen gizlemek zorunda değildir. */
+
+        $("#opacity50").on("click", function () {
+            $("#box4").fadeTo(500, 0.5);
+        });
+
+        $("#opacity20").on("click", function () {
+            $("#box4").fadeTo(500, 0.2);
+        });
+
+        $("#opacity100").on("click", function () {
+            $("#box4").fadeTo(500, 1);
+        });
+
+        /* ==================================================
+           9. slideDown()
+           ==================================================
+
+           Gizlenmiş elementi aşağı doğru açar. */
+
+        $("#slideDown").on("click", function () {
+            $("#box5").slideDown(500);
+        });
+
+        /* ==================================================
+           10. slideUp()
+           ==================================================
+
+           Elementi yukarı doğru kapatır.
+        */
+
+        $("#slideUp").on("click", function () {
+            $("#box5").slideUp(500);
+        });
+
+        /* ==================================================
+           11. slideToggle()
+           ==================================================
+
+           Açık: → kapat
+           Kapalı: → aç */
+
+        $("#slideToggle").on("click", function () {
+            $("#box5").slideToggle(500);
+        });
+
+
+        /* ==================================================
+           12. ACCORDION
+           ==================================================
+
+           Gerçek projelerde çok kullanılan bir örnek.
+           Başlığa tıkla: → İçeriği aç/kapat  */
+
+        $(".menu-title").on("click", function () {
+            $(this).next(".menu-content").slideToggle(300);
+        });
+
+        /* ==================================================
+           13. TEK AÇIK ACCORDION
+           ==================================================
+
+           Bir tane açılırken diğerlerini kapatabiliriz. */
+
+        $(".menu-title").on("click", function () {
+            const current = $(this).next(".menu-content");
+            $(".menu-content").not(current).slideUp(300);
+            current.slideToggle(300);
+        });
+
+        /* ==================================================
+           14. CALLBACK
+           ==================================================
+
+           Animasyon bittikten SONRA çalışacak kod.
+           Örnek: fadeOut(1000,function() {
+                   // bitti
+               }); */
+
+        $("#callbackButton").on("click", function () {
+            $("#callbackMessage").text("Animasyon başladı...");
+            $("#box7").fadeOut(1000, function () {
+                $("#callbackMessage").text("Animasyon tamamlandı.");
+            });
+        });
+
+        /* ==================================================
+           15. CALLBACK + TEKRAR GÖSTERME
+           ================================================== */
+
+
+        $("#box7").on("click", function () {
+            $(this).fadeOut(500, function () {
+                $(this).fadeIn(500);
+            });
+        });
+
+        /* ==================================================
+           16. ZİNCİRLEME
+           ==================================================
+
+           jQuery metotları zincirlenebilir.
+        */
+
+
+        $("#chain").on("click", function () {
+            $("#box8").slideUp(500).slideDown(500).fadeTo(500, 0.5).fadeTo(500, 1);
+        });
+
+        /* ==================================================
+           17. ANİMASYONLARI SIRAYA KOYMA
+           ==================================================
+
+           jQuery efektleri sıraya alabilir.
+
+           Örneğin: fadeOut() fadeIn()
+
+           art arda yazılırsa birinci tamamlanınca ikinci çalışabilir. */
+
+        $("#box8").fadeOut(100).fadeIn(100);
+
+        /* ==================================================
+           18. stop()
+           ==================================================
+
+           Devam eden jQuery animasyonunu durdurur.
+
+           Özellikle hover efektlerinde animasyon kuyruğunun büyümesini engellemek için kullanışlıdır. */
+
+        $(".hover-effect").on("mouseenter", function () {
+            $(this).stop(true, true).fadeTo(300, 0.5);
+        });
+
+        $(".hover-effect").on("mouseleave", function () {
+            $(this).stop(true, true).fadeTo(300, 1);
+        });
+
+        /* ==================================================
+           19. stop(true, true)
+           ==================================================
+
+           İlk true: → Animasyon kuyruğunu temizler.
+           İkinci true: → Mevcut animasyonu hemen sonlandırılmış duruma getirir.
+
+           Özellikle: mouseenter mouseleave efektlerinde faydalıdır. */
+
+        /* ==================================================
+           20. DURUM KONTROLÜ
+           ==================================================
+
+           :visible
+           :hidden
+
+           selector'ları kullanılabilir. */
+
+        if ($("#box1").is(":visible")) {
+            console.log("Box 1 görünür.");
+        }
+
+        if ($("#box2").is(":hidden")) {
+            console.log("Box 2 gizli.");
+        }
+
+        /* ==================================================
+           21. GERÇEK PROJE ÖRNEĞİ
+           ==================================================
+
+           Menü: Butona bas → Menü açıksa → kapat Kapalıysa aç */
+
+        /* $("#menuButton").on("click",function () {
+                $("#menu").slideToggle(300);
+            }); */
+
+        /* ==================================================
+           ÖZET
+           ==================================================
+
+           show() → göster
+
+           hide() → gizle
+
+           toggle() → göster/gizle
+
+           fadeIn() → fade ile göster
+
+           fadeOut() → fade ile gizle
+
+           fadeToggle() → fade aç/kapa
+
+           fadeTo() → belirli opacity'ye git
+
+           slideDown() → aşağı doğru aç
+
+           slideUp() → yukarı doğru kapat
+
+           slideToggle() → slide aç/kapa
+
+           stop() → devam eden efekti durdur
+
+
+           CALLBACK:
+
+           $("#box").fadeOut(500,function () {
+                   // animasyon bitti
+               });
+
+           GERÇEK PROJE:
+           $(this).next().slideToggle(300); → Accordion için çok kullanışlı. */
+
+    </script>
+
+</body>
+
+</html>

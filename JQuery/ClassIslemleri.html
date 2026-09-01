@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>jQuery - Class İşlemleri</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            border: 2px solid #ddd;
+        }
+
+        .box {
+            width: 220px;
+            padding: 30px;
+            margin: 15px 0;
+            background: #ddd;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        /* ==================================================
+           EKLENECEK CLASS'LAR
+           ================================================== */
+
+        .active {
+            background: steelblue;
+            color: white;
+        }
+
+        .danger {
+            background: crimson;
+            color: white;
+        }
+
+        .large {
+            transform: scale(1.1);
+        }
+
+        .rounded {
+            border-radius: 40px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .dark {
+            background: #222;
+            color: white;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>jQuery Class İşlemleri</h1>
+    <!-- ==================================================
+         1. ADDCLASS
+         ================================================== -->
+
+    <section>
+        <h2>1. addClass()</h2>
+        <div id="box1" class="box">
+            Box 1
+        </div>
+
+        <button id="addActive">
+            active Ekle
+        </button>
+
+        <button id="addDanger">
+            danger Ekle
+        </button>
+    </section>
+
+    <!-- ==================================================
+         2. REMOVECLASS
+         ================================================== -->
+
+    <section>
+        <h2>2. removeClass()</h2>
+        <div id="box2" class="box active danger large">
+            Box 2
+        </div>
+
+        <button id="removeActive">
+            active Sil
+        </button>
+
+        <button id="removeDanger">
+            danger Sil
+        </button>
+
+        <button id="removeAll">
+            Bütün Class'ları Sil
+        </button>
+    </section>
+
+
+
+    <!-- ==================================================
+         3. TOGGLECLASS
+         ================================================== -->
+
+    <section>
+        <h2>3. toggleClass()</h2>
+        <div id="box3" class="box">
+            Box 3
+        </div>
+
+        <button id="toggleActive">
+            Active Toggle
+        </button>
+
+        <button id="toggleLarge">
+            Large Toggle
+        </button>
+
+        <button id="toggleRounded">
+            Rounded Toggle
+        </button>
+    </section>
+
+    <!-- ==================================================
+         4. HASCLASS
+         ================================================== -->
+
+    <section>
+        <h2>4. hasClass()</h2>
+        <div id="box4" class="box active">
+            Box 4
+        </div>
+
+        <button id="checkClass">
+            active Var mı?
+        </button>
+
+        <p id="result"></p>
+    </section>
+
+    <!-- ==================================================
+         5. MULTIPLE CLASS
+         ================================================== -->
+
+    <section>
+        <h2>5. Birden Fazla Class</h2>
+        <div id="box5" class="box">
+            Box 5
+        </div>
+
+        <button id="addMultiple">
+            Birden Fazla Class Ekle
+        </button>
+
+        <button id="removeMultiple">
+            Birden Fazla Class Sil
+        </button>
+    </section>
+
+    <!-- ==================================================
+         6. CLASS + THIS
+         ================================================== -->
+
+    <section>
+        <h2>6. $(this) + toggleClass()</h2>
+        <button class="menuButton">
+            Menü 1
+        </button>
+
+        <button class="menuButton">
+            Menü 2
+        </button>
+
+        <button class="menuButton">
+            Menü 3
+        </button>
+    </section>
+
+    <!-- ==================================================
+         7. CLASS + EVENT
+         ================================================== -->
+
+    <section>
+        <h2>7. Hover Örneği</h2>
+        <div class="box hoverBox">
+            Mouse'u üzerime getir
+        </div>
+    </section>
+
+    <!-- ==================================================
+         8. ACTIVE MENU
+         ================================================== -->
+
+    <section>
+        <h2>8. Gerçek Proje — Active Menü</h2>
+        <button class="navButton">
+            Ana Sayfa
+        </button>
+
+        <button class="navButton">
+            Ürünler
+        </button>
+
+        <button class="navButton">
+            Hakkımızda
+        </button>
+
+        <button class="navButton">
+            İletişim
+        </button>
+    </section>
+
+    <!-- ==================================================
+         9. FORM VALIDATION
+         ================================================== -->
+
+    <section>
+        <h2>9. Gerçek Proje — Form</h2>
+        <input id="email" type="email" placeholder="Email">
+
+        <button id="validate">
+            Kontrol Et
+        </button>
+
+        <p id="message"></p>
+    </section>
+
+    <script>
+        /* ==================================================
+           1. addClass()
+           ==================================================
+
+           Element'e class EKLER.
+
+           Örnek: $("#box").addClass("active");
+
+           HTML: <div class="box active">
+        */
+
+        $("#addActive").on("click", function () {
+            $("#box1").addClass("active");
+        });
+
+
+        $("#addDanger").on("click", function () {
+            $("#box1").addClass("danger");
+        });
+
+        /* ==================================================
+           2. removeClass()
+           ==================================================
+
+           Class SİLER. */
+
+        $("#removeActive").on("click", function () {
+            $("#box2").removeClass("active");
+        });
+
+        $("#removeDanger").on("click", function () {
+            $("#box2").removeClass("danger");
+        });
+
+        /* ==================================================
+           removeClass() — BÜTÜN CLASS'LARI SİL
+           ==================================================
+
+           Parametresiz kullanılır.
+        */
+
+        $("#removeAll").on("click", function () {
+            $("#box2").removeClass();
+        });
+
+        /* ==================================================
+           3. toggleClass()
+           ==================================================
+
+           Class varsa: → SİLER
+           Class yoksa: → EKLER
+
+           Bu nedenle aç/kapa sistemlerinde çok kullanılır.
+        */
+
+        $("#toggleActive").on("click", function () {
+            $("#box3").toggleClass("active");
+        });
+
+        $("#toggleLarge").on("click", function () {
+            $("#box3").toggleClass("large");
+        });
+
+        $("#toggleRounded").on("click", function () {
+            $("#box3").toggleClass("rounded");
+        });
+
+        /* ==================================================
+           4. hasClass()
+           ==================================================
+
+           Class var mı?
+           Sonuç: true ya da false
+        */
+
+        $("#checkClass").on("click", function () {
+            const result = $("#box4").hasClass("active");
+            if (result) {
+                $("#result").text("active class'ı VAR.");
+            }
+            else {
+                $("#result").text("active class'ı YOK.");
+            }
+        });
+
+        /* ==================================================
+           5. BİRDEN FAZLA CLASS EKLEME
+           ==================================================
+
+           Boşluk ile ayırabiliriz. */
+
+        $("#addMultiple").on("click", function () {
+            $("#box5").addClass("active large rounded");
+        });
+
+        /* ==================================================
+           6. BİRDEN FAZLA CLASS SİLME
+           ================================================== */
+
+        $("#removeMultiple").on("click", function () {
+            $("#box5").removeClass("active large rounded");
+        });
+
+        /* ==================================================
+           7. TOGGLE + $(this)
+           ==================================================
+
+           Hangi butona tıklandıysa
+           SADECE onun class'ını değiştir. */
+
+        $(".menuButton").on("click", function () {
+            $(this).toggleClass("active");
+        });
+
+        /* ==================================================
+           8. HOVER
+           ==================================================
+
+           mouseenter
+           → mouse elementin üzerine gelir.
+
+           mouseleave
+           → mouse elementten çıkar. */
+
+        $(".hoverBox").on("mouseenter", function () {
+            $(this).addClass("large rounded");
+        });
+
+        $(".hoverBox").on("mouseleave", function () {
+            $(this).removeClass("large rounded");
+        });
+
+        /* ==================================================
+           9. ACTIVE MENÜ
+           ==================================================
+
+           Gerçek projelerde çok kullanılan yapı: Tıklananı active yap. Diğerlerini active'den çıkar. */
+
+        $(".navButton").on("click", function () {
+            // Önce bütün butonlardan active class'ını kaldır.
+            $(".navButton").removeClass("active");
+
+            // Sonra sadece tıklanan butona ekle.
+            $(this).addClass("active");
+        });
+
+        /* ==================================================
+           10. FORM VALIDATION
+           ==================================================
+
+           Hatalıysa: danger
+           Doğruysa: active */
+
+        $("#validate").on("click", function () {
+            const email = $("#email").val();
+            $("#email").removeClass("active danger");
+
+            if (email === "") {
+                $("#email").addClass("danger");
+                $("#message").text("Email boş bırakılamaz.");
+                return;
+            }
+
+            if (!email.includes("@")) {
+                $("#email").addClass("danger");
+                $("#message").text("Geçerli bir email girin.");
+                return;
+            }
+
+            $("#email").addClass("active");
+            $("#message").text("Email geçerli.");
+        });
+
+        /* ==================================================
+           11. TOGGLE + IF
+           ==================================================
+
+           toggleClass() sonrasında
+           hasClass() ile kontrol edebilirsin.
+        */
+
+        $("#box3").on("click", function () {
+            $(this).toggleClass("active");
+
+            if ($(this).hasClass("active")) {
+                console.log("Box aktif.");
+            }
+            else {
+                console.log("Box pasif.");
+            }
+        });
+
+        /* ==================================================
+           12. CALLBACK İLE CLASS
+           ==================================================
+
+           addClass/removeClass/toggleClass
+           fonksiyon ile dinamik class
+           üretmeye de izin verir.
+        */
+
+        $(".menuButton").addClass(function (index) {
+            if (index === 0) {
+                return "first";
+            }
+            return "";
+        });
+
+        /* ==================================================
+           13. CLASS SIRALAMASI
+           ==================================================
+
+           Şu yapı çok kullanışlıdır:
+
+           removeClass()
+              ↓
+           addClass()
+
+           Böylece yalnızca bir elementin
+           aktif olmasını sağlayabilirsin.
+        */
+
+        /*
+           $(".item").removeClass("active").filter(...).addClass("active");
+        */
+
+        /* ==================================================
+           14. CLASS DEĞİŞTİRMEDE EN ÖNEMLİ MANTIK
+           ==================================================
+
+           CSS: .active { ... }
+           JS: addClass("active")
+
+           Böylece JavaScript doğrudan tasarımın tamamını yönetmek yerine CSS class'ını yönetir.
+        */
+
+        /* ==================================================
+           ÖZET
+           ==================================================
+
+           addClass() → Class ekle
+           removeClass() → Class sil
+           toggleClass() → Varsa sil, yoksa ekle
+           hasClass() → Class var mı?
+
+           ÖRNEK:
+           $("#box").addClass("active");
+           $("#box").removeClass("active");
+           $("#box").toggleClass("active");
+
+           if ($("#box").hasClass("active")) {
+               // var
+           }
+
+           BİRDEN FAZLA:
+           $("#box").addClass("active large rounded");
+
+           GERÇEK PROJE KALIBI:
+           $(".menu").removeClass("active");
+           $(this).addClass("active");
+        */
+    </script>
+</body>
+
+</html>
