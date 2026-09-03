@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Seçiciler</title>
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            color: #1f2937;
+        }
+
+        .container {
+            margin-bottom: 35px;
+            padding: 20px;
+            background: #f3f4f6;
+            border-radius: 12px;
+        }
+
+        .box {
+            display: inline-block;
+            margin: 5px;
+            padding: 14px;
+            background: white;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+        }
+
+        /* ==================================================
+       1. ETİKET SEÇİCİSİ
+       Tüm p etiketlerini seçer.
+       ================================================== */
+
+        .etiket-ornek p {
+            color: #2563eb;
+        }
+
+        /* ==================================================
+       2. CLASS SEÇİCİSİ
+       . ile çağrılır, birden fazla elementte kullanılabilir.
+       ================================================== */
+
+        .vurgulu {
+            background: #fef3c7;
+            border-color: #f59e0b;
+        }
+
+        /* ==================================================
+       3. ID SEÇİCİSİ
+       # ile çağrılır, sayfada yalnızca bir kez kullanılmalıdır.
+       ================================================== */
+
+        #ozel-kutu {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+
+        /* ==================================================
+       4. ALT ELEMAN SEÇİCİSİ
+       .liste içindeki tüm span etiketlerini seçer.
+       ================================================== */
+
+        .liste span {
+            color: #7c3aed;
+            font-weight: bold;
+        }
+
+        /* ==================================================
+       5. DOĞRUDAN ÇOCUK SEÇİCİSİ
+       .cocuk-ornek'in yalnızca doğrudan p çocuklarını seçer.
+       ================================================== */
+
+        .cocuk-ornek>p {
+            color: #dc2626;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================================================
+       1. ETİKET SEÇİCİSİ
+       ================================================== -->
+
+    <h2>1. Etiket Seçicisi</h2>
+    <div class="container etiket-ornek">
+        <p class="box">p etiketi</p>
+        <p class="box">p etiketi</p>
+    </div>
+
+    <!-- ==================================================
+       2. CLASS SEÇİCİSİ
+       ================================================== -->
+
+    <h2>2. Class Seçicisi</h2>
+    <div class="container">
+        <div class="box vurgulu">.vurgulu</div>
+        <div class="box vurgulu">.vurgulu</div>
+    </div>
+
+    <!-- ==================================================
+       3. ID SEÇİCİSİ
+       ================================================== -->
+
+    <h2>3. ID Seçicisi</h2>
+    <div class="container">
+        <div class="box" id="ozel-kutu">#ozel-kutu</div>
+    </div>
+
+    <!-- ==================================================
+       4. ALT ELEMAN SEÇİCİSİ
+       ================================================== -->
+
+    <h2>4. Alt Eleman Seçicisi</h2>
+    <div class="container liste">
+        <div class="box"><span>.liste span</span></div>
+        <div class="box"><span>Seçilir</span></div>
+    </div>
+
+    <!-- ==================================================
+       5. DOĞRUDAN ÇOCUK SEÇİCİSİ
+       ================================================== -->
+
+    <h2>5. Doğrudan Çocuk Seçicisi</h2>
+    <div class="container cocuk-ornek">
+        <p class="box">Doğrudan p</p>
+        <div class="box">
+            <p>İç içe p</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Kenarlık ve Arka Plan</title>
+    <style>
+        /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            color: #1f2937;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 35px;
+            padding: 20px;
+            background: #f3f4f6;
+            border-radius: 12px;
+        }
+
+        .box {
+            min-width: 150px;
+            padding: 20px;
+            background: white;
+            text-align: center;
+        }
+
+        /* ==================================================
+       1. BORDER
+       Kenarlığın kalınlığını, türünü ve rengini belirler.
+       ================================================== */
+
+        .solid-border {
+            border: 3px solid #2563eb;
+        }
+
+        .dashed-border {
+            border: 3px dashed #dc2626;
+        }
+
+        .dotted-border {
+            border: 3px dotted #16a34a;
+        }
+
+        .double-border {
+            border: 5px double #7c3aed;
+        }
+
+        .groove-border {
+            border: 5px groove #ea580c;
+        }
+
+        .ridge-border {
+            border: 5px ridge #0891b2;
+        }
+
+        .inset-border {
+            border: 5px inset #64748b;
+        }
+
+        .outset-border {
+            border: 5px outset #64748b;
+        }
+
+        .thin-border {
+            border: thin solid #2563eb;
+        }
+
+        .medium-border {
+            border: medium solid #2563eb;
+        }
+
+        .thick-border {
+            border: thick solid #2563eb;
+        }
+
+        /* ==================================================
+       2. BORDER-RADIUS
+       Köşeleri yuvarlatır.
+       ================================================== */
+
+        .radius-border {
+            border: 3px solid #7c3aed;
+            border-radius: 20px;
+        }
+
+        .circle-border {
+            width: 100px;
+            min-width: 100px;
+            height: 100px;
+            padding-top: 38px;
+            border: 3px solid #7c3aed;
+            border-radius: 50%;
+        }
+
+        /* ==================================================
+       3. OUTLINE VE OUTLINE-OFFSET
+       Outline border'ın dışında görünür ve yer kaplamaz.
+       ================================================== */
+
+        .outline-ornek {
+            margin: 8px;
+            border: 2px solid #334155;
+            outline: 3px solid #f59e0b;
+            outline-offset: 6px;
+        }
+
+        .outline-dotted {
+            margin: 8px;
+            outline: 3px dotted #16a34a;
+            outline-offset: 6px;
+        }
+
+        .outline-dashed {
+            margin: 8px;
+            outline: 3px dashed #dc2626;
+            outline-offset: 6px;
+        }
+
+        /* ==================================================
+       4. BACKGROUND-COLOR
+       Elementin arka plan rengini belirler.
+       ================================================== */
+
+        .renkli-arka-plan {
+            background-color: lightskyblue;
+        }
+
+        .hex-arka-plan {
+            background-color: #fde68a;
+        }
+
+        .rgb-arka-plan {
+            background-color: rgb(167, 243, 208);
+        }
+
+        .hsl-arka-plan {
+            background-color: hsl(280, 80%, 90%);
+        }
+
+        /* ==================================================
+       5. BACKGROUND
+       Birden fazla arka plan özelliğini kısa yoldan tanımlar.
+       ================================================== */
+
+        .background-kisa-yol {
+            background: #dcfce7;
+            border: 2px solid #4ade80;
+        }
+
+        /* ==================================================
+       6. BACKGROUND-IMAGE, BACKGROUND-SIZE,
+            BACKGROUND-POSITION VE BACKGROUND-REPEAT
+          Görselin kaynağını, boyutunu, konumunu ve tekrarını belirler.
+       ================================================== */
+
+        .repeat-ornek {
+            color: black;
+            background-image: url("../foto/mocha.jpg");
+            background-size: 60px 60px;
+            background-position: center;
+            background-repeat: repeat;
+            border: 2px solid #92400e;
+        }
+
+        .gorsel-arka-plan {
+            width: 180px;
+            min-width: 180px;
+            height: 120px;
+            color: black;
+            background-image: url("../foto/mocha.jpg");
+            border: 2px solid #92400e;
+        }
+
+        .size-auto {
+            background-size: auto;
+            background-repeat: no-repeat;
+        }
+
+        .size-cover {
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .size-contain {
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-color: #fef3c7;
+        }
+
+        .position-left {
+            background-size: 60px 60px;
+            background-position: left center;
+            background-repeat: no-repeat;
+        }
+
+        .position-center {
+            background-size: 60px 60px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .position-right {
+            background-size: 60px 60px;
+            background-position: right center;
+            background-repeat: no-repeat;
+        }
+
+        .no-repeat {
+            background-size: 60px 60px;
+            background-repeat: no-repeat;
+        }
+
+        .repeat-x {
+            background-size: 60px 60px;
+            background-repeat: repeat-x;
+        }
+
+        .repeat-y {
+            background-size: 60px 60px;
+            background-repeat: repeat-y;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================================================
+       1. BORDER
+       ================================================== -->
+
+    <h2>1. border-style</h2>
+    <div class="container">
+        <div class="box solid-border">solid</div>
+        <div class="box dashed-border">dashed</div>
+        <div class="box dotted-border">dotted</div>
+        <div class="box double-border">double</div>
+        <div class="box groove-border">groove</div>
+        <div class="box ridge-border">ridge</div>
+        <div class="box inset-border">inset</div>
+        <div class="box outset-border">outset</div>
+    </div>
+
+    <!-- ==================================================
+       2. BORDER-WIDTH
+       ================================================== -->
+
+    <h2>2. border-width</h2>
+    <div class="container">
+        <div class="box thin-border">thin</div>
+        <div class="box medium-border">medium</div>
+        <div class="box thick-border">thick</div>
+    </div>
+
+    <!-- ==================================================
+       3. BORDER-RADIUS
+       ================================================== -->
+
+    <h2>3. border-radius</h2>
+    <div class="container">
+        <div class="box radius-border">20px</div>
+        <div class="box circle-border">50%</div>
+    </div>
+
+    <!-- ==================================================
+       4. OUTLINE
+       ================================================== -->
+
+    <h2>4. outline ve outline-offset</h2>
+    <div class="container">
+        <div class="box outline-ornek">solid</div>
+        <div class="box outline-dotted">dotted</div>
+        <div class="box outline-dashed">dashed</div>
+    </div>
+
+    <!-- ==================================================
+       5. BACKGROUND-COLOR
+       ================================================== -->
+
+    <h2>5. background-color</h2>
+    <div class="container">
+        <div class="box renkli-arka-plan">Renk adı</div>
+        <div class="box hex-arka-plan">HEX</div>
+        <div class="box rgb-arka-plan">RGB</div>
+        <div class="box hsl-arka-plan">HSL</div>
+    </div>
+
+    <!-- ==================================================
+       6. BACKGROUND
+       ================================================== -->
+
+    <h2>6. background</h2>
+    <div class="container">
+        <div class="box background-kisa-yol">Kısa yol kullanımı</div>
+    </div>
+
+    <!-- ==================================================
+        →   BACKGROUND-SIZE
+       ================================================== -->
+
+    <h2>7. background-size</h2>
+    <div class="container">
+        <div class="box gorsel-arka-plan size-auto">auto</div>
+        <div class="box gorsel-arka-plan size-cover">cover</div>
+        <div class="box gorsel-arka-plan size-contain">contain</div>
+    </div>
+
+    <!-- ==================================================
+        →   BACKGROUND-POSITION
+       ================================================== -->
+
+    <h2>8. background-position</h2>
+    <div class="container">
+        <div class="box gorsel-arka-plan position-left">left</div>
+        <div class="box gorsel-arka-plan position-center">center</div>
+        <div class="box gorsel-arka-plan position-right">right</div>
+    </div>
+
+    <!-- ==================================================
+        →   BACKGROUND-REPEAT
+       ================================================== -->
+
+    <h2>9. background-repeat</h2>
+    <div class="container">
+        <div class="box repeat-ornek">repeat</div>
+        <div class="box gorsel-arka-plan no-repeat">no-repeat</div>
+        <div class="box gorsel-arka-plan repeat-x">repeat-x</div>
+        <div class="box gorsel-arka-plan repeat-y">repeat-y</div>
+    </div>
+
+</body>
+
+</html>
+<!--
+
+    ==================================================
+                      DEĞER ÖZETİ
+    ==================================================
+
+?    KENARLIK TİPLERİ (border)
+*    solid: Kesintisiz düz çizgi oluşturur.
+*    dashed: Aralıklı kesik çizgiler oluşturur.
+*    dotted: Noktalardan oluşan çizgi oluşturur.
+*    double: İki paralel çizgi oluşturur; belirgin olması için kalınlık yeterli olmalıdır.
+*    groove: Kenarlığı oyukmuş gibi gösterir.
+*    ridge: Kenarlığı kabartılı gösterir.
+*    inset: Elementi içeri gömülmüş gibi gösterir.
+*    outset: Elementi dışarı çıkıntılı gibi gösterir.
+
+?    KALINLIK (border)
+*    thin: Tarayıcının tanımladığı ince kalınlıktır.
+*    medium: Tarayıcının tanımladığı orta kalınlıktır.
+*    thick: Tarayıcının tanımladığı kalın değerdir.
+
+?    RENK DEĞERLERİ (color)
+*    lightskyblue: Hazır renk adıyla yazılmış renktir.
+*    #RRGGBB: Sırasıyla kırmızı, yeşil ve mavi çiftlerini içerir. Her çift 00 ile FF arasındadır.
+*    rgb(): Sıra kırmızı, yeşil ve mavidir. Her değer 0 ile 255 arasındadır.
+*    hsl(): Sıra ton, doygunluk ve açıklıktır.
+*    → Ton 0 ile 360 arasındadır: 0 kırmızı, 120 yeşil, 240 mavi.
+*    → Doygunluk ve açıklık yüzdeyle yazılır.
+*    → Örnek: hsl(220, 80%, 60%)
+*    → Saydamlık: hsl(220 80% 60% / 50%)
+
+?    GÖRSEL BOYUTLARI (background-size)
+*    auto: Görseli doğal boyutunda kullanır; alan küçükse bir bölümü görünmeyebilir.
+*    cover: Alanı tamamen kaplar; oran farklıysa görselin bazı kısımları kesilebilir.
+*    contain: Görselin tamamını kesmeden sığdırır; boş alan kalabilir.
+
+?    GÖRSEL KONUMU (background-position)
+*    left: Görseli sol kenara yaslar; kesilme varsa sağ taraf daha çok kaybolur.
+*    center: Görseli ortalar; kesilme iki kenardan dengeli olur.
+*    right: Görseli sağ kenara yaslar; kesilme varsa sol taraf daha çok kaybolur.
+
+?    GÖRSEL TEKRARI (background-repeat)
+*    repeat: Görseli yatay ve dikey yönde tekrarlar.
+*    no-repeat: Görseli yalnızca bir kez gösterir.
+*    repeat-x: Görseli yalnızca yatay yönde tekrarlar.
+*    repeat-y: Görseli yalnızca dikey yönde tekrarlar.
+
+-->

@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>CSS z-index - Full</title>
-
     <style>
         /* ==================================================
            ORTAK TASARIM
@@ -19,9 +17,7 @@
         body {
             margin: 0;
             padding: 30px;
-
             font-family: Arial, sans-serif;
-
             background: #f4f4f4;
         }
 
@@ -32,37 +28,26 @@
         .container {
             width: 100%;
             max-width: 1000px;
-
             min-height: 220px;
-
             margin-bottom: 35px;
             padding: 30px;
-
             position: relative;
-
             border: 3px solid black;
             border-radius: 20px;
-
             background: white;
-
             overflow: hidden;
         }
 
         .box {
             width: 130px;
             height: 100px;
-
             display: grid;
             place-items: center;
-
             border-radius: 15px;
-
             color: white;
             font-weight: bold;
-
             position: absolute;
         }
-
 
         /* ==================================================
            1. z-index: auto
@@ -75,13 +60,10 @@
 
         .auto {
             z-index: auto;
-
             background: steelblue;
-
             top: 40px;
             left: 80px;
         }
-
 
         /* ==================================================
            2. z-index: 1/10
@@ -89,30 +71,21 @@
 
            Pozitif z-index.
 
-           Daha yüksek z-index,
-           aynı stacking context içerisinde
-           genellikle üstte görünür.
-        */
+           Daha yüksek z-index, aynı stacking context içerisinde genellikle üstte görünür. */
 
         .z1 {
             z-index: 1;
-
             background: steelblue;
-
             top: 50px;
             left: 100px;
         }
 
-
         .z10 {
             z-index: 10;
-
             background: crimson;
-
             top: 80px;
             left: 170px;
         }
-
 
         /* ==================================================
            3. z-index karşılaştırması
@@ -125,36 +98,28 @@
 
         .compare-1 {
             z-index: 10;
-
             background: steelblue;
-
             top: 50px;
             left: 80px;
         }
 
         .compare-2 {
             z-index: 20;
-
             background: seagreen;
-
             top: 80px;
             left: 130px;
         }
 
         .compare-3 {
             z-index: 30;
-
             background: crimson;
-
             top: 110px;
             left: 180px;
         }
     </style>
-
 </head>
 
 <body>
-
     <!-- ==================================================
          1. AUTO
          ================================================== -->
@@ -165,7 +130,6 @@
             auto
         </div>
     </div>
-
 
     <!-- ==================================================
          2. BASIC VALUES
@@ -198,8 +162,6 @@
             30
         </div>
     </div>
-
-
 </body>
 
 </html>

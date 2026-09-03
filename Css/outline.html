@@ -8,7 +8,6 @@
     <title>CSS Outline - Tüm Kullanımlar</title>
 
     <style>
-
         /* ==================================================
            ORTAK TASARIM
            ================================================== */
@@ -21,39 +20,29 @@
 
         .container {
             min-height: 140px;
-
             margin-bottom: 35px;
             padding: 30px;
-
             border: 3px solid black;
             border-radius: 15px;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             background: white;
         }
 
         .box {
             width: 180px;
             min-height: 70px;
-
             padding: 20px;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             border: 3px solid #333;
             border-radius: 12px;
-
             background: steelblue;
             color: white;
-
             box-sizing: border-box;
         }
-
 
         /* ==================================================
            outline NEDİR?
@@ -63,87 +52,58 @@
 
            border'a benzer fakat önemli bir farkı vardır:
 
-           border
-           → Elementin kutu modelinin parçasıdır.
+           border → Elementin kutu modelinin parçasıdır.
 
-           outline
-           → Elementin dış tarafında çizilir.
-           → Normalde elementin boyutunu değiştirmez.
-           → Layout'u etkilemez.
+           outline → Elementin dış tarafında çizilir. → Normalde elementin boyutunu değiştirmez. → Layout'u etkilemez.
 
-           Örnek:
-
-           outline: 3px solid red;
-        */
+           Örnek: outline: 3px solid red; */
 
 
         /* ==================================================
            1. outline-style
            ==================================================
 
-           Outline çizgisinin stilini belirler.
-
-           none
-           hidden
-           dotted
-           dashed
-           solid
-           double
-           groove
-           ridge
-           inset
-           outset
-        */
+           Outline çizgisinin stilini belirler: none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset */
 
         .style-none .box {
             outline-style: none;
         }
 
-
         .style-hidden .box {
             outline-style: hidden;
         }
-
 
         .style-dotted .box {
             outline-style: dotted;
         }
 
-
         .style-dashed .box {
             outline-style: dashed;
         }
-
 
         .style-solid .box {
             outline-style: solid;
         }
 
-
         .style-double .box {
             outline-style: double;
         }
-
 
         .style-groove .box {
             outline-style: groove;
         }
 
-
         .style-ridge .box {
             outline-style: ridge;
         }
-
 
         .style-inset .box {
             outline-style: inset;
         }
 
-
         .style-outset .box {
             outline-style: outset;
         }
-
 
         /* ==================================================
            2. outline-width
@@ -168,24 +128,20 @@
             outline-width: thin;
         }
 
-
         .width-medium .box {
             outline-style: solid;
             outline-width: medium;
         }
-
 
         .width-thick .box {
             outline-style: solid;
             outline-width: thick;
         }
 
-
         .width-custom .box {
             outline-style: solid;
             outline-width: 6px;
         }
-
 
         /* ==================================================
            3. outline-color
@@ -573,9 +529,7 @@
 
         .animation .box {
             animation:
-                outlinePulse
-                1.5s
-                infinite;
+                outlinePulse 1.5s infinite;
         }
 
         @keyframes outlinePulse {
@@ -924,23 +878,15 @@
 
         .responsive .box {
             outline:
-                clamp(
-                    2px,
+                clamp(2px,
                     .5vw,
-                    6px
-                )
-                solid
-                #2563eb;
+                    6px) solid #2563eb;
 
             outline-offset:
-                clamp(
-                    2px,
+                clamp(2px,
                     1vw,
-                    10px
-                );
+                    10px);
         }
-
-
     </style>
 
 </head>
@@ -1232,10 +1178,7 @@
 
     <div class="container focus">
 
-        <input
-            type="text"
-            placeholder="Buraya tıkla"
-        >
+        <input type="text" placeholder="Buraya tıkla">
 
     </div>
 
@@ -1259,10 +1202,7 @@
             Kullanıcı adı
         </label>
 
-        <input
-            type="text"
-            placeholder="Kullanıcı adın"
-        >
+        <input type="text" placeholder="Kullanıcı adın">
 
     </div>
 
@@ -1337,10 +1277,7 @@
 
     <div class="container error">
 
-        <input
-            type="text"
-            placeholder="Hatalı alan"
-        >
+        <input type="text" placeholder="Hatalı alan">
 
     </div>
 
@@ -1349,10 +1286,7 @@
 
     <div class="container success">
 
-        <input
-            type="text"
-            placeholder="Başarılı alan"
-        >
+        <input type="text" placeholder="Başarılı alan">
 
     </div>
 
@@ -1422,10 +1356,7 @@
 
     <div class="container image-outline">
 
-        <img
-            src="https://images.unsplash.com/photo-1500534623283-312aade485b7"
-            alt="Örnek görsel"
-        >
+        <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7" alt="Örnek görsel">
 
     </div>
 
@@ -1445,10 +1376,7 @@
 
     <div class="container custom-focus">
 
-        <input
-            type="text"
-            placeholder="Kullanıcı adı"
-        >
+        <input type="text" placeholder="Kullanıcı adı">
 
         <button>
             Gönder

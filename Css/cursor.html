@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>CSS cursor</title>
-
     <style>
         /* ==================================================
        ORTAK TASARIM
@@ -21,57 +19,44 @@
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-
             margin-bottom: 40px;
             padding: 30px;
-
             background: #f3f4f6;
         }
 
         .box {
             width: 180px;
             height: 100px;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             border-radius: 12px;
-
             background: white;
-
             font-weight: bold;
-
             user-select: none;
         }
-
 
         /* ==================================================
        1. cursor: auto
        ==================================================
 
-       Tarayıcının normal cursor davranışını
-       kullanmasını sağlar.
+       Tarayıcının normal cursor davranışını kullanmasını sağlar.
 
-       Varsayılan değerdir.
-    */
+       Varsayılan değerdir. */
 
         .auto {
             cursor: auto;
         }
 
-
         /* ==================================================
        2. cursor: default
        ==================================================
 
-       Varsayılan ok imlecini gösterir.
-    */
+       Varsayılan ok imlecini gösterir. */
 
         .default {
             cursor: default;
         }
-
 
         /* ==================================================
        3. cursor: pointer
@@ -79,53 +64,41 @@
 
        El şeklinde imleç gösterir.
 
-       Buton, link ve tıklanabilir
-       elementlerde çok yaygındır.
-    */
+       Buton, link ve tıklanabilir elementlerde çok yaygındır. */
 
         .pointer {
             cursor: pointer;
         }
 
-
         /* ==================================================
        4. cursor: text
        ==================================================
 
-       Metin seçilebilir / yazılabilir
-       hissi veren imleci gösterir.
-    */
+       Metin seçilebilir / yazılabilir hissi veren imleci gösterir. */
 
         .text {
             cursor: text;
         }
 
-
         /* ==================================================
        5. cursor: wait
        ==================================================
 
-       İşlemin devam ettiğini belirten
-       bekleme imlecini gösterir.
-    */
+       İşlemin devam ettiğini belirten bekleme imlecini gösterir. */
 
         .wait {
             cursor: wait;
         }
 
-
         /* ==================================================
        6. cursor: progress
        ==================================================
 
-       İşlem devam ediyor ama kullanıcı
-       etkileşime devam edebilir anlamı verir.
-    */
+       İşlem devam ediyor ama kullanıcı etkileşime devam edebilir anlamı verir. */
 
         .progress {
             cursor: progress;
         }
-
 
         /* ==================================================
        7. cursor: not-allowed
@@ -133,102 +106,83 @@
 
        İşleme izin verilmediğini gösterir.
 
-       Disabled butonlarda sık kullanılır.
-    */
+       Disabled butonlarda sık kullanılır. */
 
         .not-allowed {
             cursor: not-allowed;
         }
 
-
         /* ==================================================
        8. cursor: no-drop
        ==================================================
 
-       Elementin buraya bırakılamayacağını
-       belirtir.
+       Elementin buraya bırakılamayacağını belirtir.
 
-       Drag & drop arayüzlerinde kullanışlıdır.
-    */
+       Drag & drop arayüzlerinde kullanışlıdır. */
 
         .no-drop {
             cursor: no-drop;
         }
 
-
         /* ==================================================
        9. cursor: grab
        ==================================================
 
-       Elementin tutulup sürüklenebileceğini
-       belirtir.
-    */
+       Elementin tutulup sürüklenebileceğini belirtir. */
 
         .grab {
             cursor: grab;
         }
 
-
         /* ==================================================
        10. cursor: grabbing
        ==================================================
 
-       Element sürüklenirken kullanılır.
-    */
+       Element sürüklenirken kullanılır. */
 
         .grabbing {
             cursor: grabbing;
         }
 
-
         /* ==================================================
        11. cursor: move
        ==================================================
 
-       Elementin taşınabileceğini belirtir.
-    */
+       Elementin taşınabileceğini belirtir. */
 
         .move {
             cursor: move;
         }
 
-
         /* ==================================================
        12. cursor: help
        ==================================================
 
-       Yardım / açıklama bulunduğunu
-       belirten cursor.
-    */
+       Yardım / açıklama bulunduğunu belirten cursor. */
 
         .help {
             cursor: help;
         }
 
-
         /* ==================================================
        13. cursor: zoom-in
        ==================================================
 
-       Yaklaştırma yapılabileceğini belirtir.
-    */
+       Yaklaştırma yapılabileceğini belirtir. */
 
         .zoom-in {
             cursor: zoom-in;
         }
 
-
         /* ==================================================
        14. cursor: zoom-out
        ==================================================
 
-       Uzaklaştırma yapılabileceğini belirtir.
-    */
+       Uzaklaştırma yapılabileceğini belirtir. */
 
         .zoom-out {
             cursor: zoom-out;
         }
-
 
         /* ==================================================
        15. cursor: crosshair
@@ -236,163 +190,131 @@
 
        Artı şeklinde cursor.
 
-       Çizim, seçim ve grafik araçlarında
-       kullanılabilir.
-    */
+       Çizim, seçim ve grafik araçlarında kullanılabilir. */
 
         .crosshair {
             cursor: crosshair;
         }
 
-
         /* ==================================================
        16. cursor: copy
        ==================================================
 
-       İçeriğin kopyalanabileceğini
-       belirtir.
-    */
+       İçeriğin kopyalanabileceğini belirtir. */
 
         .copy {
             cursor: copy;
         }
 
-
         /* ==================================================
        17. cursor: alias
        ==================================================
 
-       Kısayol / alternatif işlem yapılabileceğini
-       belirtir.
-    */
+       Kısayol / alternatif işlem yapılabileceğini belirtir. */
 
         .alias {
             cursor: alias;
         }
 
-
         /* ==================================================
        18. cursor: cell
        ==================================================
 
-       Tablo hücresi seçme imlecidir.
-    */
+       Tablo hücresi seçme imlecidir. */
 
         .cell {
             cursor: cell;
         }
 
-
         /* ==================================================
        19. cursor: vertical-text
        ==================================================
 
-       Dikey metin işlemlerinde kullanılır.
-    */
+       Dikey metin işlemlerinde kullanılır. */
 
         .vertical-text {
             cursor: vertical-text;
         }
 
-
         /* ==================================================
        20. cursor: context-menu
        ==================================================
 
-       Bağlam menüsü açılabileceğini belirtir.
-    */
+       Bağlam menüsü açılabileceğini belirtir. */
 
         .context-menu {
             cursor: context-menu;
         }
 
-
         /* ==================================================
        21. cursor: all-scroll
        ==================================================
 
-       İçeriğin herhangi bir yöne
-       kaydırılabileceğini belirtir.
-    */
+       İçeriğin herhangi bir yöne kaydırılabileceğini belirtir. */
 
         .all-scroll {
             cursor: all-scroll;
         }
 
-
         /* ==================================================
        22. cursor: col-resize
        ==================================================
 
-       Sütun genişliğinin değiştirilebileceğini
-       belirtir.
-    */
+       Sütun genişliğinin değiştirilebileceğini belirtir. */
 
         .col-resize {
             cursor: col-resize;
         }
 
-
         /* ==================================================
        23. cursor: row-resize
        ==================================================
 
-       Satır yüksekliğinin değiştirilebileceğini
-       belirtir.
-    */
+       Satır yüksekliğinin değiştirilebileceğini belirtir. */
 
         .row-resize {
             cursor: row-resize;
         }
 
-
         /* ==================================================
        24. cursor: ew-resize
        ==================================================
 
-       Yatay yönde boyutlandırma.
-    */
+       Yatay yönde boyutlandırma. */
 
         .ew-resize {
             cursor: ew-resize;
         }
 
-
         /* ==================================================
        25. cursor: ns-resize
        ==================================================
 
-       Dikey yönde boyutlandırma.
-    */
+       Dikey yönde boyutlandırma. */
 
         .ns-resize {
             cursor: ns-resize;
         }
 
-
         /* ==================================================
        26. cursor: nesw-resize
        ==================================================
 
-       Çapraz boyutlandırma.
-    */
+       Çapraz boyutlandırma. */
 
         .nesw-resize {
             cursor: nesw-resize;
         }
 
-
         /* ==================================================
        27. cursor: nwse-resize
        ==================================================
 
-       Diğer çapraz yönde boyutlandırma.
-    */
+       Diğer çapraz yönde boyutlandırma. */
 
         .nwse-resize {
             cursor: nwse-resize;
         }
-
 
         /* ==================================================
        28. cursor: n-resize
@@ -402,7 +324,6 @@
             cursor: n-resize;
         }
 
-
         /* ==================================================
        29. cursor: s-resize
        ================================================== */
@@ -410,7 +331,6 @@
         .s-resize {
             cursor: s-resize;
         }
-
 
         /* ==================================================
        30. cursor: e-resize
@@ -420,7 +340,6 @@
             cursor: e-resize;
         }
 
-
         /* ==================================================
        31. cursor: w-resize
        ================================================== */
@@ -428,7 +347,6 @@
         .w-resize {
             cursor: w-resize;
         }
-
 
         /* ==================================================
        32. cursor: ne-resize
@@ -438,7 +356,6 @@
             cursor: ne-resize;
         }
 
-
         /* ==================================================
        33. cursor: nw-resize
        ================================================== */
@@ -446,7 +363,6 @@
         .nw-resize {
             cursor: nw-resize;
         }
-
 
         /* ==================================================
        34. cursor: se-resize
@@ -456,7 +372,6 @@
             cursor: se-resize;
         }
 
-
         /* ==================================================
        35. cursor: sw-resize
        ================================================== */
@@ -465,25 +380,17 @@
             cursor: sw-resize;
         }
 
-
         /* ==================================================
        36. cursor: custom URL
        ==================================================
 
-       Kendi cursor görselini kullanabilirsin.
+       Kendi cursor görselini kullanabilirsin: url() → cursor dosyası, auto  → fallback
 
-       url() → cursor dosyası
-       auto  → fallback
-
-       Örnek:
-
-       cursor: url("cursor.png"), auto;
-    */
+       Örnek: cursor: url("cursor.png"), auto; */
 
         .custom {
             cursor: url("cursor.png"), auto;
         }
-
 
         /* ==================================================
        37. GERÇEK PROJE:
@@ -492,16 +399,12 @@
 
         .button {
             padding: 12px 25px;
-
             border: none;
             border-radius: 8px;
-
             background: steelblue;
             color: white;
-
             cursor: pointer;
         }
-
 
         /* ==================================================
        38. GERÇEK PROJE:
@@ -510,15 +413,11 @@
 
         .disabled {
             padding: 12px 25px;
-
             border: none;
             border-radius: 8px;
-
             background: #ccc;
-
             cursor: not-allowed;
         }
-
 
         /* ==================================================
        39. GERÇEK PROJE:
@@ -535,33 +434,20 @@
     </style>
 </head>
 
-
 <body>
 
-
     <h2>1. Temel Cursor'lar</h2>
-
     <div class="container">
-
         <div class="box auto">auto</div>
-
         <div class="box default">default</div>
-
         <div class="box pointer">pointer</div>
-
         <div class="box text">text</div>
-
         <div class="box wait">wait</div>
-
         <div class="box progress">progress</div>
-
     </div>
 
-
     <h2>2. Durum Cursor'ları</h2>
-
     <div class="container">
-
         <div class="box not-allowed">
             not-allowed
         </div>
@@ -577,14 +463,10 @@
         <div class="box context-menu">
             context-menu
         </div>
-
     </div>
 
-
     <h2>3. Sürükleme</h2>
-
     <div class="container">
-
         <div class="box grab">
             grab
         </div>
@@ -596,12 +478,9 @@
         <div class="box move">
             move
         </div>
-
     </div>
 
-
     <h2>4. Zoom / Selection</h2>
-
     <div class="container">
 
         <div class="box zoom-in">
@@ -619,14 +498,10 @@
         <div class="box copy">
             copy
         </div>
-
     </div>
 
-
     <h2>5. Resize</h2>
-
     <div class="container">
-
         <div class="box col-resize">
             col-resize
         </div>
@@ -650,14 +525,10 @@
         <div class="box nesw-resize">
             nesw-resize
         </div>
-
     </div>
 
-
     <h2>6. Yönlü Resize</h2>
-
     <div class="container">
-
         <div class="box n-resize">n-resize</div>
         <div class="box s-resize">s-resize</div>
         <div class="box e-resize">e-resize</div>
@@ -667,53 +538,35 @@
         <div class="box nw-resize">nw-resize</div>
         <div class="box se-resize">se-resize</div>
         <div class="box sw-resize">sw-resize</div>
-
     </div>
 
-
     <h2>7. Gerçek Proje → Button</h2>
-
     <div class="container">
-
         <button class="button">
             Tıkla
         </button>
-
     </div>
 
-
     <h2>8. Gerçek Proje → Disabled</h2>
-
     <div class="container">
-
         <button class="disabled" disabled>
             Devre Dışı
         </button>
-
     </div>
 
-
     <h2>9. Gerçek Proje → Drag & Drop</h2>
-
     <div class="container">
-
         <div class="box drag">
             Sürükle
         </div>
-
     </div>
 
-
     <h2>10. Özel Cursor</h2>
-
     <div class="container">
-
         <div class="box custom">
             Custom Cursor
         </div>
-
     </div>
-
 
 </body>
 

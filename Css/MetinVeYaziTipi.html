@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Metin ve Yazı Tipi</title>
+    <style>
+        /* ==================================================
+           ORTAK TASARIM
+           ================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            color: #1f2937;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 35px;
+            padding: 20px;
+            background: #f3f4f6;
+            border-radius: 12px;
+        }
+
+        .box {
+            min-width: 150px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+        }
+
+        /* ==================================================
+           1. TEXT-ALIGN
+           ================================================== */
+
+        .align-box {
+            width: 220px;
+        }
+
+        .align-left {
+            text-align: left;
+        }
+
+        .align-center {
+            text-align: center;
+        }
+
+        .align-right {
+            text-align: right;
+        }
+
+        .align-justify {
+            text-align: justify;
+        }
+
+        /* ==================================================
+           2. TEXT-DECORATION
+           ================================================== */
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        .overline {
+            text-decoration: overline;
+        }
+
+        .line-through {
+            text-decoration: line-through;
+        }
+
+        .none {
+            text-decoration: none;
+        }
+
+        /* ==================================================
+           3. TEXT-TRANSFORM
+           ================================================== */
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .lowercase {
+            text-transform: lowercase;
+        }
+
+        .capitalize {
+            text-transform: capitalize;
+        }
+
+        /* ==================================================
+           4. FONT-FAMILY
+           ================================================== */
+
+        .serif {
+            font-family: Georgia, serif;
+        }
+
+        .sans-serif {
+            font-family: Arial, sans-serif;
+        }
+
+        .monospace {
+            font-family: "Courier New", monospace;
+        }
+
+        .cursive {
+            font-family: cursive;
+        }
+
+        /* ==================================================
+           5. FONT-SIZE
+           ================================================== */
+
+        .small {
+            font-size: 14px;
+        }
+
+        .large {
+            font-size: 26px;
+        }
+
+        /* ==================================================
+            6. FONT-WEIGHT
+           ================================================== */
+
+        .light {
+            font-weight: 300;
+        }
+
+        .normal {
+            font-weight: 400;
+        }
+
+        .bold {
+            font-weight: 700;
+        }
+
+        /* ==================================================
+           6. FONT-STYLE
+           ================================================== */
+
+        .italic {
+            font-style: italic;
+        }
+
+        .oblique {
+            font-style: oblique;
+        }
+
+        /* ==================================================
+           7. LINE-HEIGHT VE LETTER-SPACING
+           ================================================== */
+
+        .line-height-ornek {
+            width: 250px;
+            line-height: 2;
+        }
+
+        .letter-spacing-ornek {
+            letter-spacing: 4px;
+        }
+
+        /* ==================================================
+           8. COLOR
+           ================================================== */
+
+        .renk-adi {
+            color: crimson;
+        }
+
+        .hex-renk {
+            color: #2563eb;
+        }
+
+        .rgb-renk {
+            color: rgb(22, 163, 74);
+        }
+
+        .hsl-renk {
+            color: hsl(280, 80%, 45%);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================================================
+       1. TEXT-ALIGN
+       ================================================== -->
+
+    <h2>1. text-align</h2>
+    <div class="container">
+        <div class="box align-box align-left">left</div>
+        <div class="box align-box align-center">center</div>
+        <div class="box align-box align-right">right</div>
+        <div class="box align-box align-justify">justify metni iki kenara yaslar.</div>
+    </div>
+
+    <!-- ==================================================
+       2. TEXT-DECORATION
+       ================================================== -->
+
+    <h2>2. text-decoration</h2>
+    <div class="container">
+        <div class="box underline">underline</div>
+        <div class="box overline">overline</div>
+        <div class="box line-through">line-through</div>
+        <a class="box none" href="#">none</a>
+    </div>
+
+    <!-- ==================================================
+       3. TEXT-TRANSFORM
+       ================================================== -->
+
+    <h2>3. text-transform</h2>
+    <div class="container">
+        <div class="box uppercase">uppercase örneği</div>
+        <div class="box lowercase">LOWERCASE ÖRNEĞİ</div>
+        <div class="box capitalize">capitalize örneği</div>
+    </div>
+
+    <!-- ==================================================
+       4. FONT-FAMILY
+       ================================================== -->
+
+    <h2>4. font-family</h2>
+    <div class="container">
+        <div class="box serif">serif</div>
+        <div class="box sans-serif">sans-serif</div>
+        <div class="box monospace">monospace</div>
+        <div class="box cursive">cursive</div>
+    </div>
+
+    <!-- ==================================================
+       5. FONT-SIZE 
+       ================================================== -->
+
+    <h2>5. font-size</h2>
+    <div class="container">
+        <div class="box small">14px</div>
+        <div class="box large">26px</div>
+        <div class="box">300</div>
+        <div class="box">400</div>
+        <div class="box">700</div>
+    </div>
+
+    <!-- ==================================================
+    6. FONT-WEIGHT
+    ================================================== -->
+
+    <h2>6. font-weight</h2>
+    <div class="container">
+        <div class="box">14px</div>
+        <div class="box">26px</div>
+        <div class="box light">300</div>
+        <div class="box normal">400</div>
+        <div class="box bold">700</div>
+    </div>
+
+    <!-- ==================================================
+       6. FONT-STYLE
+       ================================================== -->
+
+    <h2>6. font-style</h2>
+    <div class="container">
+        <div class="box">normal</div>
+        <div class="box italic">italic</div>
+        <div class="box oblique">oblique</div>
+    </div>
+
+    <!-- ==================================================
+       7. LINE-HEIGHT VE LETTER-SPACING
+       ================================================== -->
+
+    <h2>7. line-height ve letter-spacing</h2>
+    <div class="container">
+        <div class="box line-height-ornek">line-height: 2 ile satırlar arası açılır.</div>
+        <div class="box letter-spacing-ornek">4px</div>
+    </div>
+
+    <!-- ==================================================
+       8. COLOR
+       ================================================== -->
+
+    <h2>8. color</h2>
+    <div class="container">
+        <div class="box renk-adi">crimson</div>
+        <div class="box hex-renk">#2563eb</div>
+        <div class="box rgb-renk">rgb()</div>
+        <div class="box hsl-renk">hsl()</div>
+    </div>
+</body>
+
+</html>
+<!--
+    ==================================================
+                      DEĞER ÖZETİ
+    ==================================================
+
+?    HİZALAMA DEĞERLERİ (text-align)
+*    left: Metni sol kenara hizalar.
+*    center: Metni ortaya hizalar.
+*    right: Metni sağ kenara hizalar.
+*    justify: Metni iki kenara yaslar; satırdaki boşluklar eşitlenir.
+
+?    ÇİZGİ DEĞERLERİ (text-decoration)
+*    underline: Metnin altına çizgi ekler.
+*    overline: Metnin üstüne çizgi ekler.
+*    line-through: Metnin ortasına çizgi ekler.
+*    none: Var olan çizgiyi kaldırır; bağlantılarda sık kullanılır.
+
+?    HARF DÖNÜŞÜM DEĞERLERİ (text-transform)
+*    uppercase: Tüm harfleri büyük harfe dönüştürür.
+*    lowercase: Tüm harfleri küçük harfe dönüştürür.
+*    capitalize: Her kelimenin ilk harfini büyük yapar.
+
+?    YAZI TİPİ DEĞERLERİ (font-family)
+*    serif: Harf uçlarında küçük çıkıntıları olan yazı tipidir.
+*    sans-serif: Harf uçlarında çıkıntı olmayan daha sade yazı tipidir.
+*    monospace: Her karakterin aynı genişlikte olduğu yazı tipidir.
+*    cursive: El yazısına benzer yazı tipidir; tarayıcıya göre değişebilir.
+
+?    BOYUT, KALINLIK VE STİL DEĞERLERİ (font-size & font-weight & font-style)
+*    px: Sabit piksel birimidir. 14px küçük, 26px daha büyük görünür.
+*    300: İnce yazı kalınlığıdır.
+*    400: Normal yazı kalınlığıdır.
+*    700: Kalın yazı değeridir.
+*    normal: Varsayılan eğim değeridir.
+*    italic: Eğik tasarlanmış yazı biçimidir.
+*    oblique: Normal yazının eğilmesiyle oluşan biçimdir.
+
+?    BOŞLUK DEĞERLERİ (line-height & letter-spacing)
+*    2: Satır yüksekliğini yazı boyutunun iki katı yapar.
+*    4px: Harfler arasına dört piksel boşluk ekler.
+
+?    RENK DEĞERLERİ (color)
+*    crimson: Hazır renk adıyla yazılmış renktir.
+*    #RRGGBB: Kırmızı, yeşil ve mavi çiftlerini içerir. Her çift 00 ile FF arasındadır.
+*    rgb(): Sıra kırmızı, yeşil ve mavidir. Her değer 0 ile 255 arasındadır.
+*    hsl(): Sıra ton, doygunluk ve açıklıktır.
+*    → Ton 0 ile 360 arasındadır: 0 kırmızı, 120 yeşil, 240 mavi.
+*    → Doygunluk ve açıklık yüzdeyle yazılır.
+*    → Örnek: hsl(280, 80%, 45%)
+
+-->

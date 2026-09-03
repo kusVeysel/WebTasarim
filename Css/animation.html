@@ -66,27 +66,19 @@
 
        Animasyonun hızlanma ve yavaşlama şeklini belirler.
 
-       linear
-       → Sabit hız
+       linear → Sabit hız
 
-       ease
-       → Yavaş başlar, hızlanır, yavaşlar
+       ease → Yavaş başlar, hızlanır, yavaşlar
 
-       ease-in
-       → Yavaş başlar
+       ease-in → Yavaş başlar
 
-       ease-out
-       → Yavaş biter
+       ease-out → Yavaş biter
 
-       ease-in-out
-       → Yavaş başlar ve yavaş biter
+       ease-in-out → Yavaş başlar ve yavaş biter
 
-       steps()
-       → Adım adım ilerler
+       steps() → Adım adım ilerler
 
-       cubic-bezier()
-       → Özel hız eğrisi
-    */
+       cubic-bezier() → Özel hız eğrisi */
 
         .timing .item {
             animation-name: hareket;
@@ -100,10 +92,7 @@
        4. animation-delay
        ==================================================
 
-       Animasyon başlamadan önce bekleme süresini belirler.
-
-       1s → 1 saniye bekler.
-    */
+       Animasyon başlamadan önce bekleme süresini belirler. */
 
         .delay .item {
             animation-name: hareket;
@@ -121,8 +110,7 @@
 
        1 → Bir kez
        3 → Üç kez
-       infinite → Sonsuza kadar
-    */
+       infinite → Sonsuza kadar */
 
         .iteration .item {
             animation-name: hareket;
@@ -137,18 +125,13 @@
 
        Animasyonun oynatma yönünü belirler.
 
-       normal
-       → Baştan sona oynar.
+       normal → Baştan sona oynar.
 
-       reverse
-       → Sondan başa oynar.
+       reverse → Sondan başa oynar.
 
-       alternate
-       → Bir ileri, bir geri oynar.
+       alternate → Bir ileri, bir geri oynar.
 
-       alternate-reverse
-       → Ters yönde başlayıp ileri-geri oynar.
-    */
+       alternate-reverse → Ters yönde başlayıp ileri-geri oynar. */
 
         .direction .item {
             animation-name: hareket;
@@ -165,18 +148,13 @@
        Animasyon başlamadan önce veya bittikten sonra
        hangi durumun korunacağını belirler.
 
-       none
-       → Özel bir durum uygulanmaz.
+       none → Özel bir durum uygulanmaz.
 
-       forwards
-       → Bittiğinde son durumda kalır.
+       forwards → Bittiğinde son durumda kalır.
 
-       backwards
-       → Başlamadan önce ilk durum uygulanır.
+       backwards → Başlamadan önce ilk durum uygulanır.
 
-       both
-       → forwards + backwards
-    */
+       both → forwards + backwards */
 
         .fill .item {
             animation-name: hareket;
@@ -191,12 +169,9 @@
 
        Animasyonun çalışıp çalışmayacağını belirler.
 
-       running
-       → Çalışır.
+       running → Çalışır.
 
-       paused
-       → Durur.
-    */
+       paused → Durur. */
 
         .play .item {
             animation-name: hareket;
@@ -217,15 +192,11 @@
        Birden fazla animasyon aynı özelliği değiştiriyorsa
        bunların nasıl birleştirileceğini belirler.
 
-       replace
-       → Yeni değer eskisinin yerine geçer.
+       replace → Yeni değer eskisinin yerine geçer.
 
-       add
-       → Değerler birbirine eklenir.
+       add → Değerler birbirine eklenir.
 
-       accumulate
-       → Değerler biriktirilir.
-    */
+       accumulate → Değerler biriktirilir. */
 
         .composition .item {
             animation-name: hareket;
@@ -241,16 +212,7 @@
 
        Birçok animation özelliğini tek satırda yazabiliriz.
 
-       animation:
-       name
-       duration
-       timing-function
-       delay
-       iteration-count
-       direction
-       fill-mode
-       play-state;
-    */
+       animation: name, duration, timing-function, delay, iteration-count, direction,fill-mode, play-state; */
 
         .shorthand .item {
             animation: hareket 2s ease-in-out 0s infinite alternate;
@@ -268,7 +230,6 @@
     */
 
         @keyframes hareket {
-
             from {
                 transform: translateX(0);
             }
@@ -280,9 +241,7 @@
             to {
                 transform: translateX(300px) rotate(360deg);
             }
-
         }
-
 
         /* ==================================================
        timing-function DEĞERLERİ
@@ -326,13 +285,11 @@
         <div class="item"></div>
     </div>
 
-
     <!-- 2. animation-duration -->
     <h2>2. animation-duration</h2>
     <div class="container duration">
         <div class="item"></div>
     </div>
-
 
     <!-- 3. animation-timing-function -->
     <h2>3. animation-timing-function</h2>
@@ -340,13 +297,11 @@
         <div class="item"></div>
     </div>
 
-
     <!-- 4. animation-delay -->
     <h2>4. animation-delay</h2>
     <div class="container delay">
         <div class="item"></div>
     </div>
-
 
     <!-- 5. animation-iteration-count -->
     <h2>5. animation-iteration-count</h2>
@@ -354,13 +309,11 @@
         <div class="item"></div>
     </div>
 
-
     <!-- 6. animation-direction -->
     <h2>6. animation-direction</h2>
     <div class="container direction">
         <div class="item"></div>
     </div>
-
 
     <!-- 7. animation-fill-mode -->
     <h2>7. animation-fill-mode</h2>
@@ -368,13 +321,11 @@
         <div class="item"></div>
     </div>
 
-
     <!-- 8. animation-play-state -->
     <h2>8. animation-play-state</h2>
     <div class="container play">
         <div class="item"></div>
     </div>
-
 
     <!-- 9. animation-composition -->
     <h2>9. animation-composition</h2>
@@ -382,13 +333,11 @@
         <div class="item"></div>
     </div>
 
-
     <!-- 10. animation shorthand -->
     <h2>10. animation</h2>
     <div class="container shorthand">
         <div class="item"></div>
     </div>
-
 
     <!-- timing-function değerleri -->
     <h2>animation-timing-function: linear</h2>
@@ -396,42 +345,35 @@
         <div class="item"></div>
     </div>
 
-
     <h2>animation-timing-function: ease</h2>
     <div class="container ease">
         <div class="item"></div>
     </div>
-
 
     <h2>animation-timing-function: ease-in</h2>
     <div class="container ease-in">
         <div class="item"></div>
     </div>
 
-
     <h2>animation-timing-function: ease-out</h2>
     <div class="container ease-out">
         <div class="item"></div>
     </div>
-
 
     <h2>animation-timing-function: ease-in-out</h2>
     <div class="container ease-in-out">
         <div class="item"></div>
     </div>
 
-
     <h2>animation-timing-function: steps()</h2>
     <div class="container steps">
         <div class="item"></div>
     </div>
 
-
     <h2>animation-timing-function: cubic-bezier()</h2>
     <div class="container bezier">
         <div class="item"></div>
     </div>
-
 </body>
 
 </html>

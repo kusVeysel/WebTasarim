@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>CSS border - Tüm Kullanımlar</title>
-
     <style>
         /* ==================================================
        ORTAK TASARIM
@@ -16,26 +14,20 @@
             display: flex;
             flex-wrap: wrap;
             gap: 25px;
-
             margin-bottom: 35px;
             padding: 25px;
-
             border: 1px solid #ddd;
         }
 
         .box {
             width: 180px;
             height: 100px;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             box-sizing: border-box;
-
             font-weight: bold;
         }
-
 
         /* ==================================================
        1. border: width style color
@@ -43,63 +35,51 @@
 
        border shorthand'ın temel kullanımıdır.
 
-       Sıralama:
-
-       border: genişlik stil renk;
-    */
+       Sıralama: border: genişlik stil renk; */
 
         .basic {
             border: 5px solid steelblue;
         }
 
-
         /* ==================================================
        2. border: solid
        ==================================================
 
-       Düz çizgi şeklinde border oluşturur.
-    */
+       Düz çizgi şeklinde border oluşturur. */
 
         .solid {
             border: 5px solid purple;
         }
 
-
         /* ==================================================
        3. border: dashed
        ==================================================
 
-       Kesikli çizgi oluşturur.
-    */
+       Kesikli çizgi oluşturur. */
 
         .dashed {
             border: 5px dashed crimson;
         }
 
-
         /* ==================================================
        4. border: dotted
        ==================================================
 
-       Noktalı çizgi oluşturur.
-    */
+       Noktalı çizgi oluşturur. */
 
         .dotted {
             border: 5px dotted green;
         }
 
-
         /* ==================================================
        5. border: double
        ==================================================
 
-       Çift çizgi oluşturur.
-    */
+       Çift çizgi oluşturur. */
 
         .double {
             border: 7px double orange;
         }
-
 
         /* ==================================================
        6. border: groove
@@ -107,78 +87,64 @@
 
        Oyulmuş / kabartmalı bir görünüm verir.
 
-       Görünüm tarayıcıya ve renge bağlıdır.
-    */
+       Görünüm tarayıcıya ve renge bağlıdır. */
 
         .groove {
             border: 8px groove steelblue;
         }
 
-
         /* ==================================================
        7. border: ridge
        ==================================================
 
-       Kabartılmış / yükseltilmiş bir görünüm verir.
-    */
+       Kabartılmış / yükseltilmiş bir görünüm verir. */
 
         .ridge {
             border: 8px ridge purple;
         }
 
-
         /* ==================================================
        8. border: inset
        ==================================================
 
-       Element içeri gömülmüş gibi görünür.
-    */
+       Element içeri gömülmüş gibi görünür. */
 
         .inset {
             border: 8px inset gray;
         }
 
-
         /* ==================================================
        9. border: outset
        ==================================================
 
-       Element dışarı doğru yükselmiş gibi görünür.
-    */
+       Element dışarı doğru yükselmiş gibi görünür. */
 
         .outset {
             border: 8px outset gray;
         }
 
-
         /* ==================================================
        10. border: none
        ==================================================
 
-       Border'ı kaldırır.
-    */
+       Border'ı kaldırır. */
 
         .none {
             border: none;
             background: #eee;
         }
 
-
         /* ==================================================
        11. border: 0
        ==================================================
 
        Border genişliğini sıfırlar.
-
-       Pratikte border'ı kaldırmak için
-       çok yaygın kullanılır.
-    */
+       Pratikte border'ı kaldırmak için çok yaygın kullanılır. */
 
         .zero {
             border: 0;
             background: #eee;
         }
-
 
         /* ==================================================
        12. border: transparent
@@ -186,41 +152,28 @@
 
        Border vardır fakat görünmez.
 
-       Alan hesaplamasında border'ın etkisi
-       korunabilir.
-    */
+       Alan hesaplamasında border'ın etkisi korunabilir. */
 
         .transparent {
             border: 5px solid transparent;
             background: #eee;
         }
 
-
         /* ==================================================
        13. FARKLI GENİŞLİKLER
        ==================================================
 
-       Border genişliği px, rem vb. birimlerle
-       belirtilebilir.
-    */
+       Border genişliği px, rem vb. birimlerle belirtilebilir. */
 
         .width {
             border: 10px solid steelblue;
         }
 
-
         /* ==================================================
        14. RENK SÖZ DİZİMİ
        ==================================================
 
-       Border renginde:
-
-       Renk adı
-       HEX
-       RGB
-       HSL
-       vb. kullanılabilir.
-    */
+       Border renginde: Renk adı, HEX, RGB, HSL, vb. kullanılabilir. */
 
         .hex {
             border: 5px solid #ff6600;
@@ -234,22 +187,18 @@
             border: 5px solid hsl(280, 70%, 50%);
         }
 
-
         /* ==================================================
        15. border-radius ile birlikte
        ==================================================
 
        border-radius ayrı bir property'dir.
 
-       Burada sadece border ile birlikte
-       gerçek kullanımını gösteriyoruz.
-    */
+       Burada sadece border ile birlikte gerçek kullanımını gösteriyoruz. */
 
         .rounded {
             border: 4px solid steelblue;
             border-radius: 20px;
         }
-
 
         /* ==================================================
        16. GERÇEK PROJE:
@@ -259,16 +208,11 @@
         .card {
             width: 300px;
             padding: 25px;
-
             border: 1px solid #ddd;
             border-radius: 15px;
-
-            box-shadow:
-                0 10px 30px rgba(0, 0, 0, .1);
-
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
             background: white;
         }
-
 
         /* ==================================================
        17. GERÇEK PROJE:
@@ -277,15 +221,11 @@
 
         .button {
             padding: 12px 25px;
-
             border: 2px solid steelblue;
             border-radius: 10px;
-
             background: white;
-
             cursor: pointer;
         }
-
 
         /* ==================================================
        18. GERÇEK PROJE:
@@ -294,54 +234,41 @@
 
        border'ın kendisine gradient verilemez.
 
-       Bunun yerine border-image kullanılabilir,
-       fakat bu border-image özelliğidir.
+       Bunun yerine border-image kullanılabilir, fakat bu border-image özelliğidir.
 
-       Burada border'ın temel kullanımını
-       göstermek için normal border kullanıyoruz.
-    */
+       Burada border'ın temel kullanımını göstermek için normal border kullanıyoruz. */
 
         .gradient-border {
             border: 4px solid transparent;
-
             background:
                 linear-gradient(white, white) padding-box,
                 linear-gradient(90deg,
                     steelblue,
                     purple) border-box;
-
             border-radius: 15px;
         }
     </style>
 </head>
 
-
 <body>
-
 
     <!-- ==================================================
        TEMEL
        ================================================== -->
 
     <h2>1. Temel border</h2>
-
     <div class="container">
-
         <div class="box basic">
             5px solid blue
         </div>
-
     </div>
-
 
     <!-- ==================================================
        BORDER STYLES
        ================================================== -->
 
     <h2>2-9. Border Stilleri</h2>
-
     <div class="container">
-
         <div class="box solid">
             solid
         </div>
@@ -373,18 +300,14 @@
         <div class="box outset">
             outset
         </div>
-
     </div>
-
 
     <!-- ==================================================
        BORDER KALDIRMA
        ================================================== -->
 
     <h2>10-12. Border kaldırma / görünmez border</h2>
-
     <div class="container">
-
         <div class="box none">
             none
         </div>
@@ -396,33 +319,25 @@
         <div class="box transparent">
             transparent
         </div>
-
     </div>
-
 
     <!-- ==================================================
        GENİŞLİK
        ================================================== -->
 
     <h2>13. Border genişliği</h2>
-
     <div class="container">
-
         <div class="box width">
             10px
         </div>
-
     </div>
-
 
     <!-- ==================================================
        RENKLER
        ================================================== -->
 
     <h2>14. Border renkleri</h2>
-
     <div class="container">
-
         <div class="box hex">
             HEX
         </div>
@@ -434,77 +349,54 @@
         <div class="box hsl">
             HSL
         </div>
-
     </div>
-
 
     <!-- ==================================================
        BORDER + RADIUS
        ================================================== -->
 
     <h2>15. Border + border-radius</h2>
-
     <div class="container">
-
         <div class="box rounded">
             Rounded
         </div>
-
     </div>
-
 
     <!-- ==================================================
        GERÇEK PROJE CARD
        ================================================== -->
 
     <h2>16. Gerçek Proje → Card</h2>
-
     <div class="container">
-
         <div class="card">
-
             <h3>Card Başlığı</h3>
-
             <p>
-                Border, kartların sınırlarını
-                belirlemek için çok kullanılır.
+                Border, kartların sınırlarını belirlemek için çok kullanılır.
             </p>
-
         </div>
-
     </div>
-
 
     <!-- ==================================================
        GERÇEK PROJE BUTTON
        ================================================== -->
 
     <h2>17. Gerçek Proje → Button</h2>
-
     <div class="container">
-
         <button class="button">
             Buton
         </button>
-
     </div>
-
 
     <!-- ==================================================
        GRADIENT BORDER
        ================================================== -->
 
     <h2>18. Gradient Border</h2>
-
     <div class="container">
-
         <div class="box gradient-border">
             Gradient Border
         </div>
-
     </div>
-
-
 </body>
 
 </html>

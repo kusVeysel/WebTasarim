@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>CSS backface-visibility</title>
-
     <style>
         /* ==================================================
        ORTAK TASARIM
@@ -20,52 +18,39 @@
             display: flex;
             flex-wrap: wrap;
             gap: 40px;
-
             margin-bottom: 50px;
             padding: 30px;
-
             perspective: 800px;
         }
 
         .box {
             width: 180px;
             height: 120px;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             color: white;
             font-size: 18px;
             font-weight: bold;
-
             border-radius: 15px;
-
             background: steelblue;
-
             transform-style: preserve-3d;
         }
-
 
         /* ==================================================
        1. backface-visibility: visible
        ==================================================
 
        Element döndüğünde arka yüzü görünür.
-
        Varsayılan değerdir.
 
-       180deg döndürülse bile elementin
-       arka yüzünü görebilirsin.
-    */
+       180deg döndürülse bile elementin arka yüzünü görebilirsin. */
 
         .visible {
             backface-visibility: visible;
-
             transform:
                 rotateY(180deg);
         }
-
 
         /* ==================================================
        2. backface-visibility: hidden
@@ -73,17 +58,13 @@
 
        Element döndüğünde arka yüzünü gizler.
 
-       3D kart çevirme efektlerinde
-       en çok kullanılan değerdir.
-    */
+       3D kart çevirme efektlerinde en çok kullanılan değerdir. */
 
         .hidden {
             backface-visibility: hidden;
-
             transform:
                 rotateY(180deg);
         }
-
 
         /* ==================================================
        3. GERÇEK PROJE:
@@ -92,19 +73,13 @@
 
        Ön yüz ve arka yüz oluşturulur.
 
-       Kart 180 derece döndüğünde
-       ön yüz gizlenir,
-       arka yüz görünür.
-    */
+       Kart 180 derece döndüğünde ön yüz gizlenir, arka yüz görünür. */
 
         .card {
             width: 220px;
             height: 140px;
-
             position: relative;
-
             transform-style: preserve-3d;
-
             transition: transform .6s;
         }
 
@@ -115,18 +90,13 @@
         .front,
         .back {
             position: absolute;
-
             inset: 0;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             border-radius: 15px;
-
             color: white;
             font-weight: bold;
-
             backface-visibility: hidden;
         }
 
@@ -136,27 +106,21 @@
 
         .back {
             background: purple;
-
             transform: rotateY(180deg);
         }
-
 
         /* ==================================================
        4. GERÇEK PROJE:
           VERTICAL FLIP
        ==================================================
 
-       rotateX() ile kart dikey eksende döndürülür.
-    */
+       rotateX() ile kart dikey eksende döndürülür. */
 
         .vertical-card {
             width: 220px;
             height: 140px;
-
             position: relative;
-
             transform-style: preserve-3d;
-
             transition: transform .6s;
         }
 
@@ -167,18 +131,13 @@
         .vertical-front,
         .vertical-back {
             position: absolute;
-
             inset: 0;
-
             display: flex;
             align-items: center;
             justify-content: center;
-
             border-radius: 15px;
-
             color: white;
             font-weight: bold;
-
             backface-visibility: hidden;
         }
 
@@ -188,7 +147,6 @@
 
         .vertical-back {
             background: crimson;
-
             transform: rotateX(180deg);
         }
     </style>
@@ -207,7 +165,6 @@
         </div>
     </div>
 
-
     <!-- ==================================================
        2. hidden
        ================================================== -->
@@ -218,7 +175,6 @@
             HIDDEN
         </div>
     </div>
-
 
     <!-- ==================================================
        3. FLIP CARD
@@ -236,7 +192,6 @@
         </div>
     </div>
 
-
     <!-- ==================================================
        4. VERTICAL FLIP
        ================================================== -->
@@ -252,8 +207,6 @@
             </div>
         </div>
     </div>
-
-
 </body>
 
 </html>

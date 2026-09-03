@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Boyut ve Kutu Modeli</title>
+  <style>
+    /* ==================================================
+       ORTAK TASARIM
+       ================================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      color: #1f2937;
+    }
+
+    .container {
+      margin-bottom: 35px;
+      padding: 20px;
+      background: #f3f4f6;
+      border-radius: 12px;
+    }
+
+    .box {
+      padding: 14px;
+      background: white;
+      border: 2px solid #94a3b8;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    /* ==================================================
+       1. WIDTH
+       Elementin genişliğini belirler.
+       ================================================== */
+
+    .width-ornek {
+      width: 220px;
+    }
+
+    /* ==================================================
+       2. HEIGHT
+       Elementin yüksekliğini belirler.
+       ================================================== */
+
+    .height-ornek {
+      height: 120px;
+    }
+
+    /* ==================================================
+       3. MIN-WIDTH VE MAX-WIDTH
+       Genişliğin alt ve üst sınırını belirler.
+       ================================================== */
+
+    .sinirli-genislik {
+      width: 80%;
+      min-width: 180px;
+      max-width: 700px;
+    }
+
+    /* ==================================================
+       4. MIN-HEIGHT VE MAX-HEIGHT
+       Yüksekliğin alt ve üst sınırını belirler.
+       ================================================== */
+
+    .sinirli-yukseklik {
+      min-height: 80px;
+      max-height: 120px;
+      overflow: auto;
+    }
+
+    /* ==================================================
+       5. PADDING VE MARGIN
+       Padding iç, margin dış boşluktur.
+       ================================================== */
+
+    .padding-ornek {
+      padding: 35px;
+      background: #dbeafe;
+      border-color: #60a5fa;
+    }
+
+    .margin-ornek {
+      margin-left: 70px;
+      background: #dcfce7;
+      border-color: #4ade80;
+    }
+
+    /* ==================================================
+       6. BOX-SIZING
+       border-box, padding ve border'ı toplam genişliğe dahil eder.
+       ================================================== */
+
+    .box-sizing-ornek {
+      width: 240px;
+      padding: 30px;
+      border: 10px solid #f59e0b;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ==================================================
+       1. WIDTH
+       ================================================== -->
+
+  <h2>1. width</h2>
+  <div class="container">
+    <div class="box width-ornek">width: 220px</div>
+  </div>
+
+  <!-- ==================================================
+       2. HEIGHT
+       ================================================== -->
+
+  <h2>2. height</h2>
+  <div class="container">
+    <div class="box height-ornek">height: 120px</div>
+  </div>
+
+  <!-- ==================================================
+       3. MIN-WIDTH VE MAX-WIDTH
+       ================================================== -->
+
+  <h2>3. min-width ve max-width</h2>
+  <div class="container">
+    <div class="box sinirli-genislik">Genişliği sınırlı kutu</div>
+  </div>
+
+  <!-- ==================================================
+       4. MIN-HEIGHT VE MAX-HEIGHT
+       ================================================== -->
+
+  <h2>4. min-height ve max-height</h2>
+  <div class="container">
+    <div class="box sinirli-yukseklik">
+      Bu kutunun minimum ve maksimum yüksekliği vardır. İçerik uzarsa kaydırılabilir.
+    </div>
+  </div>
+
+  <!-- ==================================================
+       5. PADDING VE MARGIN
+       ================================================== -->
+
+  <h2>5. padding ve margin</h2>
+  <div class="container">
+    <div class="box padding-ornek">padding: 35px</div>
+    <div class="box margin-ornek">margin-left: 70px</div>
+  </div>
+
+  <!-- ==================================================
+       6. BOX-SIZING
+       ================================================== -->
+
+  <h2>6. box-sizing: border-box</h2>
+  <div class="container">
+    <div class="box box-sizing-ornek">Toplam genişlik: 240px</div>
+  </div>
+</body>
+
+</html>
