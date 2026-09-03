@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CSS Responsive Tasarım</title>
+	<style>
+		* { box-sizing: border-box; }
+
+		:root {
+			--ana-renk: #2563eb;
+			--vurgu: #f59e0b;
+			--metin: #1f2937;
+			--zemin: #f3f4f6;
+			--radius: 10px;
+		}
+
+		body {
+			margin: 0;
+			padding: 30px;
+			font-family: Arial, sans-serif;
+			color: var(--metin);
+			background: #e0f2fe;
+		}
+
+		h1 { font-size: clamp(28px, 5vw, 52px); margin-top: 0; }
+		h2 { margin-top: 36px; }
+		.explanation { max-width: 850px; line-height: 1.5; color: #475569; }
+
+		.container {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 15px;
+			margin-bottom: 30px;
+			padding: 20px;
+			background: var(--zemin);
+			border-radius: var(--radius);
+		}
+
+		.demo {
+			width: 100%;
+			padding: 15px;
+			border: 2px dashed #94a3b8;
+			background: white;
+		}
+
+		.card {
+			padding: 18px;
+			border: 2px solid #93c5fd;
+			border-radius: var(--radius);
+			background: white;
+		}
+
+		/* 1. VIEWPORT VE RESPONSIVE META */
+		.viewport-code {
+			padding: 18px;
+			border-left: 5px solid var(--ana-renk);
+			background: #dbeafe;
+			font-family: "Courier New", monospace;
+		}
+
+		/* 2. MEDIA QUERY */
+		.responsive-nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 20px;
+			padding: 18px 24px;
+			background: #1e3a8a;
+			color: white;
+			border-radius: var(--radius);
+		}
+
+		.nav-links { display: flex; gap: 20px; }
+		.nav-links a { color: white; text-decoration: none; }
+		.mobile-message { display: none; }
+
+		/* 3. FLUID VALUES */
+		.fluid-box {
+			width: min(100%, 700px);
+			padding: clamp(16px, 4vw, 45px);
+			font-size: clamp(18px, 3vw, 32px);
+			background: #bfdbfe;
+			border: 3px solid var(--ana-renk);
+			border-radius: var(--radius);
+		}
+
+		/* 4. RESPONSIVE GRID */
+		.responsive-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+			gap: 15px;
+		}
+
+		.grid-card { min-height: 120px; background: #fef3c7; }
+
+		/* 5. RESPONSIVE FLEX */
+		.responsive-flex {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 15px;
+		}
+
+		.flex-card { flex: 1 1 220px; min-height: 110px; background: #dcfce7; }
+
+		/* 6. ASPECT RATIO */
+		.media-frame {
+			width: min(100%, 600px);
+			aspect-ratio: 16 / 9;
+			display: grid;
+			place-items: center;
+			background: linear-gradient(135deg, #0f766e, #38bdf8);
+			color: white;
+			border-radius: var(--radius);
+			font-size: clamp(18px, 4vw, 32px);
+		}
+
+		/* 7. CONTAINER QUERY */
+		.product-wrapper {
+			container-type: inline-size;
+			width: 100%;
+			max-width: 700px;
+			padding: 15px;
+			border: 2px solid #64748b;
+		}
+
+		.product-card { display: flex; gap: 18px; align-items: center; background: #fce7f3; }
+		.product-card .product-info { flex: 1; }
+
+		/* 8. ACCESSIBILITY */
+		.motion-box {
+			width: 150px;
+			padding: 20px;
+			background: var(--vurgu);
+			animation: slide 2s ease-in-out infinite alternate;
+		}
+
+		@keyframes slide {
+			from { transform: translateX(0); }
+			to { transform: translateX(240px); }
+		}
+
+		@media (max-width: 600px) {
+			body { padding: 15px; }
+			.responsive-nav { align-items: flex-start; flex-direction: column; }
+			.nav-links { flex-direction: column; gap: 8px; }
+			.mobile-message { display: block; color: #1d4ed8; font-weight: bold; }
+			.container { padding: 12px; }
+		}
+
+		@container (max-width: 430px) {
+			.product-card { display: block; }
+			.product-card .product-info { margin-top: 12px; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after {
+				animation-duration: 0.01ms !important;
+				animation-iteration-count: 1 !important;
+				scroll-behavior: auto !important;
+				transition-duration: 0.01ms !important;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Responsive Tasarım</h1>
+	<p class="explanation">Responsive tasarım, sayfanın telefon, tablet ve bilgisayar ekranlarına uyum sağlamasıdır. Bu sayfayı farklı genişliklerde açarak kutuların nasıl yeniden düzenlendiğini gözlemleyin.</p>
+
+	<h2>1. viewport ve meta etiketi</h2>
+	<p class="explanation">Mobil cihazlarda sayfanın gerçek ekran genişliğine göre ölçeklenmesi için viewport meta etiketi kullanılır.</p>
+	<div class="container">
+		<div class="demo viewport-code">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</div>
+	</div>
+
+	<h2>2. @media query</h2>
+	<p class="explanation">@media, ekran genişliği gibi koşullara göre farklı CSS kuralları uygular. Bu navigasyon 600px altında dikey düzene geçer.</p>
+	<div class="container">
+		<nav class="responsive-nav">
+			<strong>Web Sitem</strong>
+			<div class="nav-links"><a href="#">Ana sayfa</a><a href="#">Hakkımızda</a><a href="#">İletişim</a></div>
+		</nav>
+		<p class="mobile-message">Mobil görünüm aktif: Menü dikey düzene geçti.</p>
+	</div>
+
+	<h2>3. akışkan ölçüler: clamp(), min() ve max()</h2>
+	<p class="explanation">clamp(minimum, tercih edilen değer, maksimum) ile boyut ekranla birlikte değişir, fakat belirlenen sınırların dışına çıkmaz. min() genişliğin taşmasını engeller.</p>
+	<div class="container">
+		<div class="demo"><div class="fluid-box">Ekran genişledikçe yazı ve iç boşluk değişir.</div></div>
+	</div>
+
+	<h2>4. responsive grid: auto-fit ve minmax()</h2>
+	<p class="explanation">auto-fit, sığabilecek kadar sütun oluşturur. Her sütunun genişliği minmax() ile en az 180px, uygun olduğunda ise kalan alan olacak şekilde belirlenir.</p>
+	<div class="container">
+		<div class="demo responsive-grid">
+			<div class="card grid-card">Kart 1<br>Her ekranda yerleşir.</div>
+			<div class="card grid-card">Kart 2<br>Sütun sayısı değişir.</div>
+			<div class="card grid-card">Kart 3<br>Minimum genişlik korunur.</div>
+			<div class="card grid-card">Kart 4<br>Alan eşit paylaşılır.</div>
+		</div>
+	</div>
+
+	<h2>5. responsive flex</h2>
+	<p class="explanation">flex-wrap sığmayan kartları yeni satıra geçirir. flex: 1 1 220px, kartların büyüyebilmesini ve gerektiğinde küçülebilmesini sağlar.</p>
+	<div class="container">
+		<div class="demo responsive-flex">
+			<div class="card flex-card">Esnek kart 1</div>
+			<div class="card flex-card">Esnek kart 2</div>
+			<div class="card flex-card">Esnek kart 3</div>
+		</div>
+	</div>
+
+	<h2>6. aspect-ratio</h2>
+	<p class="explanation">aspect-ratio, kutunun genişliği değişse bile en-boy oranını korur. Aşağıdaki alan her zaman 16:9 oranındadır.</p>
+	<div class="container"><div class="demo"><div class="media-frame">16 : 9</div></div></div>
+
+	<h2>7. container query</h2>
+	<p class="explanation">@container, ekranı değil component'in bulunduğu alanı kontrol eder. Ürün kartı 430px'ten dar bir container içine girince yatay yapı dikey olur.</p>
+	<div class="container">
+		<div class="product-wrapper">
+			<div class="card product-card"><div class="media-frame" style="width: 180px; aspect-ratio: 1 / 1;">ürün</div><div class="product-info"><h3>Responsive ürün kartı</h3><p>Container daraldığında içerik alt alta yerleşir.</p></div></div>
+		</div>
+	</div>
+
+	<h2>8. prefers-reduced-motion</h2>
+	<p class="explanation">Hareket hassasiyeti olan kullanıcılar için animasyonlar azaltılabilir. Sisteminizde “hareketi azalt” tercihi açıksa aşağıdaki hareket durur.</p>
+	<div class="container"><div class="demo"><div class="motion-box">Hareketli kutu</div></div></div>
+</body>
+
+</html>
+<!--
+	==================================================
+					  DEĞER ÖZETİ
+	==================================================
+
+?    VIEWPORT
+*    viewport meta etiketi: Mobil tarayıcıya sayfanın cihaz genişliğini kullanmasını söyler.
+*    width=device-width: Görünüm genişliğini cihaz genişliğine eşitler.
+*    initial-scale=1.0: Başlangıç yakınlaştırmasını yüzde 100 yapar.
+
+?    MEDIA QUERY
+*    @media: Belirli ekran veya cihaz koşullarında farklı CSS kuralları uygular.
+*    max-width: Ekran bu değerden küçük veya eşitse kural çalışır.
+*    min-width: Ekran bu değerden büyük veya eşitse kural çalışır.
+
+?    AKIŞKAN ÖLÇÜLER
+*    clamp(min, tercih, max): Değeri minimum ve maksimum arasında akışkan biçimde değiştirir.
+*    min(): Verilen değerlerden küçük olanı kullanır.
+*    max(): Verilen değerlerden büyük olanı kullanır.
+*    vw: Ekran genişliğinin yüzde birimidir.
+*    rem: Kök elementin yazı boyutuna göre ölçü birimidir.
+
+?    RESPONSIVE GRID
+*    auto-fit: Sığabilecek kadar sütun oluşturur ve boş alanı dağıtır.
+*    minmax(min, max): Grid sütununa minimum ve maksimum genişlik sınırı koyar.
+*    repeat(): Aynı sütun veya satır tanımını tekrarlar.
+
+?    RESPONSIVE FLEX
+*    flex-wrap: Sığmayan flex elementlerini yeni satıra geçirir.
+*    flex: 1 1 220px: Büyüme, küçülme ve başlangıç boyutunu birlikte belirler.
+
+?    ORAN VE CONTAINER
+*    aspect-ratio: Elementin genişlik-yükseklik oranını korur.
+*    @container: Component'in kendi genişliğine göre CSS kuralı uygular.
+*    container-type: Elementi container query ölçüm alanı yapar.
+
+?    ERİŞİLEBİLİRLİK
+*    prefers-reduced-motion: Kullanıcının hareket azaltma tercihini algılar.
+*    animation-duration: 0.01ms: Hareketi pratik olarak görünmez hale getirir.
+
+-->

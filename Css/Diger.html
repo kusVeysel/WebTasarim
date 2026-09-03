@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diğer CSS Özellikleri</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            color: #1f2937;
+            background: #f1f5f9;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        h2 {
+            margin-top: 40px;
+        }
+
+        .explanation {
+            max-width: 850px;
+            line-height: 1.5;
+            color: #475569;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .box {
+            min-width: 150px;
+            padding: 18px;
+            border: 2px solid #334155;
+            background: #dbeafe;
+            text-align: center;
+        }
+
+        /* 1. CLIP-PATH */
+        .clip-box {
+            width: 170px;
+            height: 120px;
+            padding: 0;
+            background: #38bdf8;
+        }
+
+        .clip-inset {
+            clip-path: inset(15px 25px 15px 25px round 12px);
+        }
+
+        .clip-circle {
+            clip-path: circle(45% at 50% 50%);
+        }
+
+        .clip-ellipse {
+            clip-path: ellipse(45% 35% at 50% 50%);
+        }
+
+        .clip-polygon {
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        }
+
+        .clip-path-shape {
+            clip-path: path("M 10 110 L 85 10 L 160 110 Z");
+        }
+
+        /* 2. RESIZE */
+        .resize-box {
+            width: 260px;
+            height: 100px;
+            padding: 12px;
+            overflow: auto;
+            border: 2px solid #2563eb;
+            border-radius: 8px;
+            background: #eff6ff;
+            font: inherit;
+        }
+
+        .resize-none {
+            resize: none;
+        }
+
+        .resize-both {
+            resize: both;
+        }
+
+        .resize-horizontal {
+            resize: horizontal;
+        }
+
+        .resize-vertical {
+            resize: vertical;
+        }
+
+        .resize-block {
+            resize: block;
+        }
+
+        .resize-inline {
+            resize: inline;
+        }
+
+        /* 3. OFFSET */
+        .offset-stage {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            border: 2px dashed #64748b;
+            background: #ecfeff;
+        }
+
+        .offset-item {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #f97316;
+            offset-path: path("M 0 0 C 100 170 240 -80 430 120");
+            offset-distance: 0%;
+            offset-rotate: auto;
+            transition: offset-distance 1.2s ease, offset-rotate 1.2s ease;
+        }
+
+        .offset-stage:hover .offset-item {
+            offset-distance: 100%;
+        }
+
+        .offset-label {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+        }
+
+        .offset-circle .offset-item {
+            offset-path: circle(75px at 50% 50%);
+            offset-distance: 0%;
+            transition: offset-distance 2s linear;
+        }
+
+        .offset-circle:hover .offset-item {
+            offset-distance: 100%;
+        }
+
+        /* 4. PERSPECTIVE */
+        .perspective-stage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 220px;
+            height: 180px;
+            perspective: 200px;
+            background: #e0f2fe;
+        }
+
+        .perspective-500 {
+            perspective: 500px;
+        }
+
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .perspective-card {
+            display: grid;
+            place-items: center;
+            width: 120px;
+            height: 100px;
+            color: white;
+            background: #2563eb;
+            border-radius: 8px;
+            transform: rotateY(45deg);
+        }
+
+        .perspective-stage:hover .perspective-card {
+            transform: rotateY(0);
+        }
+
+        /* 5. BACKFACE-VISIBILITY */
+        .flip-stage {
+            width: 220px;
+            height: 140px;
+            perspective: 700px;
+        }
+
+        .flip-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-stage:hover .flip-card {
+            transform: rotateY(180deg);
+        }
+
+        .flip-front,
+        .flip-back {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            color: white;
+            border-radius: 10px;
+            backface-visibility: hidden;
+        }
+
+        .flip-front {
+            background: #0f766e;
+        }
+
+        .flip-back {
+            background: #dc2626;
+            transform: rotateY(180deg);
+        }
+
+        .visibility-visible {
+            backface-visibility: visible;
+        }
+
+        .visibility-hidden {
+            backface-visibility: hidden;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Diğer CSS Özellikleri</h1>
+    <p class="explanation">Bu sayfada şekil kırpma, kullanıcı tarafından boyutlandırma, yol üzerinde hareket, 3D
+        derinlik ve arka yüz görünürlüğü örneklenir. Hareketli örnekleri görmek için üzerlerine gelin.</p>
+
+    <h2>1. clip-path</h2>
+    <p class="explanation">clip-path, elementin hangi geometrik alanının görüneceğini belirler. Görünmeyen kısımlar
+        silinmez; yalnızca ekranda kırpılır.</p>
+    <div class="container">
+        <div class="box clip-box clip-inset">inset()<br>İçeri doğru kırpar.</div>
+        <div class="box clip-box clip-circle">circle()<br>Daire oluşturur.</div>
+        <div class="box clip-box clip-ellipse">ellipse()<br>Elips oluşturur.</div>
+        <div class="box clip-box clip-polygon">polygon()<br>Noktaları birleştirir.</div>
+        <div class="box clip-box clip-path-shape">path()<br>Özel yol oluşturur.</div>
+    </div>
+
+    <h2>2. resize</h2>
+    <p class="explanation">resize, kullanıcının elementi fareyle yeniden boyutlandırmasına izin verir. Çalışması için
+        overflow değeri gerekir; aşağıdaki kutuların sağ alt köşesini sürükleyin.</p>
+    <div class="container">
+        <textarea class="resize-box resize-none" readonly>resize: none
+Boyut değişmez.</textarea>
+        <textarea class="resize-box resize-both">resize: both
+Yatay ve dikey değişir.</textarea>
+        <textarea class="resize-box resize-horizontal">resize: horizontal
+Yalnızca genişlik değişir.</textarea>
+        <textarea class="resize-box resize-vertical">resize: vertical
+Yalnızca yükseklik değişir.</textarea>
+        <textarea class="resize-box resize-block">resize: block
+Block yönünde değişir.</textarea>
+        <textarea class="resize-box resize-inline">resize: inline
+Inline yönünde değişir.</textarea>
+    </div>
+
+    <h2>3. offset</h2>
+    <p class="explanation">offset-path elementin izleyeceği yolu, offset-distance yol üzerindeki ilerleme oranını,
+        offset-rotate ise yola göre dönmesini belirler. Alanın üzerine gelin.</p>
+    <div class="container">
+        <div class="offset-stage">
+            <div class="offset-item"></div>
+            <span class="offset-label">path() + distance: 0% → 100% + rotate: auto</span>
+        </div>
+        <div class="offset-stage offset-circle">
+            <div class="offset-item"></div>
+            <span class="offset-label">circle() + offset-distance</span>
+        </div>
+    </div>
+
+    <h2>4. perspective</h2>
+    <p class="explanation">perspective, 3D nesnenin kameraya uzaklık hissini belirler. Küçük değer daha güçlü, büyük
+        değer daha düz bir perspektif oluşturur. Kutuların üzerine gelin.</p>
+    <div class="container">
+        <div class="perspective-stage">
+            <div class="perspective-card">200px<br>güçlü</div>
+        </div>
+        <div class="perspective-stage perspective-500">
+            <div class="perspective-card">500px<br>dengeli</div>
+        </div>
+        <div class="perspective-stage perspective-1000">
+            <div class="perspective-card">1000px<br>uzak</div>
+        </div>
+    </div>
+
+    <h2>5. backface-visibility</h2>
+    <p class="explanation">backface-visibility, 3D element döndüğünde arka yüzünün görünüp görünmeyeceğini belirler.
+        Flip kartta arka yüz gizlenir ve doğru yüz görünür.</p>
+    <div class="container">
+        <div class="box visibility-visible">visible<br>Arka yüz görünür.<br>rotateY(180deg)</div>
+        <div class="box visibility-hidden">hidden<br>Arka yüz gizlenir.<br>rotateY(180deg)</div>
+        <div class="flip-stage">
+            <div class="flip-card">
+                <div class="flip-front">Ön yüz<br>hover yap</div>
+                <div class="flip-back">Arka yüz</div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+        ==================================================
+                         DEĞER ÖZETİ
+        ==================================================
+
+?       1. CLIP-PATH
+*       inset(): Elementi kenarlardan içeri doğru dikdörtgen biçiminde kırpar.
+*       circle(): Elementi daire biçiminde gösterir.
+*       ellipse(): Elementi elips biçiminde gösterir.
+*       polygon(): Verilen noktaları birleştirerek çokgen oluşturur.
+*       path(): Özel çizgi ve eğrilerden oluşan bir kırpma yolu oluşturur.
+
+?       2. RESIZE
+*       none: Elementin boyutu kullanıcı tarafından değiştirilemez.
+*       both: Genişlik ve yükseklik birlikte değiştirilebilir.
+*       horizontal: Yalnızca genişlik değiştirilebilir.
+*       vertical: Yalnızca yükseklik değiştirilebilir.
+*       block: Element block yönünde boyutlandırılabilir.
+*       inline: Element inline yönünde boyutlandırılabilir.
+*       resize özelliğinin çalışması için genellikle overflow: auto kullanılır.
+
+?       3. OFFSET
+*       offset-path: Elementin izleyeceği yolu belirler; path() ve circle() kullanılabilir.
+*       offset-distance: Elementin yol üzerindeki ilerlemesini belirler; 0% başlangıç, 100% sondur.
+*       offset-position: Offset yolunun başlangıç konumunu belirler.
+*       offset-rotate: Elementin yol yönüne göre dönmesini belirler.
+*       auto: Element yolu takip ederken yönünü otomatik değiştirir.
+*       reverse: Elementin yönünü tersine çevirir.
+*       offset-anchor: Elementin hangi noktasının yola bağlanacağını belirler.
+
+?       4. PERSPECTIVE
+*       none: Perspektif uygulanmaz.
+*       px değeri: 3D kameranın uzaklığını belirler.
+*       Küçük px değerleri: Daha güçlü ve belirgin derinlik oluşturur.
+*       Büyük px değerleri: Daha uzak kamera ve daha düz görünüm oluşturur.
+
+?       5. BACKFACE-VISIBILITY
+*       visible: Element döndüğünde arka yüzünü gösterir.
+*       hidden: Element döndüğünde arka yüzünü gizler.
+*       Flip card: Ön ve arka yüzleri gizleyerek kart çevirme efekti oluşturur.
+
+    -->
+</body>
+
+</html>

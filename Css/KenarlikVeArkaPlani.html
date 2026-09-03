@@ -37,6 +37,14 @@
             text-align: center;
         }
 
+        .explanation {
+            max-width: 850px;
+            margin-top: -8px;
+            margin-bottom: 12px;
+            color: #475569;
+            line-height: 1.5;
+        }
+
         /* ==================================================
        1. BORDER
        Kenarlığın kalınlığını, türünü ve rengini belirler.
@@ -232,6 +240,61 @@
             background-size: 60px 60px;
             background-repeat: repeat-y;
         }
+
+        /* ==================================================
+       10. OBJECT-FIT
+       Görselin kendi kutusuna nasıl sığacağını belirler.
+       ================================================== */
+
+        .object-fit-box {
+            position: relative;
+            width: 180px;
+            min-width: 180px;
+            height: 120px;
+            padding: 0;
+            overflow: hidden;
+            border: 3px solid #334155;
+        }
+
+        .object-fit-box img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .object-fit-label {
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            left: 5px;
+            padding: 4px;
+            background: rgba(255, 255, 255, 0.85);
+            color: #0f172a;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .object-fit-fill img {
+            object-fit: fill;
+        }
+
+        .object-fit-contain img {
+            object-fit: contain;
+            background: #fef3c7;
+        }
+
+        .object-fit-cover img {
+            object-fit: cover;
+        }
+
+        .object-fit-none img {
+            object-fit: none;
+        }
+
+        .object-fit-scale-down img {
+            object-fit: scale-down;
+        }
     </style>
 </head>
 
@@ -241,15 +304,17 @@
        ================================================== -->
 
     <h2>1. border-style</h2>
+    <p class="explanation">border-style çizginin şeklini belirler. Kutuların içindeki declaration, kullanılan property
+        ve değeri doğrudan gösterir.</p>
     <div class="container">
-        <div class="box solid-border">solid</div>
-        <div class="box dashed-border">dashed</div>
-        <div class="box dotted-border">dotted</div>
-        <div class="box double-border">double</div>
-        <div class="box groove-border">groove</div>
-        <div class="box ridge-border">ridge</div>
-        <div class="box inset-border">inset</div>
-        <div class="box outset-border">outset</div>
+        <div class="box solid-border">border: 3px solid</div>
+        <div class="box dashed-border">border: 3px dashed</div>
+        <div class="box dotted-border">border: 3px dotted</div>
+        <div class="box double-border">border: 5px double</div>
+        <div class="box groove-border">border: 5px groove</div>
+        <div class="box ridge-border">border: 5px ridge</div>
+        <div class="box inset-border">border: 5px inset</div>
+        <div class="box outset-border">border: 5px outset</div>
     </div>
 
     <!-- ==================================================
@@ -257,10 +322,12 @@
        ================================================== -->
 
     <h2>2. border-width</h2>
+    <p class="explanation">border-width kenarlığın kalınlığını belirler. thin, medium ve thick tarayıcının hazır
+        kalınlık değerleridir.</p>
     <div class="container">
-        <div class="box thin-border">thin</div>
-        <div class="box medium-border">medium</div>
-        <div class="box thick-border">thick</div>
+        <div class="box thin-border">border-width: thin</div>
+        <div class="box medium-border">border-width: medium</div>
+        <div class="box thick-border">border-width: thick</div>
     </div>
 
     <!-- ==================================================
@@ -268,9 +335,10 @@
        ================================================== -->
 
     <h2>3. border-radius</h2>
+    <p class="explanation">border-radius köşeleri yuvarlatır. Yüzde değeri kutunun şekline göre yuvarlama yapar.</p>
     <div class="container">
-        <div class="box radius-border">20px</div>
-        <div class="box circle-border">50%</div>
+        <div class="box radius-border">border-radius: 20px</div>
+        <div class="box circle-border">border-radius: 50%</div>
     </div>
 
     <!-- ==================================================
@@ -278,10 +346,12 @@
        ================================================== -->
 
     <h2>4. outline ve outline-offset</h2>
+    <p class="explanation">outline kutunun dışına çizilir ve layout içinde yer kaplamaz. outline-offset, çizgiyi kutudan
+        uzaklaştırır.</p>
     <div class="container">
-        <div class="box outline-ornek">solid</div>
-        <div class="box outline-dotted">dotted</div>
-        <div class="box outline-dashed">dashed</div>
+        <div class="box outline-ornek">outline: 3px solid<br>offset: 6px</div>
+        <div class="box outline-dotted">outline: 3px dotted<br>offset: 6px</div>
+        <div class="box outline-dashed">outline: 3px dashed<br>offset: 6px</div>
     </div>
 
     <!-- ==================================================
@@ -289,11 +359,13 @@
        ================================================== -->
 
     <h2>5. background-color</h2>
+    <p class="explanation">background-color yalnızca arka plan rengini değiştirir. Aynı renk farklı CSS renk
+        yazımlarıyla gösterilmiştir.</p>
     <div class="container">
-        <div class="box renkli-arka-plan">Renk adı</div>
-        <div class="box hex-arka-plan">HEX</div>
-        <div class="box rgb-arka-plan">RGB</div>
-        <div class="box hsl-arka-plan">HSL</div>
+        <div class="box renkli-arka-plan">background-color: lightskyblue</div>
+        <div class="box hex-arka-plan">background-color: #fde68a</div>
+        <div class="box rgb-arka-plan">background-color: rgb()</div>
+        <div class="box hsl-arka-plan">background-color: hsl()</div>
     </div>
 
     <!-- ==================================================
@@ -301,8 +373,9 @@
        ================================================== -->
 
     <h2>6. background</h2>
+    <p class="explanation">background, renk ve diğer arka plan ayarlarını kısa yazımla birlikte vermeyi sağlar.</p>
     <div class="container">
-        <div class="box background-kisa-yol">Kısa yol kullanımı</div>
+        <div class="box background-kisa-yol">background: #dcfce7</div>
     </div>
 
     <!-- ==================================================
@@ -310,10 +383,12 @@
        ================================================== -->
 
     <h2>7. background-size</h2>
+    <p class="explanation">background-size görselin kutuya nasıl sığacağını belirler. auto doğal boyutu, cover
+        doldurmayı, contain ise tamamını göstermeyi amaçlar.</p>
     <div class="container">
-        <div class="box gorsel-arka-plan size-auto">auto</div>
-        <div class="box gorsel-arka-plan size-cover">cover</div>
-        <div class="box gorsel-arka-plan size-contain">contain</div>
+        <div class="box gorsel-arka-plan size-auto">background-size: auto</div>
+        <div class="box gorsel-arka-plan size-cover">background-size: cover</div>
+        <div class="box gorsel-arka-plan size-contain">background-size: contain</div>
     </div>
 
     <!-- ==================================================
@@ -321,10 +396,12 @@
        ================================================== -->
 
     <h2>8. background-position</h2>
+    <p class="explanation">background-position arka plan görselini kutunun içinde sola, ortaya veya sağa yerleştirir.
+    </p>
     <div class="container">
-        <div class="box gorsel-arka-plan position-left">left</div>
-        <div class="box gorsel-arka-plan position-center">center</div>
-        <div class="box gorsel-arka-plan position-right">right</div>
+        <div class="box gorsel-arka-plan position-left">background-position: left</div>
+        <div class="box gorsel-arka-plan position-center">background-position: center</div>
+        <div class="box gorsel-arka-plan position-right">background-position: right</div>
     </div>
 
     <!-- ==================================================
@@ -332,11 +409,42 @@
        ================================================== -->
 
     <h2>9. background-repeat</h2>
+    <p class="explanation">background-repeat görselin tekrarlanma yönünü belirler.</p>
     <div class="container">
-        <div class="box repeat-ornek">repeat</div>
-        <div class="box gorsel-arka-plan no-repeat">no-repeat</div>
-        <div class="box gorsel-arka-plan repeat-x">repeat-x</div>
-        <div class="box gorsel-arka-plan repeat-y">repeat-y</div>
+        <div class="box repeat-ornek">background-repeat: repeat</div>
+        <div class="box gorsel-arka-plan no-repeat">background-repeat: no-repeat</div>
+        <div class="box gorsel-arka-plan repeat-x">background-repeat: repeat-x</div>
+        <div class="box gorsel-arka-plan repeat-y">background-repeat: repeat-y</div>
+    </div>
+
+    <!-- ==================================================
+       10. OBJECT-FIT
+       ================================================== -->
+
+    <h2>10. object-fit</h2>
+    <p class="explanation">object-fit, img veya video içeriğinin kendi kutusuna nasıl sığacağını belirler. Aynı görseli
+        aynı ölçülü kutular içinde karşılaştırın.</p>
+    <div class="container">
+        <div class="box object-fit-box object-fit-fill">
+            <img src="../foto/mocha.jpg" alt="object-fit fill örneği">
+            <span class="object-fit-label">object-fit: fill</span>
+        </div>
+        <div class="box object-fit-box object-fit-contain">
+            <img src="../foto/mocha.jpg" alt="object-fit contain örneği">
+            <span class="object-fit-label">object-fit: contain</span>
+        </div>
+        <div class="box object-fit-box object-fit-cover">
+            <img src="../foto/mocha.jpg" alt="object-fit cover örneği">
+            <span class="object-fit-label">object-fit: cover</span>
+        </div>
+        <div class="box object-fit-box object-fit-none">
+            <img src="../foto/mocha.jpg" alt="object-fit none örneği">
+            <span class="object-fit-label">object-fit: none</span>
+        </div>
+        <div class="box object-fit-box object-fit-scale-down">
+            <img src="../foto/mocha.jpg" alt="object-fit scale-down örneği">
+            <span class="object-fit-label">object-fit: scale-down</span>
+        </div>
     </div>
 
 </body>
@@ -388,5 +496,12 @@
 *    no-repeat: Görseli yalnızca bir kez gösterir.
 *    repeat-x: Görseli yalnızca yatay yönde tekrarlar.
 *    repeat-y: Görseli yalnızca dikey yönde tekrarlar.
+
+?    GÖRSELİN KUTUYA SIĞMASI (object-fit)
+*    fill: Görseli kutuyu dolduracak şekilde esnetir; en-boy oranı bozulabilir.
+*    contain: Görselin tamamını gösterir; kutuda boş alan kalabilir.
+*    cover: Kutuyu tamamen doldurur; taşan kısımları kırpar.
+*    none: Görseli doğal boyutunda bırakır; kutu dışında kalan kısım kırpılabilir.
+*    scale-down: none veya contain seçeneklerinden daha küçük olan sonucu kullanır.
 
 -->

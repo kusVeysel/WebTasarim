@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Konum ve Taşma</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            color: #1f2937;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 35px;
+            padding: 20px;
+            background: #f3f4f6;
+            border-radius: 12px;
+        }
+
+        .box {
+            min-width: 150px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+        }
+
+        /* ==================================================
+		   1. POSITION
+		   ================================================== */
+
+        .position-area {
+            position: relative;
+            width: 100%;
+            min-height: 180px;
+            border: 2px dashed #94a3b8;
+            background: #e0f2fe;
+        }
+
+        .position-static {
+            position: static;
+        }
+
+        .position-relative {
+            position: relative;
+            left: 20px;
+        }
+
+        .position-absolute {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .position-fixed {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            z-index: 3;
+        }
+
+        .position-sticky {
+            position: sticky;
+            top: 0;
+            background: #f59e0b;
+        }
+
+        /* ==================================================
+		   2. TOP, RIGHT, BOTTOM, LEFT
+		   ================================================== */
+
+        .offset-area {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            border: 2px dashed #94a3b8;
+            background: #dcfce7;
+        }
+
+        .offset-top {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        .offset-right {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        .offset-bottom {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+        }
+
+        .offset-left {
+            position: absolute;
+            bottom: 15px;
+            left: 45%;
+        }
+
+        /* ==================================================
+		   3. Z-INDEX
+		   ================================================== */
+
+        .layer-area {
+            position: relative;
+            width: 100%;
+            height: 190px;
+        }
+
+        .layer {
+            position: absolute;
+            width: 150px;
+            height: 90px;
+        }
+
+        .layer-back {
+            top: 20px;
+            left: 20px;
+            background: #fca5a5;
+            z-index: 1;
+        }
+
+        .layer-front {
+            top: 65px;
+            left: 85px;
+            background: #86efac;
+            z-index: 2;
+        }
+
+        /* ==================================================
+		   4. OVERFLOW
+		   ================================================== */
+
+        .overflow-box {
+            width: 220px;
+            height: 100px;
+            border: 2px solid #64748b;
+        }
+
+        .overflow-visible {
+            overflow: visible;
+        }
+
+        .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .overflow-scroll {
+            overflow: scroll;
+        }
+
+        .overflow-auto {
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================================================
+	   1. POSITION
+	   ================================================== -->
+
+    <h2>1. position</h2>
+    <div class="container">
+        <div class="position-area">
+            <div class="box position-static">static: Varsayılan konum</div>
+            <div class="box position-relative">relative: Kendi yerine göre kayar</div>
+            <div class="box position-absolute">absolute: Üst elemente göre konumlanır</div>
+        </div>
+        <div class="box position-sticky">sticky: Kaydırmada yapışkan olur</div>
+        <div class="position-fixed">fixed: Ekrana sabitlenir</div>
+    </div>
+
+    <!-- ==================================================
+	   2. TOP, RIGHT, BOTTOM, LEFT
+	   ================================================== -->
+
+    <h2>2. top, right, bottom, left</h2>
+    <div class="container">
+        <div class="offset-area">
+            <div class="box offset-top">top: 15px</div>
+            <div class="box offset-right">right: 15px</div>
+            <div class="box offset-bottom">bottom: 15px</div>
+            <div class="box offset-left">left: 45%</div>
+        </div>
+    </div>
+
+    <!-- ==================================================
+	   3. Z-INDEX
+	   ================================================== -->
+
+    <h2>3. z-index</h2>
+    <div class="container">
+        <div class="layer-area">
+            <div class="box layer layer-back">z-index: 1</div>
+            <div class="box layer layer-front">z-index: 2</div>
+        </div>
+    </div>
+
+    <!-- ==================================================
+	   4. OVERFLOW
+	   ================================================== -->
+
+    <h2>4. overflow</h2>
+    <div class="container">
+        <div class="box overflow-box overflow-visible">visible: Taşan içerik görünür kalır.</div>
+        <div class="box overflow-box overflow-hidden">hidden: Taşan içerik gizlenir.</div>
+        <div class="box overflow-box overflow-scroll">scroll: Kaydırma çubukları gösterilir.</div>
+        <div class="box overflow-box overflow-auto">auto: Gerektiğinde kaydırma çubuğu gösterilir.</div>
+    </div>
+</body>
+
+</html>
+<!--
+    ==================================================
+                      DEĞER ÖZETİ
+    ==================================================
+
+?    KONUM DEĞERLERİ (position)
+*    static: Elementin varsayılan konumudur.
+*    relative: Element normal yerini korur; kendi konumuna göre kaydırılabilir.
+*    absolute: En yakın position verilmiş üst elemente göre konumlanır.
+*    fixed: Elementi ekrana göre sabitler; sayfa kaydırılsa da yerinde kalır.
+*    sticky: Belirlenen noktaya kadar normal davranır, sonra yapışkan olur.
+
+?    KONUM KAYDIRMA DEĞERLERİ (top, right, bottom, left)
+*    top: Elementin üst kenarına göre konumunu ayarlar.
+*    right: Elementin sağ kenarına göre konumunu ayarlar.
+*    bottom: Elementin alt kenarına göre konumunu ayarlar.
+*    left: Elementin sol kenarına göre konumunu ayarlar.
+
+?    KATMAN DEĞERİ (z-index)
+*    z-index: Üst üste gelen konumlandırılmış elementlerin katman sırasını belirler.
+*    Büyük z-index değeri, elementin diğer elementlerin üzerinde görünmesini sağlar.
+
+?    TAŞMA DEĞERLERİ (overflow)
+*    visible: Taşan içerik görünür kalır; varsayılan değerdir.
+*    hidden: Kutu dışına taşan içerik gizlenir.
+*    scroll: İçerik taşmasa bile kaydırma çubuklarını gösterir.
+*    auto: İçerik taştığında gerektiği zaman kaydırma çubuğu gösterir.
+
+-->

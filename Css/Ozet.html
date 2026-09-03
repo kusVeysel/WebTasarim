@@ -2,13 +2,13 @@
 <html lang="tr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS ÖZET</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CSS ÖZET</title>
 </head>
 
 <body>
-<!--
+        <!--
 
         ==================================================
                             ÖZET
@@ -33,24 +33,23 @@
 *        max-height: Yüksekliğin üst sınırını belirler.
 *        box-sizing: border-box değeri, padding ve border'ı genişlik ve yükseklik hesabına dahil eder.
 *        margin: Elementin dış boşluğunu verir.
+*        margin-left: Elementin sol dış boşluğunu belirler.
 *        padding: Elementin iç boşluğunu verir.
+*        overflow: Elementin kutusundan taşan içeriğin görünme biçimini belirler.
 
 ?        3. KENARLIK VE ARKA PLAN
-        --------------------------------------------------
+         --------------------------------------------------
 *        border: Kenarlık verir.
-*        → syntax: border: kalınlık kenar_tipi kenarlık_rengi;
 *        border-radius: Köşeleri yuvarlatır.
 *        outline: Border'ın dışında, yer kaplamayan bir kenarlık oluşturur.
 *        outline-offset: Outline'ın elementten uzaklığını belirler.
 *        background-color: Arka plan rengini verir.
 *        background: Arka planla ilgili özellikleri kısa yoldan tanımlar.
 *        background-image: Arka plan görselini belirler.
-*        → syntax: background-image: url("")
 *        background-size: Arka plan görselinin boyutunu belirler.
-*        → syntax: background-size: x_ekseninde_boyutu y_ekseninde_boyutu
 *        background-position: Arka plan görselinin konumunu belirler.
-*        → syntax: background-position: x_ekseninde_konumu y_ekseninde_konumu
 *        background-repeat: Arka plan görselinin tekrar durumunu belirler.
+*        object-fit: Görsel veya video içeriğinin kendi kutusuna nasıl sığacağını belirler.
 
 ?        4. METİN VE YAZI TİPİ
         --------------------------------------------------
@@ -63,15 +62,11 @@
 *        font-family: Yazı tipini belirler.
 *        font-size: Yazı büyüklüğünü belirler.
 *        font-weight: Yazı kalınlığını belirler.
+*        font-style: Yazının normal, eğik veya yatık görünümünü belirler.
 
 ?        5. KONUM VE TAŞMA
         --------------------------------------------------
 *        position: Elementin konumlandırma yöntemini belirler.
-*        → static: Varsayılan konumdur; top, right, bottom ve left etkisizdir.
-*        → relative: Normal yerini korur; kendi konumuna göre kaydırılabilir.
-*        → absolute: En yakın position verilmiş üst elemente göre konumlanır.
-*        → fixed: Ekrana göre sabitlenir; sayfa kaydırılsa da yerinde kalır.
-*        → sticky: Belirlenen noktaya kadar normal davranır, sonra yapışkan olur.
 *        top: Elementin üst kenarına göre konumunu ayarlar.
 *        right: Elementin sağ kenarına göre konumunu ayarlar.
 *        bottom: Elementin alt kenarına göre konumunu ayarlar.
@@ -82,45 +77,67 @@
 ?        6. GÖRÜNÜRLÜK VE ETKİLEŞİM
         --------------------------------------------------
 *        display: Elementin sayfadaki davranışını ve çocuklarının düzenini belirler.
-*        → block: Yeni satırdan başlar, kullanılabilir genişliği kaplar.
-*        → inline: Yan yana dizilir; genişlik ve yükseklik doğrudan uygulanmaz.
-*        → inline-block: Yan yana dizilir; genişlik ve yükseklik alabilir.
-*        → none: Elementi sayfada gizler ve yer kaplamamasını sağlar.
 *        opacity: Saydamlık oranını belirler. 0 tamamen saydam, 1 tamamen görünürdür.
 *        visibility: Elementin görünürlüğünü belirler.
 *        cursor: Farenin element üzerindeki işaretçi şeklini belirler.
 
 ?        7. FLEXBOX
         --------------------------------------------------
-*        display: flex; Çocuk elementleri esnek kutu düzenine alır.
+*        display: Flex container oluşturarak çocuk elementleri esnek kutu düzenine alır.
 *        flex-direction: Ana ekseni belirler. row yatay, column dikey sıralar.
 *        flex-wrap: Elemanların sığmadığında alt satıra geçme durumunu belirler.
 *        justify-content: Ana eksende hizalama yapar.
 *        align-items: Çapraz eksende hizalama yapar.
 *        align-content: Birden fazla satır oluştuğunda satırların çapraz eksendeki hizasını ayarlar.
 *        gap: Flex elemanları arasındaki boşluğu belirler.
+*        row-gap: Flex satırları arasındaki boşluğu belirler.
+*        column-gap: Flex sütunları arasındaki boşluğu belirler.
 *        flex: Bir elemanın büyüme, küçülme ve başlangıç boyutunu kısa yoldan belirler.
 *        order: Flex elemanlarının sırasını değiştirir.
 
 ?        8. GRID
         --------------------------------------------------
-*        display: grid; Çocuk elementleri satır ve sütunlardan oluşan iki boyutlu düzene alır.
+*        display: Grid container oluşturarak çocuk elementleri satır ve sütunlardan oluşan iki boyutlu düzene alır.
 *        grid-template-columns: Sütunların sayısını ve boyutlarını belirler.
 *        grid-template-rows: Satırların sayısını ve boyutlarını belirler.
 *        grid-column: Bir elemanın kaplayacağı sütunu belirler.
 *        grid-row: Bir elemanın kaplayacağı satırı belirler.
 *        gap: Grid satırları ve sütunları arasındaki boşluğu belirler.
+*        row-gap: Grid satırları arasındaki boşluğu belirler.
+*        column-gap: Grid sütunları arasındaki boşluğu belirler.
 *        justify-items: Grid elemanlarını hücreleri içinde yatay hizalar.
 *        align-items: Grid elemanlarını hücreleri içinde dikey hizalar.
 
 ?        9. GEÇİŞ VE ANİMASYON
         --------------------------------------------------
 *        transition: Bir CSS özelliğindeki değişimin yumuşak geçişini sağlar.
-*        → syntax: transition: özellik süre zamanlama_fonksiyonu gecikme;
+*        transition-property: Geçiş uygulanacak CSS property’lerini belirler.
+*        transition-duration: Geçişin ne kadar süreceğini belirler.
+*        transition-timing-function: Geçiş hızının zaman içindeki değişimini belirler.
+*        transition-delay: Geçiş başlamadan önce beklenecek süreyi belirler.
 *        animation: @keyframes ile tanımlanan animasyonu uygular.
-*        → syntax: animation: name duration timing-function delay iteration-count direction fill-mode play-state;
+*        animation-name: Kullanılacak keyframes animasyonunun adını belirler.
+*        animation-duration: Animasyon döngüsünün ne kadar süreceğini belirler.
+*        animation-timing-function: Animasyon hızının zaman içindeki değişimini belirler.
+*        animation-delay: Animasyon başlamadan önce beklenecek süreyi belirler.
+*        animation-iteration-count: Animasyonun kaç kez tekrarlanacağını belirler.
+*        animation-direction: Animasyonun oynatma yönünü belirler.
+*        animation-fill-mode: Animasyon başlamadan ve bittikten sonra uygulanacak görünümü belirler.
+*        animation-play-state: Animasyonun oynatılmasını veya duraklatılmasını belirler.
 *        transform: Elementi taşıma, döndürme, ölçekleme veya eğme işlemlerinde kullanılır.
 *        filter: Bulanıklık, parlaklık ve benzeri görsel efektler uygular.
+
+?        10. DİĞER CSS ÖZELLİKLERİ
+        --------------------------------------------------
+*        clip-path: Elementin hangi bölümünün görünür olacağını geometrik bir şekille belirler.
+*        resize: Kullanıcının bir elementin boyutunu değiştirmesine izin verir.
+*        offset-path: Elementin izleyeceği hareket yolunu belirler.
+*        offset-distance: Elementin hareket yolu üzerindeki ilerleme konumunu belirler.
+*        offset-rotate: Elementin hareket yolu boyunca dönüşünü belirler.
+*        perspective: 3D elementlerin derinlik ve kamera uzaklığı görünümünü belirler.
+*        transform-style: Bir elementin çocuklarının 3D uzayda mı yoksa düzlemde mi görüntüleneceğini belirler.
+*        backface-visibility: 3D element döndüğünde arka yüzünün görünürlüğünü belirler.
+*        inset: Elementin üst, sağ, alt ve sol konumlarını kısa yoldan birlikte belirler.
     
 -->
 </body>

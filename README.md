@@ -7,7 +7,7 @@ Bu repository, **HTML, CSS, JavaScript, jQuery ve Bootstrap** başta olmak üzer
 ### 📄 Html
 
 HTML ile ilgili temel ve ileri düzey bilgileri içerir.
-Kodların açıklamaları ve HTML yapıları **`özet.html`** içerisinde yer almaktadır.
+Kodların açıklamaları ve her dosyanın HTML yapıları **`Ozet.html`** içerisinde yer almaktadır.
 
 ### 🎨 Css
 

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Görünürlük ve Etkileşim</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            color: #1f2937;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 35px;
+            padding: 20px;
+            background: #f3f4f6;
+            border-radius: 12px;
+        }
+
+        .box {
+            min-width: 150px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+        }
+
+        /* ==================================================
+		   1. DISPLAY
+		   ================================================== */
+
+        .display-block {
+            display: block;
+            width: 100%;
+            height: 60px;
+            background: #bfdbfe;
+        }
+
+        .display-inline {
+            display: inline;
+            width: 280px;
+            height: 60px;
+            padding: 20px;
+            background: #fde68a;
+        }
+
+        .display-inline-block {
+            display: inline-block;
+            width: 220px;
+            height: 60px;
+            background: #bbf7d0;
+        }
+
+        .display-none {
+            display: none;
+        }
+
+        .display-demo {
+            width: 100%;
+            padding: 15px;
+            border: 2px dashed #94a3b8;
+            background: white;
+        }
+
+        .display-demo p {
+            margin: 0 0 10px;
+        }
+
+        .inline-line {
+            min-height: 60px;
+            padding: 20px;
+            background: #fef3c7;
+        }
+
+        .display-inline-block+.display-inline-block {
+            margin-left: 10px;
+        }
+
+        /* ==================================================
+		   2. OPACITY
+		   ================================================== */
+
+        .opacity-full {
+            opacity: 1;
+            background: #22c55e;
+        }
+
+        .opacity-half {
+            opacity: 0.5;
+            background: #22c55e;
+        }
+
+        .opacity-quarter {
+            opacity: 0.25;
+            background: #22c55e;
+        }
+
+        .opacity-three-quarter {
+            opacity: 0.75;
+            background: #22c55e;
+        }
+
+        .opacity-zero {
+            opacity: 0;
+            background: #22c55e;
+        }
+
+        /* ==================================================
+		   3. VISIBILITY
+		   ================================================== */
+
+        .visibility-visible {
+            visibility: visible;
+        }
+
+        .visibility-hidden {
+            visibility: hidden;
+        }
+
+        /* ==================================================
+		   4. CURSOR
+		   ================================================== */
+
+        .cursor-default {
+            cursor: default;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .cursor-crosshair {
+            cursor: crosshair;
+        }
+
+        .cursor-not-allowed {
+            cursor: not-allowed;
+        }
+
+        .cursor-auto {
+            cursor: auto;
+        }
+
+        .cursor-text {
+            cursor: text;
+        }
+
+        .cursor-wait {
+            cursor: wait;
+        }
+
+        .cursor-move {
+            cursor: move;
+        }
+
+        .cursor-grab {
+            cursor: grab;
+        }
+
+        .cursor-grabbing {
+            cursor: grabbing;
+        }
+
+        .cursor-none {
+            cursor: none;
+        }
+
+        .cursor-context-menu {
+            cursor: context-menu;
+        }
+
+        .cursor-help {
+            cursor: help;
+        }
+
+        .cursor-progress {
+            cursor: progress;
+        }
+
+        .cursor-cell {
+            cursor: cell;
+        }
+
+        .cursor-vertical-text {
+            cursor: vertical-text;
+        }
+
+        .cursor-alias {
+            cursor: alias;
+        }
+
+        .cursor-copy {
+            cursor: copy;
+        }
+
+        .cursor-no-drop {
+            cursor: no-drop;
+        }
+
+        .cursor-e-resize {
+            cursor: e-resize;
+        }
+
+        .cursor-n-resize {
+            cursor: n-resize;
+        }
+
+        .cursor-ne-resize {
+            cursor: ne-resize;
+        }
+
+        .cursor-nw-resize {
+            cursor: nw-resize;
+        }
+
+        .cursor-s-resize {
+            cursor: s-resize;
+        }
+
+        .cursor-se-resize {
+            cursor: se-resize;
+        }
+
+        .cursor-sw-resize {
+            cursor: sw-resize;
+        }
+
+        .cursor-w-resize {
+            cursor: w-resize;
+        }
+
+        .cursor-ew-resize {
+            cursor: ew-resize;
+        }
+
+        .cursor-ns-resize {
+            cursor: ns-resize;
+        }
+
+        .cursor-nesw-resize {
+            cursor: nesw-resize;
+        }
+
+        .cursor-nwse-resize {
+            cursor: nwse-resize;
+        }
+
+        .cursor-col-resize {
+            cursor: col-resize;
+        }
+
+        .cursor-row-resize {
+            cursor: row-resize;
+        }
+
+        .cursor-all-scroll {
+            cursor: all-scroll;
+        }
+
+        .cursor-zoom-in {
+            cursor: zoom-in;
+        }
+
+        .cursor-zoom-out {
+            cursor: zoom-out;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================================================
+	   1. DISPLAY
+	   ================================================== -->
+
+    <h2>1. display</h2>
+    <div class="container">
+        <div class="display-demo">
+            <p><strong>block</strong>: Yeni satıra geçer ve satırın tamamını kaplar.</p>
+            <div class="display-block">block elementi</div>
+            <div class="display-block">İkinci block elementi</div>
+        </div>
+        <div class="display-demo">
+            <p><strong>inline</strong>: Yan yana kalır; verilen width ve height uygulanmaz.</p>
+            <div class="inline-line">
+                <span class="display-inline">inline 1</span>
+                <span class="display-inline">inline 2</span>
+            </div>
+        </div>
+        <div class="display-demo">
+            <p><strong>inline-block</strong>: Yan yana kalır ve width/height uygulanır.</p>
+            <div class="display-inline-block">220 x 60px</div>
+            <div class="display-inline-block">220 x 60px</div>
+        </div>
+        <div class="display-demo">
+            <p><strong>none</strong>: Element görünmez ve hiç yer kaplamaz.</p>
+            <div class="display-none">Bu metin görünmez.</div>
+            <div>none örneğinin hemen ardından gelir.</div>
+        </div>
+    </div>
+
+    <!-- ==================================================
+	   2. OPACITY
+	   ================================================== -->
+
+    <h2>2. opacity</h2>
+    <div class="container">
+        <div class="box opacity-full">opacity: 1 - tamamen görünür</div>
+        <div class="box opacity-three-quarter">opacity: 0.75</div>
+        <div class="box opacity-half">opacity: 0.5 - yarı saydam</div>
+        <div class="box opacity-quarter">opacity: 0.25</div>
+        <div class="box opacity-zero">opacity: 0 - görünmez</div>
+    </div>
+
+    <!-- ==================================================
+	   3. VISIBILITY
+	   ================================================== -->
+
+    <h2>3. visibility</h2>
+    <div class="container">
+        <div class="box visibility-visible">visible: Görünür ve yer kaplar.</div>
+        <div class="box visibility-hidden">hidden: Görünmez ama yer kaplar.</div>
+        <div class="box">hidden örneğinin kapladığı alan</div>
+    </div>
+
+    <!-- ==================================================
+	   4. CURSOR
+	   ================================================== -->
+
+    <h2>4. cursor</h2>
+    <div class="container">
+        <div class="box cursor-none">none</div>
+        <div class="box cursor-auto">auto</div>
+        <div class="box cursor-default">default</div>
+        <div class="box cursor-context-menu">context-menu</div>
+        <div class="box cursor-help">help</div>
+        <div class="box cursor-pointer">pointer</div>
+        <div class="box cursor-text">text</div>
+        <div class="box cursor-vertical-text">vertical-text</div>
+        <div class="box cursor-crosshair">crosshair</div>
+        <div class="box cursor-cell">cell</div>
+        <div class="box cursor-wait">wait</div>
+        <div class="box cursor-progress">progress</div>
+        <div class="box cursor-move">move</div>
+        <div class="box cursor-alias">alias</div>
+        <div class="box cursor-copy">copy</div>
+        <div class="box cursor-grab">grab</div>
+        <div class="box cursor-grabbing">grabbing</div>
+        <div class="box cursor-no-drop">no-drop</div>
+        <div class="box cursor-not-allowed">not-allowed</div>
+        <div class="box cursor-e-resize">e-resize</div>
+        <div class="box cursor-n-resize">n-resize</div>
+        <div class="box cursor-ne-resize">ne-resize</div>
+        <div class="box cursor-nw-resize">nw-resize</div>
+        <div class="box cursor-s-resize">s-resize</div>
+        <div class="box cursor-se-resize">se-resize</div>
+        <div class="box cursor-sw-resize">sw-resize</div>
+        <div class="box cursor-w-resize">w-resize</div>
+        <div class="box cursor-ew-resize">ew-resize</div>
+        <div class="box cursor-ns-resize">ns-resize</div>
+        <div class="box cursor-nesw-resize">nesw-resize</div>
+        <div class="box cursor-nwse-resize">nwse-resize</div>
+        <div class="box cursor-col-resize">col-resize</div>
+        <div class="box cursor-row-resize">row-resize</div>
+        <div class="box cursor-all-scroll">all-scroll</div>
+        <div class="box cursor-zoom-in">zoom-in</div>
+        <div class="box cursor-zoom-out">zoom-out</div>
+    </div>
+</body>
+
+</html>
+<!--
+	==================================================
+					  DEĞER ÖZETİ
+	==================================================
+
+?    GÖRÜNTÜLEME DEĞERLERİ (display)
+*    block: Yeni satırdan başlar ve kullanılabilir genişliği kaplar.
+*    inline: Yan yana dizilir; genişlik ve yükseklik doğrudan uygulanmaz.
+*    inline-block: Yan yana dizilir; genişlik ve yükseklik alabilir.
+*    none: Elementi gizler ve sayfada yer kaplamamasını sağlar.
+
+?    SAYDAMLIK DEĞERİ (opacity)
+*    opacity: Elementin saydamlık oranını belirler.
+*    0: Element tamamen saydam olur.
+*    0.25: Element yüzde 25 görünür olur.
+*    0.5: Element yüzde 50 görünür olur.
+*    0.75: Element yüzde 75 görünür olur.
+*    1: Element tamamen görünür olur.
+
+?    GÖRÜNÜRLÜK DEĞERLERİ (visibility)
+*    visible: Element görünür olur.
+*    hidden: Element görünmez olur fakat sayfada yer kaplamaya devam eder.
+
+?    İŞARETÇİ DEĞERLERİ (cursor)
+*    auto: Tarayıcı işaretçiyi bulunduğu duruma göre seçer.
+*    default: Varsayılan ok işaretçisini gösterir.
+*    none: İşaretçiyi gizler.
+*    context-menu: Bağlam menüsü işaretçisini gösterir.
+*    help: Yardım alınabileceğini belirten işaretçiyi gösterir.
+*    pointer: Tıklanabilir elementlerde el işaretçisini gösterir.
+*    text: Metin seçme işaretçisini gösterir.
+*    vertical-text: Dikey metin seçme işaretçisini gösterir.
+*    crosshair: Artı şeklinde işaretçi gösterir.
+*    cell: Hücre seçme işaretçisini gösterir.
+*    wait: İşlemin sürdüğünü belirten bekleme işaretçisini gösterir.
+*    progress: İşlemin sürdüğünü, ancak sayfanın kullanılabildiğini gösterir.
+*    move: Elementin taşınabileceğini belirten işaretçiyi gösterir.
+*    alias: Kısayol veya takma ad oluşturulabileceğini gösterir.
+*    copy: İçeriğin kopyalanabileceğini gösterir.
+*    grab: Elementin tutulup taşınabileceğini gösterir.
+*    grabbing: Elementin tutulduğunu ve taşındığını gösterir.
+*    no-drop: Bırakma işleminin yapılamayacağını gösterir.
+*    not-allowed: İşlemin yapılamayacağını belirten işaretçiyi gösterir.
+*    e/n/ne/nw/s/se/sw/w-resize: İlgili yönde yeniden boyutlandırma işaretçilerini gösterir.
+*    ew/ns/nesw/nwse-resize: İki yönde yeniden boyutlandırma işaretçilerini gösterir.
+*    col-resize: Sütun genişliğinin değiştirilebileceğini gösterir.
+*    row-resize: Satır yüksekliğinin değiştirilebileceğini gösterir.
+*    all-scroll: İçeriğin her yöne kaydırılabileceğini gösterir.
+*    zoom-in: Yakınlaştırma yapılabileceğini gösterir.
+*    zoom-out: Uzaklaştırma yapılabileceğini gösterir.
+
+-->

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Geçiş ve Animasyon</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            color: #1f2937;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 35px;
+            padding: 20px;
+            background: #f3f4f6;
+            border-radius: 12px;
+        }
+
+        .demo {
+            width: 100%;
+            padding: 18px;
+            border: 2px dashed #94a3b8;
+            background: white;
+        }
+
+        .explanation {
+            max-width: 850px;
+            margin-top: -8px;
+            margin-bottom: 12px;
+            color: #475569;
+            line-height: 1.5;
+        }
+
+        .box {
+            display: inline-block;
+            min-width: 150px;
+            padding: 18px;
+            border: 2px solid #0f766e;
+            background: #99f6e4;
+            text-align: center;
+        }
+
+        /* ==================================================
+		   1. TRANSITION
+		   ================================================== */
+
+        .transition-box {
+            transition: all 0.8s ease;
+        }
+
+        .transition-box:hover {
+            background: #fbbf24;
+            transform: translateX(60px);
+        }
+
+        .timing-box {
+            width: 180px;
+            margin: 6px;
+            transition-property: transform, background-color;
+            transition-duration: 1s;
+        }
+
+        .timing-box:hover {
+            background: #fb7185;
+            transform: translateX(90px);
+        }
+
+        .transition-container {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .transition-timing-demo {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .transition-timing-demo strong {
+            grid-column: 1 / -1;
+        }
+
+        .transition-timing-demo .timing-box {
+            margin: 0;
+        }
+
+        @media (max-width: 700px) {
+
+            .transition-container,
+            .transition-timing-demo {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ease {
+            transition-timing-function: ease;
+        }
+
+        .linear {
+            transition-timing-function: linear;
+        }
+
+        .ease-in {
+            transition-timing-function: ease-in;
+        }
+
+        .ease-out {
+            transition-timing-function: ease-out;
+        }
+
+        .ease-in-out {
+            transition-timing-function: ease-in-out;
+        }
+
+        .step-start {
+            transition-timing-function: step-start;
+        }
+
+        .step-end {
+            transition-timing-function: step-end;
+        }
+
+        .steps {
+            transition-timing-function: steps(5, end);
+        }
+
+        .cubic-bezier {
+            transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .delay-box {
+            transition: transform 0.8s ease 0.2s;
+        }
+
+        .delay-box:hover {
+            transform: translateX(150px);
+        }
+
+        /* ==================================================
+		   2. ANIMATION
+		   ================================================== */
+
+        @keyframes move-and-color {
+            0% {
+                transform: translateX(0);
+                background: #99f6e4;
+            }
+
+            50% {
+                transform: translateX(80px);
+                background: #fbbf24;
+            }
+
+            100% {
+                transform: translateX(0);
+                background: #99f6e4;
+            }
+        }
+
+        .animation-basic {
+            animation: move-and-color 3s ease-in-out infinite;
+        }
+
+        .animation-timing {
+            animation-name: move-and-color;
+            animation-duration: 2.5s;
+            animation-iteration-count: infinite;
+        }
+
+        .animation-timing-linear {
+            animation-timing-function: linear;
+        }
+
+        .animation-timing-ease-in {
+            animation-timing-function: ease-in;
+        }
+
+        .animation-timing-ease-out {
+            animation-timing-function: ease-out;
+        }
+
+        .animation-timing-steps {
+            animation-timing-function: steps(5, end);
+        }
+
+        .animation-timing-cubic {
+            animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .animation-directions {
+            animation-name: move-and-color;
+            animation-duration: 3s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        .animation-normal {
+            animation-direction: normal;
+        }
+
+        .animation-reverse {
+            animation-direction: reverse;
+        }
+
+        .animation-alternate {
+            animation-direction: alternate;
+        }
+
+        .animation-alternate-reverse {
+            animation-direction: alternate-reverse;
+        }
+
+        .animation-count {
+            animation: bounce 1s ease-in-out 0s 2 normal both;
+        }
+
+        .animation-delay {
+            animation: move-and-color 2.5s linear 0.5s 1 normal forwards;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-45px);
+            }
+        }
+
+        .animation-iteration {
+            animation-name: bounce;
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: 3;
+            animation-direction: alternate;
+        }
+
+        @keyframes fill-example {
+            from {
+                transform: translateX(0);
+                background: #fecaca;
+            }
+
+            to {
+                transform: translateX(80px);
+                background: #86efac;
+            }
+        }
+
+        .animation-fill {
+            animation: fill-example 1.5s ease-in forwards;
+        }
+
+        .animation-fill-none {
+            animation: fill-example 1.5s ease-in 0s 1 normal none;
+        }
+
+        .animation-fill-backwards {
+            animation: fill-example 1.5s ease-in 0.5s 1 normal backwards;
+        }
+
+        .animation-fill-both {
+            animation: fill-example 1.5s ease-in 0.5s 1 normal both;
+        }
+
+        @keyframes play-example {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animation-play {
+            animation: play-example 2s linear infinite;
+        }
+
+        .animation-basic,
+        .animation-timing,
+        .animation-iteration,
+        .animation-count,
+        .animation-delay,
+        .animation-directions,
+        .animation-fill,
+        .animation-fill-none,
+        .animation-fill-backwards,
+        .animation-fill-both,
+        .animation-play,
+        .manual-animation {
+            animation-play-state: paused;
+        }
+
+        .animation-basic:hover,
+        .animation-timing:hover,
+        .animation-iteration:hover,
+        .animation-count:hover,
+        .animation-delay:hover,
+        .animation-directions:hover,
+        .animation-fill:hover,
+        .animation-fill-none:hover,
+        .animation-fill-backwards:hover,
+        .animation-fill-both:hover,
+        .animation-play:hover,
+        .manual-animation:hover {
+            animation-play-state: running;
+        }
+
+        .direction-demo,
+        .fill-demo {
+            display: grid;
+            gap: 12px;
+        }
+
+        .direction-demo .animation-directions,
+        .fill-demo .animation-fill,
+        .fill-demo .animation-fill-none,
+        .fill-demo .animation-fill-backwards,
+        .fill-demo .animation-fill-both {
+            display: block;
+            width: min(100%, 280px);
+        }
+
+        .animation-container {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .animation-container>.demo {
+            width: auto;
+        }
+
+        .animation-container .demo {
+            display: grid;
+            gap: 12px;
+        }
+
+        .animation-container .box {
+            width: 180px;
+            min-width: 0;
+            overflow-wrap: break-word;
+        }
+
+        .animation-timing-demo,
+        .animation-direction-demo,
+        .animation-fill-demo {
+            grid-column: 1 / -1;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .animation-timing-demo strong {
+            grid-column: 1 / -1;
+        }
+
+        /* ==================================================
+		   3. TRANSFORM
+		   ================================================== */
+
+        .transform-demo {
+            width: 170px;
+            margin: 25px;
+            transition: transform 0.5s ease;
+        }
+
+        .transform-translate:hover {
+            transform: translate(30px, -15px);
+        }
+
+        .transform-rotate:hover {
+            transform: rotate(15deg);
+        }
+
+        .transform-scale:hover {
+            transform: scale(1.25);
+        }
+
+        .transform-skew:hover {
+            transform: skew(15deg, 5deg);
+        }
+
+        .transform-multiple:hover {
+            transform: translateX(20px) rotate(10deg) scale(1.15);
+        }
+
+        /* ==================================================
+		   4. FILTER
+		   ================================================== */
+
+        .filter-demo {
+            width: 170px;
+            margin: 8px;
+            transition: filter 0.5s ease;
+        }
+
+        .filter-none {
+            filter: none;
+        }
+
+        .filter-blur:hover {
+            filter: blur(4px);
+        }
+
+        .filter-brightness:hover {
+            filter: brightness(1.7);
+        }
+
+        .filter-contrast:hover {
+            filter: contrast(1.8);
+        }
+
+        .filter-grayscale:hover {
+            filter: grayscale(1);
+        }
+
+        .filter-sepia:hover {
+            filter: sepia(1);
+        }
+
+        .filter-saturate:hover {
+            filter: saturate(2.5);
+        }
+
+        .filter-opacity:hover {
+            filter: opacity(40%);
+        }
+
+        .filter-drop-shadow:hover {
+            filter: drop-shadow(10px 10px 4px #64748b);
+        }
+
+        .filter-hue:hover {
+            filter: hue-rotate(120deg);
+        }
+
+        .filter-invert:hover {
+            filter: invert(1);
+        }
+    </style>
+</head>
+
+<body>
+    <h2>1. transition</h2>
+    <p class="explanation">transition, bir property değeri değiştiğinde geçişin aniden değil belirli bir sürede
+        gerçekleşmesini sağlar. Kutunun üzerine gelerek değişimi izleyin.</p>
+    <div class="container transition-container">
+        <div class="demo">
+            <div class="box transition-box">Üzerime gel<br>width + renk + konum</div>
+        </div>
+        <div class="demo transition-timing-demo"><strong>transition-timing-function: Geçişin hızlanma biçimi</strong>
+            <div class="box timing-box ease">ease</div>
+            <div class="box timing-box linear">linear</div>
+            <div class="box timing-box ease-in">ease-in</div>
+            <div class="box timing-box ease-out">ease-out</div>
+            <div class="box timing-box ease-in-out">ease-in-out</div>
+            <div class="box timing-box step-start">step-start</div>
+            <div class="box timing-box step-end">step-end</div>
+            <div class="box timing-box steps">steps(5, end)</div>
+            <div class="box timing-box cubic-bezier">cubic-bezier</div>
+        </div>
+        <div class="demo">
+            <div class="box delay-box">0.5 saniye gecikme</div>
+        </div>
+    </div>
+
+    <h2>2. animation</h2>
+    <p class="explanation">animation, @keyframes içinde tanımlanan başlangıç, ara ve bitiş durumlarını oynatır. Her
+        kutunun üzerine gelerek yalnızca o örneğin animasyonunu başlatın.</p>
+    <div class="container animation-container">
+        <div class="demo">
+            <div class="box animation-basic">Sonsuza kadar tekrar eder: infinite</div>
+        </div>
+        <div class="demo animation-timing-demo">
+            <strong>animation-timing-function</strong>
+            <div class="box animation-timing animation-timing-linear">Sabit hız: linear</div>
+            <div class="box animation-timing animation-timing-ease-in">Yavaş başlar: ease-in</div>
+            <div class="box animation-timing animation-timing-ease-out">Yavaş biter: ease-out</div>
+            <div class="box animation-timing animation-timing-steps">Basamaklı hareket: steps</div>
+            <div class="box animation-timing animation-timing-cubic">Özel hız eğrisi: cubic-bezier</div>
+        </div>
+        <div class="demo">
+            <div class="box animation-iteration">İleri-geri oynar: alternate, 3 tekrar</div>
+        </div>
+        <div class="demo">
+            <div class="box animation-count">2 kez oynar, son durumu korur: both</div>
+        </div>
+        <div class="demo">
+            <div class="box animation-delay">1 saniye bekler, sonra oynar</div>
+        </div>
+        <div class="demo animation-direction-demo">
+            <div class="box animation-directions animation-normal">Normal yönde: normal</div>
+            <div class="box animation-directions animation-reverse">Ters yönde: reverse</div>
+            <div class="box animation-directions animation-alternate">İleri-geri: alternate</div>
+            <div class="box animation-directions animation-alternate-reverse">Geri-ileri: alternate-reverse</div>
+        </div>
+        <div class="demo animation-fill-demo">
+            <div class="box animation-fill">Bitiş stilini korur: forwards</div>
+            <div class="box animation-fill-none">Önce/sonra stil yok: none</div>
+            <div class="box animation-fill-backwards">Başlangıç stilini uygular: backwards</div>
+            <div class="box animation-fill-both">Başlangıç ve bitişi korur: both</div>
+        </div>
+        <div class="demo">
+            <div class="box animation-play">Üzerime gelince çalışır</div>
+        </div>
+    </div>
+
+    <h2>3. transform</h2>
+    <p class="explanation">transform, elementi normal akışını bozmadan taşıma, döndürme, büyütme veya eğme işlemlerinde
+        kullanılır. Her kutunun üzerine gelerek tek tek farkı görün.</p>
+    <div class="container">
+        <div class="box transform-demo transform-translate">translate<br>taşıma</div>
+        <div class="box transform-demo transform-rotate">rotate<br>döndürme</div>
+        <div class="box transform-demo transform-scale">scale<br>ölçekleme</div>
+        <div class="box transform-demo transform-skew">skew<br>eğme</div>
+        <div class="box transform-demo transform-multiple">birden fazla</div>
+    </div>
+
+    <h2>4. filter</h2>
+    <p class="explanation">filter, elementin görüntüsüne bulanıklık, parlaklık, kontrast, renk ve gölge gibi efektler
+        uygular. Her kutunun üzerine gelerek efekti görün.</p>
+    <div class="container">
+        <div class="box filter-demo filter-none">none</div>
+        <div class="box filter-demo filter-blur">blur</div>
+        <div class="box filter-demo filter-brightness">brightness</div>
+        <div class="box filter-demo filter-contrast">contrast</div>
+        <div class="box filter-demo filter-grayscale">grayscale</div>
+        <div class="box filter-demo filter-sepia">sepia</div>
+        <div class="box filter-demo filter-saturate">saturate</div>
+        <div class="box filter-demo filter-opacity">opacity</div>
+        <div class="box filter-demo filter-drop-shadow">drop-shadow</div>
+        <div class="box filter-demo filter-hue">hue-rotate</div>
+        <div class="box filter-demo filter-invert">invert</div>
+    </div>
+</body>
+
+</html>
+<!--
+	==================================================
+					  DEĞER ÖZETİ
+	==================================================
+
+?    GEÇİŞ (transition)
+*    ease: Yavaş başlar, hızlanır ve yavaşlayarak biter.
+*    linear: Baştan sona aynı hızla ilerler.
+*    ease-in: Yavaş başlar ve hızlanarak devam eder.
+*    ease-out: Hızlı başlar ve yavaşlayarak biter.
+*    ease-in-out: Yavaş başlar, ortada hızlanır ve yavaşlayarak biter.
+*    step-start: Değişikliği geçişin başında bir anda uygular.
+*    step-end: Değişikliği geçişin sonunda bir anda uygular.
+*    steps(5, end): Geçişi veya animasyonu beş ayrı basamakta gerçekleştirir.
+*    cubic-bezier(0.68, -0.55, 0.27, 1.55): Özel hız eğrisiyle sıçramalı hareket oluşturur.
+
+?    ANİMASYON (animation)
+*    move-and-color, bounce: Kullanılacak @keyframes adlarıdır.
+*    infinite: Animasyonu sonsuz kez tekrarlar.
+*    normal: Animasyonu normal yönde oynatır.
+*    reverse: Animasyonu geriye doğru oynatır.
+*    alternate: İleri ve geri yönleri sırayla kullanır.
+*    alternate-reverse: Geri yönde başlayıp yönleri sırayla değiştirir.
+*    none: Animasyon öncesi veya sonrası keyframe stilini uygulamaz.
+*    forwards: Animasyon bitince son keyframe stilini korur.
+*    backwards: Gecikme sırasında ilk keyframe stilini uygular.
+*    both: Hem backwards hem forwards davranışını uygular.
+*    running: Animasyonun oynadığını belirtir.
+*    paused: Animasyonu duraklatır; kutunun üzerine gelince çalışır.
+*    ease-in-out: Animasyonun yavaş başlayıp yavaş bitmesini sağlar.
+*    ease-in: Animasyon yavaş başlar ve hızlanır.
+*    ease-out: Animasyon hızlı başlar ve yavaşlar.
+*    linear: Animasyon sabit hızla ilerler.
+*    steps(5, end): Animasyonu beş basamakta oynatır.
+*    cubic-bezier(0.68, -0.55, 0.27, 1.55): Özel hız eğrisiyle animasyon oynatır.
+*    ease-in: Animasyon yavaş başlar
+*    ease-out: Animasyon yavaş biter
+*    Örnek shorthand: animation: move-and-color 2s ease-in-out 0s infinite alternate forwards running;
+
+?    DÖNÜŞÜM (transform)
+*    translate(): Elementi yatay veya dikey yönde taşır.
+*    rotate(): Elementi derece cinsinden döndürür.
+*    scale(): Elementi büyütür veya küçültür.Normal boyutu 1
+*    skew(): Elementi yatay veya dikey yönde eğer.
+
+?    GÖRSEL FİLTRE (filter)
+*    none: Filtre uygulanmaz.
+*    blur(): Bulanıklık uygular.
+*    brightness(): Parlaklığı artırır veya azaltır.
+*    contrast(): Kontrastı artırır veya azaltır.
+*    grayscale(): Gri tonlama uygular.
+*    sepia(): Sepya, yani eski fotoğraf görünümü verir.
+*    saturate(): Renk doygunluğunu artırır veya azaltır.
+*    opacity(): Filtre üzerinden saydamlık uygular.
+*    drop-shadow(): Elementin şekline göre gölge oluşturur.
+*    hue-rotate(): Renk tonlarını dereceyle değiştirir.
+*    invert(): Renkleri tersine çevirir.
+
+-->

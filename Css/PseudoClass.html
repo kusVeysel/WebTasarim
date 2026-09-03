@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Pseudo-Class</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #2563eb;
+            --green: #16a34a;
+            --red: #dc2626;
+            --text: #1f2937;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            color: var(--text);
+            background: #e0f2fe;
+        }
+
+        h2 {
+            margin-top: 34px;
+        }
+
+        .explanation {
+            max-width: 850px;
+            line-height: 1.5;
+            color: #475569;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f3f4f6;
+            border-radius: 12px;
+        }
+
+        .demo {
+            width: 100%;
+            padding: 18px;
+            border: 2px dashed #94a3b8;
+            background: white;
+        }
+
+        .box {
+            display: inline-block;
+            margin: 5px;
+            padding: 16px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+        }
+
+        /* 1. LINK STATES */
+        .link-demo a {
+            margin: 8px;
+            font-weight: bold;
+        }
+
+        .link-demo a:link {
+            color: var(--blue);
+        }
+
+        .link-demo a:visited {
+            color: #7c3aed;
+        }
+
+        .link-demo a:hover {
+            color: #ea580c;
+            text-decoration: underline;
+        }
+
+        .link-demo a:active {
+            color: var(--red);
+        }
+
+        /* 2. MOUSE AND KEYBOARD STATES */
+        .hover-box {
+            transition: 0.3s;
+        }
+
+        .hover-box:hover {
+            transform: translateY(-5px);
+            background: #fef3c7;
+            border-color: #f59e0b;
+        }
+
+        .active-box:active {
+            transform: scale(0.9);
+            background: #fecaca;
+        }
+
+        .focus-box:focus {
+            outline: 4px solid #93c5fd;
+            border-color: var(--blue);
+        }
+
+        .focus-visible-box:focus-visible {
+            outline: 4px solid #f59e0b;
+        }
+
+        /* 3. FORM STATES */
+        .form-demo {
+            display: grid;
+            gap: 12px;
+            max-width: 500px;
+        }
+
+        .form-demo input,
+        .form-demo button {
+            padding: 12px;
+            font: inherit;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        .form-demo input:focus {
+            outline: none;
+            border-color: var(--blue);
+        }
+
+        .form-demo input:required {
+            border-left: 6px solid #f59e0b;
+        }
+
+        .form-demo input:valid {
+            border-color: var(--green);
+        }
+
+        .form-demo input:invalid {
+            border-color: var(--red);
+        }
+
+        .form-demo button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .form-demo button:not(:disabled) {
+            background: #dbeafe;
+            cursor: pointer;
+        }
+
+        /* 4. CHECKBOX AND RADIO */
+        .choice input:checked+label {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .choice input:checked {
+            accent-color: var(--green);
+        }
+
+        .choice input:indeterminate {
+            accent-color: var(--blue);
+        }
+
+        /* 5. STRUCTURAL STATES */
+        .list-demo {
+            padding: 0;
+            list-style: none;
+            max-width: 500px;
+        }
+
+        .list-demo li {
+            padding: 12px;
+            border-bottom: 1px solid #cbd5e1;
+        }
+
+        .list-demo li:first-child {
+            background: #dcfce7;
+        }
+
+        .list-demo li:last-child {
+            background: #fee2e2;
+        }
+
+        .list-demo li:nth-child(odd) {
+            border-left: 6px solid #38bdf8;
+        }
+
+        .list-demo li:nth-child(even) {
+            border-left: 6px solid #fbbf24;
+        }
+
+        .list-demo li:only-child {
+            background: #e9d5ff;
+        }
+
+        /* 6. CONTENT STATES */
+        .content-demo p:empty {
+            display: block;
+            height: 35px;
+            border: 2px dashed var(--red);
+            background: #fee2e2;
+        }
+
+        .content-demo p:not(.important) {
+            color: #64748b;
+        }
+
+        .content-demo p.important {
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        /* 7. MODERN SELECTORS */
+        .modern-demo :is(h3, h4) {
+            color: var(--blue);
+        }
+
+        .modern-demo p:not(.muted) {
+            font-weight: bold;
+        }
+
+        .modern-demo article:has(img) {
+            border: 3px solid var(--green);
+        }
+
+        .modern-demo article {
+            padding: 15px;
+            margin: 8px 0;
+            background: #f8fafc;
+        }
+
+        /* 8. TARGET AND RANGE */
+        .target-card {
+            display: none;
+            padding: 15px;
+            background: #dcfce7;
+        }
+
+        .target-card:target {
+            display: block;
+        }
+
+        .range-demo input {
+            width: min(100%, 400px);
+            accent-color: var(--blue);
+        }
+
+        .range-demo output {
+            display: inline-block;
+            min-width: 45px;
+            font-weight: bold;
+        }
+
+        /* 9. PSEUDO-ELEMENTS */
+        .pseudo-element::before {
+            content: "ONCE: ";
+            color: var(--blue);
+            font-weight: bold;
+        }
+
+        .pseudo-element::after {
+            content: " ✓";
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .quote::first-letter {
+            font-size: 2em;
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        .quote::first-line {
+            background: #fef3c7;
+        }
+
+        ::selection {
+            color: white;
+            background: var(--blue);
+        }
+
+        /* 9. MARKER */
+        .symbol li::marker {
+            content: "★ ";
+            color: goldenrod;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CSS Pseudo-Class</h1>
+    <p class="explanation">Pseudo-class, bir elementin durumunu veya listedeki konumunu seçer. Linklerin üzerine gelmek,
+        input'a odaklanmak, checkbox işaretlemek ve pencereyi hash bağlantısıyla değiştirmek örnekleri aktif hale
+        getirir.</p>
+
+    <h2>1. link durumları</h2>
+    <p class="explanation">`:link` ziyaret edilmemiş linki, `:visited` ziyaret edilmiş linki, `:hover` fare üzerindeki
+        linki, `:active` tıklama anındaki linki seçer.</p>
+    <div class="container link-demo">
+        <div class="demo"><a href="#ziyaret-edildi">Ziyaret edilmemiş link</a><a href="https://example.com"
+                target="_blank">Harici link</a><a href="#">Üzerine gel ve tıkla</a></div>
+    </div>
+
+    <h2>2. fare ve klavye durumları</h2>
+    <p class="explanation">`:hover` fareyle üzerine gelmeyi, `:active` basılı tutma anını, `:focus` odaklanmayı,
+        `:focus-visible` özellikle klavye odağını belirtir.</p>
+    <div class="container">
+        <div class="demo"><button class="box hover-box">Üzerime gel: hover</button><button class="box active-box">Basılı
+                tut: active</button><button class="box focus-box">Odaklan: focus</button><button
+                class="box focus-visible-box">Tab ile seç: focus-visible</button></div>
+    </div>
+
+    <h2>3. form durumları</h2>
+    <p class="explanation">`:required`, zorunlu alanı; `:valid` doğru girilen alanı; `:invalid` hatalı veya boş zorunlu
+        alanı; `:disabled` pasif butonu seçer.</p>
+    <div class="container">
+        <form class="demo form-demo"><label for="email">Zorunlu e-posta</label><input id="email" type="email" required
+                placeholder="ornek@mail.com"><label for="website">Web sitesi (geçerli URL)</label><input id="website"
+                type="url" placeholder="https://ornek.com"><button type="submit">Gönderilebilir</button><button
+                type="button" disabled>Devre dışı</button></form>
+    </div>
+
+    <h2>4. checkbox ve radio durumları</h2>
+    <p class="explanation">`:checked`, seçilmiş checkbox veya radio elementini seçer. Seçimleri değiştirerek etiket
+        rengindeki farkı görün.</p>
+    <div class="container">
+        <div class="demo choice"><input id="html" type="checkbox"><label for="html"> HTML</label><br><input id="css"
+                type="checkbox"><label for="css"> CSS</label><br><input id="js" type="radio" name="dil"><label for="js">
+                JavaScript</label><br><input id="python" type="radio" name="dil"><label for="python"> Python</label>
+        </div>
+    </div>
+
+    <h2>5. listedeki konum durumları</h2>
+    <p class="explanation">`:first-child`, `:last-child`, `:nth-child()` ve `:only-child`, elementin kardeşleri
+        arasındaki konumuna göre seçim yapar.</p>
+    <div class="container">
+        <ul class="demo list-demo">
+            <li>İlk eleman: first-child</li>
+            <li>Tek numaralı eleman: nth-child(odd)</li>
+            <li>Çift numaralı eleman: nth-child(even)</li>
+            <li>Son eleman: last-child</li>
+        </ul>
+    </div>
+
+    <h2>6. içerik durumları</h2>
+    <p class="explanation">`:empty`, içeriği olmayan elementi; `:not()` verilen seçiciye uymayan elementi seçer.</p>
+    <div class="container">
+        <div class="demo content-demo">
+            <p class="important">Önemli içerik: .important</p>
+            <p>Normal içerik: :not(.important)</p>
+            <p></p>
+        </div>
+    </div>
+
+    <h2>7. modern pseudo-class seçiciler</h2>
+    <p class="explanation">`:is()` birden fazla seçiciyi kısaltır. `:has()` ise içinde belirli bir çocuk veya alt
+        element bulunan üst elementi seçer.</p>
+    <div class="container">
+        <div class="demo modern-demo">
+            <article>
+                <h3>:is(h3, h4) ile seçilen başlık</h3>
+                <p>Bu metin .muted olmadığı için kalındır.</p>
+            </article>
+            <article>
+                <h4>Görselsiz article</h4>
+                <p class="muted">Bu metin :not(.muted) seçimine uymaz.</p>
+            </article>
+            <article>
+                <h3>:has(img) ile seçilen article</h3><img src="https://picsum.photos/120/60" alt="Örnek görsel">
+            </article>
+        </div>
+    </div>
+
+    <h2>8. target ve range</h2>
+    <p class="explanation">`:target`, URL içindeki #id ile hedeflenen elementi seçer. Kaydırıcı ise `:in-range` ve
+        `:out-of-range` ile aralık durumlarını gösterebilir.</p>
+    <div class="container">
+        <div class="demo"><a href="#hedef">Açıklamayı göster</a>
+            <div id="hedef" class="target-card">Bu kutu :target sayesinde görünür oldu.</div>
+            <div class="range-demo"><label for="puan">Puan (0-100): </label><input id="puan" type="range" min="0"
+                    max="100" value="50"><output for="puan">50</output></div>
+        </div>
+    </div>
+
+    <h2>9. pseudo-element ile farkı</h2>
+    <p class="explanation">Pseudo-class elementin durumunu seçer; pseudo-element ise elementin bir parçasını veya sanal
+        içeriğini biçimlendirir.</p>
+    <div class="container">
+        <div class="demo">
+            <p class="box pseudo-element">Pseudo-element örneği</p>
+            <p class="box quote">İlk harf ve ilk satır farklı biçimlendirildi.</p>
+        </div>
+    </div>
+
+    <h2>10. marker</h2>
+    <p class="explanation">Listenin sembolünü değiştirir.</p>
+    <div class="container symbol">
+        <div class="demo">
+            <ul>
+                <li>Premium</li>
+                <li>Professional</li>
+                <li>Advanced</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
+<!--
+	==================================================
+					  DEĞER ÖZETİ
+	==================================================
+
+?    LİNK DURUMLARI
+*    :link: Ziyaret edilmemiş linkleri seçer.
+*    :visited: Daha önce ziyaret edilmiş linkleri seçer.
+*    :hover: Fare elementin üzerindeyken çalışır.
+*    :active: Element tıklanırken veya basılı tutulurken çalışır.
+
+?    ODAK DURUMLARI
+*    :focus: Input, button gibi element odaklandığında çalışır.
+*    :focus-visible: Özellikle klavye ile odaklanıldığında görünür odak stili verir.
+
+?    FORM DURUMLARI
+*    :required: required özelliği verilmiş alanı seçer.
+*    :valid: Girilen değer kurallara uyduğunda çalışır.
+*    :invalid: Girilen değer kurallara uymadığında çalışır.
+*    :disabled: Kullanılamayan form elementini seçer.
+*    :enabled: Kullanılabilir form elementini seçer.
+*    :checked: İşaretlenmiş checkbox veya radio elementini seçer.
+*    :indeterminate: Durumu tam olarak seçili veya seçili değil olmayan elementi seçer.
+
+?    KONUM VE İÇERİK
+*    :first-child: Kardeşleri arasındaki ilk elementi seçer.
+*    :last-child: Kardeşleri arasındaki son elementi seçer.
+*    :nth-child(odd): Tek sıradaki kardeşleri seçer.
+*    :nth-child(even): Çift sıradaki kardeşleri seçer.
+*    :only-child: Kardeşi olmayan tek elementi seçer.
+*    :empty: İçinde çocuk veya metin olmayan elementi seçer.
+*    :not(): Verilen seçiciye uymayan elementleri seçer.
+*    :target: URL hash'i ile hedeflenen elementi seçer.
+*    :in-range: Sayısal değeri min ve max aralığında olan alanı seçer.
+*    :out-of-range: Sayısal değeri belirlenen aralığın dışında olan alanı seçer.
+
+?    MODERN SEÇİCİLER
+*    :is(): Birden fazla seçiciyi tek bir grupta kullanmayı sağlar.
+*    :where(): :is() gibi gruplar, fakat önceliği sıfırdır.
+*    :has(): İçinde belirli bir alt element bulunan üst elementi seçer.
+
+?    PSEUDO-CLASS VE PSEUDO-ELEMENT FARKI
+*    Pseudo-class (:hover): Elementin durumunu veya konumunu seçer.
+*    Pseudo-element (::before): Elementin bir parçasını veya sanal içeriğini biçimlendirir.
+
+-->

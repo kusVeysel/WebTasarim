@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flexbox</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            color: #1f2937;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 35px;
+            padding: 20px;
+            background: #f3f4f6;
+            border-radius: 12px;
+        }
+
+        .demo {
+            width: 100%;
+            min-height: 120px;
+            padding: 10px;
+            border: 2px dashed #94a3b8;
+            background: white;
+        }
+
+        .flex-box {
+            display: flex;
+            gap: 10px;
+            position: relative;
+            padding: 10px;
+            padding-top: 42px;
+            border: 2px solid #64748b;
+            background: #e0f2fe;
+        }
+
+        .item {
+            min-width: 70px;
+            padding: 14px 10px;
+            border: 2px solid #0f766e;
+            background: #99f6e4;
+            text-align: center;
+        }
+
+        .item:nth-child(2) {
+            background: #fde68a;
+        }
+
+        .item:nth-child(3) {
+            background: #fecaca;
+        }
+
+        .label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-weight: bold;
+        }
+
+        .section-explanation {
+            max-width: 850px;
+            margin-top: -8px;
+            margin-bottom: 12px;
+            color: #475569;
+            line-height: 1.5;
+        }
+
+        /* 1. DISPLAY */
+        .display-flex {
+            display: flex;
+        }
+
+        .display-flex .item {
+            flex: 1;
+        }
+
+        /* 2. FLEX-DIRECTION */
+        .direction-row {
+            flex-direction: row;
+        }
+
+        .direction-row-reverse {
+            flex-direction: row-reverse;
+        }
+
+        .direction-column {
+            flex-direction: column;
+        }
+
+        .direction-column-reverse {
+            flex-direction: column-reverse;
+        }
+
+        .direction-demo {
+            min-height: 170px;
+        }
+
+        /* 3. FLEX-WRAP */
+        .wrap-demo {
+            width: 300px;
+            min-height: 150px;
+        }
+
+        .wrap-demo .item {
+            flex: 0 0 120px;
+        }
+
+        .wrap-nowrap {
+            flex-wrap: nowrap;
+        }
+
+        .wrap-wrap {
+            flex-wrap: wrap;
+        }
+
+        .wrap-reverse {
+            flex-wrap: wrap-reverse;
+        }
+
+        /* 4. JUSTIFY-CONTENT */
+        .justify-demo {
+            min-height: 100px;
+        }
+
+        .justify-flex-start {
+            justify-content: flex-start;
+        }
+
+        .justify-flex-end {
+            justify-content: flex-end;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .justify-space-between {
+            justify-content: space-between;
+        }
+
+        .justify-space-around {
+            justify-content: space-around;
+        }
+
+        .justify-space-evenly {
+            justify-content: space-evenly;
+        }
+
+        /* 5. ALIGN-ITEMS */
+        .align-items-demo {
+            height: 150px;
+        }
+
+        .align-items-demo .item:nth-child(2) {
+            padding-top: 35px;
+            padding-bottom: 35px;
+        }
+
+        .align-items-stretch {
+            align-items: stretch;
+        }
+
+        .align-items-flex-start {
+            align-items: flex-start;
+        }
+
+        .align-items-flex-end {
+            align-items: flex-end;
+        }
+
+        .align-items-center {
+            align-items: center;
+        }
+
+        .align-items-baseline {
+            align-items: baseline;
+        }
+
+        /* 6. ALIGN-CONTENT */
+        .align-content-demo {
+            flex-wrap: wrap;
+            width: 330px;
+            height: 230px;
+        }
+
+        .align-content-demo .item {
+            flex: 0 0 90px;
+        }
+
+        .align-content-flex-start {
+            align-content: flex-start;
+        }
+
+        .align-content-flex-end {
+            align-content: flex-end;
+        }
+
+        .align-content-center {
+            align-content: center;
+        }
+
+        .align-content-space-between {
+            align-content: space-between;
+        }
+
+        .align-content-space-around {
+            align-content: space-around;
+        }
+
+        .align-content-space-evenly {
+            align-content: space-evenly;
+        }
+
+        /* 7. GAP */
+        .gap-small {
+            gap: 5px;
+        }
+
+        .gap-large {
+            gap: 30px;
+        }
+
+        .gap-row-column {
+            row-gap: 25px;
+            column-gap: 8px;
+            flex-wrap: wrap;
+            width: 330px;
+        }
+
+        .gap-row-column .item {
+            flex: 0 0 90px;
+        }
+
+        /* 8. FLEX */
+        .flex-value-demo .item {
+            flex: 0 1 auto;
+        }
+
+        .flex-grow .item {
+            flex: 1 1 0;
+        }
+
+        .flex-grow .item:nth-child(2) {
+            flex: 2 1 0;
+        }
+
+        .flex-none .item:first-child {
+            flex: none;
+        }
+
+        .flex-auto .item:first-child {
+            flex: auto;
+        }
+
+        /* 9. ORDER */
+        .order-one {
+            order: 1;
+        }
+
+        .order-two {
+            order: 2;
+        }
+
+        .order-negative {
+            order: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>1. display: flex</h2>
+    <p class="section-explanation">Bir elementi flex container yaptığımızda içindeki çocuklar varsayılan olarak yatay
+        bir sıra üzerinde dizilir.</p>
+    <div class="container">
+        <div class="demo display-flex">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+    </div>
+
+    <h2>2. flex-direction</h2>
+    <p class="section-explanation">Ana eksenin yönünü belirler. Aynı 1-2-3 kutularının yatay, ters yatay, dikey ve ters
+        dikey sıralanmasını karşılaştırın.</p>
+    <div class="container">
+        <div class="demo flex-box direction-demo direction-row"><span class="label">row</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box direction-demo direction-row-reverse"><span class="label">row-reverse</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box direction-demo direction-column"><span class="label">column</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box direction-demo direction-column-reverse"><span class="label">column-reverse</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+    </div>
+
+    <h2>3. flex-wrap</h2>
+    <p class="section-explanation">Kutu genişliği alana sığmadığında ne olacağını belirler. Dar alan, sarmanın ve
+        taşmanın farkını görünür yapar.</p>
+    <div class="container">
+        <div class="demo flex-box wrap-demo wrap-nowrap"><span class="label">nowrap</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box wrap-demo wrap-wrap"><span class="label">wrap</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box wrap-demo wrap-reverse"><span class="label">wrap-reverse</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+    </div>
+
+    <h2>4. justify-content</h2>
+    <p class="section-explanation">Ana eksen yatayken kutuların yatayda nereye yerleşeceğini belirler. Boşlukların nasıl
+        dağıldığına dikkat edin.</p>
+    <div class="container">
+        <div class="demo flex-box justify-demo justify-flex-start"><span class="label">flex-start</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box justify-demo justify-flex-end"><span class="label">flex-end</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box justify-demo justify-center"><span class="label">center</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box justify-demo justify-space-between"><span class="label">space-between</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box justify-demo justify-space-around"><span class="label">space-around</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box justify-demo justify-space-evenly"><span class="label">space-evenly</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+    </div>
+
+    <h2>5. align-items</h2>
+    <p class="section-explanation">Tek bir satırdaki çocukların çapraz eksende, yani burada dikey yönde, nasıl
+        hizalanacağını belirler.</p>
+    <div class="container">
+        <div class="demo flex-box align-items-demo align-items-stretch"><span class="label">stretch</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box align-items-demo align-items-flex-start"><span class="label">flex-start</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box align-items-demo align-items-flex-end"><span class="label">flex-end</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box align-items-demo align-items-center"><span class="label">center</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box align-items-demo align-items-baseline"><span class="label">baseline</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+    </div>
+
+    <h2>6. align-content</h2>
+    <p class="section-explanation">Tek tek kutuları değil, flex-wrap ile oluşan birden fazla satırı hizalar. Satırlar
+        arasındaki konum ve boşluklara bakın.</p>
+    <div class="container">
+        <div class="demo flex-box align-content-demo align-content-flex-start"><span class="label">flex-start</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+        <div class="demo flex-box align-content-demo align-content-flex-end"><span class="label">flex-end</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+        <div class="demo flex-box align-content-demo align-content-center"><span class="label">center</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+        <div class="demo flex-box align-content-demo align-content-space-between"><span
+                class="label">space-between</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+        <div class="demo flex-box align-content-demo align-content-space-around"><span class="label">space-around</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+        <div class="demo flex-box align-content-demo align-content-space-evenly"><span class="label">space-evenly</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+    </div>
+
+    <h2>7. gap</h2>
+    <p class="section-explanation">Flex çocuklarının arasındaki boşluğu ayarlar. row-gap satırlar arasını, column-gap
+        sütunlar arasını değiştirir.</p>
+    <div class="container">
+        <div class="demo flex-box gap-small"><span class="label">gap: 5px</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box gap-large"><span class="label">gap: 30px</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box gap-row-column"><span class="label">row-gap: 25px, column-gap: 8px</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+        </div>
+    </div>
+
+    <h2>8. flex</h2>
+    <p class="section-explanation">Büyüme payını, küçülme payını ve başlangıç boyutunu birlikte kontrol eder. Ortadaki
+        kutunun neden daha geniş olduğuna bakın.</p>
+    <div class="container">
+        <div class="demo flex-box flex-value-demo"><span class="label">flex: 0 1 auto</span>
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+        </div>
+        <div class="demo flex-box flex-grow"><span class="label">flex: 1 ve flex: 2</span>
+            <div class="item">1 birim</div>
+            <div class="item">2 birim</div>
+            <div class="item">1 birim</div>
+        </div>
+        <div class="demo flex-box flex-none"><span class="label">flex: none</span>
+            <div class="item">none</div>
+            <div class="item">diğer</div>
+        </div>
+        <div class="demo flex-box flex-auto"><span class="label">flex: auto</span>
+            <div class="item">auto</div>
+            <div class="item">diğer</div>
+        </div>
+    </div>
+
+    <h2>9. order</h2>
+    <p class="section-explanation">HTML sırasını değiştirmeden kutuların ekrandaki sırasını değiştirir. Küçük order
+        değerleri önce gösterilir.</p>
+    <div class="container">
+        <div class="demo flex-box">
+            <div class="item order-two">HTML<br>order: 2</div>
+            <div class="item order-negative">CSS<br>order: -1</div>
+            <div class="item order-one">JS<br>order: 1</div>
+        </div>
+    </div>
+</body>
+
+</html>
+<!--
+	==================================================
+					    ÖZET
+	==================================================
+
+?    FLEX CONTAINER (display)
+*    display: flex; Çocuk elementleri esnek kutu düzenine alır.
+
+?    ANA EKSEN (flex-direction)
+*    row: Elementleri yatay ve normal sırada dizer.
+*    row-reverse: Elementleri yatay ve ters sırada dizer.
+*    column: Elementleri dikey ve normal sırada dizer.
+*    column-reverse: Elementleri dikey ve ters sırada dizer.
+
+?    SATIRA SARMA (flex-wrap)
+*    nowrap: Elementleri tek satırda tutar.
+*    wrap: Sığmayan elementleri sonraki satıra geçirir.
+*    wrap-reverse: Satırları ters çapraz yönde oluşturur.
+
+?    ANA EKSEN HİZALAMASI (justify-content)
+*    flex-start: Kutuları ana eksenin başlangıcına yanaştırır.
+*    flex-end: Kutuları ana eksenin sonuna yanaştırır.
+*    center: Kutuları ana eksenin ortasına yerleştirir.
+*    space-between: İlk ve son kutuyu kenarlara, diğerlerini eşit aralıklara yerleştirir.
+*    space-around: Her kutunun çevresinde eşit boşluk bırakır.
+*    space-evenly: Kutular ve container kenarları arasında tamamen eşit boşluk bırakır.
+
+?    ÇAPRAZ EKSEN HİZALAMASI (align-items)
+*    stretch: Kutuları çapraz eksende container yüksekliğine kadar esnetir.
+*    flex-start: Kutuları çapraz eksenin başlangıcına hizalar.
+*    flex-end: Kutuları çapraz eksenin sonuna hizalar.
+*    center: Kutuları çapraz eksenin ortasına hizalar.
+*    baseline: Kutuları içlerindeki yazıların taban çizgisine göre hizalar.
+
+?    SATIRLARIN HİZALAMASI (align-content)
+*    stretch: Birden fazla satırı alana yayarak esnetir.
+*    flex-start: Satırları container'ın başlangıcında toplar.
+*    flex-end: Satırları container'ın sonunda toplar.
+*    center: Satırları container'ın ortasına toplar.
+*    space-between: İlk ve son satırı kenarlara, diğer satırları eşit aralıklara yerleştirir.
+*    space-around: Satırların çevresinde eşit boşluk bırakır.
+*    space-evenly: Satırlar ve container kenarları arasında eşit boşluk bırakır.
+
+?    ELEMENTLER ARASI BOŞLUK (gap)
+*    gap: Satır ve sütun boşluğunu birlikte belirler.
+*    row-gap: Satırlar arasındaki boşluğu belirler.
+*    column-gap: Sütunlar arasındaki boşluğu belirler.
+
+?    ELEMENT BOYUTU (flex)
+*    flex: grow, shrink ve basis değerlerini kısa yoldan belirler.
+*    flex: 0 1 auto: Büyümez, gerektiğinde küçülür ve kendi başlangıç boyutunu kullanır.
+*    flex: 1: Kullanılabilir alanı eşit büyüme payıyla paylaşır.
+*    flex: 2: flex: 1 olan elementin iki katı büyüme payı alır.
+*    auto: Elementin kendi boyutuna göre büyümesine ve küçülmesine izin verir.
+*    none: Elementin büyümesini ve küçülmesini engeller; başlangıç boyutunu korur.
+
+?    SIRALAMA (order)
+*    order: Elementlerin görsel sırasını değiştirir; HTML sırası değişmez.
+*    negatif değer: Elementi varsayılan sıranın önüne taşır.
+*    0: Varsayılan order değeridir.
+*    pozitif değer: Elementi daha büyük order değerlerinden önce gösterir.
+
+-->
