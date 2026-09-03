@@ -7,20 +7,25 @@ Bu repository, **HTML, CSS, JavaScript, jQuery ve Bootstrap** başta olmak üzer
 ### 📄 Html
 
 HTML ile ilgili temel ve ileri düzey bilgileri içerir.
-Kodların açıklamaları ve her dosyanın HTML yapıları **`Ozet.html`** içerisinde yer almaktadır.
+Kodların açıklamaları ve dosyalarda kullanılan HTML yapıları **`Ozet.html`** içerisinde yer almaktadır.
 
 ### 🎨 Css
 
 CSS ile ilgili kapsamlı ve ayrıntılı bilgiler bulunmaktadır.
-Günlük ve profesyonel web projelerinde kullanılabilecek CSS özelliklerinin büyük bir bölümünü içerir.
+Her dosyanın en alt kısmında ilgili konuya ait detaylı özet bulunmaktadır.
+Kodların genel açıklamaları **`Ozet.html`** içerisinde yer almaktadır.
+Günlük ve profesyonel web projelerinde kullanılabilecek CSS özelliklerinin büyük bir bölümünü içermektedir.
 
 ### ⚡ JavaScript
 
 JavaScript'in temel yapılarının yanı sıra modern JavaScript özelliklerine de yer verilmiştir.
+Başlamadan önce **`TemelBilgiler.html`** dosyasına bakınız.
 
 ### 🟢 JQuery
 
 jQuery ile ilgili temel bilgiler, kullanım yapıları ve örnekler bulunmaktadır.
+API Request gibi daha ileri düzey kod örneklerine de yer verilmiştir.
+Başlamadan önce **`TemelBilgiler.html`** dosyasına bakınız.
 
 ### 🅱️ Bootstrap
 
@@ -33,11 +38,11 @@ HTML, CSS, JavaScript ve diğer web teknolojileri kullanılarak hazırlanmış �
 
 ### 🔗 CDN
 
-Projelerde kullanılabilecek hazır **CDN** bağlantıları ve kaynakları bulunmaktadır.
+Projelerde kullanılabilecek hazır **CDN bağlantıları** ve kaynakları bulunmaktadır.
 
 ### 📚 CdnCalisma
 
-CDN klasöründe bulunan kaynakların nasıl kullanılabileceği ve bunlarla ilgili bilgiler yer almaktadır.
+CDN klasöründe bulunan kaynakların nasıl kullanılabileceği ve bu kaynaklarla ilgili bilgiler yer almaktadır.
 
 ### 🧩 HazirSablonlar
 
@@ -47,7 +52,7 @@ Web projelerinde kullanılabilecek **modern, kısa ve pratik hazır kod yapılar
 
 ## 🎯 Amaç
 
-Bu repository'nin amacı, web geliştirme sürecinde ihtiyaç duyulan bilgileri, kod yapılarını, örnekleri ve hazır çözümleri **tek bir yerde toplamak** ve gerektiğinde hızlıca başvurulabilecek bir kaynak oluşturmaktır.
+Bu repository'nin amacı, web geliştirme sürecinde ihtiyaç duyulan bilgileri, kod yapılarını, örnekleri ve hazır çözümleri **tek bir yerde toplamak** ve gerektiğinde hızlıca başvurulabilecek kapsamlı bir kaynak oluşturmaktır.
 
 ---
 

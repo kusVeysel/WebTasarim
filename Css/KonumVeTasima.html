@@ -168,6 +168,29 @@
         .overflow-auto {
             overflow: auto;
         }
+
+        /* ==================================================
+		   5. INSET
+		   ================================================== */
+
+        .inset-area {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            border: 2px dashed #94a3b8;
+            background: #fef3c7;
+        }
+
+        .inset-box {
+            position: absolute;
+            inset: 25px 15% 25px 15%;
+            display: grid;
+            place-items: center;
+            padding: 15px;
+            background: #f59e0b;
+            border: 2px solid #b45309;
+            color: #451a03;
+        }
     </style>
 </head>
 
@@ -224,12 +247,25 @@
         <div class="box overflow-box overflow-scroll">scroll: Kaydırma çubukları gösterilir.</div>
         <div class="box overflow-box overflow-auto">auto: Gerektiğinde kaydırma çubuğu gösterilir.</div>
     </div>
+
+    <!-- ==================================================
+	   5. INSET
+	   ================================================== -->
+
+    <h2>5. inset</h2>
+    <p>inset, position verilmiş bir elementin top, right, bottom ve left değerlerini tek satırda belirler. Sıralama
+        saat yönündedir: üst, sağ, alt, sol.</p>
+    <div class="container">
+        <div class="inset-area">
+            <div class="inset-box">inset: 25px 15% 25px 15%<br>top right bottom left</div>
+        </div>
+    </div>
 </body>
 
 </html>
 <!--
     ==================================================
-                      DEĞER ÖZETİ
+                        ÖZET
     ==================================================
 
 ?    KONUM DEĞERLERİ (position)
@@ -254,5 +290,12 @@
 *    hidden: Kutu dışına taşan içerik gizlenir.
 *    scroll: İçerik taşmasa bile kaydırma çubuklarını gösterir.
 *    auto: İçerik taştığında gerektiği zaman kaydırma çubuğu gösterir.
+
+?    KONUM KISALTMASI (inset)
+*    inset: position verilmiş elementlerde top, right, bottom ve left değerlerini tek satırda belirler.
+*    1 değer: Dört kenara aynı değer uygulanır. Örnek: inset: 20px;
+*    2 değer: Dikey ve yatay kenarları belirler. Örnek: inset: 20px 10px;
+*    3 değer: Üst, yatay ve alt değerlerini belirler. Örnek: inset: 20px 10px 5px;
+*    4 değer: Sırasıyla üst, sağ, alt ve sol değerlerini belirler.
 
 -->

@@ -7,8 +7,8 @@
 
     <style>
         /* ==================================================
-       ORTAK TASARIM
-       ================================================== */
+              ORTAK TASARIM
+              ================================================== */
 
         .container {
             display: flex;
@@ -30,258 +30,177 @@
             border-radius: 12px;
         }
 
-        /* ==================================================
-       1. background: color
-       ==================================================
-
-       Arka plana doğrudan renk verir.
-       Renk adı, HEX, RGB, HSL vb. kullanılabilir. */
+        /* 1. background: color
+              Arka plana doğrudan renk verir. */
 
         .color .item {
             background: steelblue;
         }
 
-        /* ==================================================
-       2. background: linear-gradient()
-       ==================================================
-
-       Renkleri doğrusal bir yönde birbirine geçirir.
-
-       135deg → Gradient yönü */
+        /* 2. background: linear-gradient()
+              Renkleri doğrusal bir yönde birbirine geçirir. */
 
         .linear .item {
-            background:
-                linear-gradient(135deg,
-                    steelblue,
-                    purple);
+            background: linear-gradient(135deg, steelblue, purple);
         }
 
-        /* ==================================================
-       3. background: radial-gradient()
-       ==================================================
-
-       Renkleri merkezden dışarı doğru dairesel/oval şekilde dağıtır. */
+        /* 3. background: radial-gradient()
+              Renkleri merkezden dışarı doğru dairesel/oval şekilde dağıtır. */
 
         .radial .item {
-            background:
-                radial-gradient(circle,
-                    white,
-                    steelblue,
-                    purple);
+            background: radial-gradient(circle, white, steelblue, purple);
         }
 
-        /* ==================================================
-       4. background: conic-gradient()
-       ==================================================
-
-       Renkleri bir merkez noktası etrafında dönen açı şeklinde dağıtır. */
+        /* 4. background: conic-gradient()
+              Renkleri merkez etrafında açı şeklinde dağıtır. */
 
         .conic .item {
-            background:
-                conic-gradient(steelblue,
-                    purple,
-                    steelblue);
+            background: conic-gradient(steelblue, purple, steelblue);
         }
 
-        /* ==================================================
-       5. background: repeating-linear-gradient()
-       ==================================================
-
-       Linear gradient'in tekrar eden versiyonudur.
-
-       Belirli aralıklarla aynı renk geçişini tekrar tekrar oluşturur. */
+        /* 5. background: repeating-linear-gradient()
+              Linear gradient'in tekrar eden versiyonudur. */
 
         .repeating-linear .item {
-            background:
-                repeating-linear-gradient(45deg,
-                    steelblue 0 20px,
-                    white 20px 40px);
+            background: repeating-linear-gradient(45deg, steelblue 0 20px, white 20px 40px);
         }
 
-        /* ==================================================
-       6. background: repeating-radial-gradient()
-       ==================================================
-
-       Radial gradient'in tekrar eden versiyonudur.
-
-       Merkezden dışarı doğru tekrar eden dairesel desen oluşturur. */
+        /* 6. background: repeating-radial-gradient()
+              Radial gradient'in tekrar eden versiyonudur. */
 
         .repeating-radial .item {
-            background:
-                repeating-radial-gradient(circle,
-                    steelblue 0 15px,
-                    white 15px 30px);
+            background: repeating-radial-gradient(circle, steelblue 0 15px, white 15px 30px);
         }
 
-        /* ==================================================
-       7. background: repeating-conic-gradient()
-       ==================================================
-
-       Conic gradient'in tekrar eden versiyonudur.
-
-       Merkez etrafında tekrar eden açısal desen oluşturur. */
+        /* 7. background: repeating-conic-gradient()
+              Conic gradient'in tekrar eden versiyonudur. */
 
         .repeating-conic .item {
-            background:
-                repeating-conic-gradient(steelblue 0 15deg,
-                    white 15deg 30deg);
+            background: repeating-conic-gradient(steelblue 0 15deg, white 15deg 30deg);
         }
 
-        /* ==================================================
-       8. background: image
-       ==================================================
-
-       background shorthand içinde url() ile resim de kullanılabilir.
-
-       Not:Burada ayrı bir background-image özelliği kullanılmıyor. */
+        /* 8. background: image
+              background shorthand içinde url() ile resim kullanılabilir. */
 
         .image .item {
-            background:
-                url("https://picsum.photos/500/300") center / cover no-repeat;
+            background: url("https://picsum.photos/500/300") center / cover no-repeat;
         }
 
-        /* ==================================================
-       9. BİRDEN FAZLA BACKGROUND
-       ==================================================
-
-       Virgül kullanılarak birden fazla background katmanı eklenebilir.
-       İlk yazılan katman en üsttedir. */
+        /* 9. BİRDEN FAZLA BACKGROUND
+              İlk yazılan katman en üsttedir. */
 
         .multiple .item {
-            background:
-                linear-gradient(rgba(0, 0, 0, .4),
-                    rgba(0, 0, 0, .4)),
-                url("https://picsum.photos/500/300") center / cover no-repeat;
+            background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url("https://picsum.photos/500/300") center / cover no-repeat;
         }
 
-        /* ==================================================
-       10. background shorthand
-       ==================================================
-
-       Tek satırda birden fazla background özelliği belirtilebilir.
-
-       background: color, image, position / size, repeat; */
+        /* 10. background shorthand
+              Birden fazla background özelliğini tek satırda belirtir. */
 
         .shorthand .item {
-            background:
-                steelblue linear-gradient(135deg,
-                    transparent,
-                    purple) center / cover no-repeat;
+            background: steelblue linear-gradient(135deg, transparent, purple) center / cover no-repeat;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- ==================================================
-       1. color
-       ================================================== -->
+    <!-- 1. color -->
 
     <h2>1. background: color</h2>
     <div class="container color">
-        <div class="item">
-            COLOR
-        </div>
+        <div class="item">COLOR</div>
     </div>
 
-    <!-- ==================================================
-       2. linear-gradient
-       ================================================== -->
+    <!-- 2. linear-gradient -->
 
     <h2>2. background: linear-gradient()</h2>
     <div class="container linear">
-        <div class="item">
-            LINEAR
-        </div>
+        <div class="item">LINEAR</div>
     </div>
 
-    <!-- ==================================================
-       3. radial-gradient
-       ================================================== -->
+    <!-- 3. radial-gradient -->
 
     <h2>3. background: radial-gradient()</h2>
     <div class="container radial">
-        <div class="item">
-            RADIAL
-        </div>
+        <div class="item">RADIAL</div>
     </div>
 
-    <!-- ==================================================
-       4. conic-gradient
-       ================================================== -->
+    <!-- 4. conic-gradient -->
 
     <h2>4. background: conic-gradient()</h2>
     <div class="container conic">
-        <div class="item">
-            CONIC
-        </div>
+        <div class="item">CONIC</div>
     </div>
 
-    <!-- ==================================================
-       5. repeating-linear-gradient
-       ================================================== -->
+    <!-- 5. repeating-linear-gradient -->
 
     <h2>5. background: repeating-linear-gradient()</h2>
     <div class="container repeating-linear">
-        <div class="item">
-            REPEATING LINEAR
-        </div>
+        <div class="item">REPEATING LINEAR</div>
     </div>
 
-    <!-- ==================================================
-       6. repeating-radial-gradient
-       ================================================== -->
+    <!-- 6. repeating-radial-gradient -->
 
     <h2>6. background: repeating-radial-gradient()</h2>
     <div class="container repeating-radial">
-        <div class="item">
-            REPEATING RADIAL
-        </div>
+        <div class="item">REPEATING RADIAL</div>
     </div>
 
-    <!-- ==================================================
-       7. repeating-conic-gradient
-       ================================================== -->
+    <!-- 7. repeating-conic-gradient -->
 
     <h2>7. background: repeating-conic-gradient()</h2>
     <div class="container repeating-conic">
-        <div class="item">
-            REPEATING CONIC
-        </div>
+        <div class="item">REPEATING CONIC</div>
     </div>
 
-    <!-- ==================================================
-       8. image
-       ================================================== -->
+    <!-- 8. image -->
 
     <h2>8. background: url()</h2>
     <div class="container image">
-        <div class="item">
-            IMAGE
-        </div>
+        <div class="item">IMAGE</div>
     </div>
 
-    <!-- ==================================================
-       9. MULTIPLE BACKGROUNDS
-       ================================================== -->
+    <!-- 9. MULTIPLE BACKGROUNDS -->
 
     <h2>9. Multiple Backgrounds</h2>
     <div class="container multiple">
-        <div class="item">
-            MULTIPLE
-        </div>
+        <div class="item">MULTIPLE</div>
     </div>
 
-    <!-- ==================================================
-       10. SHORTHAND
-       ================================================== -->
+    <!-- 10. SHORTHAND -->
 
     <h2>10. background shorthand</h2>
     <div class="container shorthand">
-        <div class="item">
-            SHORTHAND
-        </div>
+        <div class="item">SHORTHAND</div>
     </div>
 </body>
 
 </html>
+<!--
+    ==================================================
+                        ÖZET
+    ==================================================
+
+?    TEK RENK VE GRADIENTLER
+*    background: Elementin arka planını tanımlar.
+*    background: steelblue; Arka plana tek bir renk verir.
+*    linear-gradient(): Renkleri doğrusal bir yönde geçişli olarak gösterir.
+*    radial-gradient(): Renkleri merkezden dışarı doğru dairesel veya oval dağıtır.
+*    conic-gradient(): Renkleri merkez etrafında açı şeklinde dağıtır.
+*    repeating-linear-gradient(): Tekrarlanan doğrusal gradient oluşturur.
+*    repeating-radial-gradient(): Tekrarlanan dairesel gradient oluşturur.
+*    repeating-conic-gradient(): Tekrarlanan açısal gradient oluşturur.
+
+?    GÖRSEL VE KATMANLAR
+*    url(): Arka plan olarak bir görsel kullanır.
+*    background-image: Arka plan görselini belirtir.
+*    Virgülle ayrılan background değerleri birden fazla katman oluşturur.
+*    İlk yazılan arka plan katmanı en üstte görünür.
+
+?    BACKGROUND SHORTHAND
+*    background: color image position / size repeat; birden fazla özelliği kısa yoldan tanımlar.
+*    center: Görseli ortalar.
+*    cover: Görseli alanı tamamen kaplayacak şekilde ölçekler.
+*    no-repeat: Görselin tekrarlanmasını engeller.
+
+-->
