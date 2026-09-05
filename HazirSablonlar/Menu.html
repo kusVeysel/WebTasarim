@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Menu</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+            background: #f7f6f2;
+        }
+
+        .sidebar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: 250px;
+            padding: 34px 22px;
+            color: #fff;
+            background: #202225;
+        }
+
+        .sidebar-header {
+            display: block;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 70px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            color: #202225;
+            background: #f8c36a;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 900;
+        }
+
+        .brand strong,
+        .brand small {
+            display: block;
+        }
+
+        .brand strong {
+            font-size: 15px;
+        }
+
+        .brand small {
+            margin-top: 4px;
+            color: #9c9da1;
+            font-size: 11px;
+        }
+
+        .main-nav {
+            display: grid;
+            gap: 8px;
+        }
+
+        .nav-link {
+            width: 100%;
+            border: 0;
+            border-radius: 10px;
+            padding: 13px 12px;
+            color: #aaaeb4;
+            background: transparent;
+            text-align: left;
+            font: inherit;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fff;
+            background: #303236;
+        }
+
+        .nav-link span {
+            margin-right: 12px;
+            color: #65686c;
+            font-size: 10px;
+        }
+
+        .nav-link.active span {
+            color: #f8c36a;
+        }
+
+        .menu-toggle {
+            display: none;
+            border: 1px solid #45474b;
+            border-radius: 7px;
+            padding: 8px 11px;
+            color: #fff;
+            background: #303236;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 760px) {
+            .sidebar {
+                position: fixed;
+                inset: 0 0 auto 0;
+                width: 100%;
+                padding: 14px 17px;
+            }
+
+            .sidebar-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .brand {
+                margin-bottom: 0;
+            }
+
+            .brand small {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .main-nav {
+                display: none;
+                gap: 5px;
+                margin-top: 14px;
+                overflow-x: auto;
+            }
+
+            .sidebar.menu-open .main-nav {
+                display: flex;
+            }
+
+            .nav-link {
+                width: auto;
+                min-width: max-content;
+                white-space: nowrap;
+            }
+
+            .nav-link span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a class="brand" href="#">
+                <span class="brand-mark">JS</span>
+                <span>
+                    <strong>JS Kampusu</strong>
+                    <small>Ogrenme panosu</small>
+                </span>
+            </a>
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Menuyu ac veya kapat"
+                aria-expanded="false">MENU</button>
+        </div>
+
+        <nav class="main-nav" aria-label="Ana navigasyon">
+            <button class="nav-link active" type="button"><span>01</span> Ana sayfa</button>
+            <button class="nav-link" type="button"><span>02</span> Konular</button>
+            <button class="nav-link" type="button"><span>03</span> Projeler</button>
+            <button class="nav-link" type="button"><span>04</span> Hakkinda</button>
+        </nav>
+    </aside>
+
+    <script>
+        const sidebar = document.querySelector("#sidebar");
+        const menuToggle = document.querySelector("#menu-toggle");
+
+        menuToggle.addEventListener("click", () => {
+            const isOpen = sidebar.classList.toggle("menu-open");
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.querySelectorAll(".nav-link").forEach((link) => {
+            link.addEventListener("click", () => {
+                document.querySelectorAll(".nav-link").forEach((item) => item.classList.remove("active"));
+                link.classList.add("active");
+
+                if (window.matchMedia("(max-width: 760px)").matches) {
+                    sidebar.classList.remove("menu-open");
+                    menuToggle.setAttribute("aria-expanded", "false");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
