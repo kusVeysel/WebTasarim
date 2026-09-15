@@ -1,0 +1,82 @@
+// ==========================================
+// 1. DEĞİŞKENLER (Variables)
+// ==========================================
+// Renk, font family, padding gibi değerleri $ simgesi ile saklarız.
+// Böylece tek bir yerden değiştirildiğinde tüm projede güncellenir.
+$primary-color: #3498db;
+$font-stack: 'Segoe UI', sans-serif;
+$base-padding: 16px;
+
+// ==========================================
+// 2. FONKSİYONLAR (Functions)
+// ==========================================
+// @function mantıksal veya matematiksel bir işlem yapıp geriye değer (@return) döndürür.
+// Burada gelen rengi belirtilen yüzde oranında siyah (#000) ile karıştırıp koyulaştırıyoruz.
+@function make-darker($color, $percent) {
+  @return mix(#000, $color, $percent);
+}
+
+// ==========================================
+// 3. MIXIN (Tekrar Kullanılabilir Kod Blokları)
+// ==========================================
+// @mixin parametre alabilen hazır CSS şablonları oluşturur.
+// Varsayılan parametreler: direction = row, justify = center
+@mixin flex-layout($direction: row, $justify: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: center;
+}
+
+// ==========================================
+// 4. EXTEND İÇİN TEMEL SINIF (Inheritance)
+// ==========================================
+// @extend ile başka sınıflara aktarılacak ortak özellikleri tutan sınıftır.
+.base-button {
+  // Matematiksel İşlemler (Math): SCSS içinde doğrudan bölme ve çarpma yapılabilir.
+  padding: ($base-padding / 2) ($base-padding * 1.5); // Çıktı: 8px 24px
+  border: none;
+  border-radius: 4px;
+  font-family: $font-stack;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+// ==========================================
+// 5. NESTING, PARENT SELECTOR, EXTEND VE MIXIN
+// ==========================================
+// SCSS'te HTML hiyerarşisine uygun olarak iç içe (nesting) kod yazabiliriz.
+.card {
+  background-color: #ffffff;
+  padding: $base-padding; // Değişken kullanımı (16px)
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  // Mixin Kullanımı: @include ile yukarıdaki flex yapısını çağırıyoruz.
+  // Parametreler: direction -> column, justify -> space-between
+  @include flex-layout(column, space-between);
+
+  // İç İçe Yazım (Nesting): .card içindeki .card-title elemanını hedefler.
+  // Derlendiğinde CSS çıktısı ".card .card-title" olur.
+  .card-title {
+    color: $primary-color;
+    font-size: 1.5rem;
+    margin-bottom: $base-padding / 2; // Math: 16px / 2 = 8px
+  }
+
+  // .card içindeki .btn-submit butonunu hedefler.
+  .btn-submit {
+    // Extend Kullanımı: @extend ile .base-button içindeki tüm stilleri buraya kopyalarız.
+    @extend .base-button;
+
+    // Fonksiyon Kullanımı: Ana rengimizi %20 koyulaştırıp arka plan yaparız.
+    background-color: make-darker($primary-color, 20%);
+    color: white;
+
+    // Parent Selector (&): '&' işareti doğrudan üst elemanı (.btn-submit) temsil eder.
+    // Derlendiğinde CSS çıktısı ".card .btn-submit:hover" olur.
+    &:hover {
+      background-color: $primary-color;
+    }
+  }
+}

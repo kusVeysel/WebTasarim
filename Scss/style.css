@@ -1,0 +1,33 @@
+.base-button, .card .btn-submit {
+  padding: 8px 24px;
+  border: none;
+  border-radius: 4px;
+  font-family: "Segoe UI", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.card .card-title {
+  color: #3498db;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+.card .btn-submit {
+  background-color: rgb(16.3137254902%, 47.6862745098%, 68.7058823529%);
+  color: white;
+}
+.card .btn-submit:hover {
+  background-color: #3498db;
+}
+
+/*# sourceMappingURL=style.css.map */
