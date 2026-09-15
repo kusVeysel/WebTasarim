@@ -23,11 +23,9 @@
   margin-bottom: 8px;
 }
 .card .btn-submit {
-  background-color: rgb(16.3137254902%, 47.6862745098%, 68.7058823529%);
+  background-color: rgb(41.6, 121.6, 175.2);
   color: white;
 }
 .card .btn-submit:hover {
   background-color: #3498db;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */
