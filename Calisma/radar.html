@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: black;
+        }
+
+        #radar {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(0, 50, 0, 0.5);
+            border: 2px solid greenyellow;
+            box-shadow: 0 0 20px greenyellow;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Radar İç Halkaları */
+        #radar::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px dashed rgba(173, 255, 47, 0.5);
+            border-radius: 50%;
+        }
+
+        /* Tarama Çubuğu ve Yelpaze Efekti */
+        #cubuk {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent, rgba(173, 255, 47, 0.4) 310deg);
+            animation: don 1.6s linear infinite;
+        }
+
+        @keyframes don {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .kirmizi {
+            width: 6px;
+            height: 6px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 8px red;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            animation: opa 4s ease;
+        }
+
+        @keyframes opa {
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="radar">
+        <div id="cubuk"></div>
+    </div>
+
+    <script>
+        const radar = document.getElementById("radar");
+        let sayac = 0;
+
+        const lekeler = () => {
+            sayac++;
+            if (sayac % 900 === 0) { // ~15 Saniyede bir leke üretir
+                const lekeadet = Math.random() * 4;
+                for (let i = 1; i <= lekeadet; i++) {
+                    const red = document.createElement("div");
+                    red.classList.add("kirmizi");
+
+                    const r = Math.random() * 85;
+                    const theta = Math.random() * 2 * Math.PI;
+
+                    const x = 100 + r * Math.cos(theta) - 3;
+                    const y = 100 + r * Math.sin(theta) - 3;
+
+                    red.style.left = `${x}px`;
+                    red.style.top = `${y}px`;
+
+                    radar.appendChild(red);
+
+                    setTimeout(() => {
+                        red.remove();
+                    }, 4000);
+                }
+            }
+            requestAnimationFrame(lekeler);
+        }
+
+        lekeler();
+    </script>
+</body>
+
+</html>
